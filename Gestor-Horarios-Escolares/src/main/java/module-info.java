@@ -1,7 +1,7 @@
 module com.gamma.gestorhorariosescolares {
     requires javafx.controls;
     requires javafx.fxml;
-
+    requires sql2o;
 
     opens com.gamma.gestorhorariosescolares to javafx.fxml;
     exports com.gamma.gestorhorariosescolares;
