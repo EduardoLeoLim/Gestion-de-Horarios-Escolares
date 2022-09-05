@@ -6,6 +6,6 @@ module com.gamma.gestorhorariosescolares {
 
     opens com.gamma.gestorhorariosescolares to javafx.fxml;
     exports com.gamma.gestorhorariosescolares;
-    exports com.gamma.gestorhorariosescolares.infrastructure.usuario.controllers;
-    opens com.gamma.gestorhorariosescolares.infrastructure.usuario.controllers to javafx.fxml;
+    exports com.gamma.gestorhorariosescolares.infrastructure.user.controllers;
+    opens com.gamma.gestorhorariosescolares.infrastructure.user.controllers to javafx.fxml;
 }
