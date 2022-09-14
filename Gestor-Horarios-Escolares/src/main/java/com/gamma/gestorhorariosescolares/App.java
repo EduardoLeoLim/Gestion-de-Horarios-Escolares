@@ -1,5 +1,6 @@
 package com.gamma.gestorhorariosescolares;
 
+import com.gamma.gestorhorariosescolares.infrastructure.viewcontrollers.user.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,8 +12,8 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/user/Login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        primaryStage.setTitle("Hello!");
+        fxmlLoader.setController(new LoginController());
+        Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setScene(scene);
         primaryStage.show();
     }
