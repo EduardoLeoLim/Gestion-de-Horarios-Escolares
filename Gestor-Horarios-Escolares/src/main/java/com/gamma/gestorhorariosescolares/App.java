@@ -1,6 +1,6 @@
 package com.gamma.gestorhorariosescolares;
 
-import com.gamma.gestorhorariosescolares.infrastructure.viewcontrollers.user.LoginController;
+import com.gamma.gestorhorariosescolares.infrastructure.user.viewcontrollers.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
