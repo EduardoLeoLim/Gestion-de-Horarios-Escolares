@@ -1,0 +1,35 @@
+@font-face {
+	font-family: "Webdings";
+	src: local("fonts/Webdings-Regular.ttf");
+}
+
+.caption-buttons {
+	-fx-background-color: #0072D2;
+}
+
+.caption-button {
+	-fx-font-family: "Webdings";
+	-fx-font-size: 16;
+    -fx-alignment: center;
+    -fx-text-fill: #FFFFFFC0;
+}
+
+.caption-button:hover {
+	-fx-background-color: #FFFFFF50;
+}
+
+.close-button:hover {
+    -fx-background-color: #E81123;
+    -fx-text-fill: #FFFFFFFF;
+}
+
+.title-text {
+	-fx-font-family: "Consolas";
+	-fx-font-weight: bold;
+	-fx-font-size: 18;
+	-fx-text-fill: #FFFFFFFF;
+}
+
+.title-bar {
+    -fx-background-color: #0072D2;
+}
