@@ -5,20 +5,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 public class TitleBar extends AnchorPane {
     private final Stage stage;
     private final Label title;
+    private final HBox captionButtons;
 
     private double xOffset;
     private double yOffset;
+
 
     public TitleBar(Stage stage) {
         this.stage = stage;
         setId("titleBar");
         title = new Label();
+        captionButtons = new HBox();
         loadTitleBar();
     }
 
@@ -47,6 +49,15 @@ public class TitleBar extends AnchorPane {
             if (event.getClickCount() == 2) {
                 stage.setMaximized(!stage.isMaximized());
             }
+        });
+
+        stage.minHeightProperty().addListener((observable, oldValue, newValue) -> {
+            if ((double) newValue < getPrefHeight())
+                stage.setMinHeight(getPrefHeight());
+        });
+        stage.minWidthProperty().addListener((observable, oldValue, newValue) -> {
+            if ((double) newValue < captionButtons.getPrefWidth())
+                stage.setMinWidth(captionButtons.getPrefWidth());
         });
     }
 
@@ -89,7 +100,7 @@ public class TitleBar extends AnchorPane {
         closeButton.setPrefWidth(48);
         closeButton.setOnMouseClicked(event -> stage.close());
 
-        HBox captionButtons = new HBox();
+        captionButtons.setPrefWidth(144);
         captionButtons.getStyleClass().setAll("caption-buttons");
         AnchorPane.setTopAnchor(captionButtons, 0.0);
         AnchorPane.setRightAnchor(captionButtons, 0.0);
