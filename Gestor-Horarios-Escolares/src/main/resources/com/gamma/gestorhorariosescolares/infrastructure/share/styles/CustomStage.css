@@ -1,6 +1,6 @@
 @font-face {
 	font-family: "Webdings";
-	src: local("fonts/Webdings-Regular.ttf");
+	src: local("infrastructure/share/fonts/Webdings-Regular.ttf");
 }
 
 .caption-buttons {
