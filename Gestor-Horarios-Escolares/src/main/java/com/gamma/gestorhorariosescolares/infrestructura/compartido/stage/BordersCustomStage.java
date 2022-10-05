@@ -1,4 +1,4 @@
-package com.gamma.gestorhorariosescolares.infrastructure.share.stage;
+package com.gamma.gestorhorariosescolares.infrestructura.compartido.stage;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;

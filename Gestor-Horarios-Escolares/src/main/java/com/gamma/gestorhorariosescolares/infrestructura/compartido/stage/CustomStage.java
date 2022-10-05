@@ -1,4 +1,4 @@
-package com.gamma.gestorhorariosescolares.infrastructure.share.stage;
+package com.gamma.gestorhorariosescolares.infrestructura.compartido.stage;
 
 import com.gamma.gestorhorariosescolares.App;
 import javafx.scene.Parent;
@@ -17,7 +17,7 @@ public abstract class CustomStage extends Stage {
 
     public CustomStage() {
         initStyle(StageStyle.UNDECORATED);
-        stylesheetPath = App.class.getResource("infrastructure/share/styles/CustomStage.css").toExternalForm();
+        stylesheetPath = App.class.getResource("infrestructura/compartido/estilos/CustomStage.css").toExternalForm();
         bordersCustomStage = new BordersCustomStage(this);
         scene = new Scene(bordersCustomStage);
         scene.getStylesheets().add(stylesheetPath);
