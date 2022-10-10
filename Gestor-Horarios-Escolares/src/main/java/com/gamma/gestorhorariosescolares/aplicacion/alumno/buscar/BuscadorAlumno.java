@@ -1,4 +1,4 @@
-package com.gamma.gestorhorariosescolares.aplicacion.alumno;
+package com.gamma.gestorhorariosescolares.aplicacion.alumno.buscar;
 
 import com.gamma.gestorhorariosescolares.dominio.alumno.Alumno;
 import com.gamma.gestorhorariosescolares.dominio.alumno.AlumnoRepositorio;
