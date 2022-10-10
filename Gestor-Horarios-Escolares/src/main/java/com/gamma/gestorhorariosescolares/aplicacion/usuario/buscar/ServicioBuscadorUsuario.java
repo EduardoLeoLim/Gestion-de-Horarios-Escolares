@@ -1,4 +1,4 @@
-package com.gamma.gestorhorariosescolares.aplicacion.usuario;
+package com.gamma.gestorhorariosescolares.aplicacion.usuario.buscar;
 
 import com.gamma.gestorhorariosescolares.dominio.usuario.Usuario;
 
