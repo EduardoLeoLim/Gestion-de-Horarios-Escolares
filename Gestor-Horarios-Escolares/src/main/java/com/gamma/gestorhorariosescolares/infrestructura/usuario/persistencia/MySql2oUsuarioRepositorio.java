@@ -7,11 +7,11 @@ import org.sql2o.Connection;
 
 import java.util.List;
 
-public class MysqlUsuarioRepositorio implements UsuarioRepositorio {
+public class MySql2oUsuarioRepositorio implements UsuarioRepositorio {
 
     private final Connection connection;
 
-    public MysqlUsuarioRepositorio(Connection connection){
+    public MySql2oUsuarioRepositorio(Connection connection){
         this.connection = connection;
     }
 

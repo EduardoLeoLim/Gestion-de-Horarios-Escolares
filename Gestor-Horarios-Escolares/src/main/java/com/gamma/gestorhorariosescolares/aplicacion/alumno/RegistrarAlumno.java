@@ -1,16 +1,16 @@
 package com.gamma.gestorhorariosescolares.aplicacion.alumno;
 
-import com.gamma.gestorhorariosescolares.aplicacion.usuario.BuscadorUsuario;
-import com.gamma.gestorhorariosescolares.aplicacion.usuario.RegistradorUsuario;
+import com.gamma.gestorhorariosescolares.aplicacion.usuario.ServicioBuscadorUsuario;
+import com.gamma.gestorhorariosescolares.aplicacion.usuario.ServicioRegistradorUsuario;
 
 public class RegistrarAlumno {
     private final ServicioRegistradorAlumno registradorAlumno;
     private final ServicioBuscadorAlumno buscadorAlumno;
-    private final RegistradorUsuario registradorUsuario;
-    private final BuscadorUsuario buscadorUsuario;
+    private final ServicioRegistradorUsuario registradorUsuario;
+    private final ServicioBuscadorUsuario buscadorUsuario;
 
     public RegistrarAlumno(ServicioRegistradorAlumno registradorAlumno, ServicioBuscadorAlumno buscadorAlumno,
-                           RegistradorUsuario registradorUsuario, BuscadorUsuario buscadorUsuario) {
+                           ServicioRegistradorUsuario registradorUsuario, ServicioBuscadorUsuario buscadorUsuario) {
         this.buscadorAlumno = buscadorAlumno;
         this.registradorAlumno = registradorAlumno;
         this.buscadorUsuario = buscadorUsuario;
