@@ -4,12 +4,12 @@ import com.gamma.gestorhorariosescolares.aplicacion.usuario.BuscadorUsuario;
 import com.gamma.gestorhorariosescolares.aplicacion.usuario.RegistradorUsuario;
 
 public class RegistrarAlumno {
-    private final RegistradorAlumno registradorAlumno;
-    private final BuscadorAlumno buscadorAlumno;
+    private final ServicioRegistradorAlumno registradorAlumno;
+    private final ServicioBuscadorAlumno buscadorAlumno;
     private final RegistradorUsuario registradorUsuario;
     private final BuscadorUsuario buscadorUsuario;
 
-    public RegistrarAlumno(RegistradorAlumno registradorAlumno, BuscadorAlumno buscadorAlumno,
+    public RegistrarAlumno(ServicioRegistradorAlumno registradorAlumno, ServicioBuscadorAlumno buscadorAlumno,
                            RegistradorUsuario registradorUsuario, BuscadorUsuario buscadorUsuario) {
         this.buscadorAlumno = buscadorAlumno;
         this.registradorAlumno = registradorAlumno;

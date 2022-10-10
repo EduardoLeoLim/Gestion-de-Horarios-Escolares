@@ -7,8 +7,8 @@ import com.gamma.gestorhorariosescolares.aplicacion.usuario.ServicioBuscadorUsua
 import com.gamma.gestorhorariosescolares.aplicacion.usuario.ServicioRegistradorUsuario;
 import com.gamma.gestorhorariosescolares.dominio.alumno.AlumnoRepositorio;
 import com.gamma.gestorhorariosescolares.dominio.usuario.UsuarioRepositorio;
-import com.gamma.gestorhorariosescolares.infrestructura.alumno.persistencia.MysqlAlumnoRepositorio;
-import com.gamma.gestorhorariosescolares.infrestructura.usuario.persistencia.MysqlUsuarioRepositorio;
+import com.gamma.gestorhorariosescolares.infrestructura.alumno.persistencia.MySql2oAlumnoRepositorio;
+import com.gamma.gestorhorariosescolares.infrestructura.usuario.persistencia.MySql2oUsuarioRepositorio;
 import javafx.fxml.FXML;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -24,11 +24,11 @@ public class FormularioAlumnoControlador {
         try (Connection conn = conexion.beginTransaction()) {
             //codigo de inicialización, las clases repositorio reciben conn en su constructor
             //UsuarioRepositorio usuarioRepositorio = new UsusarioRepositorio(conn);
-            UsuarioRepositorio usuarioRepositorio = new MysqlUsuarioRepositorio(conn);
-            AlumnoRepositorio alumnoRepositorio = new MysqlAlumnoRepositorio(conn);
+            UsuarioRepositorio usuarioRepositorio = new MySql2oUsuarioRepositorio(conn);
+            AlumnoRepositorio alumnoRepositorio = new MySql2oAlumnoRepositorio(conn);
 
-            RegistradorAlumno registradorAlumno = new ServicioRegistradorAlumno(alumnoRepositorio);
-            BuscadorAlumno buscadorAlumno = new ServicioBuscadorAlumno(alumnoRepositorio);
+            ServicioRegistradorAlumno registradorAlumno = new RegistradorAlumno(alumnoRepositorio);
+            ServicioBuscadorAlumno buscadorAlumno = new BuscadorAlumno(alumnoRepositorio);
             RegistradorUsuario registradorUsuario = new ServicioRegistradorUsuario(usuarioRepositorio);
             BuscadorUsuario buscadorUsuario = new ServicioBuscadorUsuario(usuarioRepositorio);
 
