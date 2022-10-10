@@ -1,10 +1,10 @@
 package com.gamma.gestorhorariosescolares.infrestructura.administrador.controladores;
 
 import com.gamma.gestorhorariosescolares.aplicacion.alumno.*;
-import com.gamma.gestorhorariosescolares.aplicacion.usuario.BuscadorUsuario;
-import com.gamma.gestorhorariosescolares.aplicacion.usuario.RegistradorUsuario;
 import com.gamma.gestorhorariosescolares.aplicacion.usuario.ServicioBuscadorUsuario;
 import com.gamma.gestorhorariosescolares.aplicacion.usuario.ServicioRegistradorUsuario;
+import com.gamma.gestorhorariosescolares.aplicacion.usuario.BuscadorUsuario;
+import com.gamma.gestorhorariosescolares.aplicacion.usuario.RegistradorUsuario;
 import com.gamma.gestorhorariosescolares.dominio.alumno.AlumnoRepositorio;
 import com.gamma.gestorhorariosescolares.dominio.usuario.UsuarioRepositorio;
 import com.gamma.gestorhorariosescolares.infrestructura.alumno.persistencia.MySql2oAlumnoRepositorio;
@@ -29,8 +29,8 @@ public class FormularioAlumnoControlador {
 
             ServicioRegistradorAlumno registradorAlumno = new RegistradorAlumno(alumnoRepositorio);
             ServicioBuscadorAlumno buscadorAlumno = new BuscadorAlumno(alumnoRepositorio);
-            RegistradorUsuario registradorUsuario = new ServicioRegistradorUsuario(usuarioRepositorio);
-            BuscadorUsuario buscadorUsuario = new ServicioBuscadorUsuario(usuarioRepositorio);
+            ServicioRegistradorUsuario registradorUsuario = new RegistradorUsuario(usuarioRepositorio);
+            ServicioBuscadorUsuario buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
 
             new RegistrarAlumno(registradorAlumno, buscadorAlumno, registradorUsuario, buscadorUsuario)
                     .Registrar();
