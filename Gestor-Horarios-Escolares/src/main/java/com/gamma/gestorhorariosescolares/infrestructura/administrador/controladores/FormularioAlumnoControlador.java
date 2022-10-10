@@ -5,8 +5,8 @@ import com.gamma.gestorhorariosescolares.aplicacion.alumno.excepciones.CurpDupli
 import com.gamma.gestorhorariosescolares.aplicacion.alumno.registrar.RegistradorAlumno;
 import com.gamma.gestorhorariosescolares.aplicacion.alumno.registrar.RegistrarAlumno;
 import com.gamma.gestorhorariosescolares.aplicacion.usuario.buscar.BuscadorUsuario;
-import com.gamma.gestorhorariosescolares.aplicacion.usuario.registrar.RegistradorUsuario;
 import com.gamma.gestorhorariosescolares.aplicacion.usuario.excepciones.UsuarioDuplicadoException;
+import com.gamma.gestorhorariosescolares.aplicacion.usuario.registrar.RegistradorUsuario;
 import com.gamma.gestorhorariosescolares.infrestructura.alumno.persistencia.MySql2oAlumnoRepositorio;
 import com.gamma.gestorhorariosescolares.infrestructura.compartido.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.infrestructura.usuario.persistencia.MySql2oUsuarioRepositorio;
@@ -21,6 +21,11 @@ public class FormularioAlumnoControlador {
     protected void guardarClick() {
         //Datos válidos del formulario
 
+        registrarAlumno("", "", "", "", "", "", "");
+    }
+
+    private void registrarAlumno(String nombre, String apellidoPaterno, String apellidoMaterno, String curp, String matricula,
+                                 String correoElectronico, String claveAcceso) {
         Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
 
         try (Connection transaccion = conexion.beginTransaction()) {
@@ -35,11 +40,11 @@ public class FormularioAlumnoControlador {
             var buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
 
             new RegistrarAlumno(registradorAlumno, buscadorAlumno, registradorUsuario, buscadorUsuario)
-                    .Registrar("", "", "", "", "", "", "");
+                    .Registrar(nombre, apellidoPaterno, apellidoMaterno, curp, matricula, correoElectronico, claveAcceso);
 
             transaccion.commit();//Guardar cambios en base de datos
             System.out.println("Alumno registrado");
-        } catch (CurpDuplicadoException | UsuarioDuplicadoException exception){
+        } catch (CurpDuplicadoException | UsuarioDuplicadoException exception) {
             new Alert(Alert.AlertType.ERROR, exception.getMessage(), ButtonType.OK).show();
         }
     }
