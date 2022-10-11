@@ -2,7 +2,7 @@ package com.gamma.gestorhorariosescolares.alumno.infrestructura.persistencia;
 
 import com.gamma.gestorhorariosescolares.alumno.dominio.Alumno;
 import com.gamma.gestorhorariosescolares.alumno.dominio.AlumnoRepositorio;
-import com.gamma.gestorhorariosescolares.compartido.dominio.Criterio;
+import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import org.sql2o.Connection;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class MySql2oAlumnoRepositorio implements AlumnoRepositorio {
     }
 
     @Override
-    public List<Alumno> buscar(Criterio criterio) {
+    public List<Alumno> buscar(Criteria criterio) {
         return null;
     }
 

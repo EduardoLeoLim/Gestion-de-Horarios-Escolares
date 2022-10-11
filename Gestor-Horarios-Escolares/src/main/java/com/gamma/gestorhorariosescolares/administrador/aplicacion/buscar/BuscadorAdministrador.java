@@ -2,17 +2,17 @@ package com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar;
 
 import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
 import com.gamma.gestorhorariosescolares.administrador.dominio.AdministradorRepositorio;
-import com.gamma.gestorhorariosescolares.compartido.dominio.Criterio;
+import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 
 import java.util.List;
 
 public class BuscadorAdministrador implements ServicioBuscadorAdministrador{
     private final AdministradorRepositorio repositorio;
-    private Criterio criterio;
+    private Criteria criterio;
 
     public BuscadorAdministrador(AdministradorRepositorio repositorio){
         this.repositorio = repositorio;
-        criterio= new Criterio();
+        //criterio= new Criterio();
     }
 
 
@@ -55,7 +55,7 @@ public class BuscadorAdministrador implements ServicioBuscadorAdministrador{
     @Override
     public List<Administrador> buscar() {
         List<Administrador> resultado = repositorio.buscar(criterio);
-        criterio = new Criterio();
+        //criterio = new Criterio();
         return resultado;
     }
 }

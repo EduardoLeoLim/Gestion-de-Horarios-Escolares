@@ -1,11 +1,11 @@
 package com.gamma.gestorhorariosescolares.usuario.dominio;
 
-import com.gamma.gestorhorariosescolares.compartido.dominio.Criterio;
+import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 
 import java.util.List;
 
 public interface UsuarioRepositorio {
-    List<Usuario> buscar(Criterio criterio);
+    List<Usuario> buscar(Criteria criterio);
 
     int registrar(Usuario usuario);
 
