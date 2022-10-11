@@ -24,7 +24,7 @@ public class RegistrarAlumno {
     public void Registrar(String nombre, String appellidoPaterno, String apellidoMaterno, String curp, String matricula,
                           String correoElectronico, String claveAcceso) throws CurpDuplicadoException, UsuarioDuplicadoException {
         //Validar curp duplicado
-        if (buscadorAlumno.filtarCURP(curp).buscar().size() > 0 )
+        if (buscadorAlumno.igual("curp", curp).buscar().size() > 0 )
             throw new CurpDuplicadoException();
         //Validar usuario duplicado
         if (buscadorUsuario.filtarCorreo(correoElectronico).buscar().size() > 0)
