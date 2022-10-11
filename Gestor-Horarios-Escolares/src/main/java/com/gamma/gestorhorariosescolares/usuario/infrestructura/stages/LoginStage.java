@@ -1,8 +1,8 @@
-package com.gamma.gestorhorariosescolares.usuario.controladores.infrestructura.stages;
+package com.gamma.gestorhorariosescolares.usuario.infrestructura.stages;
 
 import com.gamma.gestorhorariosescolares.App;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage;
-import com.gamma.gestorhorariosescolares.usuario.controladores.infrestructura.controladores.LoginControlador;
+import com.gamma.gestorhorariosescolares.usuario.infrestructura.controladores.LoginControlador;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.gamma.gestorhorariosescolares.usuario.controladores.infrestructura.persistencia;
+package com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia;
 
 import com.gamma.gestorhorariosescolares.compartido.dominio.Criterio;
 import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;

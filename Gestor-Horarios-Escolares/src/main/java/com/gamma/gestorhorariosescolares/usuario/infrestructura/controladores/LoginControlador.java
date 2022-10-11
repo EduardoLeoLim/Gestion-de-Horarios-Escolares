@@ -1,4 +1,4 @@
-package com.gamma.gestorhorariosescolares.usuario.controladores.infrestructura.controladores;
+package com.gamma.gestorhorariosescolares.usuario.infrestructura.controladores;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

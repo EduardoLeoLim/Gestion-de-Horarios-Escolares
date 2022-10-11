@@ -9,7 +9,7 @@ import com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.UsuarioD
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.registrar.RegistradorUsuario;
 import com.gamma.gestorhorariosescolares.alumno.infrestructura.persistencia.MySql2oAlumnoRepositorio;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
-import com.gamma.gestorhorariosescolares.usuario.controladores.infrestructura.persistencia.MySql2oUsuarioRepositorio;
+import com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
