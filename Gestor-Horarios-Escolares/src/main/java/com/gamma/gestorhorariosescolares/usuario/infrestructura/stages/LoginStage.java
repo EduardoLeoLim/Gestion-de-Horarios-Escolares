@@ -11,7 +11,7 @@ public class LoginStage extends CustomStage {
     public LoginStage() {
         setTitle("Iniciar sesión ");
         try {
-            FXMLLoader root = new FXMLLoader(App.class.getResource("infrestructura/usuario/vistas/Login.fxml"));
+            FXMLLoader root = new FXMLLoader(App.class.getResource("usuario/infrestructura/vistas/Login.fxml"));
             LoginControlador loginController = new LoginControlador();
             root.setController(loginController);
             root.load();
