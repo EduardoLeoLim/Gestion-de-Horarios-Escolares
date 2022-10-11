@@ -1,6 +1,6 @@
 package com.gamma.gestorhorariosescolares;
 
-import com.gamma.gestorhorariosescolares.infrestructura.usuario.stages.LoginStage;
+import com.gamma.gestorhorariosescolares.usuario.controladores.infrestructura.stages.LoginStage;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
