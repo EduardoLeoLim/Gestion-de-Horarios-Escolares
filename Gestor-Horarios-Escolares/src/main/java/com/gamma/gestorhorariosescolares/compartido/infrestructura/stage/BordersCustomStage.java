@@ -340,7 +340,7 @@ public class BordersCustomStage extends AnchorPane {
         preHeight = stage.getHeight();
     }
 
-    private void loadMaximizedConfiguration(){
+    private void loadMaximizedConfiguration() {
         stage.maximizedProperty().addListener((observable, oldValue, newValue) -> {
             topBorder.setVisible(!newValue);
             topRightBorder.setVisible(!newValue);

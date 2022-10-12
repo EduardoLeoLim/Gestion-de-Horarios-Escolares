@@ -11,7 +11,7 @@ public class MySql2oUsuarioRepositorio implements UsuarioRepositorio {
 
     private final Connection connection;
 
-    public MySql2oUsuarioRepositorio(Connection connection){
+    public MySql2oUsuarioRepositorio(Connection connection) {
         this.connection = connection;
     }
 

@@ -10,14 +10,14 @@ public class GestionarEstatusAdministrador {
     private final ServicioActualizadorAdministrador actualizadorAdministrador;
 
     public GestionarEstatusAdministrador(ServicioBuscadorAdministrador buscadorAdministrador,
-                                         ServicioActualizadorAdministrador actualizadorAdministrador){
+                                         ServicioActualizadorAdministrador actualizadorAdministrador) {
         this.buscadorAdministrador = buscadorAdministrador;
         this.actualizadorAdministrador = actualizadorAdministrador;
     }
 
     public void habilitarAdministrador(int idAdministrador) throws RecursoNoEncontradoException {
         var administradores = buscadorAdministrador.filtrarId(idAdministrador).buscar();
-        if(administradores.size() == 0)
+        if (administradores.size() == 0)
             throw new RecursoNoEncontradoException("El administrador no se encuentra registrado en el sistema.");
 
         var administrador = administradores.get(0);
@@ -27,7 +27,7 @@ public class GestionarEstatusAdministrador {
 
     public void deshabilitarAdministrador(int idAdministrador) throws RecursoNoEncontradoException {
         var administradores = buscadorAdministrador.filtrarId(idAdministrador).buscar();
-        if(administradores.size() == 0)
+        if (administradores.size() == 0)
             throw new RecursoNoEncontradoException("El administrador no se encuentra registrado en el sistema.");
 
         var administrador = administradores.get(0);

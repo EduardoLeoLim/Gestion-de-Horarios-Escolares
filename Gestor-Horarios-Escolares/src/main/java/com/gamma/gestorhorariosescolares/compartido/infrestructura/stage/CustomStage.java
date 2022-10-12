@@ -8,7 +8,7 @@ import javafx.stage.StageStyle;
 
 public abstract class CustomStage extends Stage {
 
-    private Scene scene;
+    private final Scene scene;
     private Parent content;
     private final BordersCustomStage bordersCustomStage;
     private final TitleBar titleBar;

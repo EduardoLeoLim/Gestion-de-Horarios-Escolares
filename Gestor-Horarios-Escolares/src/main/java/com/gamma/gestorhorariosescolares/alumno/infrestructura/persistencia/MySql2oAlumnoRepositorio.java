@@ -11,7 +11,7 @@ public class MySql2oAlumnoRepositorio implements AlumnoRepositorio {
 
     private final Connection connection;
 
-    public MySql2oAlumnoRepositorio(Connection connection){
+    public MySql2oAlumnoRepositorio(Connection connection) {
         this.connection = connection;
     }
 

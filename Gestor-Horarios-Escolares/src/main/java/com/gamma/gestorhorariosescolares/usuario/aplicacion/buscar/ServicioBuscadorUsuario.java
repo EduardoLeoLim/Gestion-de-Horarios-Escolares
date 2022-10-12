@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface ServicioBuscadorUsuario {
     ServicioBuscadorUsuario filtarCorreo(String correo);
+
     List<Usuario> buscar();
 }

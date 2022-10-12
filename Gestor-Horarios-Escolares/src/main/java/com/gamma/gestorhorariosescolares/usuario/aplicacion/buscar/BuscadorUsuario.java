@@ -9,7 +9,7 @@ public class BuscadorUsuario implements ServicioBuscadorUsuario {
 
     public final UsuarioRepositorio repositorio;
 
-    public BuscadorUsuario(UsuarioRepositorio repositorio){
+    public BuscadorUsuario(UsuarioRepositorio repositorio) {
         this.repositorio = repositorio;
     }
 

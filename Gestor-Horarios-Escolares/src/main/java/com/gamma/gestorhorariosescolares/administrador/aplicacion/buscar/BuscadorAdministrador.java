@@ -6,11 +6,11 @@ import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 
 import java.util.List;
 
-public class BuscadorAdministrador implements ServicioBuscadorAdministrador{
+public class BuscadorAdministrador implements ServicioBuscadorAdministrador {
     private final AdministradorRepositorio repositorio;
     private Criteria criterio;
 
-    public BuscadorAdministrador(AdministradorRepositorio repositorio){
+    public BuscadorAdministrador(AdministradorRepositorio repositorio) {
         this.repositorio = repositorio;
         //criterio= new Criterio();
     }

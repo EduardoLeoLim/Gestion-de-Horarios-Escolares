@@ -2,10 +2,10 @@ package com.gamma.gestorhorariosescolares.administrador.dominio;
 
 public class Administrador {
     private final int id;
-    private String noPersonal;
-    private String nombre;
-    private String apellidoPaterno;
-    private String apellidoMaterno;
+    private final String noPersonal;
+    private final String nombre;
+    private final String apellidoPaterno;
+    private final String apellidoMaterno;
     private boolean estatus;
     private final int idUsuario;
 
@@ -49,19 +49,19 @@ public class Administrador {
         return apellidoMaterno;
     }
 
-    public void habilitar(){
+    public void habilitar() {
         estatus = true;
     }
 
-    public void deshabilitar(){
+    public void deshabilitar() {
         estatus = false;
     }
 
-    public boolean estaHabilitado(){
+    public boolean estaHabilitado() {
         return estatus;
     }
 
-    public int idUsuario(){
+    public int idUsuario() {
         return idUsuario;
     }
 }

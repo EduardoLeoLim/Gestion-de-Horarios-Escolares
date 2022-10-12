@@ -1,14 +1,14 @@
 package com.gamma.gestorhorariosescolares.administrador.infrestructura.controladores;
 
+import com.gamma.gestorhorariosescolares.alumno.aplicacion.RegistrarAlumno;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.buscar.BuscadorAlumno;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.CurpDuplicadoException;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.registrar.RegistradorAlumno;
-import com.gamma.gestorhorariosescolares.alumno.aplicacion.RegistrarAlumno;
+import com.gamma.gestorhorariosescolares.alumno.infrestructura.persistencia.MySql2oAlumnoRepositorio;
+import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.UsuarioDuplicadoException;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.registrar.RegistradorUsuario;
-import com.gamma.gestorhorariosescolares.alumno.infrestructura.persistencia.MySql2oAlumnoRepositorio;
-import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

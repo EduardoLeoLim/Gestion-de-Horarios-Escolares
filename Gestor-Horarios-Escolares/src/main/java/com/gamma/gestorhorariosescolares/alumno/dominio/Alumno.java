@@ -2,11 +2,11 @@ package com.gamma.gestorhorariosescolares.alumno.dominio;
 
 public class Alumno {
     private final int id;
-    private String matricula;
-    private String curp;
-    private String nombre;
-    private String apellidoPaterno;
-    private String apellidoMaterno;
+    private final String matricula;
+    private final String curp;
+    private final String nombre;
+    private final String apellidoPaterno;
+    private final String apellidoMaterno;
     private boolean estatus;
     private final int idUsuario;
 
@@ -40,7 +40,7 @@ public class Alumno {
         return matricula;
     }
 
-    public String curp(){
+    public String curp() {
         return curp;
     }
 

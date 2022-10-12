@@ -12,9 +12,9 @@ public class RegistradorAlumno implements ServicioRegistradorAlumno {
 
     public int registrar(String matricula, String curp, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario) {
         //Validar formato de datos
-            //Si son datos inválidos, lanzar excepción
+        //Si son datos inválidos, lanzar excepción
 
-        Alumno nuevoAlumno = new Alumno(matricula,curp,nombre,apellidoPaterno,apellidoMaterno,idUsuario);
+        Alumno nuevoAlumno = new Alumno(matricula, curp, nombre, apellidoPaterno, apellidoMaterno, idUsuario);
 
         return repositorio.registrar(nuevoAlumno);
     }
