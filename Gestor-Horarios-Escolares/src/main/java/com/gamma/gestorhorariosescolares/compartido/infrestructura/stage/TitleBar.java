@@ -46,9 +46,8 @@ public class TitleBar extends AnchorPane {
             }
         });
         setOnMouseReleased(event -> {
-            if (event.getClickCount() == 2) {
+            if (event.getClickCount() == 2 && stage.isResizable())
                 stage.setMaximized(!stage.isMaximized());
-            }
         });
 
         stage.minHeightProperty().addListener((observable, oldValue, newValue) -> {
@@ -95,6 +94,7 @@ public class TitleBar extends AnchorPane {
                 maximizeButton.setText("\uF031");
         });
         maximizeButton.setOnMouseClicked(event -> stage.setMaximized(!stage.isMaximized()));
+        stage.resizableProperty().addListener((observable, oldValue, newValue) -> maximizeButton.setDisable(!newValue));
 
         closeButton.getStyleClass().setAll("caption-button", "close-button");
         closeButton.setPrefWidth(48);
