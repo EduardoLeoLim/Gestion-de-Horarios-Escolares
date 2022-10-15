@@ -1,18 +1,25 @@
 package com.gamma.gestorhorariosescolares.usuario.infrestructura.controladores;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 public class LoginControlador {
     @FXML
-    private Label welcomeText;
+    private TextField txtUsuario;
+
+    @FXML
+    private TextField txtClaveAcceso;
+
+    @FXML
+    private Button btnIngresar;
 
     public LoginControlador() {
 
     }
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    protected void ingresarClick() {
+
     }
 }
