@@ -25,6 +25,18 @@ public abstract class CustomStage extends Stage {
         titleBar = new TitleBar(this);
 
         loadTitleBar();
+        loadConfiguation();
+    }
+
+    private void loadConfiguation() {
+        minWidthProperty().addListener((observable, oldValue, newValue) -> {
+            if ((double) newValue > getWidth())
+                setWidth((double) newValue);
+        });
+        minHeightProperty().addListener((observable, oldValue, newValue) -> {
+            if ((double) newValue > getHeight())
+                setHeight((double) newValue);
+        });
     }
 
     private void loadTitleBar() {
