@@ -18,7 +18,7 @@ public class MenuAdministradorStage extends CustomStage {
         setHeight(690);
         try {
             FXMLLoader root = new FXMLLoader(App.class.getResource("administrador/infrestructura/vistas/MenuAdministrador.fxml"));
-            MenuAdministradorControlador menuAdministradorControlador = new MenuAdministradorControlador();
+            MenuAdministradorControlador menuAdministradorControlador = new MenuAdministradorControlador(this);
             root.setController(menuAdministradorControlador);
             root.load();
             Parent content = root.getRoot();
