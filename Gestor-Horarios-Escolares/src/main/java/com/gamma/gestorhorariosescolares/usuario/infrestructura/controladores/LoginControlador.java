@@ -1,10 +1,14 @@
 package com.gamma.gestorhorariosescolares.usuario.infrestructura.controladores;
 
+import com.gamma.gestorhorariosescolares.administrador.infrestructura.stages.MenuAdministradorStage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class LoginControlador {
+    private final Stage stage;
+
     @FXML
     private TextField txtUsuario;
 
@@ -14,8 +18,8 @@ public class LoginControlador {
     @FXML
     private Button btnIngresar;
 
-    public LoginControlador() {
-
+    public LoginControlador(Stage stage) {
+        this.stage = stage;
     }
 
     @FXML

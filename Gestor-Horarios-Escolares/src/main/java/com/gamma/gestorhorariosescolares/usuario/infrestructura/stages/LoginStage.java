@@ -15,7 +15,7 @@ public class LoginStage extends CustomStage {
         setResizable(false);
         try {
             FXMLLoader root = new FXMLLoader(App.class.getResource("usuario/infrestructura/vistas/Login.fxml"));
-            LoginControlador loginController = new LoginControlador();
+            LoginControlador loginController = new LoginControlador(this);
             root.setController(loginController);
             root.load();
             Parent conntent = root.getRoot();
