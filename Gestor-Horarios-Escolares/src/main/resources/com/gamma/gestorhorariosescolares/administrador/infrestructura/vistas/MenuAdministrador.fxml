@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.Region?>
+<BorderPane xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1">
+    <left>
+        <VBox fx:id="vbMenu" spacing="5" styleClass="menu" BorderPane.alignment="CENTER">
+            <Label styleClass="menu-seccion" text="Usuarios">
+                <VBox.margin>
+                    <Insets top="20"/>
+                </VBox.margin>
+            </Label>
+            <Separator/>
+            <Button mnemonicParsing="false" styleClass="menu-item" text="Administradores">
+                <graphic>
+                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../../compartido/infrestructura/imagenes/usuario-64px.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="menu-item" text="Secretarios">
+                <graphic>
+                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../../compartido/infrestructura/imagenes/usuario-64px.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="menu-item" text="Maestros">
+                <graphic>
+                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../../compartido/infrestructura/imagenes/usuario-64px.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="menu-item" text="Alumnos">
+                <graphic>
+                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../../compartido/infrestructura/imagenes/usuario-64px.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Label styleClass="menu-seccion" text="Catálogos">
+                <VBox.margin>
+                    <Insets top="20"/>
+                </VBox.margin>
+            </Label>
+            <Separator/>
+            <Button mnemonicParsing="false" styleClass="menu-item" text="Edificios">
+                <graphic>
+                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../../compartido/infrestructura/imagenes/edificio-64px.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="menu-item" text="Salones">
+                <graphic>
+                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../../compartido/infrestructura/imagenes/salon-64px.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="menu-item" text="Materias">
+                <graphic>
+                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../../compartido/infrestructura/imagenes/materia-64px.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="menu-item" text="Planes de estudio">
+                <graphic>
+                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../../compartido/infrestructura/imagenes/plan-estudio-64px.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="menu-item" text="Periodos escolares">
+                <graphic>
+                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../../compartido/infrestructura/imagenes/salon-64px.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Button mnemonicParsing="false" styleClass="menu-item" text="Cerrar sesión">
+                <graphic>
+                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../../compartido/infrestructura/imagenes/cerrar-sesion-64px.png"/>
+                    </ImageView>
+                </graphic>
+                <VBox.margin>
+                    <Insets bottom="10"/>
+                </VBox.margin>
+            </Button>
+        </VBox>
+    </left>
+</BorderPane>

@@ -1,0 +1,32 @@
+.menu {
+    -fx-background-color: #31485E;
+}
+
+.menu-seccion {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+}
+
+.menu-item {
+    -fx-background-color: #00000000;
+    -fx-max-width: Infinity;
+    -fx-alignment: center-left;
+    -fx-font-family: "Consolas";
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 5;
+}
+
+.menu-item:focused {
+    -fx-background-color: #00000000;
+}
+
+.menu-item:hover {
+    -fx-background-color: #195D98;
+}
+
+.menu-item:pressed {
+    -fx-background-color: #195D987F;
+}
