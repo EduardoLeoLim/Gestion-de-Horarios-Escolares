@@ -1,20 +1,21 @@
 package com.gamma.gestorhorariosescolares.alumno.aplicacion;
 
-import com.gamma.gestorhorariosescolares.alumno.aplicacion.buscar.ServicioBuscadorAlumno;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.CurpDuplicadoException;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.registrar.ServicioRegistradorAlumno;
-import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.ServicioBuscadorUsuario;
+import com.gamma.gestorhorariosescolares.alumno.dominio.Alumno;
+import com.gamma.gestorhorariosescolares.compartido.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.UsuarioDuplicadoException;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.registrar.ServicioRegistradorUsuario;
+import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;
 
 public class RegistrarAlumno {
     private final ServicioRegistradorAlumno registradorAlumno;
-    private final ServicioBuscadorAlumno buscadorAlumno;
+    private final ServicioBuscador<Alumno> buscadorAlumno;
     private final ServicioRegistradorUsuario registradorUsuario;
-    private final ServicioBuscadorUsuario buscadorUsuario;
+    private final ServicioBuscador<Usuario> buscadorUsuario;
 
-    public RegistrarAlumno(ServicioRegistradorAlumno registradorAlumno, ServicioBuscadorAlumno buscadorAlumno,
-                           ServicioRegistradorUsuario registradorUsuario, ServicioBuscadorUsuario buscadorUsuario) {
+    public RegistrarAlumno(ServicioRegistradorAlumno registradorAlumno, ServicioBuscador<Alumno> buscadorAlumno,
+                           ServicioRegistradorUsuario registradorUsuario, ServicioBuscador<Usuario> buscadorUsuario) {
         this.buscadorAlumno = buscadorAlumno;
         this.registradorAlumno = registradorAlumno;
         this.buscadorUsuario = buscadorUsuario;
@@ -27,7 +28,7 @@ public class RegistrarAlumno {
         if (buscadorAlumno.igual("curp", curp).buscar().size() > 0)
             throw new CurpDuplicadoException();
         //Validar usuario duplicado
-        if (buscadorUsuario.filtarCorreo(correoElectronico).buscar().size() > 0)
+        if (buscadorUsuario.igual("correoElectronico", correoElectronico).buscar().size() > 0)
             throw new UsuarioDuplicadoException();
 
         //Registrar usuario y obtener su id

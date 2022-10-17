@@ -6,12 +6,13 @@ import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filter;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filters;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Order;
+import com.gamma.gestorhorariosescolares.compartido.servicios.ServicioBuscador;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class BuscadorAdministrador implements ServicioBuscadorAdministrador {
+public class BuscadorAdministrador implements ServicioBuscador<Administrador> {
     private final AdministradorRepositorio repositorio;
     private final List<Filter> filtros;
     private Order ordenador;

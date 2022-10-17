@@ -1,22 +1,25 @@
 package com.gamma.gestorhorariosescolares.administrador.aplicacion;
 
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.ServicioActualizadorAdministrador;
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar.ServicioBuscadorAdministrador;
+import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
+import com.gamma.gestorhorariosescolares.compartido.servicios.ServicioBuscador;
+
+import java.util.List;
 
 public class GestionarEstatusAdministrador {
 
-    private final ServicioBuscadorAdministrador buscadorAdministrador;
+    private final ServicioBuscador<Administrador> buscadorAdministrador;
     private final ServicioActualizadorAdministrador actualizadorAdministrador;
 
-    public GestionarEstatusAdministrador(ServicioBuscadorAdministrador buscadorAdministrador,
+    public GestionarEstatusAdministrador(ServicioBuscador<Administrador> buscadorAdministrador,
                                          ServicioActualizadorAdministrador actualizadorAdministrador) {
         this.buscadorAdministrador = buscadorAdministrador;
         this.actualizadorAdministrador = actualizadorAdministrador;
     }
 
     public void habilitarAdministrador(int idAdministrador) throws RecursoNoEncontradoException {
-        var administradores = buscadorAdministrador.filtrarId(idAdministrador).buscar();
+        var administradores = buscadorAdministrador.igual("id", String.valueOf(idAdministrador)).buscar();
         if (administradores.size() == 0)
             throw new RecursoNoEncontradoException("El administrador no se encuentra registrado en el sistema.");
 
@@ -26,7 +29,7 @@ public class GestionarEstatusAdministrador {
     }
 
     public void deshabilitarAdministrador(int idAdministrador) throws RecursoNoEncontradoException {
-        var administradores = buscadorAdministrador.filtrarId(idAdministrador).buscar();
+        List<Administrador> administradores = buscadorAdministrador.igual("id", String.valueOf(idAdministrador)).buscar();
         if (administradores.size() == 0)
             throw new RecursoNoEncontradoException("El administrador no se encuentra registrado en el sistema.");
 

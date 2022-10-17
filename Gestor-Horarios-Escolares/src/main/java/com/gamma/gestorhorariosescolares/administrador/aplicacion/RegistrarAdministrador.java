@@ -23,9 +23,9 @@ public class RegistrarAdministrador {
 
     public void registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno,
                           String correoElectronico, String claveAcceso) throws NoPersonalDuplicadoException, UsuarioDuplicadoException {
-        if (buscadorAdministrador.filtrarNoPersonal(noPersonal).buscar().size() > 0)
+        if (buscadorAdministrador.igual("noPersonal", noPersonal).buscar().size() > 0)
             throw new NoPersonalDuplicadoException();
-        if (buscadorUsuario.filtarCorreo(correoElectronico).buscar().size() > 0)
+        if (buscadorUsuario.igual("correoElectronico",correoElectronico).buscar().size() > 0)
             throw new UsuarioDuplicadoException();
 
         int idUsuario = registradorUsuario.registrar(correoElectronico, claveAcceso, "Administrador");
