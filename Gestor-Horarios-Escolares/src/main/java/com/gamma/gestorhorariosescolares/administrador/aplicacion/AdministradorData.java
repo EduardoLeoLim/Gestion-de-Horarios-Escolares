@@ -23,7 +23,8 @@ public class AdministradorData {
     private final Boolean estatus;
     private final UsuarioData usuario;
 
-    public AdministradorData(int id, String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, boolean estatus, UsuarioData usuario) {
+    public AdministradorData(int id, String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno,
+                             boolean estatus, UsuarioData usuario) {
         this.id = id;
         this.noPersonal = noPersonal;
         this.nombre = nombre;
