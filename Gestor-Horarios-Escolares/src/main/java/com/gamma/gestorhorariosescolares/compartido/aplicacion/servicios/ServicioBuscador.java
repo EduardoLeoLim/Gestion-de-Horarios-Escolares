@@ -1,4 +1,4 @@
-package com.gamma.gestorhorariosescolares.compartido.servicios;
+package com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios;
 
 import java.util.List;
 

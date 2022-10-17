@@ -6,7 +6,7 @@ import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filter;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filters;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Order;
-import com.gamma.gestorhorariosescolares.compartido.servicios.ServicioBuscador;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 
 import java.util.ArrayList;
 import java.util.List;
