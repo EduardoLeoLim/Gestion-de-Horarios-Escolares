@@ -3,7 +3,7 @@ package com.gamma.gestorhorariosescolares.alumno.aplicacion;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.CurpDuplicadoException;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.registrar.ServicioRegistradorAlumno;
 import com.gamma.gestorhorariosescolares.alumno.dominio.Alumno;
-import com.gamma.gestorhorariosescolares.compartido.servicios.ServicioBuscador;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.UsuarioDuplicadoException;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.registrar.ServicioRegistradorUsuario;
 import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;
