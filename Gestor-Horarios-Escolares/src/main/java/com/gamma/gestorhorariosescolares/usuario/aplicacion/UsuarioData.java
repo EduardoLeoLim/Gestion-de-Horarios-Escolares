@@ -1,8 +1,6 @@
 package com.gamma.gestorhorariosescolares.usuario.aplicacion;
 
 import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 
 public class UsuarioData {
 
