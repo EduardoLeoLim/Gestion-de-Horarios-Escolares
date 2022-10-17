@@ -40,7 +40,7 @@ public class CatalogoAdministradoresControlador {
             buscarAdministradores(txtBuscar.getText().trim());
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue.equals(newValue))//No se realiza la busqueda cuando se presionan teclas que no modifican la cadena de búsqueda.
+            if (oldValue.trim().equals(newValue.trim()))//No se realiza la busqueda cuando se presionan teclas que no modifican la cadena de búsqueda.
                 return;
             temporizadorBusqueda.reiniciar();
         });
