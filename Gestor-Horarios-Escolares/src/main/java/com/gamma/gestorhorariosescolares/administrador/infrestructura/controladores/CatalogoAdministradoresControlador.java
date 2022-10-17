@@ -100,26 +100,36 @@ public class CatalogoAdministradoresControlador {
             }
         });
 
-        TableColumn<AdministradorData, String> columnaEliminar = new TableColumn<>("");
-        columnaEliminar.setCellFactory(ft -> new TableCell<>() {
+        TableColumn<AdministradorData, String> columnaEstatus = new TableColumn<>("");
+        columnaEstatus.setMinWidth(120);
+        columnaEstatus.setMaxWidth(120);
+        columnaEstatus.setCellFactory(ft -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(null);
                 if (empty) {
                     setGraphic(null);
-                } else {
-                    AdministradorData administrador = getTableView().getItems().get(getIndex());
-                    Button botonEliminar = new Button("Eliminar");
-                    botonEliminar.getStyleClass().addAll("b","btn-danger");
-                    botonEliminar.setOnAction(event -> eliminarAdministrador(administrador));
-                    setGraphic(botonEliminar);
+                    return;
                 }
+                AdministradorData administrador = getTableView().getItems().get(getIndex());
+                Button botonEliminar = new Button();
+                botonEliminar.setPrefWidth(Double.MAX_VALUE);
+                if (administrador.estatus()) {
+                    botonEliminar.setText("Deshabilitar");
+                    botonEliminar.getStyleClass().addAll("b", "btn-danger");
+                    botonEliminar.setOnAction(event -> deshabilitarAdministrador(administrador));
+                } else {
+                    botonEliminar.setText("Habilitar");
+                    botonEliminar.getStyleClass().addAll("b", "btn-primary");
+                    botonEliminar.setOnAction(event -> habilitarAdministrador(administrador));
+                }
+                setGraphic(botonEliminar);
             }
         });
 
         tablaAdministradores.getColumns().addAll(columnaNoPersonal, columnaNombre, columnaApellidoPaterno,
-                columnaApellidoMaterno, columnaCorreoElectronico, columnaEditar, columnaEliminar);
+                columnaApellidoMaterno, columnaCorreoElectronico, columnaEditar, columnaEstatus);
     }
 
     private void buscarAdministradores(String criterioBuscqueda) {
@@ -133,7 +143,11 @@ public class CatalogoAdministradoresControlador {
 //        a.showAndWait();
     }
 
-    public void eliminarAdministrador(AdministradorData administrador) {
+    public void habilitarAdministrador(AdministradorData administrador) {
+
+    }
+
+    public void deshabilitarAdministrador(AdministradorData administrador) {
 
     }
 
