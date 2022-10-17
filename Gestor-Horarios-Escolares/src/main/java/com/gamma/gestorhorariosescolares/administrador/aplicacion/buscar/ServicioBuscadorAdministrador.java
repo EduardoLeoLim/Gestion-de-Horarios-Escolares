@@ -5,17 +5,30 @@ import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
 import java.util.List;
 
 public interface ServicioBuscadorAdministrador {
-    ServicioBuscadorAdministrador filtrarId(int id);
 
-    ServicioBuscadorAdministrador filtrarNoPersonal(String noPersonal);
+    ServicioBuscadorAdministrador igual(String campo, String valor);
 
-    ServicioBuscadorAdministrador filtarNombre(String nombre);
+    ServicioBuscadorAdministrador diferente(String campo, String valor);
 
-    ServicioBuscadorAdministrador filtrarApellidoPaterno(String apellidoPaterno);
+    ServicioBuscadorAdministrador mayorQue(String campo, String valor);
 
-    ServicioBuscadorAdministrador filtrarApellidoMaterno(String apellidoMaterno);
+    ServicioBuscadorAdministrador mayorIgualQue(String campo, String valor);
 
-    ServicioBuscadorAdministrador filtarrIdUsuario(int id);
+    ServicioBuscadorAdministrador menorQue(String campo, String valor);
+
+    ServicioBuscadorAdministrador menorIgualQue(String campo, String valor);
+
+    ServicioBuscadorAdministrador contiene(String campo, String valor);
+
+    ServicioBuscadorAdministrador noContiene(String campo, String valor);
+
+    ServicioBuscadorAdministrador ordenarAscendente(String campo);
+
+    ServicioBuscadorAdministrador ordenarDescendente(String campo);
+
+    ServicioBuscadorAdministrador intervalo(int intervalo);
+
+    ServicioBuscadorAdministrador limite(int limite);
 
     List<Administrador> buscar();
 }
