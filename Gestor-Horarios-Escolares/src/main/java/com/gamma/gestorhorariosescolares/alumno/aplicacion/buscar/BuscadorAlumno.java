@@ -101,6 +101,8 @@ public class BuscadorAlumno implements ServicioBuscadorAlumno {
     @Override
     public List<Alumno> buscar() {
         Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
-        return repositorio.buscar(criterio);
+        List<Alumno> listaAlumnos = repositorio.buscar(criterio);
+        filtros.clear();
+        return listaAlumnos;
     }
 }
