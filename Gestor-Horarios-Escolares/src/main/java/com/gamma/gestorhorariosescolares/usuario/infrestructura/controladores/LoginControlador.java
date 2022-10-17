@@ -24,6 +24,8 @@ public class LoginControlador {
 
     @FXML
     protected void ingresarClick() {
-
+        var menuAdministrador = new MenuAdministradorStage();
+        menuAdministrador.show();
+        stage.close();
     }
 }
