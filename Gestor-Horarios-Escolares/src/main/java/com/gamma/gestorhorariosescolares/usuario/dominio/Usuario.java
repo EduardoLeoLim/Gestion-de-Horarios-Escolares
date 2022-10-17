@@ -19,4 +19,20 @@ public class Usuario {
         this.claveAcceso = claveAcceso;
         this.tipo = tipo;
     }
+
+    public int id() {
+        return id;
+    }
+
+    public String correoElectronico() {
+        return correoElectronico;
+    }
+
+    public String claveAcceso() {
+        return claveAcceso;
+    }
+
+    public String tipo() {
+        return tipo;
+    }
 }
