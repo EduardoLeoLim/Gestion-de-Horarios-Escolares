@@ -22,9 +22,6 @@ public class CatalogoAdministradoresControlador {
             throw new NullPointerException();
 
         this.stage = stage;
-        stage.setOnHiding(event -> {
-            temporizadorBusqueda.cancel();
-        });
     }
 
     @FXML
@@ -44,5 +41,10 @@ public class CatalogoAdministradoresControlador {
 
     private void buscarAdministradores(String criterioBuscqueda) {
         System.out.println("Busqueda de administradores por criterio: '" + criterioBuscqueda + "'");
+    }
+
+    public void liberarRecursos() {
+        if (temporizadorBusqueda != null)
+            temporizadorBusqueda.cancel();
     }
 }
