@@ -3,7 +3,7 @@ package com.gamma.gestorhorariosescolares.administrador.aplicacion;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.ServicioActualizadorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
-import com.gamma.gestorhorariosescolares.compartido.servicios.ServicioBuscador;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 
 import java.util.List;
 
