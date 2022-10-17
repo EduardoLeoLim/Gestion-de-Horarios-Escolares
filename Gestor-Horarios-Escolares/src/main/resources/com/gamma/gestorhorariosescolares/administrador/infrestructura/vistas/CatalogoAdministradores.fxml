@@ -17,16 +17,14 @@
 
     <Button text="Registrar" AnchorPane.rightAnchor="40" AnchorPane.topAnchor="75">
         <styleClass>
+            <String fx:value="b"/>
             <String fx:value="h5"/>
             <String fx:value="btn-primary"/>
         </styleClass>
     </Button>
 
-    <TableView fx:id="tablaAdministradores" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30" AnchorPane.topAnchor="130"
+    <TableView fx:id="tablaAdministradores" styleClass="h5" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30"
+               AnchorPane.topAnchor="130"
                AnchorPane.bottomAnchor="20">
-        <columns>
-            <TableColumn prefWidth="75.0" text="C1"/>
-            <TableColumn prefWidth="75.0" text="C2"/>
-        </columns>
     </TableView>
 </AnchorPane>
