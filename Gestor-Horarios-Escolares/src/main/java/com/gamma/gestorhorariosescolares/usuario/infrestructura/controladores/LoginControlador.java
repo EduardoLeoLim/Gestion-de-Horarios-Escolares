@@ -1,6 +1,6 @@
 package com.gamma.gestorhorariosescolares.usuario.infrestructura.controladores;
 
-import com.gamma.gestorhorariosescolares.administrador.infrestructura.stages.MenuAdministradorStage;
+import com.gamma.gestorhorariosescolares.usuario.infrestructura.stages.MenuAdministradorStage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;

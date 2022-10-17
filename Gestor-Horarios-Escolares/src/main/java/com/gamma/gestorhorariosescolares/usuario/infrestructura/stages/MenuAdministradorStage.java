@@ -1,4 +1,4 @@
-package com.gamma.gestorhorariosescolares.administrador.infrestructura.stages;
+package com.gamma.gestorhorariosescolares.usuario.infrestructura.stages;
 
 import com.gamma.gestorhorariosescolares.App;
 import com.gamma.gestorhorariosescolares.administrador.infrestructura.controladores.MenuAdministradorControlador;
