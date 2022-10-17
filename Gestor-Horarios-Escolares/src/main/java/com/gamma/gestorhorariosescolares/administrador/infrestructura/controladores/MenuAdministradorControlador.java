@@ -1,10 +1,10 @@
 package com.gamma.gestorhorariosescolares.administrador.infrestructura.controladores;
 
 import com.gamma.gestorhorariosescolares.App;
+import com.gamma.gestorhorariosescolares.secretario.infrestructura.controladores.CatalogoSecretariosControlador;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.stages.LoginStage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -18,6 +18,12 @@ public class MenuAdministradorControlador {
     private final Stage stage;
 
     private AnchorPane panelCatalogoAdministradores;
+
+    private CatalogoAdministradoresControlador controladorAdministradores;
+
+    private AnchorPane panelCatalogoSecretarios;
+
+    private CatalogoSecretariosControlador controladorSecretarios;
 
     @FXML
     private BorderPane panelMenuAdministrador;
@@ -64,30 +70,45 @@ public class MenuAdministradorControlador {
         //Solo se puede acceder a los recursos @FXML aquí
         vbMenu.getStylesheets().add(App.class.getResource("compartido/infrestructura/estilos/Menu.css").toExternalForm());
         mostrarCatalogoAdministradoresClick();
+        stage.setOnHiding(event -> liberarRecursos());
     }
 
     @FXML
     protected void mostrarCatalogoAdministradoresClick() {
-        if (panelCatalogoAdministradores == null){
-            try{
+        if (panelCatalogoAdministradores == null) {
+            try {
                 FXMLLoader rootAdministradores = new FXMLLoader(App.class.getResource("administrador/infrestructura/vistas/CatalogoAdministradores.fxml"));
-                var administradoresControlador = new CatalogoAdministradoresControlador(stage);
-                rootAdministradores.setController(administradoresControlador);
+                controladorAdministradores = new CatalogoAdministradoresControlador(stage);
+                rootAdministradores.setController(controladorAdministradores);
                 rootAdministradores.load();
                 panelCatalogoAdministradores = rootAdministradores.getRoot();
                 panelCatalogoAdministradores.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-
                 panelMenuAdministrador.setCenter(panelCatalogoAdministradores);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            panelMenuAdministrador.setCenter(panelCatalogoAdministradores);
         }
-        panelMenuAdministrador.setCenter(panelCatalogoAdministradores);
     }
 
     @FXML
     protected void mostrarCatalogoSecretariosClick() {
-
+        if (panelCatalogoSecretarios == null) {
+            try {
+                FXMLLoader rootSecretarios = new FXMLLoader(App.class.getResource("secretario/infrestructura/vistas/CatalogoSecretarios.fxml"));
+                controladorSecretarios = new CatalogoSecretariosControlador(stage);
+                rootSecretarios.setController(controladorSecretarios);
+                rootSecretarios.load();
+                panelCatalogoSecretarios = rootSecretarios.getRoot();
+                panelCatalogoSecretarios.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                panelMenuAdministrador.setCenter(panelCatalogoSecretarios);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            panelMenuAdministrador.setCenter(panelCatalogoSecretarios);
+        }
     }
 
     @FXML
@@ -129,5 +150,14 @@ public class MenuAdministradorControlador {
     protected void cerrarSesionClick() {
         new LoginStage().show();
         stage.close();
+    }
+
+    private void liberarRecursos() {
+        System.out.println("Liberando recursos");
+
+        if (controladorAdministradores != null)
+            controladorAdministradores.liberarRecursos();
+        if (controladorSecretarios != null)
+            controladorSecretarios.liberarRecursos();
     }
 }
