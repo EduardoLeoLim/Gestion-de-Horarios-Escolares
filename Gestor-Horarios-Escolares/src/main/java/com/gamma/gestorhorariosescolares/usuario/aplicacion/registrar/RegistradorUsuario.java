@@ -12,13 +12,13 @@ public class RegistradorUsuario implements ServicioRegistradorUsuario {
     }
 
     @Override
-    public int registrar(String correoElectronico, String claveAcceso) {
+    public int registrar(String correoElectronico, String claveAcceso, String tipo) {
         //Validar formato de correoElectrnocio
         //Si no es valido, lanzar excepción
         //Validar formato de usuario
         //Si no es válido, lanzar excepción
 
-        Usuario nuevoUsuario = new Usuario(correoElectronico, claveAcceso);
+        Usuario nuevoUsuario = new Usuario(correoElectronico, claveAcceso, tipo);
         return repositorio.registrar(nuevoUsuario);
     }
 }

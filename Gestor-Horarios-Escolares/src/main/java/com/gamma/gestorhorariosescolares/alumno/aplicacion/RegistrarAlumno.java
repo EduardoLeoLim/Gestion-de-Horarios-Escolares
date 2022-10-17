@@ -31,7 +31,7 @@ public class RegistrarAlumno {
             throw new UsuarioDuplicadoException();
 
         //Registrar usuario y obtener su id
-        int idUsuario = registradorUsuario.registrar(correoElectronico, claveAcceso);
+        int idUsuario = registradorUsuario.registrar(correoElectronico, claveAcceso, "Alumno");
 
         //Registrar alumno con añadiendo id de usuario
         registradorAlumno.registrar(matricula, curp, nombre, appellidoPaterno, apellidoMaterno, idUsuario);

@@ -28,7 +28,7 @@ public class RegistrarAdministrador {
         if (buscadorUsuario.filtarCorreo(correoElectronico).buscar().size() > 0)
             throw new UsuarioDuplicadoException();
 
-        int idUsuario = registradorUsuario.registrar(correoElectronico, claveAcceso);
+        int idUsuario = registradorUsuario.registrar(correoElectronico, claveAcceso, "Administrador");
         registradorAdministrador.registrar(noPersonal, nombre, apellidoPaterno, apellidoMaterno, idUsuario);
     }
 }
