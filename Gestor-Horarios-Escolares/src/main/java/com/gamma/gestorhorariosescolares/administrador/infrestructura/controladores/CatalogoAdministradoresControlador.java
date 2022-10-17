@@ -58,9 +58,9 @@ public class CatalogoAdministradoresControlador {
         ObservableList<AdministradorData> coleccion = FXCollections.observableArrayList(lista);
         tablaAdministradores.setItems(coleccion);
         var u2 = new UsuarioData(1, "cofdfdrreo", "clafdfve", "adfdfmin");
-        var a2 = new AdministradorData(1, "noPErfdfdsonal", "anfdfdgel", "marfdfdtinez", "leofdfd lim", true, u2);
+        var a2 = new AdministradorData(1, "noPErfdfdsonal", "anfdfdgel", "marfdfdtinez", "leofdfd lim", false, u2);
+        coleccion.add(a2);
         tablaAdministradores.setItems(coleccion);
-        coleccion.addAll(new ArrayList<AdministradorData>());
         //Borrar después
 
         TableColumn<AdministradorData, String> columnaNoPersonal = new TableColumn<>("No. Personal");
@@ -77,12 +77,15 @@ public class CatalogoAdministradoresControlador {
 
         TableColumn<AdministradorData, String> columnaApellidoMaterno = new TableColumn<>("Apellido Materno");
         columnaApellidoMaterno.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().apellidoMaterno()));
+        columnaApellidoMaterno.setMinWidth(150);
 
         TableColumn<AdministradorData, String> columnaCorreoElectronico = new TableColumn<>("Correo Electrónico");
         columnaCorreoElectronico.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().usuario().correoElectronico()));
         columnaCorreoElectronico.setMinWidth(200);
 
         TableColumn<AdministradorData, String> columnaEditar = new TableColumn<>("");
+        columnaEditar.setMinWidth(80);
+        columnaEditar.setMaxWidth(80);
         columnaEditar.setCellFactory(ft -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -93,7 +96,8 @@ public class CatalogoAdministradoresControlador {
                 } else {
                     AdministradorData administrador = getTableView().getItems().get(getIndex());
                     Button botonEditar = new Button("Editar");
-                    botonEditar.getStyleClass().addAll("b","btn-success");
+                    botonEditar.setPrefWidth(Double.MAX_VALUE);
+                    botonEditar.getStyleClass().addAll("b", "btn-success");
                     botonEditar.setOnAction(event -> editarAdministrador(administrador));
                     setGraphic(botonEditar);
                 }
@@ -128,6 +132,7 @@ public class CatalogoAdministradoresControlador {
             }
         });
 
+        tablaAdministradores.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tablaAdministradores.getColumns().addAll(columnaNoPersonal, columnaNombre, columnaApellidoPaterno,
                 columnaApellidoMaterno, columnaCorreoElectronico, columnaEditar, columnaEstatus);
     }
