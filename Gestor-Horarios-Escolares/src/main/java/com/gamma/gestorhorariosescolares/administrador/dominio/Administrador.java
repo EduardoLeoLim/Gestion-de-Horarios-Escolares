@@ -57,7 +57,7 @@ public class Administrador {
         estatus = false;
     }
 
-    public boolean estaHabilitado() {
+    public boolean estatus() {
         return estatus;
     }
 
