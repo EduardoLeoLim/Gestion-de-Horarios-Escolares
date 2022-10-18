@@ -24,7 +24,6 @@
     </Button>
 
     <TableView fx:id="tablaAdministradores" styleClass="h5" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30"
-               AnchorPane.topAnchor="130"
-               AnchorPane.bottomAnchor="20">
+               AnchorPane.topAnchor="130" AnchorPane.bottomAnchor="20">
     </TableView>
 </AnchorPane>
