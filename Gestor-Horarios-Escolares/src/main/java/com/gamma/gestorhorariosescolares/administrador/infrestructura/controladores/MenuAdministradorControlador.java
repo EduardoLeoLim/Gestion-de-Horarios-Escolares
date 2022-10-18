@@ -2,6 +2,7 @@ package com.gamma.gestorhorariosescolares.administrador.infrestructura.controlad
 
 import com.gamma.gestorhorariosescolares.App;
 import com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores.CatalogoAlumnosControlador;
+import com.gamma.gestorhorariosescolares.edificio.infrestructura.controladores.CatalogoEdificiosControlador;
 import com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores.CatalogoMaestrosControlador;
 import com.gamma.gestorhorariosescolares.secretario.infrestructura.controladores.CatalogoSecretariosControlador;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.stages.LoginStage;
@@ -36,6 +37,8 @@ public class MenuAdministradorControlador {
     private CatalogoAlumnosControlador controladorAlumnos;
 
     private AnchorPane panelCatalogoEdificios;
+
+    private CatalogoEdificiosControlador controladorEdificios;
 
     @FXML
     private BorderPane panelMenuAdministrador;
@@ -166,6 +169,8 @@ public class MenuAdministradorControlador {
         if (panelCatalogoEdificios == null) {
             try {
                 FXMLLoader rootEdificios = new FXMLLoader(App.class.getResource("edificio/infrestructura/vistas/CatalogoEdificios.fxml"));
+                controladorEdificios = new CatalogoEdificiosControlador(stage);
+                rootEdificios.setController(controladorEdificios);
                 rootEdificios.load();
                 panelCatalogoEdificios = rootEdificios.getRoot();
                 panelCatalogoEdificios.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
@@ -215,5 +220,7 @@ public class MenuAdministradorControlador {
             controladorMaestros.liberarRecursos();
         if (controladorAlumnos != null)
             controladorAlumnos.liberarRecursos();
+        if (controladorEdificios != null)
+            controladorEdificios.liberarRecursos();
     }
 }
