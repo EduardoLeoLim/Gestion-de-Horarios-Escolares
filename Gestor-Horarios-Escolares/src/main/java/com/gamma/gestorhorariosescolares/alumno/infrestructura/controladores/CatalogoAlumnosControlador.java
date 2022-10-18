@@ -15,7 +15,7 @@ public class CatalogoAlumnosControlador {
 
     private Temporizador temporizadorBusqueda;
 
-    ObservableList<AlumnoData> coleccionAlumnos;
+    private ObservableList<AlumnoData> coleccionAlumnos;
 
     @FXML
     private TextField txtBuscar;

@@ -151,7 +151,7 @@ public class MenuAdministradorControlador {
                 panelCatalogoAlumnos = rootAlumnos.getRoot();
                 panelCatalogoAlumnos.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
                 panelMenuAdministrador.setCenter(panelCatalogoAlumnos);
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
