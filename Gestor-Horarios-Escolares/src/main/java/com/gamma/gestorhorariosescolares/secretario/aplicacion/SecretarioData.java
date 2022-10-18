@@ -5,15 +5,6 @@ import com.gamma.gestorhorariosescolares.usuario.aplicacion.UsuarioData;
 import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;
 
 public class SecretarioData {
-    public static SecretarioData fromAggregate(Secretario secretario, Usuario usuario) {
-        if (secretario == null || usuario == null)
-            throw new NullPointerException();
-
-        UsuarioData usuarioData = UsuarioData.fromAggregate(usuario);
-        return new SecretarioData(secretario.id(), secretario.noPersonal(), secretario.nombre(),
-                secretario.apellidoPaterno(), secretario.apellidoMaterno(), secretario.estatus(), usuarioData);
-    }
-
     private final Integer id;
     private final String noPersonal;
     private final String nombre;
@@ -21,7 +12,6 @@ public class SecretarioData {
     private final String apellidoMaterno;
     private final Boolean estatus;
     private final UsuarioData usuario;
-
     public SecretarioData(int id, String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno,
                           boolean estatus, UsuarioData usuario) {
         this.id = id;
@@ -31,6 +21,15 @@ public class SecretarioData {
         this.apellidoMaterno = apellidoMaterno;
         this.estatus = estatus;
         this.usuario = usuario;
+    }
+
+    public static SecretarioData fromAggregate(Secretario secretario, Usuario usuario) {
+        if (secretario == null || usuario == null)
+            throw new NullPointerException();
+
+        UsuarioData usuarioData = UsuarioData.fromAggregate(usuario);
+        return new SecretarioData(secretario.id(), secretario.noPersonal(), secretario.nombre(),
+                secretario.apellidoPaterno(), secretario.apellidoMaterno(), secretario.estatus(), usuarioData);
     }
 
     public int id() {

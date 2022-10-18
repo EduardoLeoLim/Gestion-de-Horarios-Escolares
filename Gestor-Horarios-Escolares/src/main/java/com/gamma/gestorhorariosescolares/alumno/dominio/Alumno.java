@@ -7,8 +7,8 @@ public class Alumno {
     private final String nombre;
     private final String apellidoPaterno;
     private final String apellidoMaterno;
-    private boolean estatus;
     private final int idUsuario;
+    private boolean estatus;
 
     public Alumno(int id, boolean estatus, String matricula, String curp, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario) {
         this.id = id;

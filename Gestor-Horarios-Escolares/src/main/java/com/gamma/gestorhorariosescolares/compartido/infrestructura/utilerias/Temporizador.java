@@ -6,10 +6,10 @@ import java.util.function.Consumer;
 
 public class Temporizador extends Timer {
     private final Temporizador instancia;
-    private int tiempoEseraBusquesa;
     private final int tiempoReinicio;
-    private boolean finalizado;
     private final Consumer<Temporizador> funcionFinalTemporizador;
+    private int tiempoEseraBusquesa;
+    private boolean finalizado;
 
     public Temporizador(int tiempoReinicio, Consumer<Temporizador> funcionFinalTemporizador) {
         instancia = this;

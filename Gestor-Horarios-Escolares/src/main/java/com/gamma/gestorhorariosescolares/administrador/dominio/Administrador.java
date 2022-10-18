@@ -6,8 +6,8 @@ public class Administrador {
     private final String nombre;
     private final String apellidoPaterno;
     private final String apellidoMaterno;
-    private boolean estatus;
     private final int idUsuario;
+    private boolean estatus;
 
     public Administrador(int id, boolean estatus, String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario) {
         this.id = id;

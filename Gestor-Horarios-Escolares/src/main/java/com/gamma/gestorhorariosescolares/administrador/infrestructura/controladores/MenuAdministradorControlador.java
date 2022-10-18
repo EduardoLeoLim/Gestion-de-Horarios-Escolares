@@ -127,7 +127,7 @@ public class MenuAdministradorControlador {
                 panelCatalogoMaestros = rootMaestros.getRoot();
                 panelCatalogoMaestros.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
                 panelMenuAdministrador.setCenter(panelCatalogoMaestros);
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
