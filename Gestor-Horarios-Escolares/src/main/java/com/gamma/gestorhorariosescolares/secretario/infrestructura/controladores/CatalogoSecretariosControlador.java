@@ -138,6 +138,13 @@ public class CatalogoSecretariosControlador {
         System.out.println("Busqueda de secretarios por criterio: '" + criterioBuscqueda + "'");
     }
 
+    private void cargarSecretariosEnTabla(SecretariosData listaSecretarios) {
+        if (listaSecretarios == null)
+            return;
+        coleccionSecretarios.clear();
+        coleccionSecretarios.addAll(listaSecretarios.secretarios());
+    }
+
     public void liberarRecursos() {
         if (temporizadorBusqueda != null)
             temporizadorBusqueda.cancel();
