@@ -1,6 +1,7 @@
 package com.gamma.gestorhorariosescolares.administrador.infrestructura.controladores;
 
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.AdministradorData;
+import com.gamma.gestorhorariosescolares.administrador.aplicacion.AdministradoresData;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.UsuarioData;
 import javafx.beans.property.SimpleStringProperty;
@@ -139,10 +140,6 @@ public class CatalogoAdministradoresControlador {
         tablaAdministradores.setItems(colleccionAdministradores);
     }
 
-    private void buscarAdministradores(String criterioBuscqueda) {
-        System.out.println("Busqueda de administradores por criterio: '" + criterioBuscqueda + "'");
-    }
-
     public void editarAdministrador(AdministradorData administrador) {
 //        var a = new Stage();
 //        a.initModality(Modality.WINDOW_MODAL);
@@ -156,6 +153,18 @@ public class CatalogoAdministradoresControlador {
 
     public void deshabilitarAdministrador(AdministradorData administrador) {
 
+    }
+
+    private void buscarAdministradores(String criterioBuscqueda) {
+        System.out.println("Busqueda de administradores por criterio: '" + criterioBuscqueda + "'");
+    }
+
+    private void cargarAdministradoresEnTabla(AdministradoresData listaAdministradores){
+        if (listaAdministradores == null)
+            return;
+
+        colleccionAdministradores.clear();
+        colleccionAdministradores.addAll(listaAdministradores.administradores());
     }
 
     public void liberarRecursos() {
