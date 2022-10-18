@@ -35,6 +35,8 @@ public class MenuAdministradorControlador {
 
     private CatalogoAlumnosControlador controladorAlumnos;
 
+    private AnchorPane panelCatalogoEdificios;
+
     @FXML
     private BorderPane panelMenuAdministrador;
 
@@ -161,7 +163,19 @@ public class MenuAdministradorControlador {
 
     @FXML
     protected void mostrarCatalogoEdificiosClick() {
-
+        if (panelCatalogoEdificios == null) {
+            try {
+                FXMLLoader rootEdificios = new FXMLLoader(App.class.getResource("edificio/infrestructura/vistas/CatalogoEdificios.fxml"));
+                rootEdificios.load();
+                panelCatalogoEdificios = rootEdificios.getRoot();
+                panelCatalogoEdificios.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                panelMenuAdministrador.setCenter(panelCatalogoEdificios);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            panelMenuAdministrador.setCenter(panelCatalogoEdificios);
+        }
     }
 
     @FXML
