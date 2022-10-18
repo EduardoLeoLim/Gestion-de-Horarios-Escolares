@@ -118,7 +118,7 @@ public class CatalogoAlumnosControlador {
 
         tablaAlumnos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tablaAlumnos.getColumns().addAll(columnaMatricula, columnaNombre, columnaApellidoPaterno, columnaApellidoMaterno,
-                columnaEditar, columnaEstatus);
+                columnaCorreoElectronico, columnaEditar, columnaEstatus);
         tablaAlumnos.setItems(coleccionAlumnos);
     }
 
