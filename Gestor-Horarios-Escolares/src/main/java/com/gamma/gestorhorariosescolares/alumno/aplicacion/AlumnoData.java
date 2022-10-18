@@ -28,7 +28,7 @@ public class AlumnoData {
 
     public static AlumnoData fromAggregate(Alumno alumno, Usuario usuario) {
         UsuarioData usuarioData = UsuarioData.fromAggregate(usuario);
-        return new AlumnoData(alumno.id(), alumno.matricula(), alumno.matricula(), alumno.nombre(), alumno.apellidoPaterno(),
+        return new AlumnoData(alumno.id(), alumno.matricula(), alumno.curp(), alumno.nombre(), alumno.apellidoPaterno(),
                 alumno.apellidoMaterno(), alumno.estaHabilitado(), usuarioData);
     }
 
