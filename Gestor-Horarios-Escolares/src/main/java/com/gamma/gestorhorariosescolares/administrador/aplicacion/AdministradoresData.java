@@ -6,11 +6,11 @@ public class AdministradoresData {
 
     private final List<AdministradorData> administradores;
 
-    public AdministradoresData(List<AdministradorData> administadores){
+    public AdministradoresData(List<AdministradorData> administadores) {
         this.administradores = administadores;
     }
 
-    public List<AdministradorData> administradores(){
+    public List<AdministradorData> administradores() {
         return administradores;
     }
 

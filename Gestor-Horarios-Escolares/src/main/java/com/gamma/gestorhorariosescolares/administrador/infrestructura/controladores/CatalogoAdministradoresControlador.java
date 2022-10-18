@@ -62,7 +62,7 @@ public class CatalogoAdministradoresControlador {
         lista.add(a);
         var u2 = new UsuarioData(1, "cofdfdrreo", "clafdfve", "adfdfmin");
         var a2 = new AdministradorData(1, "noPErfdfdsonal", "anfdfdgel", "marfdfdtinez", "leofdfd lim", false, u2);
-        colleccionAdministradores.addAll(a,a2);
+        colleccionAdministradores.addAll(a, a2);
         //Borrar después
 
         TableColumn<AdministradorData, String> columnaNoPersonal = new TableColumn<>("No. Personal");
@@ -159,7 +159,7 @@ public class CatalogoAdministradoresControlador {
         System.out.println("Busqueda de administradores por criterio: '" + criterioBuscqueda + "'");
     }
 
-    private void cargarAdministradoresEnTabla(AdministradoresData listaAdministradores){
+    private void cargarAdministradoresEnTabla(AdministradoresData listaAdministradores) {
         if (listaAdministradores == null)
             return;
 

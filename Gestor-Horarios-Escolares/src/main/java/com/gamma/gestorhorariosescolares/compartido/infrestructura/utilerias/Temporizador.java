@@ -35,7 +35,7 @@ public class Temporizador extends Timer {
                         finalizado = true;
                 }
             }
-        },0, 1000);
+        }, 0, 1000);
     }
 
     public void reiniciar() {

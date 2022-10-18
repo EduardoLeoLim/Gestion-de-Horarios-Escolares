@@ -2,11 +2,11 @@ package com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar;
 
 import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
 import com.gamma.gestorhorariosescolares.administrador.dominio.AdministradorRepositorio;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filter;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filters;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Order;
-import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 
 import java.util.ArrayList;
 import java.util.List;

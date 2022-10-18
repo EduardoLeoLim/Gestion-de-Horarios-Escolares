@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class MenuAdministradorStage extends CustomStage {
 
-    public MenuAdministradorStage(){
+    public MenuAdministradorStage() {
         setTitle("Sistema de Gestión Escolar - Administrador");
         setMinWidth(1100);
         setMinHeight(690);
@@ -23,7 +23,7 @@ public class MenuAdministradorStage extends CustomStage {
             root.load();
             Parent content = root.getRoot();
             setContent(content);
-        }catch (IOException e){
+        } catch (IOException e) {
             System.err.println("Error al cargar ventana.");
             System.err.println(e.getMessage());
         }

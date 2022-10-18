@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 
 public class BuscarAdministradores {
 
-    private BuscadorAdministrador buscadorAdministrador;
-    private BuscadorUsuario buscadorUsuario;
+    private final BuscadorAdministrador buscadorAdministrador;
+    private final BuscadorUsuario buscadorUsuario;
 
     public BuscarAdministradores(BuscadorAdministrador buscadorAdministrador, BuscadorUsuario buscadorUsuario) {
         this.buscadorAdministrador = buscadorAdministrador;
@@ -16,7 +16,7 @@ public class BuscarAdministradores {
     }
 
     public AdministradoresData buscarTodos() {
-        var listaAdministradores =  buscadorAdministrador.buscar();
+        var listaAdministradores = buscadorAdministrador.buscar();
         var listaAdministradoresData = listaAdministradores.stream().map(administrador -> {
             var usuario = buscadorUsuario.igual("id", String.valueOf(administrador.idUsuario())).buscar().get(0);
             return AdministradorData.fromAggregate(administrador, usuario);
