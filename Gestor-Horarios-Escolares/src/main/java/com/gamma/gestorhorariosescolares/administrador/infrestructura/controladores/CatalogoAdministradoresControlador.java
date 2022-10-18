@@ -15,8 +15,10 @@ import java.util.List;
 
 public class CatalogoAdministradoresControlador {
     private final Stage stage;
+
     private Temporizador temporizadorBusqueda;
 
+    private ObservableList<AdministradorData> colleccionAdministradores;
 
     @FXML
     private TextField txtBuscar;
@@ -50,17 +52,16 @@ public class CatalogoAdministradoresControlador {
     }
 
     private void inicializarTabla() {
+        colleccionAdministradores = FXCollections.observableArrayList();
+
         //Borrar después
         var u = new UsuarioData(1, "correo", "clave", "admin");
         var a = new AdministradorData(1, "noPErsonal", "angel", "martinez", "leo lim", true, u);
         List<AdministradorData> lista = new ArrayList<>();
         lista.add(a);
-        ObservableList<AdministradorData> coleccion = FXCollections.observableArrayList(lista);
-        tablaAdministradores.setItems(coleccion);
         var u2 = new UsuarioData(1, "cofdfdrreo", "clafdfve", "adfdfmin");
         var a2 = new AdministradorData(1, "noPErfdfdsonal", "anfdfdgel", "marfdfdtinez", "leofdfd lim", false, u2);
-        coleccion.add(a2);
-        tablaAdministradores.setItems(coleccion);
+        colleccionAdministradores.addAll(a,a2);
         //Borrar después
 
         TableColumn<AdministradorData, String> columnaNoPersonal = new TableColumn<>("No. Personal");
@@ -135,6 +136,7 @@ public class CatalogoAdministradoresControlador {
         tablaAdministradores.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tablaAdministradores.getColumns().addAll(columnaNoPersonal, columnaNombre, columnaApellidoPaterno,
                 columnaApellidoMaterno, columnaCorreoElectronico, columnaEditar, columnaEstatus);
+        tablaAdministradores.setItems(colleccionAdministradores);
     }
 
     private void buscarAdministradores(String criterioBuscqueda) {
