@@ -155,8 +155,8 @@ public class CatalogoAdministradoresControlador {
 
     }
 
-    private void buscarAdministradores(String criterioBuscqueda) {
-        System.out.println("Busqueda de administradores por criterio: '" + criterioBuscqueda + "'");
+    private void buscarAdministradores(String criterioBusqueda) {
+        System.out.println("Busqueda de administradores por criterio: '" + criterioBusqueda + "'");
     }
 
     private void cargarAdministradoresEnTabla(AdministradoresData listaAdministradores) {
