@@ -2,15 +2,20 @@ package com.gamma.gestorhorariosescolares.secretario.infrestructura.controladore
 
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
 import com.gamma.gestorhorariosescolares.secretario.aplicacion.SecretarioData;
+import com.gamma.gestorhorariosescolares.secretario.aplicacion.SecretariosData;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class CatalogoSecretariosControlador {
     private final Stage stage;
+
     private Temporizador temporizadorBusqueda;
 
+    private ObservableList<SecretarioData> coleccionSecretarios;
 
     @FXML
     private TextField txtBuscar;
@@ -36,9 +41,12 @@ public class CatalogoSecretariosControlador {
         });
 
         inicializarTabla();
+        //Buscar y agregar secretarios a tabla
     }
 
     private void inicializarTabla() {
+        coleccionSecretarios = FXCollections.observableArrayList();
+
         TableColumn<SecretarioData, String> columnaNoPersonal = new TableColumn<>("No. Personal");
         columnaNoPersonal.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().noPersonal()));
         columnaNoPersonal.setMinWidth(150);
@@ -111,6 +119,7 @@ public class CatalogoSecretariosControlador {
         tablaSecretarios.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tablaSecretarios.getColumns().addAll(columnaNoPersonal, columnaNombre, columnaApellidoPaterno, columnaApellidoMaterno,
                 columnaCorreoElectronico, columnaEditar, columnaEstatus);
+        tablaSecretarios.setItems(coleccionSecretarios);
     }
 
     public void editarSecretario(SecretarioData secretario) {
