@@ -95,7 +95,8 @@
 
             <Region VBox.vgrow="ALWAYS"/>
 
-            <Button fx:id="btnCerrarSesion" mnemonicParsing="false" styleClass="menu-item" text="Cerrar sesión" onAction="#cerrarSesionClick">
+            <Button fx:id="btnCerrarSesion" mnemonicParsing="false" styleClass="menu-item" text="Cerrar sesión"
+                    onAction="#cerrarSesionClick">
                 <graphic>
                     <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../../../compartido/infrestructura/imagenes/cerrar-sesion-64px.png"/>
