@@ -30,6 +30,8 @@ public class MenuAdministradorControlador {
 
     private CatalogoMaestrosControlador controladorMaestros;
 
+    private AnchorPane panelCatalogoAlumnos;
+
     @FXML
     private BorderPane panelMenuAdministrador;
 
@@ -137,7 +139,19 @@ public class MenuAdministradorControlador {
 
     @FXML
     protected void mostrarCatalogoAlumnosClick() {
-
+        if (panelCatalogoAlumnos == null) {
+            try {
+                FXMLLoader rootAlumnos = new FXMLLoader(App.class.getResource("alumno/infrestructura/vistas/CatalogoAlumnos.fxml"));
+                rootAlumnos.load();
+                panelCatalogoAlumnos = rootAlumnos.getRoot();
+                panelCatalogoAlumnos.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                panelMenuAdministrador.setCenter(panelCatalogoAlumnos);
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        } else {
+            panelMenuAdministrador.setCenter(panelCatalogoAlumnos);
+        }
     }
 
     @FXML
