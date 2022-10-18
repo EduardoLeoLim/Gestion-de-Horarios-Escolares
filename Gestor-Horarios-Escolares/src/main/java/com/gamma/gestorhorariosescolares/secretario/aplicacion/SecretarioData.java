@@ -12,6 +12,7 @@ public class SecretarioData {
     private final String apellidoMaterno;
     private final Boolean estatus;
     private final UsuarioData usuario;
+
     public SecretarioData(int id, String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno,
                           boolean estatus, UsuarioData usuario) {
         this.id = id;

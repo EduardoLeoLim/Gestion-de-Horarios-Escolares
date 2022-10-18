@@ -8,6 +8,7 @@ public class UsuarioData {
     private final String tipo;
     private final String correoElectronico;
     private final String claveAcceso;
+
     public UsuarioData(int id, String correoElectronico, String claveAcceso, String tipo) {
         this.id = id;
         this.correoElectronico = correoElectronico;

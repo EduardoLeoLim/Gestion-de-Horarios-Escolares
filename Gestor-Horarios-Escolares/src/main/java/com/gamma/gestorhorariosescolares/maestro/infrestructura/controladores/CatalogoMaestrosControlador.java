@@ -118,7 +118,8 @@ public class CatalogoMaestrosControlador {
         });
 
         tablaMaestros.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        tablaMaestros.getColumns().addAll(columnaNoPersonal, columnaNombre, columnaApellidoPaterno, columnaApellidoMaterno, columnaCorreoElectronico, columnaEditar, columnaEstatus);
+        tablaMaestros.getColumns().addAll(columnaNoPersonal, columnaNombre, columnaApellidoPaterno, columnaApellidoMaterno,
+                columnaCorreoElectronico, columnaEditar, columnaEstatus);
         tablaMaestros.setItems(coleccionMaestros);
     }
 

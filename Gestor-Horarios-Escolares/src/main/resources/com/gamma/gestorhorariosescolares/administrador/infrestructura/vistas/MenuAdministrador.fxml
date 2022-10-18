@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane fx:id="panelMenuAdministrador" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="panelMenuAdministrador" xmlns="http://javafx.com/javafx/15">
     <left>
         <VBox fx:id="vbMenu" spacing="5" styleClass="menu" BorderPane.alignment="CENTER">
             <Label styleClass="menu-seccion" text="Usuarios">
