@@ -4,6 +4,7 @@ import com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores.Cat
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.InicializarPanel;
 import com.gamma.gestorhorariosescolares.edificio.infrestructura.controladores.CatalogoEdificiosControlador;
 import com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores.CatalogoMaestrosControlador;
+import com.gamma.gestorhorariosescolares.materia.infrestructura.controladores.CatalogoMateriasControlador;
 import com.gamma.gestorhorariosescolares.salon.infrestructura.controladores.CatalogoSalonesControlador;
 import com.gamma.gestorhorariosescolares.secretario.infrestructura.controladores.CatalogoSecretariosControlador;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.stages.LoginStage;
@@ -43,6 +44,10 @@ public class MenuAdministradorControlador {
     private AnchorPane panelCatalogoSalones;
 
     private CatalogoSalonesControlador controladorSalones;
+
+    private AnchorPane panelCatalogoMaterias;
+
+    private CatalogoMateriasControlador controladorMaterias;
 
     @FXML
     private BorderPane panelMenuAdministrador;
@@ -206,12 +211,26 @@ public class MenuAdministradorControlador {
     }
 
     @FXML
-    protected void mostrarCatalogoPlanesEstudioClick() {
-
+    protected void mostrarCatalogoMateriasClick() {
+        if (panelCatalogoMaterias == null) {
+            try {
+                controladorMaterias = new CatalogoMateriasControlador(stage);
+                panelCatalogoMaterias = InicializarPanel.inicializarAnchorPane(
+                        "materia/infrestructura/vistas/CatalogoMaterias.fxml",
+                        controladorMaterias
+                );
+                panelCatalogoMaterias.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                panelMenuAdministrador.setCenter(panelCatalogoMaterias);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            panelMenuAdministrador.setCenter(panelCatalogoMaterias);
+        }
     }
 
     @FXML
-    protected void mostrarCatalogoMateriasClick() {
+    protected void mostrarCatalogoPlanesEstudioClick() {
 
     }
 
@@ -241,5 +260,7 @@ public class MenuAdministradorControlador {
             controladorEdificios.liberarRecursos();
         if (controladorSalones != null)
             controladorSalones.liberarRecursos();
+        if (controladorMaterias != null)
+            controladorMaterias.liberarRecursos();
     }
 }
