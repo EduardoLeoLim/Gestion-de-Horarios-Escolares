@@ -1,4 +1,4 @@
-package com.gamma.gestorhorariosescolares.administrador.infrestructura.controladores;
+package com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores;
 
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.RegistrarAlumno;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.buscar.BuscadorAlumno;
