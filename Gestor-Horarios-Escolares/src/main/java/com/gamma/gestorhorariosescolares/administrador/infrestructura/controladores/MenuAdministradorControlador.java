@@ -2,12 +2,12 @@ package com.gamma.gestorhorariosescolares.administrador.infrestructura.controlad
 
 import com.gamma.gestorhorariosescolares.App;
 import com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores.CatalogoAlumnosControlador;
+import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.InicializarPanel;
 import com.gamma.gestorhorariosescolares.edificio.infrestructura.controladores.CatalogoEdificiosControlador;
 import com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores.CatalogoMaestrosControlador;
 import com.gamma.gestorhorariosescolares.secretario.infrestructura.controladores.CatalogoSecretariosControlador;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.stages.LoginStage;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -92,11 +92,11 @@ public class MenuAdministradorControlador {
     protected void mostrarCatalogoAdministradoresClick() {
         if (panelCatalogoAdministradores == null) {
             try {
-                FXMLLoader rootAdministradores = new FXMLLoader(App.class.getResource("administrador/infrestructura/vistas/CatalogoAdministradores.fxml"));
                 controladorAdministradores = new CatalogoAdministradoresControlador(stage);
-                rootAdministradores.setController(controladorAdministradores);
-                rootAdministradores.load();
-                panelCatalogoAdministradores = rootAdministradores.getRoot();
+                panelCatalogoAdministradores = InicializarPanel.inicializarAnchorPane(
+                        "administrador/infrestructura/vistas/CatalogoAdministradores.fxml",
+                        controladorAdministradores
+                );
                 panelCatalogoAdministradores.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
                 panelMenuAdministrador.setCenter(panelCatalogoAdministradores);
             } catch (IOException e) {
@@ -111,11 +111,11 @@ public class MenuAdministradorControlador {
     protected void mostrarCatalogoSecretariosClick() {
         if (panelCatalogoSecretarios == null) {
             try {
-                FXMLLoader rootSecretarios = new FXMLLoader(App.class.getResource("secretario/infrestructura/vistas/CatalogoSecretarios.fxml"));
                 controladorSecretarios = new CatalogoSecretariosControlador(stage);
-                rootSecretarios.setController(controladorSecretarios);
-                rootSecretarios.load();
-                panelCatalogoSecretarios = rootSecretarios.getRoot();
+                panelCatalogoSecretarios = InicializarPanel.inicializarAnchorPane(
+                        "secretario/infrestructura/vistas/CatalogoSecretarios.fxml",
+                        controladorSecretarios
+                );
                 panelCatalogoSecretarios.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
                 panelMenuAdministrador.setCenter(panelCatalogoSecretarios);
             } catch (IOException e) {
@@ -130,11 +130,11 @@ public class MenuAdministradorControlador {
     protected void mostrarCatalogoMaestrosClick() {
         if (panelCatalogoMaestros == null) {
             try {
-                FXMLLoader rootMaestros = new FXMLLoader(App.class.getResource("maestro/infrestructura/vistas/CatalogoMaestros.fxml"));
                 controladorMaestros = new CatalogoMaestrosControlador(stage);
-                rootMaestros.setController(controladorMaestros);
-                rootMaestros.load();
-                panelCatalogoMaestros = rootMaestros.getRoot();
+                panelCatalogoMaestros = InicializarPanel.inicializarAnchorPane(
+                        "maestro/infrestructura/vistas/CatalogoMaestros.fxml",
+                        controladorMaestros
+                );
                 panelCatalogoMaestros.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
                 panelMenuAdministrador.setCenter(panelCatalogoMaestros);
             } catch (IOException e) {
@@ -149,11 +149,11 @@ public class MenuAdministradorControlador {
     protected void mostrarCatalogoAlumnosClick() {
         if (panelCatalogoAlumnos == null) {
             try {
-                FXMLLoader rootAlumnos = new FXMLLoader(App.class.getResource("alumno/infrestructura/vistas/CatalogoAlumnos.fxml"));
                 controladorAlumnos = new CatalogoAlumnosControlador(stage);
-                rootAlumnos.setController(controladorAlumnos);
-                rootAlumnos.load();
-                panelCatalogoAlumnos = rootAlumnos.getRoot();
+                panelCatalogoAlumnos = InicializarPanel.inicializarAnchorPane(
+                        "alumno/infrestructura/vistas/CatalogoAlumnos.fxml",
+                        controladorAlumnos
+                );
                 panelCatalogoAlumnos.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
                 panelMenuAdministrador.setCenter(panelCatalogoAlumnos);
             } catch (IOException e) {
@@ -168,11 +168,11 @@ public class MenuAdministradorControlador {
     protected void mostrarCatalogoEdificiosClick() {
         if (panelCatalogoEdificios == null) {
             try {
-                FXMLLoader rootEdificios = new FXMLLoader(App.class.getResource("edificio/infrestructura/vistas/CatalogoEdificios.fxml"));
                 controladorEdificios = new CatalogoEdificiosControlador(stage);
-                rootEdificios.setController(controladorEdificios);
-                rootEdificios.load();
-                panelCatalogoEdificios = rootEdificios.getRoot();
+                panelCatalogoEdificios = InicializarPanel.inicializarAnchorPane(
+                        "edificio/infrestructura/vistas/CatalogoEdificios.fxml",
+                        controladorEdificios
+                );
                 panelCatalogoEdificios.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
                 panelMenuAdministrador.setCenter(panelCatalogoEdificios);
             } catch (IOException e) {
