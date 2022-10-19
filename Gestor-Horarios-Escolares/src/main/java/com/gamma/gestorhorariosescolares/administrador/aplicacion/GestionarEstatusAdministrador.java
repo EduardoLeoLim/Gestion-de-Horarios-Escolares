@@ -19,11 +19,11 @@ public class GestionarEstatusAdministrador {
     }
 
     public void habilitarAdministrador(int idAdministrador) throws RecursoNoEncontradoException {
-        var administradores = buscadorAdministrador.igual("id", String.valueOf(idAdministrador)).buscar();
+        List<Administrador> administradores = buscadorAdministrador.igual("id", String.valueOf(idAdministrador)).buscar();
         if (administradores.size() == 0)
             throw new RecursoNoEncontradoException("El administrador no se encuentra registrado en el sistema.");
 
-        var administrador = administradores.get(0);
+        Administrador administrador = administradores.get(0);
         administrador.habilitar();
         actualizadorAdministrador.actualizar(administrador);
     }
@@ -33,7 +33,7 @@ public class GestionarEstatusAdministrador {
         if (administradores.size() == 0)
             throw new RecursoNoEncontradoException("El administrador no se encuentra registrado en el sistema.");
 
-        var administrador = administradores.get(0);
+        Administrador administrador = administradores.get(0);
         administrador.deshabilitar();
         actualizadorAdministrador.actualizar(administrador);
     }
