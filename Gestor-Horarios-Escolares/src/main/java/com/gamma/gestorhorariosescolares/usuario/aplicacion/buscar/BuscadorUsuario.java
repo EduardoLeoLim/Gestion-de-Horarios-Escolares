@@ -105,6 +105,9 @@ public class BuscadorUsuario implements ServicioBuscador<Usuario> {
         Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
         List<Usuario> listaUsuarios = repositorio.buscar(criterio);
         filtros.clear();
+        ordenador = Order.none();
+        limite = Optional.empty();
+        intervalo = Optional.empty();
         return listaUsuarios;
     }
 }
