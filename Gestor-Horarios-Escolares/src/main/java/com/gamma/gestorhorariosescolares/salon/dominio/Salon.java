@@ -4,8 +4,8 @@ public class Salon {
     private final int id;
     private final String clave;
     private final int capacidad;
-    private boolean estatus;
     private final int idEdificio;
+    private boolean estatus;
 
     public Salon(int id, String clave, int capacidad, boolean estatus, int idEdificio) {
         this.id = id;

@@ -3,9 +3,6 @@ package com.gamma.gestorhorariosescolares.materia.infrestructura.controladores;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
 import com.gamma.gestorhorariosescolares.materia.aplicacion.MateriaData;
 import com.gamma.gestorhorariosescolares.materia.aplicacion.MateriasData;
-import com.gamma.gestorhorariosescolares.materia.dominio.Materia;
-import com.gamma.gestorhorariosescolares.salon.aplicacion.SalonData;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,7 +58,7 @@ public class CatalogoMateriasControlador {
         columnaNombre.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().nombre()));
         columnaNombre.setMinWidth(150);
 
-        TableColumn<MateriaData, String > columnaHorasPracticas = new TableColumn<>("Horas prácticas");
+        TableColumn<MateriaData, String> columnaHorasPracticas = new TableColumn<>("Horas prácticas");
         columnaHorasPracticas.setCellValueFactory(ft -> new SimpleStringProperty("" + ft.getValue().horasPracticas()));
         columnaHorasPracticas.setMinWidth(150);
 
@@ -92,7 +89,7 @@ public class CatalogoMateriasControlador {
         TableColumn<MateriaData, String> columnaEstatus = new TableColumn<>();
         columnaEstatus.setMinWidth(120);
         columnaEstatus.setMaxWidth(120);
-        columnaEstatus.setCellFactory(ft -> new TableCell<>(){
+        columnaEstatus.setCellFactory(ft -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);

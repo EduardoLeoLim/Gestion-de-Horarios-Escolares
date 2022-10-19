@@ -15,23 +15,23 @@ public class EdificioData {
         this.estatus = estatus;
     }
 
-    public static EdificioData fromAggregate(Edificio edificio){
+    public static EdificioData fromAggregate(Edificio edificio) {
         return new EdificioData(edificio.id(), edificio.clave(), edificio.nombre(), edificio.estatus());
     }
 
-    public Integer id(){
+    public Integer id() {
         return id;
     }
 
-    public String clave(){
+    public String clave() {
         return clave;
     }
 
-    public String nombre(){
+    public String nombre() {
         return nombre;
     }
 
-    public Boolean estatus(){
+    public Boolean estatus() {
         return estatus;
     }
 }

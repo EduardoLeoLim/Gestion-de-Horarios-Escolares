@@ -32,7 +32,7 @@ public class Edificio {
         return nombre;
     }
 
-    public void habilitar(){
+    public void habilitar() {
         estatus = true;
     }
 
