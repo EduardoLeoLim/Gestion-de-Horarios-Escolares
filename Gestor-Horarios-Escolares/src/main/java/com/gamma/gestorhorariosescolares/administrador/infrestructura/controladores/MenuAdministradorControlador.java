@@ -83,7 +83,6 @@ public class MenuAdministradorControlador {
     @FXML
     public void initialize() {
         //Solo se puede acceder a los recursos @FXML aquí
-        vbMenu.getStylesheets().add(App.class.getResource("compartido/infrestructura/estilos/Menu.css").toExternalForm());
         mostrarCatalogoAdministradoresClick();
         stage.setOnHiding(event -> liberarRecursos());
     }
