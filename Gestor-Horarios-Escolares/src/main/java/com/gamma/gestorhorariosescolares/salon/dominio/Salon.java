@@ -3,23 +3,20 @@ package com.gamma.gestorhorariosescolares.salon.dominio;
 public class Salon {
     private final int id;
     private final String clave;
-    private final String nombre;
     private final int capacidad;
     private boolean estatus;
 
-    public Salon(int id, String clave, String nombre, int capacidad, boolean estatus) {
+    public Salon(int id, String clave, int capacidad, boolean estatus) {
         this.id = id;
         this.clave = clave;
-        this.nombre = nombre;
         this.capacidad = capacidad;
         this.estatus = estatus;
     }
 
-    public Salon(String clave, String nombre, int capacidad) {
+    public Salon(String clave, int capacidad) {
         id = 0;
         estatus = true;
         this.clave = clave;
-        this.nombre = nombre;
         this.capacidad = capacidad;
     }
 
@@ -29,10 +26,6 @@ public class Salon {
 
     public String clave() {
         return clave;
-    }
-
-    public String nombre() {
-        return nombre;
     }
 
     public int capacidad() {
