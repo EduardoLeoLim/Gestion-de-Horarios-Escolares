@@ -10,6 +10,4 @@ public interface AlumnoRepositorio {
     int registrar(Alumno alumno);
 
     void actualizar(Alumno alumno);
-
-    void eliminar(int idAlumno);
 }

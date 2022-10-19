@@ -10,6 +10,4 @@ public interface AdministradorRepositorio {
     int registrar(Administrador administrador);
 
     void actualizar(Administrador administrador);
-
-    void eliminar(int idAdministrador);
 }

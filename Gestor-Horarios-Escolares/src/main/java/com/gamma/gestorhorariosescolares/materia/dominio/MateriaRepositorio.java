@@ -10,6 +10,4 @@ public interface MateriaRepositorio {
     int registrar(Materia materia);
 
     void actualizar(Materia materia);
-
-    void eliminar(int idMateria);
 }

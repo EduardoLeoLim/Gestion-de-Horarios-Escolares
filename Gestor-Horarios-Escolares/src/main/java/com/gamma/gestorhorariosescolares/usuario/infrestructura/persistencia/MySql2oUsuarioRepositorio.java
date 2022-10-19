@@ -29,9 +29,4 @@ public class MySql2oUsuarioRepositorio implements UsuarioRepositorio {
     public void actualizar(Usuario usuario) {
 
     }
-
-    @Override
-    public void eliminar(int idUsuario) {
-
-    }
 }
