@@ -104,7 +104,11 @@ public class BuscadorAdministrador implements ServicioBuscador<Administrador> {
     public List<Administrador> buscar() {
         Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
         List<Administrador> listaAdministradores = repositorio.buscar(criterio);
+        //Resetaer para reutilizar instacia
         filtros.clear();
+        ordenador = Order.none();
+        intervalo = Optional.empty();
+        limite = Optional.empty();
         return listaAdministradores;
     }
 }
