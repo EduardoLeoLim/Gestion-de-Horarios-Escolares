@@ -1,10 +1,10 @@
 package com.gamma.gestorhorariosescolares.administrador.infrestructura.controladores;
 
-import com.gamma.gestorhorariosescolares.App;
 import com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores.CatalogoAlumnosControlador;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.InicializarPanel;
 import com.gamma.gestorhorariosescolares.edificio.infrestructura.controladores.CatalogoEdificiosControlador;
 import com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores.CatalogoMaestrosControlador;
+import com.gamma.gestorhorariosescolares.salon.infrestructura.controladores.CatalogoSalonesControlador;
 import com.gamma.gestorhorariosescolares.secretario.infrestructura.controladores.CatalogoSecretariosControlador;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.stages.LoginStage;
 import javafx.fxml.FXML;
@@ -41,6 +41,8 @@ public class MenuAdministradorControlador {
     private CatalogoEdificiosControlador controladorEdificios;
 
     private AnchorPane panelCatalogoSalones;
+
+    private CatalogoSalonesControlador controladorSalones;
 
     @FXML
     private BorderPane panelMenuAdministrador;
@@ -188,11 +190,13 @@ public class MenuAdministradorControlador {
     protected void mostrarCatalogoSalonesClick() {
         if (panelCatalogoSalones == null) {
             try {
+                controladorSalones = new CatalogoSalonesControlador(stage);
                 panelCatalogoSalones = InicializarPanel.inicializarAnchorPane(
                         "salon/infrestructura/vistas/CatalogoSalones.fxml",
-                        null
+                        controladorSalones
                 );
                 panelCatalogoSalones.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                panelMenuAdministrador.setCenter(panelCatalogoSalones);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -235,5 +239,7 @@ public class MenuAdministradorControlador {
             controladorAlumnos.liberarRecursos();
         if (controladorEdificios != null)
             controladorEdificios.liberarRecursos();
+        if (controladorSalones != null)
+            controladorSalones.liberarRecursos();
     }
 }
