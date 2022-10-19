@@ -5,19 +5,22 @@ public class Salon {
     private final String clave;
     private final int capacidad;
     private boolean estatus;
+    private final int idEdificio;
 
-    public Salon(int id, String clave, int capacidad, boolean estatus) {
+    public Salon(int id, String clave, int capacidad, boolean estatus, int idEdificio) {
         this.id = id;
         this.clave = clave;
         this.capacidad = capacidad;
         this.estatus = estatus;
+        this.idEdificio = idEdificio;
     }
 
-    public Salon(String clave, int capacidad) {
+    public Salon(String clave, int capacidad, int idEdificio) {
         id = 0;
         estatus = true;
         this.clave = clave;
         this.capacidad = capacidad;
+        this.idEdificio = idEdificio;
     }
 
     public int id() {
@@ -42,5 +45,9 @@ public class Salon {
 
     public boolean estatus() {
         return estatus;
+    }
+
+    public int idEdificio() {
+        return idEdificio;
     }
 }
