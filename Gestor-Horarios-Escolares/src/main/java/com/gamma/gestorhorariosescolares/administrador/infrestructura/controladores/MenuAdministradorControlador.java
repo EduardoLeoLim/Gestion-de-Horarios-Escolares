@@ -40,6 +40,8 @@ public class MenuAdministradorControlador {
 
     private CatalogoEdificiosControlador controladorEdificios;
 
+    private AnchorPane panelCatalogoSalones;
+
     @FXML
     private BorderPane panelMenuAdministrador;
 
@@ -184,7 +186,19 @@ public class MenuAdministradorControlador {
 
     @FXML
     protected void mostrarCatalogoSalonesClick() {
-
+        if (panelCatalogoSalones == null) {
+            try {
+                panelCatalogoSalones = InicializarPanel.inicializarAnchorPane(
+                        "salon/infrestructura/vistas/CatalogoSalones.fxml",
+                        null
+                );
+                panelCatalogoSalones.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            panelMenuAdministrador.setCenter(panelCatalogoSalones);
+        }
     }
 
     @FXML
