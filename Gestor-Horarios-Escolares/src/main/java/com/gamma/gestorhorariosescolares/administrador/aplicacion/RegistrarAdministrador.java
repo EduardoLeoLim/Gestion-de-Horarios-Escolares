@@ -21,14 +21,14 @@ public class RegistrarAdministrador {
         this.registradorUsuario = registradorUsuario;
     }
 
-    public void registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno,
+    public void registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,
                           String correoElectronico, String claveAcceso) throws NoPersonalDuplicadoException, UsuarioDuplicadoException {
         if (buscadorAdministrador.igual("noPersonal", noPersonal).buscar().size() > 0)
             throw new NoPersonalDuplicadoException();
         if (buscadorUsuario.igual("correoElectronico", correoElectronico).buscar().size() > 0)
             throw new UsuarioDuplicadoException();
 
-        int idUsuario = registradorUsuario.registrar(correoElectronico, claveAcceso, "Administrador");
+        int idUsuario = registradorUsuario.registrar(telefono, correoElectronico, claveAcceso, "Administrador");
         registradorAdministrador.registrar(noPersonal, nombre, apellidoPaterno, apellidoMaterno, idUsuario);
     }
 }

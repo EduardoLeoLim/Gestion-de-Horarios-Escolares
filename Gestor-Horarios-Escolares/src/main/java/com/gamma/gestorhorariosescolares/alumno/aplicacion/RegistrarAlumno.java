@@ -23,7 +23,7 @@ public class RegistrarAlumno {
     }
 
     public void Registrar(String nombre, String appellidoPaterno, String apellidoMaterno, String curp, String matricula,
-                          String correoElectronico, String claveAcceso) throws CurpDuplicadoException, UsuarioDuplicadoException {
+                          String telefono, String correoElectronico, String claveAcceso) throws CurpDuplicadoException, UsuarioDuplicadoException {
         //Validar curp duplicado
         if (buscadorAlumno.igual("curp", curp).buscar().size() > 0)
             throw new CurpDuplicadoException();
@@ -32,7 +32,7 @@ public class RegistrarAlumno {
             throw new UsuarioDuplicadoException();
 
         //Registrar usuario y obtener su id
-        int idUsuario = registradorUsuario.registrar(correoElectronico, claveAcceso, "Alumno");
+        int idUsuario = registradorUsuario.registrar(telefono, correoElectronico, claveAcceso, "Alumno");
 
         //Registrar alumno con añadiendo id de usuario
         registradorAlumno.registrar(matricula, curp, nombre, appellidoPaterno, apellidoMaterno, idUsuario);

@@ -21,11 +21,11 @@ public class FormularioAlumnoControlador {
     protected void guardarClick() {
         //Datos válidos del formulario
 
-        registrarAlumno("", "", "", "", "", "", "");
+        registrarAlumno("", "","", "", "", "", "", "");
     }
 
     private void registrarAlumno(String nombre, String apellidoPaterno, String apellidoMaterno, String curp, String matricula,
-                                 String correoElectronico, String claveAcceso) {
+                                 String telefono, String correoElectronico, String claveAcceso) {
         Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
 
         try (Connection transaccion = conexion.beginTransaction()) {
@@ -40,7 +40,7 @@ public class FormularioAlumnoControlador {
             var buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
 
             new RegistrarAlumno(registradorAlumno, buscadorAlumno, registradorUsuario, buscadorUsuario)
-                    .Registrar(nombre, apellidoPaterno, apellidoMaterno, curp, matricula, correoElectronico, claveAcceso);
+                    .Registrar(nombre, apellidoPaterno, apellidoMaterno, curp, matricula, telefono, correoElectronico, claveAcceso);
 
             transaccion.commit();//Guardar cambios en base de datos
             System.out.println("Alumno registrado");
