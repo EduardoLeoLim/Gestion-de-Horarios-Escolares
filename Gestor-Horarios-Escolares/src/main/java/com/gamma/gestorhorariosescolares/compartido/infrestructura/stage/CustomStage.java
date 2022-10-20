@@ -52,9 +52,9 @@ public abstract class CustomStage extends Stage {
             throw new NullPointerException("Content is null");
         content.setId("content");
         BordersCustomStage.setTopAnchor(content, titleBar.getPrefHeight());
-        BordersCustomStage.setBottomAnchor(content, 0.0);
-        BordersCustomStage.setRightAnchor(content, 0.0);
-        BordersCustomStage.setLeftAnchor(content, 0.0);
+        BordersCustomStage.setBottomAnchor(content, 1.0);
+        BordersCustomStage.setRightAnchor(content, 1.0);
+        BordersCustomStage.setLeftAnchor(content, 1.0);
 
         if (this.content != null)
             bordersCustomStage.getChildren().remove(0);

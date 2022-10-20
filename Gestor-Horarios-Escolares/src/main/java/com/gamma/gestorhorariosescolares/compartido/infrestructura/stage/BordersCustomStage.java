@@ -29,6 +29,7 @@ public class BordersCustomStage extends AnchorPane {
         this.stage = stage;
         loadBorders();
         loadMaximizedConfiguration();
+        this.setStyle("-fx-background-color: #0072D2");
     }
 
     private void loadBorders() {
