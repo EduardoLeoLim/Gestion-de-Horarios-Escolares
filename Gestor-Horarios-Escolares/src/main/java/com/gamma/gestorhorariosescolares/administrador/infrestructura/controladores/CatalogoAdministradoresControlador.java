@@ -2,6 +2,7 @@ package com.gamma.gestorhorariosescolares.administrador.infrestructura.controlad
 
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.AdministradorData;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.AdministradoresData;
+import com.gamma.gestorhorariosescolares.administrador.infrestructura.stages.FormularioAdministradorStage;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.UsuarioData;
 import javafx.beans.property.SimpleStringProperty;
@@ -140,11 +141,25 @@ public class CatalogoAdministradoresControlador {
         tablaAdministradores.setItems(colleccionAdministradores);
     }
 
+    @FXML
+    protected void registrarNuevoAdministrador() {
+        var formulario = new FormularioAdministradorStage();
+        formulario.initOwner(stage);
+        //formulario.initModality(Modality.WINDOW_MODAL); se establece por defecto en el constructor
+        formulario.showAndWait();
+    }
+
     public void editarAdministrador(AdministradorData administrador) {
 //        var a = new Stage();
 //        a.initModality(Modality.WINDOW_MODAL);
 //        a.initOwner(stage);
 //        a.showAndWait();
+
+        System.out.println(administrador.nombre());
+        System.out.println("administrador.nombre()");
+        var formulario = new FormularioAdministradorStage(administrador);
+        formulario.initOwner(stage);
+        formulario.showAndWait();
     }
 
     public void habilitarAdministrador(AdministradorData administrador) {
