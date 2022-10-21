@@ -29,7 +29,7 @@ public class FormularioAdministradorControlador {
     private TextField txtTelefono;
 
     @FXML
-    private TextField txtCorreoElectrónico;
+    private TextField txtCorreoElectronico;
 
     @FXML
     private TextField txtClaveAcceso;
@@ -68,7 +68,7 @@ public class FormularioAdministradorControlador {
         txtApellidoPaterno.setText(administrador.apellidoPaterno());
         txtApellidoMaterno.setText(administrador.apellidoMaterno());
         txtTelefono.setText(administrador.usuario().telefono());
-        txtCorreoElectrónico.setText(administrador.usuario().correoElectronico());
+        txtCorreoElectronico.setText(administrador.usuario().correoElectronico());
         txtClaveAcceso.setText(administrador.usuario().claveAcceso());
         txtConfirmarClaveAcceso.setText(administrador.usuario().claveAcceso());
     }

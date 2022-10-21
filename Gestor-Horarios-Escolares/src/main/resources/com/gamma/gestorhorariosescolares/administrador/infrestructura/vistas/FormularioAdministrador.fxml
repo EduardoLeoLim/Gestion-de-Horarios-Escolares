@@ -38,7 +38,7 @@
         <TextField fx:id="txtTelefono" styleClass="h5" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 
         <Label styleClass="h5" text="Correo Electrónico:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-        <TextField fx:id="txtCorreoElectrónico" styleClass="h5" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+        <TextField fx:id="txtCorreoElectronico" styleClass="h5" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
 
         <Label styleClass="h5" text="Contrasña:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
         <PasswordField fx:id="txtClaveAcceso" styleClass="h5" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
