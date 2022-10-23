@@ -12,19 +12,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CatalogoAdministradoresControlador {
+
     private final Stage stage;
-
     private Temporizador temporizadorBusqueda;
-
     private ObservableList<AdministradorData> colleccionAdministradores;
 
     @FXML
     private TextField txtBuscar;
-
     @FXML
     private TableView<AdministradorData> tablaAdministradores;
 
@@ -184,4 +179,5 @@ public class CatalogoAdministradoresControlador {
         if (temporizadorBusqueda != null)
             temporizadorBusqueda.cancel();
     }
+
 }

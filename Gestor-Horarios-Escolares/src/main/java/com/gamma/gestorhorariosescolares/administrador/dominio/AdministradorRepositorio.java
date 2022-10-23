@@ -12,6 +12,7 @@ import java.util.List;
  * @since 1.0.0
  */
 public interface AdministradorRepositorio {
+
     /**
      * Buscar lista de Administraodores que cumplan el criterio especificado
      *
@@ -34,4 +35,5 @@ public interface AdministradorRepositorio {
      * @param administrador El parametro administrador es el Administrador que se actualizará
      */
     void actualizar(Administrador administrador);
+
 }

@@ -12,12 +12,9 @@ import java.io.IOException;
 
 public class FormularioAdministradorStage extends CustomStage {
 
-    private AdministradorData administradorEdicion;
-
     private final boolean esNuevoRegistro;
-
+    private AdministradorData administradorEdicion;
     private AnchorPane panelFormulario;
-
     private FormularioAdministradorControlador controladorFormulario;
 
     public FormularioAdministradorStage() {
@@ -69,4 +66,5 @@ public class FormularioAdministradorStage extends CustomStage {
             close();
         }
     }
+
 }

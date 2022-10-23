@@ -46,4 +46,5 @@ public class MySql2oAdministradorRespositorio implements AdministradorRepositori
     public void actualizar(Administrador administrador) {
 
     }
+
 }

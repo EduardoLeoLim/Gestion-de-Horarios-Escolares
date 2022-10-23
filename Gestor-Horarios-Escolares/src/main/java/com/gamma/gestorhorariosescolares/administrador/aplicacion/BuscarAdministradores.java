@@ -39,4 +39,5 @@ public class BuscarAdministradores {
 
         return new AdministradoresData(listaAdministradoresData);
     }
+
 }

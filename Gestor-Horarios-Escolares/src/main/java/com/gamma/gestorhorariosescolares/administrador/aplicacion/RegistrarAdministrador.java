@@ -16,6 +16,7 @@ import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;
  * @since 1.0.0
  */
 public class RegistrarAdministrador {
+
     private final ServicioBuscador<Administrador> buscadorAdministrador;
     private final ServicioRegistradorAdministrador registradorAdministrador;
     private final ServicioBuscador<Usuario> buscadorUsuario;
@@ -53,11 +54,12 @@ public class RegistrarAdministrador {
     public void registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,
                           String correoElectronico, String claveAcceso) throws NoPersonalDuplicadoException, UsuarioDuplicadoException {
         if (buscadorAdministrador.igual("noPersonal", noPersonal).buscar().size() > 0)
-            throw new NoPersonalDuplicadoException();
+            throw new NoPersonalDuplicadoException("Ya hay un administrador registrado con ese número de personal");
         if (buscadorUsuario.igual("correoElectronico", correoElectronico).buscar().size() > 0)
-            throw new UsuarioDuplicadoException();
+            throw new UsuarioDuplicadoException("Hay una cuenta de usuario registrada con ese correo electrónico");
 
         int idUsuario = registradorUsuario.registrar(telefono, correoElectronico, claveAcceso, "Administrador");
         registradorAdministrador.registrar(noPersonal, nombre, apellidoPaterno, apellidoMaterno, idUsuario);
     }
+
 }

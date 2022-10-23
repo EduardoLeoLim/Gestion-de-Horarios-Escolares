@@ -61,4 +61,5 @@ public class AdministradorData {
     public UsuarioData usuario() {
         return usuario;
     }
+
 }

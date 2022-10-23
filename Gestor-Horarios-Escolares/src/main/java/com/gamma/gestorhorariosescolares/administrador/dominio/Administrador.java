@@ -8,6 +8,7 @@ package com.gamma.gestorhorariosescolares.administrador.dominio;
  * @since 1.0.0
  */
 public class Administrador {
+
     private final int id;
     private final String noPersonal;
     private final String nombre;
@@ -132,4 +133,5 @@ public class Administrador {
     public int idUsuario() {
         return idUsuario;
     }
+
 }

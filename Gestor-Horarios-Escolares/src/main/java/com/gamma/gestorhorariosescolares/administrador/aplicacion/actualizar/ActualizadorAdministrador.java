@@ -4,6 +4,7 @@ import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
 import com.gamma.gestorhorariosescolares.administrador.dominio.AdministradorRepositorio;
 
 public class ActualizadorAdministrador implements ServicioActualizadorAdministrador {
+
     private final AdministradorRepositorio repositorio;
 
     public ActualizadorAdministrador(AdministradorRepositorio repositorio) {
@@ -14,4 +15,5 @@ public class ActualizadorAdministrador implements ServicioActualizadorAdministra
     public void actualizar(Administrador administrador) {
         repositorio.actualizar(administrador);
     }
+
 }

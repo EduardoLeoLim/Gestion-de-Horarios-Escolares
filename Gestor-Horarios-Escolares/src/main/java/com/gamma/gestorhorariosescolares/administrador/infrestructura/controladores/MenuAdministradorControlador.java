@@ -19,69 +19,45 @@ import org.kordamp.bootstrapfx.BootstrapFX;
 import java.io.IOException;
 
 public class MenuAdministradorControlador {
+
     private final Stage stage;
-
     private AnchorPane panelCatalogoAdministradores;
-
     private CatalogoAdministradoresControlador controladorAdministradores;
-
     private AnchorPane panelCatalogoSecretarios;
-
     private CatalogoSecretariosControlador controladorSecretarios;
-
     private AnchorPane panelCatalogoMaestros;
-
     private CatalogoMaestrosControlador controladorMaestros;
-
     private AnchorPane panelCatalogoAlumnos;
-
     private CatalogoAlumnosControlador controladorAlumnos;
-
     private AnchorPane panelCatalogoEdificios;
-
     private CatalogoEdificiosControlador controladorEdificios;
-
     private AnchorPane panelCatalogoSalones;
-
     private CatalogoSalonesControlador controladorSalones;
-
     private AnchorPane panelCatalogoMaterias;
-
     private CatalogoMateriasControlador controladorMaterias;
 
     @FXML
     private BorderPane panelMenuAdministrador;
-
     @FXML
     private VBox vbMenu;
-
     @FXML
     private Button btnCatalogoAdministradores;
-
     @FXML
     private Button bbtnCatalogoSecretarios;
-
     @FXML
     private Button btnCatalogoMaestros;
-
     @FXML
     private Button btnCatalogoAlumnos;
-
     @FXML
     private Button btnCatalogoEdificios;
-
     @FXML
     private Button btnCatalogoSalones;
-
     @FXML
     private Button btnCatalogoMaterias;
-
     @FXML
     private Button btnCatalogoPlanesEstudios;
-
     @FXML
     private Button btnCatalogoPeriodosEscolares;
-
     @FXML
     private Button btnCerrarSesion;
 
@@ -263,4 +239,5 @@ public class MenuAdministradorControlador {
         if (controladorMaterias != null)
             controladorMaterias.liberarRecursos();
     }
+
 }

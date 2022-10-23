@@ -8,6 +8,7 @@ package com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar;
  * @since 1.0.0
  */
 public interface ServicioRegistradorAdministrador {
+
     /**
      * Registrar administrador
      *
@@ -18,4 +19,5 @@ public interface ServicioRegistradorAdministrador {
      * @param idUsuario       El parámetro idUsuario corresponde al identificador del usuario del administrador
      */
     void registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario);
+
 }

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class BuscadorAdministrador implements ServicioBuscador<Administrador> {
+
     private final AdministradorRepositorio repositorio;
     private final List<Filter> filtros;
     private Order ordenador;
@@ -111,4 +112,5 @@ public class BuscadorAdministrador implements ServicioBuscador<Administrador> {
         limite = Optional.empty();
         return listaAdministradores;
     }
+
 }

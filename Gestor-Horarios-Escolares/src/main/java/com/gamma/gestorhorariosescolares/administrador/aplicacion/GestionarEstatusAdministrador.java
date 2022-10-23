@@ -37,4 +37,5 @@ public class GestionarEstatusAdministrador {
         administrador.deshabilitar();
         actualizadorAdministrador.actualizar(administrador);
     }
+
 }

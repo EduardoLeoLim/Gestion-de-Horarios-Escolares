@@ -28,4 +28,5 @@ public class MenuAdministradorStage extends CustomStage {
             System.err.println(e.getMessage());
         }
     }
+
 }

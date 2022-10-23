@@ -37,32 +37,23 @@ import org.sql2o.Sql2o;
 public class FormularioAdministradorControlador {
 
     private final Stage stage;
-
     private final boolean esNuevoRegistro;
-
     private final AdministradorData administrador;
 
     @FXML
     private TextField txtNoPersonal;
-
     @FXML
     private TextField txtNombre;
-
     @FXML
     private TextField txtApellidoPaterno;
-
     @FXML
     private TextField txtApellidoMaterno;
-
     @FXML
     private TextField txtTelefono;
-
     @FXML
     private TextField txtCorreoElectronico;
-
     @FXML
     private TextField txtClaveAcceso;
-
     @FXML
     private TextField txtConfirmarClaveAcceso;
 
@@ -197,4 +188,5 @@ public class FormularioAdministradorControlador {
 
         return true;
     }
+
 }

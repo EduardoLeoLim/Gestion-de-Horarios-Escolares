@@ -12,6 +12,7 @@ import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;
 import java.util.List;
 
 public class ActualizarAdministrador {
+
     private final ServicioActualizadorAdministrador actualizadorAdministrador;
     private final ServicioBuscador<Administrador> buscadorAdministrador;
     private final ServicioBuscador<Usuario> buscadorUsuario;
@@ -67,4 +68,5 @@ public class ActualizarAdministrador {
         actualizadorUsuario.actualizar(usuario);
         actualizadorAdministrador.actualizar(administrador);
     }
+
 }

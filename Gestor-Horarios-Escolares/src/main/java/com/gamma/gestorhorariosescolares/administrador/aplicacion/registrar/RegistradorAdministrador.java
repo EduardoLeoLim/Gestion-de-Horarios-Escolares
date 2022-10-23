@@ -11,6 +11,7 @@ import com.gamma.gestorhorariosescolares.administrador.dominio.AdministradorRepo
  * @since 1.0.0
  */
 public class RegistradorAdministrador implements ServicioRegistradorAdministrador {
+
     private final AdministradorRepositorio repositorio;
 
     /**
@@ -37,4 +38,5 @@ public class RegistradorAdministrador implements ServicioRegistradorAdministrado
         var administrador = new Administrador(noPersonal, nombre, apellidoPaterno, apellidoMaterno, idUsuario);
         repositorio.registrar(administrador);
     }
+
 }

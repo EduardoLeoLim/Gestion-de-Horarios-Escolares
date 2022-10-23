@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx">
     <Label text="Catálogo de Materias" prefHeight="40" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"
            AnchorPane.topAnchor="20.0">
         <styleClass>
