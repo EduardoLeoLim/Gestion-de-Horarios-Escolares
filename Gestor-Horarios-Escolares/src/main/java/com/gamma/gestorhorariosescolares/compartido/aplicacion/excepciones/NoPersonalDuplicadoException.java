@@ -1,4 +1,4 @@
-package com.gamma.gestorhorariosescolares.administrador.aplicacion.excepciones;
+package com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones;
 
 public class NoPersonalDuplicadoException extends Exception {
 

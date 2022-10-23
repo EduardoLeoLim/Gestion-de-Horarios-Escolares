@@ -1,6 +1,6 @@
 package com.gamma.gestorhorariosescolares.administrador.aplicacion;
 
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.excepciones.NoPersonalDuplicadoException;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.NoPersonalDuplicadoException;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.ServicioRegistradorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;

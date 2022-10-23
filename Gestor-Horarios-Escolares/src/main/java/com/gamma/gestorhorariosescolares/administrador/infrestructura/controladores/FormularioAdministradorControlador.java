@@ -6,7 +6,7 @@ import com.gamma.gestorhorariosescolares.administrador.aplicacion.RegistrarAdmin
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.ActualizadorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.ServicioActualizadorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar.BuscadorAdministrador;
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.excepciones.NoPersonalDuplicadoException;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.NoPersonalDuplicadoException;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.RegistradorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.ServicioRegistradorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
