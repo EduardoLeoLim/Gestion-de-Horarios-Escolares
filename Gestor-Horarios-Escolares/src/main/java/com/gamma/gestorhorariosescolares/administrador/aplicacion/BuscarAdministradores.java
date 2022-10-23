@@ -19,7 +19,9 @@ public class BuscarAdministradores {
     }
 
     public AdministradoresData buscarTodos() {
-        List<Administrador> listaAdministradores = buscadorAdministrador.ordenarAscendente("noPersonal").buscar();
+        List<Administrador> listaAdministradores = buscadorAdministrador
+                .ordenarAscendente("noPersonal")
+                .buscar();
         List<AdministradorData> listaAdministradoresData = listaAdministradores.stream().map(administrador -> {
             Usuario usuario = buscadorUsuario.igual("id", String.valueOf(administrador.idUsuario())).buscar().get(0);
             return AdministradorData.fromAggregate(administrador, usuario);
@@ -29,8 +31,10 @@ public class BuscarAdministradores {
     }
 
     public AdministradoresData buscarHabilitados() {
-        List<Administrador> listaAdministradores = buscadorAdministrador.igual("estatus", "1")
-                .ordenarAscendente("noPersonal").buscar();// '1' = true, '0' = false
+        List<Administrador> listaAdministradores = buscadorAdministrador
+                .igual("estatus", "1")
+                .ordenarAscendente("noPersonal")
+                .buscar();// '1' = true, '0' = false
 
         List<AdministradorData> listaAdministradoresData = listaAdministradores.stream().map(administrador -> {
             Usuario usuario = buscadorUsuario.igual("id", String.valueOf(administrador.idUsuario())).buscar().get(0);
