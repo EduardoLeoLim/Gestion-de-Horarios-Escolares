@@ -62,7 +62,9 @@ public class FormularioAdministradorControlador {
         stage.close();
     }
 
-    private void cargarDatosAdministrador(){
+    private void cargarDatosAdministrador() {
+        if (administrador == null)
+            throw new NullPointerException();
         txtNoPersonal.setText(administrador.noPersonal());
         txtNombre.setText(administrador.nombre());
         txtApellidoPaterno.setText(administrador.apellidoPaterno());
