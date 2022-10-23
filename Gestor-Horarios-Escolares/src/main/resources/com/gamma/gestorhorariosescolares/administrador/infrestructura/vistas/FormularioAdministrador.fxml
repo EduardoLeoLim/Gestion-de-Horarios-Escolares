@@ -49,7 +49,8 @@
 
     </GridPane>
 
-    <Button fx:id="btnGuardar" prefWidth="100" text="Guardar" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="150">
+    <Button fx:id="btnGuardar" prefWidth="100" text="Guardar" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="150"
+            onAction="#guardarAdministrador">
         <styleClass>
             <String fx:value="h5"/>
             <String fx:value="b"/>
