@@ -31,6 +31,9 @@ public class ActualizarAdministrador {
     public void actualizar(AdministradorData administradorData)
             throws RecursoNoEncontradoException, ActualizacionInvalidaException {
 
+        if (administradorData == null)
+            throw new NullPointerException();
+
         //El administrador que se desea actualizar no existe en el sistema
         List<Administrador> listaBusquedaAdministrador = buscadorAdministrador
                 .igual("id", String.valueOf(administradorData.id()))
@@ -45,7 +48,7 @@ public class ActualizarAdministrador {
                 .diferente("id", String.valueOf(administradorData.id()))
                 .buscar();
         if (listaBusquedaAdministrador.size() > 0)
-            throw new ActualizacionInvalidaException("Ya hay un administrador registrado con el numero de personal");
+            throw new ActualizacionInvalidaException("Ya hay un administrador registrado con el número de personal");
 
         //El correo electrónico no es ocupado por otro usuario
         List<Usuario> listaBusquedaUsuario = buscadorUsuario
