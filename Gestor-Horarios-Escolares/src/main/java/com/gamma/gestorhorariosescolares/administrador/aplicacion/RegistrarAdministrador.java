@@ -37,17 +37,17 @@ public class RegistrarAdministrador {
     }
 
     /**
-     * Registrar Administrador con su usuario
+     * Registrar Administrador, con un usuario, en el sistema.
      *
-     * @param noPersonal
-     * @param nombre
-     * @param apellidoPaterno
-     * @param apellidoMaterno
-     * @param telefono
-     * @param correoElectronico
-     * @param claveAcceso
+     * @param noPersonal Número de personal único
+     * @param nombre Nombre del administrador
+     * @param apellidoPaterno Apellido paterno del administrador
+     * @param apellidoMaterno Apellido materno del administrador
+     * @param telefono Número telefonico del administrador
+     * @param correoElectronico Correo electrónico del usaurio del administrador
+     * @param claveAcceso Clave de acceso del usuario del usuario del administrador
      * @throws NoPersonalDuplicadoException Ya hay un usaurio registrado con el número de personal
-     * @throws UsuarioDuplicadoException Ya hay un usuario registrado en el sistema
+     * @throws UsuarioDuplicadoException    Ya hay un usuario registrado en el sistema
      */
     public void registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,
                           String correoElectronico, String claveAcceso) throws NoPersonalDuplicadoException, UsuarioDuplicadoException {

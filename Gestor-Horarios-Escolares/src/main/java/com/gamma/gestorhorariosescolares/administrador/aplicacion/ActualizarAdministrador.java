@@ -55,7 +55,7 @@ public class ActualizarAdministrador {
             throw new ActualizacionInvalidaException("Ya hay un usario registrado con ese correo electrónico");
 
         //Preparando datos para actualizar
-        Administrador administrador =  new Administrador(administradorData.id(), administradorData.estatus(),
+        Administrador administrador = new Administrador(administradorData.id(), administradorData.estatus(),
                 administradorData.noPersonal(), administradorData.nombre(), administradorData.apellidoPaterno(),
                 administradorData.apellidoMaterno(), administradorData.usuario().id());
 
@@ -65,7 +65,6 @@ public class ActualizarAdministrador {
 
         //Actaulizando
         actualizadorUsuario.actualizar(usuario);
-        actualizadorAdministrador.actualizar(administrador
-        );
+        actualizadorAdministrador.actualizar(administrador);
     }
 }

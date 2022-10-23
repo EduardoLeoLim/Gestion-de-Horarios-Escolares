@@ -14,7 +14,7 @@ public class FormularioAdministradorStage extends CustomStage {
 
     private AdministradorData administradorEdicion;
 
-    private boolean esNuevoRegistro;
+    private final boolean esNuevoRegistro;
 
     private AnchorPane panelFormulario;
 

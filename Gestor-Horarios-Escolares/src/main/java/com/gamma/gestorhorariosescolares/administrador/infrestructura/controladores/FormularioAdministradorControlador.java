@@ -9,9 +9,9 @@ public class FormularioAdministradorControlador {
 
     private final Stage stage;
 
-    private boolean esNuevoRegistro;
+    private final boolean esNuevoRegistro;
 
-    private AdministradorData administrador;
+    private final AdministradorData administrador;
 
     @FXML
     private TextField txtNoPersonal;
@@ -53,12 +53,12 @@ public class FormularioAdministradorControlador {
 
     @FXML
     public void initialize() {
-        if (!esNuevoRegistro)
+        if (!esNuevoRegistro )
             cargarDatosAdministrador();
     }
 
     @FXML
-    private void cerrarFormulario(){
+    private void cerrarFormulario() {
         stage.close();
     }
 

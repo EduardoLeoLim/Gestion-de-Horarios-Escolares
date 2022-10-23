@@ -57,11 +57,9 @@ public class CatalogoAdministradoresControlador {
         colleccionAdministradores = FXCollections.observableArrayList();
 
         //Borrar después
-        var u = new UsuarioData(1, "1223456756","correo", "clave", "admin");
+        var u = new UsuarioData(1, "1223456756", "correo", "clave", "admin");
         var a = new AdministradorData(1, "noPErsonal", "angel", "martinez", "leo lim", true, u);
-        List<AdministradorData> lista = new ArrayList<>();
-        lista.add(a);
-        var u2 = new UsuarioData(1, "8645156786","cofdfdrreo", "clafdfve", "adfdfmin");
+        var u2 = new UsuarioData(1, "8645156786", "cofdfdrreo", "clafdfve", "adfdfmin");
         var a2 = new AdministradorData(1, "noPErfdfdsonal", "anfdfdgel", "marfdfdtinez", "leofdfd lim", false, u2);
         colleccionAdministradores.addAll(a, a2);
         //Borrar después

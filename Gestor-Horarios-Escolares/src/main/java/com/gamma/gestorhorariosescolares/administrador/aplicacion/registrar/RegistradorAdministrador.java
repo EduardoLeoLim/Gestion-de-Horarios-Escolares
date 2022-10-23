@@ -5,6 +5,7 @@ import com.gamma.gestorhorariosescolares.administrador.dominio.AdministradorRepo
 
 /**
  * Clase que permite registrar un Administrador
+ *
  * @author Angel Eduardo Martinez Leo Lim
  * @version 1.0.0
  * @since 1.0.0

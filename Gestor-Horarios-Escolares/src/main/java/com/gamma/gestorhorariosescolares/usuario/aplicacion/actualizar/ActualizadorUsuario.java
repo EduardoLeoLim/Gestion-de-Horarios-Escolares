@@ -3,11 +3,11 @@ package com.gamma.gestorhorariosescolares.usuario.aplicacion.actualizar;
 import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;
 import com.gamma.gestorhorariosescolares.usuario.dominio.UsuarioRepositorio;
 
-public class ActualizadorUsuario implements ServicioActualizadorUsuario{
+public class ActualizadorUsuario implements ServicioActualizadorUsuario {
 
     private final UsuarioRepositorio repositorio;
 
-    public ActualizadorUsuario(UsuarioRepositorio repositorio){
+    public ActualizadorUsuario(UsuarioRepositorio repositorio) {
         this.repositorio = repositorio;
     }
 

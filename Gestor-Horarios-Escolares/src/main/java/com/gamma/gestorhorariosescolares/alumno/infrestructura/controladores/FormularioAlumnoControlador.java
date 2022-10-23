@@ -21,7 +21,7 @@ public class FormularioAlumnoControlador {
     protected void guardarClick() {
         //Datos válidos del formulario
 
-        registrarAlumno("", "","", "", "", "", "", "");
+        registrarAlumno("", "", "", "", "", "", "", "");
     }
 
     private void registrarAlumno(String nombre, String apellidoPaterno, String apellidoMaterno, String curp, String matricula,
