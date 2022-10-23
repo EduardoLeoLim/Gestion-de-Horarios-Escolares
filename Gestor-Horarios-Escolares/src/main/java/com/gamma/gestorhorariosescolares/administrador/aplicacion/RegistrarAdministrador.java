@@ -1,11 +1,12 @@
 package com.gamma.gestorhorariosescolares.administrador.aplicacion;
 
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar.BuscadorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.excepciones.NoPersonalDuplicadoException;
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.RegistradorAdministrador;
-import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
+import com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.ServicioRegistradorAdministrador;
+import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.UsuarioDuplicadoException;
-import com.gamma.gestorhorariosescolares.usuario.aplicacion.registrar.RegistradorUsuario;
+import com.gamma.gestorhorariosescolares.usuario.aplicacion.registrar.ServicioRegistradorUsuario;
+import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;
 
 /**
  * Clase que permite registrar un Administrador con su usuario
@@ -15,10 +16,10 @@ import com.gamma.gestorhorariosescolares.usuario.aplicacion.registrar.Registrado
  * @since 1.0.0
  */
 public class RegistrarAdministrador {
-    private final BuscadorAdministrador buscadorAdministrador;
-    private final RegistradorAdministrador registradorAdministrador;
-    private final BuscadorUsuario buscadorUsuario;
-    private final RegistradorUsuario registradorUsuario;
+    private final ServicioBuscador<Administrador> buscadorAdministrador;
+    private final ServicioRegistradorAdministrador registradorAdministrador;
+    private final ServicioBuscador<Usuario> buscadorUsuario;
+    private final ServicioRegistradorUsuario registradorUsuario;
 
     /**
      * Constructor para RegistrarAdministrador
@@ -28,8 +29,8 @@ public class RegistrarAdministrador {
      * @param buscadorUsuario          El parámetro buscadorUsuario permite buscar usaurios
      * @param registradorUsuario       El parámeto registradorUsuarii permite registrar usuarios
      */
-    public RegistrarAdministrador(BuscadorAdministrador buscadorAdministrador, RegistradorAdministrador registradorAdministrador,
-                                  BuscadorUsuario buscadorUsuario, RegistradorUsuario registradorUsuario) {
+    public RegistrarAdministrador(ServicioBuscador<Administrador> buscadorAdministrador, ServicioRegistradorAdministrador registradorAdministrador,
+                                  ServicioBuscador<Usuario> buscadorUsuario, ServicioRegistradorUsuario registradorUsuario) {
         this.buscadorAdministrador = buscadorAdministrador;
         this.registradorAdministrador = registradorAdministrador;
         this.buscadorUsuario = buscadorUsuario;
