@@ -40,7 +40,7 @@ public class FormularioAlumnoControlador {
             var buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
 
             new RegistrarAlumno(registradorAlumno, buscadorAlumno, registradorUsuario, buscadorUsuario)
-                    .Registrar(nombre, apellidoPaterno, apellidoMaterno, curp, matricula, telefono, correoElectronico, claveAcceso);
+                    .registrar(nombre, apellidoPaterno, apellidoMaterno, curp, matricula, telefono, correoElectronico, claveAcceso);
 
             transaccion.commit();//Guardar cambios en base de datos
             System.out.println("Alumno registrado");
