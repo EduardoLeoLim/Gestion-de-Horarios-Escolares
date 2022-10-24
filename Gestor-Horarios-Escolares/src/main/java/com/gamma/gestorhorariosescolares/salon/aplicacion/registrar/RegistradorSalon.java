@@ -12,8 +12,8 @@ public class RegistradorSalon implements ServicioRegistradorSalon {
     }
 
     @Override
-    public int registrar(String clave, int capacodad, int idEdificio) {
-        Salon salon = new Salon(clave, capacodad, idEdificio);
+    public int registrar(String clave, int capacidad, int idEdificio) {
+        Salon salon = new Salon(clave, capacidad, idEdificio);
         //Validar datos antes de registrar
         return repositorio.registrar(salon);
     }
