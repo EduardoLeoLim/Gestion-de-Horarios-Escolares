@@ -104,7 +104,11 @@ public class BuscadorSalon implements ServicioBuscador<Salon> {
     public List<Salon> buscar() {
         Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
         List<Salon> listaSalones = repositorio.buscar(criterio);
+        //Resetaer para reutilizar instacia
         filtros.clear();
+        ordenador = Order.none();
+        intervalo = Optional.empty();
+        limite = Optional.empty();
         return listaSalones;
     }
 }

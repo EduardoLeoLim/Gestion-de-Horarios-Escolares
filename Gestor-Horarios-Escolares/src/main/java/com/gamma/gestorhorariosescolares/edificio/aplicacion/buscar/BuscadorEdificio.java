@@ -104,7 +104,11 @@ public class BuscadorEdificio implements ServicioBuscador<Edificio> {
     public List<Edificio> buscar() {
         Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
         List<Edificio> listaEdificios = repositorio.buscar(criterio);
+        //Resetaer para reutilizar instacia
         filtros.clear();
+        ordenador = Order.none();
+        intervalo = Optional.empty();
+        limite = Optional.empty();
         return listaEdificios;
     }
 }
