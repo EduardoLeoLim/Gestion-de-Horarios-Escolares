@@ -22,7 +22,7 @@ public class RegistrarAlumno {
         this.registradorUsuario = registradorUsuario;
     }
 
-    public void Registrar(String nombre, String appellidoPaterno, String apellidoMaterno, String curp, String matricula,
+    public void registrar(String nombre, String appellidoPaterno, String apellidoMaterno, String curp, String matricula,
                           String telefono, String correoElectronico, String claveAcceso) throws CurpDuplicadoException, UsuarioDuplicadoException {
         //Validar curp duplicado
         if (buscadorAlumno.igual("curp", curp).buscar().size() > 0)
