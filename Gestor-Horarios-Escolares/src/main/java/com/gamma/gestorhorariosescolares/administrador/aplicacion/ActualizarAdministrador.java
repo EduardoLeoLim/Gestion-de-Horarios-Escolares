@@ -48,7 +48,8 @@ public class ActualizarAdministrador {
                 .diferente("id", String.valueOf(administradorData.id()))
                 .buscar();
         if (listaBusquedaAdministrador.size() > 0)
-            throw new ActualizacionInvalidaException("Ya hay un administrador registrado con el número de personal");
+            throw new ActualizacionInvalidaException("Ya hay un administrador registrado con el número de personal "
+                    + administradorData.noPersonal());
 
         //El correo electrónico no es ocupado por otro usuario
         List<Usuario> listaBusquedaUsuario = buscadorUsuario
@@ -56,7 +57,8 @@ public class ActualizarAdministrador {
                 .diferente("id", String.valueOf(administradorData.usuario().id()))
                 .buscar();
         if (listaBusquedaUsuario.size() > 0)
-            throw new ActualizacionInvalidaException("Ya hay un usario registrado con ese correo electrónico");
+            throw new ActualizacionInvalidaException("Ya hay un usario registrado con ese correo electrónico "
+                    + administradorData.usuario().correoElectronico());
 
         //Preparando datos para actualizar
         Administrador administrador = new Administrador(administradorData.id(), administradorData.estatus(),
