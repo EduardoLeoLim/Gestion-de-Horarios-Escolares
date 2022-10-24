@@ -28,6 +28,11 @@ public class RegistrarAlumno {
         //Validar curp duplicado
         if (buscadorAlumno.igual("curp", curp).buscar().size() > 0)
             throw new CurpDuplicadoException();
+
+        //Validar matrícula
+        if (!buscadorAlumno.igual("matricula", matricula).buscar().isEmpty())
+            throw new MatriculaDuplicadaException("Ya hay un alumno registrado con la matrícula " + matricula);
+
         //Validar usuario duplicado
         if (buscadorUsuario.igual("correoElectronico", correoElectronico).buscar().size() > 0)
             throw new UsuarioDuplicadoException();
