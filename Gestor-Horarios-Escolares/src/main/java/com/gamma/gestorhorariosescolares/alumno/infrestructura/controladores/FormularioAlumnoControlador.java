@@ -3,6 +3,7 @@ package com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.RegistrarAlumno;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.buscar.BuscadorAlumno;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.CurpDuplicadoException;
+import com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.MatriculaDuplicadaException;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.registrar.RegistradorAlumno;
 import com.gamma.gestorhorariosescolares.alumno.infrestructura.persistencia.MySql2oAlumnoRepositorio;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
@@ -44,8 +45,12 @@ public class FormularioAlumnoControlador {
 
             transaccion.commit();//Guardar cambios en base de datos
             System.out.println("Alumno registrado");
-        } catch (CurpDuplicadoException | UsuarioDuplicadoException exception) {
-            new Alert(Alert.AlertType.ERROR, exception.getMessage(), ButtonType.OK).show();
+        } catch (CurpDuplicadoException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
+        } catch (MatriculaDuplicadaException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
+        } catch (UsuarioDuplicadoException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
         }
     }
 }

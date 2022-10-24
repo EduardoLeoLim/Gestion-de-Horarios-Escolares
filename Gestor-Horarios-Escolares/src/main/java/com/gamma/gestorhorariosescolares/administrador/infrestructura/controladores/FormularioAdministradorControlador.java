@@ -6,13 +6,12 @@ import com.gamma.gestorhorariosescolares.administrador.aplicacion.RegistrarAdmin
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.ActualizadorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.ServicioActualizadorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar.BuscadorAdministrador;
-import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.NoPersonalDuplicadoException;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.RegistradorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.ServicioRegistradorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
 import com.gamma.gestorhorariosescolares.administrador.dominio.AdministradorRepositorio;
 import com.gamma.gestorhorariosescolares.administrador.infrestructura.persistencia.MySql2oAdministradorRespositorio;
-import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.ActualizacionInvalidaException;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.NoPersonalDuplicadoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
@@ -166,7 +165,11 @@ public class FormularioAdministradorControlador {
             AdministradorData administradorData = new AdministradorData(administrador.id(), noPersonal, nombre, apellidoPaterno, apellidoMaterno, administrador.estatus(), usuarioData);
 
             actualizarAdministrador.actualizar(administradorData);
-        } catch (ActualizacionInvalidaException | RecursoNoEncontradoException e) {
+        } catch (RecursoNoEncontradoException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        } catch (UsuarioDuplicadoException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        } catch (NoPersonalDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
         }
     }

@@ -1,12 +1,14 @@
 package com.gamma.gestorhorariosescolares.alumno.aplicacion;
 
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.actualizar.ServicioActualizadorAlumno;
+import com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.CurpDuplicadoException;
+import com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.MatriculaDuplicadaException;
 import com.gamma.gestorhorariosescolares.alumno.dominio.Alumno;
-import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.ActualizacionInvalidaException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.UsuarioData;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.actualizar.ServicioActualizadorUsuario;
+import com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.UsuarioDuplicadoException;
 import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;
 
 import java.util.List;
@@ -26,7 +28,7 @@ public class ActualizarAlumno {
         this.buscadorUsuario = buscadorUsuario;
     }
 
-    private void actualizar(AlumnoData alumnoData) throws RecursoNoEncontradoException, ActualizacionInvalidaException {
+    private void actualizar(AlumnoData alumnoData) throws RecursoNoEncontradoException, MatriculaDuplicadaException, CurpDuplicadoException, UsuarioDuplicadoException {
         if (alumnoData == null)
             throw new NullPointerException();
 
@@ -46,7 +48,7 @@ public class ActualizarAlumno {
                 .diferente("id", String.valueOf(alumnoData.id()))
                 .buscar();
         if (listaBusquedaAlumno.size() > 0)
-            throw new ActualizacionInvalidaException("Ya hay un alumno registrado con esa matrícula");
+            throw new MatriculaDuplicadaException("Ya hay un alumno registrado con la matrícula " + alumnoData.matricula());
 
         //Validar que no haya otro alumno con el curp
         listaBusquedaAlumno = buscadorAlumno
@@ -54,7 +56,7 @@ public class ActualizarAlumno {
                 .diferente("id", String.valueOf(alumnoData.id()))
                 .buscar();
         if (listaBusquedaAlumno.size() > 0)
-            throw new ActualizacionInvalidaException("Ya hay un alumno registrado con ese CURP");
+            throw new CurpDuplicadoException("Ya hay un alumno registrado con ese CURP");
 
         //El correo electrónico no es ocupado por otro usuario
         List<Usuario> listaBusquedaUsuario = buscadorUsuario
@@ -62,7 +64,7 @@ public class ActualizarAlumno {
                 .diferente("id", String.valueOf(alumnoData.usuario().id()))
                 .buscar();
         if (listaBusquedaUsuario.size() > 0)
-            throw new ActualizacionInvalidaException("Ya hay un usario registrado con ese correo electrónico");
+            throw new UsuarioDuplicadoException("Ya hay un usario registrado con ese correo electrónico");
 
         //Preparando datos para actualizar
         Alumno alumno = new Alumno(alumnoData.id(), alumnoData.estatus(), alumnoData.matricula(), alumnoData.curp(),

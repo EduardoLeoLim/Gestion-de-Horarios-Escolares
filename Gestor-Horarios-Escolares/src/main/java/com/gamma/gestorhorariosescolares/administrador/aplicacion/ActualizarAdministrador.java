@@ -2,11 +2,12 @@ package com.gamma.gestorhorariosescolares.administrador.aplicacion;
 
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.ServicioActualizadorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
-import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.ActualizacionInvalidaException;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.NoPersonalDuplicadoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.UsuarioData;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.actualizar.ServicioActualizadorUsuario;
+import com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.UsuarioDuplicadoException;
 import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class ActualizarAdministrador {
     }
 
     public void actualizar(AdministradorData administradorData)
-            throws RecursoNoEncontradoException, ActualizacionInvalidaException {
+            throws RecursoNoEncontradoException, NoPersonalDuplicadoException, UsuarioDuplicadoException {
 
         if (administradorData == null)
             throw new NullPointerException();
@@ -48,7 +49,7 @@ public class ActualizarAdministrador {
                 .diferente("id", String.valueOf(administradorData.id()))
                 .buscar();
         if (listaBusquedaAdministrador.size() > 0)
-            throw new ActualizacionInvalidaException("Ya hay un administrador registrado con el número de personal "
+            throw new NoPersonalDuplicadoException("Ya hay un administrador registrado con el número de personal "
                     + administradorData.noPersonal());
 
         //El correo electrónico no es ocupado por otro usuario
@@ -57,7 +58,7 @@ public class ActualizarAdministrador {
                 .diferente("id", String.valueOf(administradorData.usuario().id()))
                 .buscar();
         if (listaBusquedaUsuario.size() > 0)
-            throw new ActualizacionInvalidaException("Ya hay un usario registrado con ese correo electrónico "
+            throw new UsuarioDuplicadoException("Ya hay un usario registrado con ese correo electrónico "
                     + administradorData.usuario().correoElectronico());
 
         //Preparando datos para actualizar

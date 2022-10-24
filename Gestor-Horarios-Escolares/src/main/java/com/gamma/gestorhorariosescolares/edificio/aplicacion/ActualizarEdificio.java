@@ -1,6 +1,6 @@
 package com.gamma.gestorhorariosescolares.edificio.aplicacion;
 
-import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.ActualizacionInvalidaException;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.ClaveDuplicadaException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.edificio.aplicacion.actualizar.ServicioActualizadorEdificio;
@@ -18,7 +18,7 @@ public class ActualizarEdificio {
         this.actualizadorEdificio = actualizadorEdificio;
     }
 
-    private void actualizar(EdificioData edificioData) throws RecursoNoEncontradoException, ActualizacionInvalidaException {
+    private void actualizar(EdificioData edificioData) throws RecursoNoEncontradoException, ClaveDuplicadaException {
         if (edificioData == null)
             throw new NullPointerException();
 
@@ -37,7 +37,7 @@ public class ActualizarEdificio {
                 .igual("clave", edificioData.clave())
                 .buscar();
         if (listaBusquedaEdificio.size() > 0)
-            throw new ActualizacionInvalidaException("Ya hay un edificio registrado con la clave " + edificioData.clave());
+            throw new ClaveDuplicadaException("Ya hay un edificio registrado con la clave " + edificioData.clave());
 
         Edificio edificio = new Edificio(edificioData.id(), edificioData.clave(), edificioData.nombre(), edificioData.estatus());
 
