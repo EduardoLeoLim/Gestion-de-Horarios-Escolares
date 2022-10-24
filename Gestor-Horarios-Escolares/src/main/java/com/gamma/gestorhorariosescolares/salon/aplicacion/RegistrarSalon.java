@@ -22,8 +22,10 @@ public class RegistrarSalon {
     }
 
     public void registrar(String clave, int capacidad, int idEdificio) throws RecursoNoEncontradoException, ClaveDuplicadaException {
+        List<Edificio> listaBusquedaEdificios;
+
         //¿Existe el edificio?
-        List<Edificio> listaBusquedaEdificios = buscadorEdificio
+        listaBusquedaEdificios = buscadorEdificio
                 .igual("id", String.valueOf(idEdificio))
                 .buscar();
         if (listaBusquedaEdificios.isEmpty())
