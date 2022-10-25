@@ -1,0 +1,4 @@
+Host: bnktupv4hkmgz2gog6kd-mysql.services.clever-cloud.com
+Puerto:3306
+Usuario: ua8zbokp6qj8c7wp
+Contraseña:GVuUMfH8OVJtCtFgTjvL
