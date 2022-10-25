@@ -35,7 +35,8 @@ public class RegistrarAlumno {
 
         //Validar usuario duplicado
         if (buscadorUsuario.igual("correoElectronico", correoElectronico).buscar().size() > 0)
-            throw new UsuarioDuplicadoException();
+            throw new UsuarioDuplicadoException("Ya hay un usaurio registrado con el correo electrónico "
+                    + correoElectronico);
 
         //Registrar usuario y obtener su id
         int idUsuario = registradorUsuario.registrar(telefono, correoElectronico, claveAcceso, "Alumno");
