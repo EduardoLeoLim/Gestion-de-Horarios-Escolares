@@ -166,11 +166,11 @@ public class FormularioAdministradorControlador {
 
             actualizarAdministrador.actualizar(administradorData);
         } catch (RecursoNoEncontradoException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (UsuarioDuplicadoException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (NoPersonalDuplicadoException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         }
     }
 
@@ -180,12 +180,12 @@ public class FormularioAdministradorControlador {
         if (noPersonal.trim().length() == 0 || nombre.trim().length() == 0 || apellidoPaterno.trim().length() == 0
                 || apellidoMaterno.trim().length() == 0 || telefono.trim().length() == 0 || correoElectronico.trim().length() == 0
                 || claveAcceso.trim().length() == 0 || confirmacionClaveAcceso.trim().length() == 0) {
-            new Alert(Alert.AlertType.WARNING, "Hay campos vacios en el formulario, además no se permiten los espacios en blanco", ButtonType.OK);
+            new Alert(Alert.AlertType.WARNING, "Hay campos vacios en el formulario, además no se permiten los espacios en blanco", ButtonType.OK).showAndWait();
             return false;
         }
 
         if (!claveAcceso.trim().equals(confirmacionClaveAcceso.trim())) {
-            new Alert(Alert.AlertType.WARNING, "Las contraseñas no coinciden. Asegurese que coincidan", ButtonType.OK);
+            new Alert(Alert.AlertType.WARNING, "Las contraseñas no coinciden. Asegurese que coincidan", ButtonType.OK).showAndWait();
             return false;
         }
 
