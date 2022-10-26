@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
 
 public class LoginControlador {
     private final Stage stage;
@@ -52,6 +53,8 @@ public class LoginControlador {
             mostrarMenu(usuario);
         } catch (RecursoNoEncontradoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
+        } catch (Sql2oException e) {
+            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK).show();
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
         }
