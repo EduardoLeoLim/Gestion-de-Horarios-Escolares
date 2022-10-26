@@ -48,11 +48,11 @@ public final class Filter {
     }
 
     public void optional() {
-        isObligatory = true;
+        isObligatory = false;
     }
 
     public void obligatory() {
-        isObligatory = false;
+        isObligatory = true;
     }
 
     public String serialize() {
