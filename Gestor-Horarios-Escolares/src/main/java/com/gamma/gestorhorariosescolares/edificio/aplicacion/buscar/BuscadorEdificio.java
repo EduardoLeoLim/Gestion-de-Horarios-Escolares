@@ -88,6 +88,30 @@ public class BuscadorEdificio implements ServicioBuscador<Edificio> {
         return this;
     }
 
+    /**
+     * Define al último filtro agregado como opcional
+     *
+     * @return ServicioBuscador
+     */
+    @Override
+    public BuscadorEdificio esObligatorio() {
+        if (!filtros.isEmpty())
+            filtros.get(filtros.size() - 1).obligatory();
+        return this;
+    }
+
+    /**
+     * Define al último filtro agregado como obligatorio
+     *
+     * @return ServicioBuscador
+     */
+    @Override
+    public BuscadorEdificio esOpcional() {
+        if (!filtros.isEmpty())
+            filtros.get(filtros.size() - 1).optional();
+        return this;
+    }
+
     @Override
     public BuscadorEdificio intervalo(int intervalo) {
         this.intervalo = Optional.of(intervalo);

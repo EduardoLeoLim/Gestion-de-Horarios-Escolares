@@ -88,6 +88,30 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
         return this;
     }
 
+    /**
+     * Define al último filtro agregado como opcional
+     *
+     * @return ServicioBuscador
+     */
+    @Override
+    public ServicioBuscador<Secretario> esObligatorio() {
+        if (!filtros.isEmpty())
+            filtros.get(filtros.size() - 1).obligatory();
+        return this;
+    }
+
+    /**
+     * Define al último filtro agregado como obligatorio
+     *
+     * @return ServicioBuscador
+     */
+    @Override
+    public ServicioBuscador<Secretario> esOpcional() {
+        if (!filtros.isEmpty())
+            filtros.get(filtros.size() - 1).optional();
+        return this;
+    }
+
     @Override
     public ServicioBuscador<Secretario> intervalo(int intervalo) {
         this.intervalo = Optional.of(intervalo);

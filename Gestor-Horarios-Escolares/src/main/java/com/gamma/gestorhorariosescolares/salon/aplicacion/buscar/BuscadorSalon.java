@@ -88,6 +88,30 @@ public class BuscadorSalon implements ServicioBuscador<Salon> {
         return this;
     }
 
+    /**
+     * Define al último filtro agregado como opcional
+     *
+     * @return ServicioBuscador
+     */
+    @Override
+    public ServicioBuscador<Salon> esObligatorio() {
+        if (!filtros.isEmpty())
+            filtros.get(filtros.size() - 1).obligatory();
+        return this;
+    }
+
+    /**
+     * Define al último filtro agregado como obligatorio
+     *
+     * @return ServicioBuscador
+     */
+    @Override
+    public ServicioBuscador<Salon> esOpcional() {
+        if (!filtros.isEmpty())
+            filtros.get(filtros.size() - 1).optional();
+        return this;
+    }
+
     @Override
     public BuscadorSalon intervalo(int intervalo) {
         this.intervalo = Optional.of(intervalo);

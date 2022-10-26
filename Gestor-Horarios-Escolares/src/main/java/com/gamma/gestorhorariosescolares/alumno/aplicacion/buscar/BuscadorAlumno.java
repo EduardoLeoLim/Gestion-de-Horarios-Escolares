@@ -87,6 +87,30 @@ public class BuscadorAlumno implements ServicioBuscador<Alumno> {
         return this;
     }
 
+    /**
+     * Define al último filtro agregado como opcional
+     *
+     * @return ServicioBuscador
+     */
+    @Override
+    public BuscadorAlumno esObligatorio() {
+        if (!filtros.isEmpty())
+            filtros.get(filtros.size() - 1).obligatory();
+        return this;
+    }
+
+    /**
+     * Define al último filtro agregado como obligatorio
+     *
+     * @return ServicioBuscador
+     */
+    @Override
+    public BuscadorAlumno esOpcional() {
+        if (!filtros.isEmpty())
+            filtros.get(filtros.size() - 1).optional();
+        return this;
+    }
+
     @Override
     public BuscadorAlumno intervalo(int intervalo) {
         this.intervalo = Optional.of(intervalo);
