@@ -6,11 +6,13 @@ public final class Filter {
     private final FilterField field;
     private final FilterOperator operator;
     private final FilterValue value;
+    private Boolean isObligatory;
 
     public Filter(FilterField field, FilterOperator operator, FilterValue value) {
         this.field = field;
         this.operator = operator;
         this.value = value;
+        isObligatory = true;
     }
 
     public static Filter create(String field, String operator, String value) {
@@ -41,7 +43,19 @@ public final class Filter {
         return value;
     }
 
+    public Boolean isObligatory() {
+        return isObligatory;
+    }
+
+    public void optional() {
+        isObligatory = true;
+    }
+
+    public void obligatory() {
+        isObligatory = false;
+    }
+
     public String serialize() {
-        return String.format("%s.%s.%s", field.value(), operator.value(), value.value());
+        return String.format("%s.%s.%s.%s", field.value(), operator.value(), value.value(), isObligatory());
     }
 }
