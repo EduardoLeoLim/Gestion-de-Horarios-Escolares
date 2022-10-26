@@ -28,60 +28,129 @@ public class BuscadorEdificio implements ServicioBuscador<Edificio> {
         limite = Optional.empty();
     }
 
+
+    /**
+     * Define filtro, en donde el valor debe ser igual al campo
+     *
+     * @param campo Campo que se desea comprobar
+     * @param valor Valor que se utiliza para hacer la comprobación
+     * @return ServicioBuscador
+     */
     @Override
     public BuscadorEdificio igual(String campo, String valor) {
         filtros.add(Filter.create(campo, "=", valor));
         return this;
     }
 
+    /**
+     * Define filtro, en donde el valor debe ser diferente al campo
+     *
+     * @param campo Campo que se desea comprobar
+     * @param valor Valor que se utiliza para hacer la comprobación
+     * @return ServicioBuscador
+     */
     @Override
     public BuscadorEdificio diferente(String campo, String valor) {
         filtros.add(Filter.create(campo, "!=", valor));
         return this;
     }
 
+    /**
+     * Define filtro, en donde el valor debe ser mayor al campo
+     *
+     * @param campo Campo que se desea comprobar
+     * @param valor Valor que se utiliza para hacer la comprobación
+     * @return ServicioBuscador
+     */
     @Override
     public BuscadorEdificio mayorQue(String campo, String valor) {
         filtros.add(Filter.create(campo, ">", valor));
         return this;
     }
 
+    /**
+     * Define filtro, en donde el valor debe ser mayor o igual al campo
+     *
+     * @param campo Campo que se desea comprobar
+     * @param valor Valor que se utiliza para hacer la comprobación
+     * @return ServicioBuscador
+     */
     @Override
     public BuscadorEdificio mayorIgualQue(String campo, String valor) {
         filtros.add(Filter.create(campo, ">=", valor));
         return this;
     }
 
+    /**
+     * Define filtro, en donde el valor debe ser menor al campo
+     *
+     * @param campo Campo que se desea comprobar
+     * @param valor Valor que se utiliza para hacer la comprobación
+     * @return ServicioBuscador
+     */
     @Override
     public BuscadorEdificio menorQue(String campo, String valor) {
         filtros.add(Filter.create(campo, "<", valor));
         return this;
     }
 
+    /**
+     * Define filtro, en donde el valor debe ser menor o igual al campo
+     *
+     * @param campo Campo que se desea comprobar
+     * @param valor Valor que se utiliza para hacer la comprobación
+     * @return ServicioBuscador
+     */
     @Override
     public BuscadorEdificio menorIgualQue(String campo, String valor) {
         filtros.add(Filter.create(campo, "<=", valor));
         return this;
     }
 
+    /**
+     * Define filtro, en donde el campo contiene el valor
+     *
+     * @param campo Campo que se desea comprobar
+     * @param valor Valor que se utiliza para hacer la comprobación
+     * @return ServicioBuscador
+     */
     @Override
     public BuscadorEdificio contiene(String campo, String valor) {
         filtros.add(Filter.create(campo, "CONTAINS", valor));
         return this;
     }
 
+    /**
+     * Define filtro, en donde el campo no contiene el valor
+     *
+     * @param campo Campo que se desea comprobar
+     * @param valor Valor que se utiliza para hacer la comprobación
+     * @return ServicioBuscador
+     */
     @Override
     public BuscadorEdificio noContiene(String campo, String valor) {
         filtros.add(Filter.create(campo, "NOT_CONTAINS", valor));
         return this;
     }
 
+    /**
+     * Define filtro para ordenar de forma ascendente
+     *
+     * @param campo Campo que se utiliza para ordenar el resultado de la búsqueda
+     * @return ServicioBuscador
+     */
     @Override
     public BuscadorEdificio ordenarAscendente(String campo) {
         ordenador = Order.asc(campo);
         return this;
     }
 
+    /**
+     * Define filtro para ordenar de forma descendente
+     *
+     * @param campo CCampo que se utiliza para ordenar el resultado de la búsqueda
+     * @return ServicioBuscador
+     */
     @Override
     public BuscadorEdificio ordenarDescendente(String campo) {
         ordenador = Order.desc(campo);
@@ -112,18 +181,35 @@ public class BuscadorEdificio implements ServicioBuscador<Edificio> {
         return this;
     }
 
+    /**
+     * Define cuantos recursos serán omitidos al principio de la búsqueda
+     *
+     * @param intervalo Cantidad de recursos que serán omitidos
+     * @return ServicioBuscador
+     */
     @Override
     public BuscadorEdificio intervalo(int intervalo) {
         this.intervalo = Optional.of(intervalo);
         return this;
     }
 
+    /**
+     * Define la cantidad de recursos que se obtendrán
+     *
+     * @param limite Cantidad de recursos que se obtendrán
+     * @return ServicioBuscador
+     */
     @Override
     public BuscadorEdificio limite(int limite) {
         this.limite = Optional.of(limite);
         return this;
     }
 
+    /**
+     * Busca los recursos
+     *
+     * @return Lista de recursos que cumplan los filtros definidos
+     */
     @Override
     public List<Edificio> buscar() {
         Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
