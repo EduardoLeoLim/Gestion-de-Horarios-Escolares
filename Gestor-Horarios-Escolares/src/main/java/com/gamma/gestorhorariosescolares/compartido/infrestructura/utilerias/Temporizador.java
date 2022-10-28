@@ -8,30 +8,30 @@ public class Temporizador extends Timer {
     private final Temporizador instancia;
     private final int tiempoReinicio;
     private final Consumer<Temporizador> funcionFinalTemporizador;
-    private int tiempoEseraBusquesa;
+    private int tiempoEsperaBusqueda;
     private boolean finalizado;
 
     public Temporizador(int tiempoReinicio, Consumer<Temporizador> funcionFinalTemporizador) {
         instancia = this;
         this.tiempoReinicio = tiempoReinicio;
-        tiempoEseraBusquesa = 0;
+        tiempoEsperaBusqueda = 0;
         finalizado = false;
         this.funcionFinalTemporizador = funcionFinalTemporizador;
-        cargagarTarea();
+        cargarTarea();
     }
 
-    private void cargagarTarea() {
+    private void cargarTarea() {
         schedule(new TimerTask() {
             @Override
             public void run() {
-                if (tiempoEseraBusquesa == 0 && finalizado) {
+                if (tiempoEsperaBusqueda == 0 && finalizado) {
                     funcionFinalTemporizador.accept(instancia);
                     finalizado = false;
                     return;
                 }
-                if (tiempoEseraBusquesa > 0) {
-                    tiempoEseraBusquesa--;
-                    if (tiempoEseraBusquesa == 0)
+                if (tiempoEsperaBusqueda > 0) {
+                    tiempoEsperaBusqueda--;
+                    if (tiempoEsperaBusqueda == 0)
                         finalizado = true;
                 }
             }
@@ -39,6 +39,6 @@ public class Temporizador extends Timer {
     }
 
     public void reiniciar() {
-        tiempoEseraBusquesa = tiempoReinicio;
+        tiempoEsperaBusqueda = tiempoReinicio;
     }
 }
