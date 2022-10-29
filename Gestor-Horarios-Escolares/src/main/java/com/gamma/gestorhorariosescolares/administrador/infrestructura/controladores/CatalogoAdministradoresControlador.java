@@ -24,6 +24,7 @@ public class CatalogoAdministradoresControlador {
     private final Stage stage;
     private Temporizador temporizadorBusqueda;
     private ObservableList<AdministradorData> colleccionAdministradores;
+    private Boolean esBusquedaDeAdministrador;
 
     @FXML
     private TextField txtBuscar;
@@ -46,7 +47,7 @@ public class CatalogoAdministradoresControlador {
             buscarAdministradores(txtBuscar.getText().trim());
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue.trim().equals(newValue.trim()))//No se realiza la busqueda cuando se presionan teclas que no modifican la cadena de búsqueda.
+            if (oldValue.trim().equals(newValue.trim()) && esBusquedaDeAdministrador)//No se realiza la busqueda cuando se presionan teclas que no modifican la cadena de búsqueda.
                 return;
             temporizadorBusqueda.reiniciar();
         });
@@ -140,12 +141,14 @@ public class CatalogoAdministradoresControlador {
         var formulario = new FormularioAdministradorStage();
         formulario.initOwner(stage);
         formulario.showAndWait();
+        buscarAdministradores();
     }
 
     public void editarAdministrador(AdministradorData administrador) {
         var formulario = new FormularioAdministradorStage(administrador);
         formulario.initOwner(stage);
         formulario.showAndWait();
+        buscarAdministradores();
     }
 
     public void habilitarAdministrador(AdministradorData administrador) {
@@ -157,7 +160,10 @@ public class CatalogoAdministradoresControlador {
     }
 
     private void buscarAdministradores() {
+        esBusquedaDeAdministrador = false;
+        txtBuscar.setText("");
         buscarAdministradores("");
+        esBusquedaDeAdministrador = true;
     }
 
     private void buscarAdministradores(String criterioBusqueda) {
