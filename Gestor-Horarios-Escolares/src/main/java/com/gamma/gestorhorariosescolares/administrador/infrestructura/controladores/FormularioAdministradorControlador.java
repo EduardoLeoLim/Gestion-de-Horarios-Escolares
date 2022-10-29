@@ -119,14 +119,13 @@ public class FormularioAdministradorControlador {
 
         try (Connection transaccion = conexion.beginTransaction()) {
             //Repositorios
-            UsuarioRepositorio usuarioRepositorio = new MySql2oUsuarioRepositorio(transaccion);
-            AdministradorRepositorio administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
+            var usuarioRepositorio = new MySql2oUsuarioRepositorio(transaccion);
+            var administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
 
-            ServicioBuscador<Administrador> buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
-            ServicioBuscador<Usuario> buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
-
-            ServicioRegistradorAdministrador registradorAdministrador = new RegistradorAdministrador(administradorRepositorio);
-            ServicioRegistradorUsuario registradorUsuario = new RegistradorUsuario(usuarioRepositorio);
+            var buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
+            var buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
+            var registradorAdministrador = new RegistradorAdministrador(administradorRepositorio);
+            var registradorUsuario = new RegistradorUsuario(usuarioRepositorio);
 
             new RegistrarAdministrador(buscadorAdministrador, registradorAdministrador, buscadorUsuario, registradorUsuario)
                     .registrar(noPersonal, nombre, apellidoPaterno, apellidoMaterno, telefono, correoElectronico, claveAcceso);
@@ -152,14 +151,14 @@ public class FormularioAdministradorControlador {
 
         try (Connection transaccion = conexion.beginTransaction()) {
             //Repositorios
-            UsuarioRepositorio usuarioRepositorio = new MySql2oUsuarioRepositorio(transaccion);
-            AdministradorRepositorio administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
+            var usuarioRepositorio = new MySql2oUsuarioRepositorio(transaccion);
+            var administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
 
             //Servicios
-            ServicioActualizadorAdministrador actualizadorAdministrador = new ActualizadorAdministrador(administradorRepositorio);
-            ServicioActualizadorUsuario actualizadorUsuario = new ActualizadorUsuario(usuarioRepositorio);
-            ServicioBuscador<Administrador> buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
-            ServicioBuscador<Usuario> buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
+            var actualizadorAdministrador = new ActualizadorAdministrador(administradorRepositorio);
+            var actualizadorUsuario = new ActualizadorUsuario(usuarioRepositorio);
+            var buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
+            var buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
 
             ActualizarAdministrador actualizarAdministrador = new ActualizarAdministrador(actualizadorAdministrador,
                     buscadorAdministrador, buscadorUsuario, actualizadorUsuario);
