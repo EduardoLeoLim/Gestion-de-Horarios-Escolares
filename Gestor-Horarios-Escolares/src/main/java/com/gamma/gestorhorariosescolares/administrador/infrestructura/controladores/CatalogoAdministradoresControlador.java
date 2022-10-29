@@ -3,9 +3,13 @@ package com.gamma.gestorhorariosescolares.administrador.infrestructura.controlad
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.AdministradorData;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.AdministradoresData;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.BuscarAdministradores;
+import com.gamma.gestorhorariosescolares.administrador.aplicacion.GestionarEstatusAdministrador;
+import com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.ActualizadorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar.BuscadorAdministrador;
+import com.gamma.gestorhorariosescolares.administrador.dominio.AdministradorRepositorio;
 import com.gamma.gestorhorariosescolares.administrador.infrestructura.persistencia.MySql2oAdministradorRespositorio;
 import com.gamma.gestorhorariosescolares.administrador.infrestructura.stages.FormularioAdministradorStage;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
@@ -18,6 +22,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
 
 public class CatalogoAdministradoresControlador {
 
@@ -152,11 +157,57 @@ public class CatalogoAdministradoresControlador {
     }
 
     public void habilitarAdministrador(AdministradorData administrador) {
+        Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
 
+        try (Connection transaccion = conexion.beginTransaction()) {
+            //Repositorios
+            AdministradorRepositorio administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
+
+            //Servicios
+            BuscadorAdministrador buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
+            ActualizadorAdministrador actualizadorAdministrador = new ActualizadorAdministrador(administradorRepositorio);
+
+            GestionarEstatusAdministrador gestionarEstatusAdministrador = new GestionarEstatusAdministrador(
+                    buscadorAdministrador,
+                    actualizadorAdministrador
+            );
+            gestionarEstatusAdministrador.habilitarAdministrador(administrador.id());
+
+            transaccion.commit();
+        } catch (Sql2oException e) {
+            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+        } catch (RecursoNoEncontradoException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
+        } finally {
+            buscarAdministradores();
+        }
     }
 
     public void deshabilitarAdministrador(AdministradorData administrador) {
+        Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
 
+        try (Connection transaccion = conexion.beginTransaction()) {
+            //Repositorios
+            AdministradorRepositorio administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
+
+            //Servicios
+            BuscadorAdministrador buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
+            ActualizadorAdministrador actualizadorAdministrador = new ActualizadorAdministrador(administradorRepositorio);
+
+            GestionarEstatusAdministrador gestionarEstatusAdministrador = new GestionarEstatusAdministrador(
+                    buscadorAdministrador,
+                    actualizadorAdministrador
+            );
+            gestionarEstatusAdministrador.deshabilitarAdministrador(administrador.id());
+
+            transaccion.commit();
+        } catch (Sql2oException e) {
+            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+        } catch (RecursoNoEncontradoException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
+        } finally {
+            buscarAdministradores();
+        }
     }
 
     private void buscarAdministradores() {
