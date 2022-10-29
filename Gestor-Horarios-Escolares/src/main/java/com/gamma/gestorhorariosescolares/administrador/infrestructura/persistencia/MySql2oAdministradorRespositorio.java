@@ -33,7 +33,7 @@ public class MySql2oAdministradorRespositorio implements AdministradorRepositori
         List<Administrador> administradores = new ArrayList<>();
         String consulta;
 
-        //Se añade filtro de tipo como opbligatorio para solo obtener administradores
+        //Se añade filtro de tipo como obligatorio para solo obtener administradores
         Filter filtroTipoEmpleado = Filter.create("tipo", "=", "Administrador");
         filtroTipoEmpleado.obligatory();
         criterio.filters().filters().add(filtroTipoEmpleado);
@@ -68,7 +68,7 @@ public class MySql2oAdministradorRespositorio implements AdministradorRepositori
     /**
      * Registrar nuevo administrador
      *
-     * @param administrador El parámetro administrador es el Administrador que se registrará
+     * @param administrador Administrador que se registrará
      * @return Identificador asignado al administrador al ser registrado
      */
     @Override
@@ -91,9 +91,9 @@ public class MySql2oAdministradorRespositorio implements AdministradorRepositori
     }
 
     /**
-     * Actualizar el administrador
+     * Actualizar un administrador
      *
-     * @param administrador El parametro administrador es el Administrador que se actualizará
+     * @param administrador Administrador que se actualizará
      */
     @Override
     public void actualizar(Administrador administrador) {

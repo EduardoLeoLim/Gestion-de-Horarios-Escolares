@@ -22,6 +22,12 @@ public class MySql2oSecretarioRepositorio implements SecretarioRepositorio {
         this.conexion = conexion;
     }
 
+    /**
+     * Buscar secretarios que cumplan con los filtros especificados
+     *
+     * @param criterio Criterios que deben cumplir los secretarios
+     * @return Lista de secretarios
+     */
     @Override
     public List<Secretario> buscar(Criteria criterio) {
         List<Secretario> secretarios = new ArrayList<>();
@@ -58,6 +64,12 @@ public class MySql2oSecretarioRepositorio implements SecretarioRepositorio {
         return secretarios;
     }
 
+    /**
+     * Registrar nuevo secretario
+     *
+     * @param secretario Secretario que se registrará
+     * @return Identificador asignado al secretario al ser registrado
+     */
     @Override
     public int registrar(Secretario secretario) {
         String consulta = "INSERT INTO empleado (noPersonal, nombre, apellidoPaterno, apellidoMaterno, estatus, tipo, idUsuario) " +
@@ -77,6 +89,11 @@ public class MySql2oSecretarioRepositorio implements SecretarioRepositorio {
         return idSecretario;
     }
 
+    /**
+     * Actualizar un secretario
+     *
+     * @param secretario Secretario que se actualizará
+     */
     @Override
     public void actualizar(Secretario secretario) {
         String consultaSelect = "SELECT * FROM empleado WHERE id = :id FOR UPDATE;";
