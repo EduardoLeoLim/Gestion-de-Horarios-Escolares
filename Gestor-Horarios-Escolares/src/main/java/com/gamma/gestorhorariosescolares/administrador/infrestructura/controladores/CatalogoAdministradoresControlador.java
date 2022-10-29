@@ -6,7 +6,6 @@ import com.gamma.gestorhorariosescolares.administrador.aplicacion.BuscarAdminist
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.GestionarEstatusAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.ActualizadorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar.BuscadorAdministrador;
-import com.gamma.gestorhorariosescolares.administrador.dominio.AdministradorRepositorio;
 import com.gamma.gestorhorariosescolares.administrador.infrestructura.persistencia.MySql2oAdministradorRespositorio;
 import com.gamma.gestorhorariosescolares.administrador.infrestructura.stages.FormularioAdministradorStage;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
@@ -211,12 +210,12 @@ public class CatalogoAdministradoresControlador {
 
         try (Connection transaccion = conexion.beginTransaction()) {
             //inicializar repositorios
-            MySql2oAdministradorRespositorio administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
-            MySql2oUsuarioRepositorio usuarioRepositorio = new MySql2oUsuarioRepositorio(transaccion);
+            var administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
+            var usuarioRepositorio = new MySql2oUsuarioRepositorio(transaccion);
 
             //Inicializar servicios
-            BuscadorAdministrador buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
-            BuscadorUsuario buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
+            var buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
+            var buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
 
             //Inicializar caso de uso
             BuscarAdministradores buscarAdministradores = new BuscarAdministradores(buscadorAdministrador, buscadorUsuario);
