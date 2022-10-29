@@ -2,15 +2,22 @@ package com.gamma.gestorhorariosescolares.administrador.infrestructura.controlad
 
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.AdministradorData;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.AdministradoresData;
+import com.gamma.gestorhorariosescolares.administrador.aplicacion.BuscarAdministradores;
+import com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar.BuscadorAdministrador;
+import com.gamma.gestorhorariosescolares.administrador.infrestructura.persistencia.MySql2oAdministradorRespositorio;
 import com.gamma.gestorhorariosescolares.administrador.infrestructura.stages.FormularioAdministradorStage;
+import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
-import com.gamma.gestorhorariosescolares.usuario.aplicacion.UsuarioData;
+import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
+import com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.sql2o.Connection;
+import org.sql2o.Sql2o;
 
 public class CatalogoAdministradoresControlador {
 
@@ -46,18 +53,12 @@ public class CatalogoAdministradoresControlador {
 
         //Configuracion de la tabla
         inicializarTabla();
+        buscarAdministradores();
     }
 
     private void inicializarTabla() {
+        tablaAdministradores.setEditable(false);
         colleccionAdministradores = FXCollections.observableArrayList();
-
-        //Borrar después
-        var u = new UsuarioData(1, "1223456756", "correo", "clave", "admin");
-        var a = new AdministradorData(1, "noPErsonal", "angel", "martinez", "leo lim", true, u);
-        var u2 = new UsuarioData(1, "8645156786", "cofdfdrreo", "clafdfve", "adfdfmin");
-        var a2 = new AdministradorData(1, "noPErfdfdsonal", "anfdfdgel", "marfdfdtinez", "leofdfd lim", false, u2);
-        colleccionAdministradores.addAll(a, a2);
-        //Borrar después
 
         TableColumn<AdministradorData, String> columnaNoPersonal = new TableColumn<>("No. Personal");
         columnaNoPersonal.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().noPersonal()));
@@ -138,18 +139,10 @@ public class CatalogoAdministradoresControlador {
     protected void registrarNuevoAdministrador() {
         var formulario = new FormularioAdministradorStage();
         formulario.initOwner(stage);
-        //formulario.initModality(Modality.WINDOW_MODAL); se establece por defecto en el constructor
         formulario.showAndWait();
     }
 
     public void editarAdministrador(AdministradorData administrador) {
-//        var a = new Stage();
-//        a.initModality(Modality.WINDOW_MODAL);
-//        a.initOwner(stage);
-//        a.showAndWait();
-
-        System.out.println(administrador.nombre());
-        System.out.println("administrador.nombre()");
         var formulario = new FormularioAdministradorStage(administrador);
         formulario.initOwner(stage);
         formulario.showAndWait();
@@ -163,16 +156,44 @@ public class CatalogoAdministradoresControlador {
 
     }
 
-    private void buscarAdministradores(String criterioBusqueda) {
-        System.out.println("Busqueda de administradores por criterio: '" + criterioBusqueda + "'");
+    private void buscarAdministradores() {
+        buscarAdministradores("");
     }
 
-    private void cargarAdministradoresEnTabla(AdministradoresData listaAdministradores) {
-        if (listaAdministradores == null)
+    private void buscarAdministradores(String criterioBusqueda) {
+
+        AdministradoresData administradores;
+        Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
+
+        try (Connection transaccion = conexion.beginTransaction()) {
+            //inicializar repositorios
+            MySql2oAdministradorRespositorio administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
+            MySql2oUsuarioRepositorio usuarioRepositorio = new MySql2oUsuarioRepositorio(transaccion);
+
+            //Inicializar servicios
+            BuscadorAdministrador buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
+            BuscadorUsuario buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
+
+            //Inicializar caso de uso
+            BuscarAdministradores buscarAdministradores = new BuscarAdministradores(buscadorAdministrador, buscadorUsuario);
+
+            if (criterioBusqueda.isBlank()) {
+                administradores = buscarAdministradores.buscarTodos();
+            } else {
+                System.out.println("Busqueda de administradores por criterio: '" + criterioBusqueda + "'");
+                administradores = buscarAdministradores.buscarPorCriterio(criterioBusqueda);
+            }
+        }
+
+        cargarAdministradoresEnTabla(administradores);
+    }
+
+    private void cargarAdministradoresEnTabla(AdministradoresData administradores) {
+        if (administradores == null)
             return;
 
         colleccionAdministradores.clear();
-        colleccionAdministradores.addAll(listaAdministradores.administradores());
+        colleccionAdministradores.addAll(administradores.administradores());
     }
 
     public void liberarRecursos() {
