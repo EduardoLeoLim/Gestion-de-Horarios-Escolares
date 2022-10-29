@@ -44,4 +44,20 @@ public class BuscarAdministradores {
         return new AdministradoresData(listaAdministradoresData);
     }
 
+    public AdministradoresData buscarPorCriterio(String criterio) {
+        List<Administrador> listaAdministradores = buscadorAdministrador
+                .contiene("noPersonal", criterio).esOpcional()
+                .contiene("nombre",criterio).esOpcional()
+                .contiene("apellidoPaterno",criterio).esOpcional()
+                .contiene("apellidoMaterno", criterio).esOpcional()
+                .buscar();
+
+        List<AdministradorData> listaAdministradoresData = listaAdministradores.stream().map(administrador -> {
+            Usuario usuario = buscadorUsuario.igual("id", String.valueOf(administrador.idUsuario())).buscar().get(0);
+            return AdministradorData.fromAggregate(administrador, usuario);
+        }).collect(Collectors.toList());
+
+        return new AdministradoresData(listaAdministradoresData);
+    }
+
 }
