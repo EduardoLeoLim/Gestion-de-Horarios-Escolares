@@ -1,15 +1,24 @@
 package com.gamma.gestorhorariosescolares.secretario.infrestructura.controladores;
 
+import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
+import com.gamma.gestorhorariosescolares.secretario.aplicacion.BuscarSecretarios;
 import com.gamma.gestorhorariosescolares.secretario.aplicacion.SecretarioData;
 import com.gamma.gestorhorariosescolares.secretario.aplicacion.SecretariosData;
+import com.gamma.gestorhorariosescolares.secretario.aplicacion.buscar.BuscadorSecretario;
+import com.gamma.gestorhorariosescolares.secretario.infrestructura.persistencia.MySql2oSecretarioRepositorio;
 import com.gamma.gestorhorariosescolares.secretario.infrestructura.stages.FormularioSecretarioStage;
+import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
+import com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.sql2o.Connection;
+import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
 
 public class CatalogoSecretariosControlador {
 
@@ -46,7 +55,7 @@ public class CatalogoSecretariosControlador {
         });
 
         inicializarTabla();
-        //Buscar y agregar secretarios a tabla
+        buscarSecretarios();
     }
 
     private void inicializarTabla() {
@@ -157,8 +166,40 @@ public class CatalogoSecretariosControlador {
         temporizadorBusqueda.reiniciar();
     }
 
-    private void buscarSecretarios(String criterioBuscqueda) {
-        System.out.println("Busqueda de secretarios por criterio: '" + criterioBuscqueda + "'");
+    private void buscarSecretarios(String criterioBusqueda) {
+
+
+        if (criterioBusqueda == null)
+            criterioBusqueda = "";
+
+        SecretariosData secretarios;
+        Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
+
+        try (Connection transaccion = conexion.beginTransaction()) {
+            //inicializar repositorios
+            var secretarioRepositorio = new MySql2oSecretarioRepositorio(transaccion);
+            var usuarioRepositorio = new MySql2oUsuarioRepositorio(transaccion);
+
+            //Inicializar servicios
+            var buscadorSecretario = new BuscadorSecretario(secretarioRepositorio);
+            var buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
+
+            //Inicializar caso de uso
+            BuscarSecretarios buscarSecretarios = new BuscarSecretarios(buscadorSecretario, buscadorUsuario);
+
+            if (criterioBusqueda.isBlank()) {
+                secretarios = buscarSecretarios.buscarTodos();
+            } else {
+                System.out.println("Busqueda de secretarios por criterio: '" + criterioBusqueda + "'");
+                secretarios = buscarSecretarios.buscarPorCriterio(criterioBusqueda);
+            }
+
+            cargarSecretariosEnTabla(secretarios);
+        } catch (Sql2oException e) {
+            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+        }
+
+
     }
 
     private void cargarSecretariosEnTabla(SecretariosData listaSecretarios) {
