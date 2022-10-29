@@ -12,10 +12,9 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class CatalogoSecretariosControlador {
+
     private final Stage stage;
-
     private Temporizador temporizadorBusqueda;
-
     private ObservableList<SecretarioData> coleccionSecretarios;
     private boolean esBusquedaDeSecretario;
 

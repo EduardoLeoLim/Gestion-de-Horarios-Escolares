@@ -142,7 +142,7 @@ public class CatalogoAdministradoresControlador {
     }
 
     @FXML
-    protected void registrarNuevoAdministrador() {
+    private void registrarNuevoAdministrador() {
         var formulario = new FormularioAdministradorStage();
         formulario.initOwner(stage);
         formulario.showAndWait();
@@ -204,6 +204,8 @@ public class CatalogoAdministradoresControlador {
     }
 
     private void buscarAdministradores(String criterioBusqueda) {
+        if (criterioBusqueda == null)
+            criterioBusqueda = "";
 
         AdministradoresData administradores;
         Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
