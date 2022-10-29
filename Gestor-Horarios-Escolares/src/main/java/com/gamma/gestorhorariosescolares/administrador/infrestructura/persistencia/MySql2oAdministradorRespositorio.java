@@ -79,7 +79,7 @@ public class MySql2oAdministradorRespositorio implements AdministradorRepositori
         int idAdministrador = conexion.createQuery(consulta)
                 .addParameter("noPersonal", administrador.noPersonal())
                 .addParameter("nombre", administrador.nombre())
-                .addParameter("apellidoPaterno", administrador.apellidoMaterno())
+                .addParameter("apellidoPaterno", administrador.apellidoPaterno())
                 .addParameter("apellidoMaterno", administrador.apellidoMaterno())
                 .addParameter("estatus", administrador.estatus())
                 .addParameter("tipo", "Administrador")
