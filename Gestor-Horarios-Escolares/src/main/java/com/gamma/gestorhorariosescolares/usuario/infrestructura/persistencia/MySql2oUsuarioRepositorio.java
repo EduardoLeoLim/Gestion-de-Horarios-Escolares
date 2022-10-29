@@ -69,12 +69,12 @@ public class MySql2oUsuarioRepositorio implements UsuarioRepositorio {
 
     @Override
     public void actualizar(Usuario usuario) {
-        String consultaSelect = "SELECT * FROM usuario WHERE id = :id FOR UPDATE;";//FOR UPDATE bloquea la fila de la tabla para otras conexiones hasta que termine la transacción actual
+        String consultaSelect = "SELECT * FROM usuario WHERE id=:id FOR UPDATE;";//FOR UPDATE bloquea la fila de la tabla para otras conexiones hasta que termine la transacción actual
         String consultaUpdate = "UPDATE usuario SET telefono=:telefono, correoElectronico=:correoElectronico, claveAcceso=:claveAcceso WHERE id=:id ;";
 
         conexion.createQuery(consultaSelect)
                 .addParameter("id", usuario.id())
-                .executeUpdate();
+                .executeAndFetchTable();
 
         conexion.createQuery(consultaUpdate)
                 .addParameter("telefono", usuario.telefono())

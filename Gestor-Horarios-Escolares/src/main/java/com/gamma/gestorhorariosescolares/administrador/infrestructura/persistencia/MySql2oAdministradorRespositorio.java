@@ -68,7 +68,7 @@ public class MySql2oAdministradorRespositorio implements AdministradorRepositori
     /**
      * Registrar nuevo administrador
      *
-     * @param administrador El parametro administrador es el Administrador que se registrará
+     * @param administrador El parámetro administrador es el Administrador que se registrará
      * @return Identificador asignado al administrador al ser registrado
      */
     @Override
@@ -103,7 +103,7 @@ public class MySql2oAdministradorRespositorio implements AdministradorRepositori
 
         conexion.createQuery(consultaSelect)
                 .addParameter("id", administrador.id())
-                .executeUpdate();
+                .executeAndFetchTable();
 
         conexion.createQuery(consultaUpdate)
                 .addParameter("noPersonal",administrador.noPersonal())
