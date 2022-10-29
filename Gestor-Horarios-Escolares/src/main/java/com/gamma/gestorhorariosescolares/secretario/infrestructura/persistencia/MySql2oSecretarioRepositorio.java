@@ -78,7 +78,7 @@ public class MySql2oSecretarioRepositorio implements SecretarioRepositorio {
         int idSecretario = conexion.createQuery(consulta)
                 .addParameter("noPersonal", secretario.noPersonal())
                 .addParameter("nombre", secretario.nombre())
-                .addParameter("apellidoPaterno", secretario.apellidoMaterno())
+                .addParameter("apellidoPaterno", secretario.apellidoPaterno())
                 .addParameter("apellidoMaterno", secretario.apellidoMaterno())
                 .addParameter("estatus", secretario.estatus())
                 .addParameter("tipo", "Secretario")
