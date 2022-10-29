@@ -79,6 +79,21 @@ public class MySql2oSecretarioRepositorio implements SecretarioRepositorio {
 
     @Override
     public void actualizar(Secretario secretario) {
+        String consultaSelect = "SELECT * FROM empleado WHERE id = :id FOR UPDATE;";
+        String consultaUpdate = "UPDATE empleado SET noPersonal=:noPersonal, nombre=:nombre, apellidoPaterno=:apellidoPaterno, " +
+                "apellidoMaterno=:apellidoMaterno, estatus=:estatus WHERE id=:id;";
 
+        conexion.createQuery(consultaSelect)
+                .addParameter("id", secretario.id())
+                .executeAndFetchTable();
+
+        conexion.createQuery(consultaUpdate)
+                .addParameter("noPersonal", secretario.noPersonal())
+                .addParameter("nombre", secretario.nombre())
+                .addParameter("apellidoPaterno", secretario.apellidoPaterno())
+                .addParameter("apellidoMaterno", secretario.apellidoMaterno())
+                .addParameter("estatus", secretario.estatus())
+                .addParameter("id", secretario.id())
+                .executeUpdate();
     }
 }
