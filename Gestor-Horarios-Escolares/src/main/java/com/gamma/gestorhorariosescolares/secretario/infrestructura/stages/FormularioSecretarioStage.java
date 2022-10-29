@@ -56,7 +56,7 @@ public class FormularioSecretarioStage extends CustomStage {
 
         try {
             panelFormulario = InicializarPanel.inicializarAnchorPane(
-                    "secretario/infrestructura/viatas/FormularioSecretario.fxml",
+                    "secretario/infrestructura/vistas/FormularioSecretario.fxml",
                     controladorFormulario
             );
             panelFormulario.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
