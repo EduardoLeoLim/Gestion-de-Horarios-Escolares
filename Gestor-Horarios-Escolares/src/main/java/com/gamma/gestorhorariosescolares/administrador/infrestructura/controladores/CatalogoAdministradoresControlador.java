@@ -158,48 +158,34 @@ public class CatalogoAdministradoresControlador {
     }
 
     public void habilitarAdministrador(AdministradorData administrador) {
-        Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
-
-        try (Connection transaccion = conexion.beginTransaction()) {
-            //Repositorios
-            AdministradorRepositorio administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
-
-            //Servicios
-            BuscadorAdministrador buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
-            ActualizadorAdministrador actualizadorAdministrador = new ActualizadorAdministrador(administradorRepositorio);
-
-            GestionarEstatusAdministrador gestionarEstatusAdministrador = new GestionarEstatusAdministrador(
-                    buscadorAdministrador,
-                    actualizadorAdministrador
-            );
-            gestionarEstatusAdministrador.habilitarAdministrador(administrador.id());
-
-            transaccion.commit();
-        } catch (Sql2oException e) {
-            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
-        } catch (RecursoNoEncontradoException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
-        } finally {
-            buscarAdministradores();
-        }
+        cambiarEstatus("habilitar", administrador);
     }
 
     public void deshabilitarAdministrador(AdministradorData administrador) {
+        cambiarEstatus("deshabilitar", administrador);
+    }
+
+    private void cambiarEstatus(String estatus, AdministradorData administrador) {
+
         Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
 
         try (Connection transaccion = conexion.beginTransaction()) {
             //Repositorios
-            AdministradorRepositorio administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
+            var administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
 
             //Servicios
-            BuscadorAdministrador buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
-            ActualizadorAdministrador actualizadorAdministrador = new ActualizadorAdministrador(administradorRepositorio);
+            var buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
+            var actualizadorAdministrador = new ActualizadorAdministrador(administradorRepositorio);
 
             GestionarEstatusAdministrador gestionarEstatusAdministrador = new GestionarEstatusAdministrador(
                     buscadorAdministrador,
                     actualizadorAdministrador
             );
-            gestionarEstatusAdministrador.deshabilitarAdministrador(administrador.id());
+
+            switch (estatus.toLowerCase()) {
+                case "habilitar" -> gestionarEstatusAdministrador.habilitarAdministrador(administrador.id());
+                case "deshabilitar" -> gestionarEstatusAdministrador.deshabilitarAdministrador(administrador.id());
+            }
 
             transaccion.commit();
         } catch (Sql2oException e) {
