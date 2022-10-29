@@ -1,6 +1,5 @@
 package com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia;
 
-import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.MySqlCriteriaParser;
 import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;
@@ -55,11 +54,33 @@ public class MySql2oUsuarioRepositorio implements UsuarioRepositorio {
 
     @Override
     public int registrar(Usuario usuario) {
-        return 0;
+        String consulta = "INSERT INTO usuario (telefono, correoElectronico, claveAcceso, tipo) values (:telefono, :correoElectronico, :claveAcceso, :tipo);";
+
+        int idUsuario = conexion.createQuery(consulta)
+                .addParameter("telefono", usuario.telefono())
+                .addParameter("correoElectronico", usuario.correoElectronico())
+                .addParameter("claveAcceso", usuario.claveAcceso())
+                .addParameter("tipo", usuario.tipo())
+                .executeUpdate()
+                .getKey(Integer.class);
+
+        return idUsuario;
     }
 
     @Override
     public void actualizar(Usuario usuario) {
+        String consultaSelect = "SELECT * FROM usuario WHERE id = :id FOR UPDATE;";//FOR UPDATE bloquea la fila de la tabla para otras conexiones hasta que termine la transacción actual
+        String consultaUpdate = "UPDATE usuario SET telefono=:telefono, correoElectronico=:correoElectronico, claveAcceso=:claveAcceso WHERE id=:id ;";
 
+        conexion.createQuery(consultaSelect)
+                .addParameter("id", usuario.id())
+                .executeUpdate();
+
+        conexion.createQuery(consultaUpdate)
+                .addParameter("telefono", usuario.telefono())
+                .addParameter("correoElectronico", usuario.correoElectronico())
+                .addParameter("claveAcceso", usuario.claveAcceso())
+                .addParameter("id", usuario.id())
+                .executeUpdate();
     }
 }
