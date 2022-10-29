@@ -73,7 +73,21 @@ public class MySql2oAdministradorRespositorio implements AdministradorRepositori
      */
     @Override
     public int registrar(Administrador administrador) {
-        return 0;
+        String consulta = "INSERT INTO empleado (noPersonal, nombre, apellidoPaterno, apellidoMaterno, estatus, tipo, idUsuario) " +
+                "VALUES (:noPersonal, :nombre, :apellidoPaterno, :apellidoMaterno, :estatus, :tipo, :idUsuario);";
+
+        int idAdministrador = conexion.createQuery(consulta)
+                .addParameter("noPersonal", administrador.noPersonal())
+                .addParameter("nombre", administrador.nombre())
+                .addParameter("apellidoPaterno", administrador.apellidoMaterno())
+                .addParameter("apellidoMaterno", administrador.apellidoMaterno())
+                .addParameter("estatus", administrador.estatus())
+                .addParameter("tipo", "Administrador")
+                .addParameter("idUsuario", administrador.idUsuario())
+                .executeUpdate()
+                .getKey(Integer.class);
+
+        return idAdministrador;
     }
 
     /**
@@ -83,7 +97,22 @@ public class MySql2oAdministradorRespositorio implements AdministradorRepositori
      */
     @Override
     public void actualizar(Administrador administrador) {
+        String consultaSelect = "SELECT * FROM empleado WHERE id = :id FOR UPDATE;";
+        String consultaUpdate = "UPDATE empleado SET noPersonal=:noPersonal, nombre=:nombre, apellidoPaterno=:apellidoPaterno, " +
+                "apellidoMaterno=:apellidoMaterno, estatus=:estatus WHERE id=:id;";
 
+        conexion.createQuery(consultaSelect)
+                .addParameter("id", administrador.id())
+                .executeUpdate();
+
+        conexion.createQuery(consultaUpdate)
+                .addParameter("noPersonal",administrador.noPersonal())
+                .addParameter("nombre",administrador.nombre())
+                .addParameter("apellidoPaterno",administrador.apellidoPaterno())
+                .addParameter("apellidoMaterno",administrador.apellidoMaterno())
+                .addParameter("estatus", administrador.estatus())
+                .addParameter("id", administrador.id())
+                .executeUpdate();
     }
 
 }
