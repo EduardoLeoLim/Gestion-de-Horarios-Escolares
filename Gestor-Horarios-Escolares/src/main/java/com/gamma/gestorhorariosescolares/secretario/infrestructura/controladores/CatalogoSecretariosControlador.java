@@ -26,7 +26,11 @@ public class CatalogoSecretariosControlador {
     private TableView<SecretarioData> tablaSecretarios;
 
     public CatalogoSecretariosControlador(Stage stage) {
+        if (stage == null)
+            throw new NullPointerException();
+
         this.stage = stage;
+        esBusquedaDeSecretario = true;
     }
 
     @FXML
@@ -150,8 +154,8 @@ public class CatalogoSecretariosControlador {
     private void buscarSecretarios() {
         esBusquedaDeSecretario = false;
         txtBuscar.setText("");
-        buscarSecretarios("");
         esBusquedaDeSecretario = true;
+        temporizadorBusqueda.reiniciar();
     }
 
     private void buscarSecretarios(String criterioBuscqueda) {
