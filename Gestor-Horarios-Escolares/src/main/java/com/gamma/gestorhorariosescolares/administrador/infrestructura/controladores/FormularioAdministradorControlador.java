@@ -32,6 +32,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
 
 public class FormularioAdministradorControlador {
 
@@ -130,8 +131,14 @@ public class FormularioAdministradorControlador {
                     .registrar(noPersonal, nombre, apellidoPaterno, apellidoMaterno, telefono, correoElectronico, claveAcceso);
 
             transaccion.commit();
+            new Alert(Alert.AlertType.INFORMATION, "Administrador registrado correctamente.", ButtonType.OK).showAndWait();
         } catch (UsuarioDuplicadoException | NoPersonalDuplicadoException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
+        } catch (Sql2oException e) {
+            new Alert(Alert.AlertType.ERROR, "Error al registrar en base de datos", ButtonType.OK).showAndWait();
+            e.printStackTrace();
+        } finally {
+            cerrarFormulario();
         }
     }
 
@@ -152,6 +159,7 @@ public class FormularioAdministradorControlador {
             UsuarioRepositorio usuarioRepositorio = new MySql2oUsuarioRepositorio(transaccion);
             AdministradorRepositorio administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
 
+            //Servicios
             ServicioActualizadorAdministrador actualizadorAdministrador = new ActualizadorAdministrador(administradorRepositorio);
             ServicioActualizadorUsuario actualizadorUsuario = new ActualizadorUsuario(usuarioRepositorio);
             ServicioBuscador<Administrador> buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
@@ -161,16 +169,26 @@ public class FormularioAdministradorControlador {
                     buscadorAdministrador, buscadorUsuario, actualizadorUsuario);
 
             //Preparando datos
-            UsuarioData usuarioData = new UsuarioData(administrador.usuario().id(), telefono, correoElectronico, claveAcceso, administrador.usuario().tipo());
-            AdministradorData administradorData = new AdministradorData(administrador.id(), noPersonal, nombre, apellidoPaterno, apellidoMaterno, administrador.estatus(), usuarioData);
+            UsuarioData usuarioData = new UsuarioData(administrador.usuario().id(), telefono, correoElectronico,
+                    claveAcceso, administrador.usuario().tipo());
+            AdministradorData administradorData = new AdministradorData(administrador.id(), noPersonal, nombre,
+                    apellidoPaterno, apellidoMaterno, administrador.estatus(), usuarioData);
 
             actualizarAdministrador.actualizar(administradorData);
+            transaccion.commit();
+            new Alert(Alert.AlertType.INFORMATION, "Administrador actualizado correctamente.", ButtonType.OK).showAndWait();
+
         } catch (RecursoNoEncontradoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (UsuarioDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (NoPersonalDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
+        } catch (Sql2oException e) {
+            new Alert(Alert.AlertType.ERROR, "Error de base de datos.", ButtonType.OK).showAndWait();
+            e.printStackTrace();
+        } finally {
+            cerrarFormulario();
         }
     }
 
@@ -184,7 +202,7 @@ public class FormularioAdministradorControlador {
             return false;
         }
 
-        if (!claveAcceso.trim().equals(confirmacionClaveAcceso.trim())) {
+        if (!claveAcceso.equals(confirmacionClaveAcceso)) {
             new Alert(Alert.AlertType.WARNING, "Las contraseñas no coinciden. Asegurese que coincidan", ButtonType.OK).showAndWait();
             return false;
         }
