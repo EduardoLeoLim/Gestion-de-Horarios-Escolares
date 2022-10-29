@@ -79,14 +79,20 @@ public class FormularioAdministradorControlador {
 
     @FXML
     private void guardarAdministrador() {
+        Boolean sonDatosValidos = sonValidosDatosFormulario(txtNoPersonal.getText(), txtNombre.getText(),
+                txtApellidoPaterno.getText(), txtApellidoMaterno.getText(), txtTelefono.getText(),
+                txtCorreoElectronico.getText(), txtClaveAcceso.getText(), txtConfirmarClaveAcceso.getText());
+        if (!sonDatosValidos)
+            return;
+
         if (esNuevoRegistro)
             registrarAdministrador(txtNoPersonal.getText(), txtNombre.getText(), txtApellidoPaterno.getText(),
                     txtApellidoMaterno.getText(), txtTelefono.getText(), txtCorreoElectronico.getText(),
-                    txtClaveAcceso.getText(), txtConfirmarClaveAcceso.getText());
+                    txtClaveAcceso.getText());
         else
             actualizarAdministrador(txtNoPersonal.getText(), txtNombre.getText(), txtApellidoPaterno.getText(),
                     txtApellidoMaterno.getText(), txtTelefono.getText(), txtCorreoElectronico.getText(),
-                    txtClaveAcceso.getText(), txtConfirmarClaveAcceso.getText());
+                    txtClaveAcceso.getText());
     }
 
     @FXML
@@ -108,12 +114,7 @@ public class FormularioAdministradorControlador {
     }
 
     public void registrarAdministrador(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno,
-                                       String telefono, String correoElectronico, String claveAcceso, String confirmacionClaveAcceso) {
-        Boolean sonDatosValidos = sonValidosDatosFormulario(noPersonal, nombre, apellidoPaterno, apellidoMaterno, telefono,
-                correoElectronico, claveAcceso, confirmacionClaveAcceso);
-        if (!sonDatosValidos)
-            return;
-
+                                       String telefono, String correoElectronico, String claveAcceso) {
         Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
 
         try (Connection transaccion = conexion.beginTransaction()) {
@@ -143,14 +144,9 @@ public class FormularioAdministradorControlador {
     }
 
     public void actualizarAdministrador(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno,
-                                        String telefono, String correoElectronico, String claveAcceso, String confirmacionClaveAcceso) {
+                                        String telefono, String correoElectronico, String claveAcceso) {
         if (administrador == null)
             throw new NullPointerException();
-
-        Boolean sonDatosValidos = sonValidosDatosFormulario(noPersonal, nombre, apellidoPaterno, apellidoMaterno, telefono,
-                correoElectronico, claveAcceso, confirmacionClaveAcceso);
-        if (!sonDatosValidos)
-            return;
 
         Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
 
