@@ -1,8 +1,7 @@
 package com.gamma.gestorhorariosescolares.administrador.aplicacion;
 
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar.BuscadorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
-import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;
 
 import java.util.List;
@@ -10,10 +9,10 @@ import java.util.stream.Collectors;
 
 public class BuscarAdministradores {
 
-    private final BuscadorAdministrador buscadorAdministrador;
-    private final BuscadorUsuario buscadorUsuario;
+    private final ServicioBuscador<Administrador> buscadorAdministrador;
+    private final ServicioBuscador<Usuario> buscadorUsuario;
 
-    public BuscarAdministradores(BuscadorAdministrador buscadorAdministrador, BuscadorUsuario buscadorUsuario) {
+    public BuscarAdministradores(ServicioBuscador<Administrador> buscadorAdministrador, ServicioBuscador<Usuario> buscadorUsuario) {
         this.buscadorAdministrador = buscadorAdministrador;
         this.buscadorUsuario = buscadorUsuario;
     }
