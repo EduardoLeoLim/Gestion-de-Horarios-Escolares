@@ -60,7 +60,21 @@ public class MySql2oSecretarioRepositorio implements SecretarioRepositorio {
 
     @Override
     public int registrar(Secretario secretario) {
-        return 0;
+        String consulta = "INSERT INTO empleado (noPersonal, nombre, apellidoPaterno, apellidoMaterno, estatus, tipo, idUsuario) " +
+                "VALUES (:noPersonal, :nombre, :apellidoPaterno, :apellidoMaterno, :estatus, :tipo, :idUsuario);";
+
+        int idSecretario = conexion.createQuery(consulta)
+                .addParameter("noPersonal", secretario.noPersonal())
+                .addParameter("nombre", secretario.nombre())
+                .addParameter("apellidoPaterno", secretario.apellidoMaterno())
+                .addParameter("apellidoMaterno", secretario.apellidoMaterno())
+                .addParameter("estatus", secretario.estatus())
+                .addParameter("tipo", "Secretario")
+                .addParameter("idUsuario", secretario.idUsuario())
+                .executeUpdate()
+                .getKey(Integer.class);
+
+        return idSecretario;
     }
 
     @Override
