@@ -41,6 +41,7 @@ public class CatalogoAdministradoresControlador {
             throw new NullPointerException();
 
         this.stage = stage;
+        esBusquedaDeAdministrador = true;
     }
 
     @FXML
@@ -213,8 +214,8 @@ public class CatalogoAdministradoresControlador {
     private void buscarAdministradores() {
         esBusquedaDeAdministrador = false;
         txtBuscar.setText("");
-        buscarAdministradores("");
         esBusquedaDeAdministrador = true;
+        temporizadorBusqueda.reiniciar();
     }
 
     private void buscarAdministradores(String criterioBusqueda) {
