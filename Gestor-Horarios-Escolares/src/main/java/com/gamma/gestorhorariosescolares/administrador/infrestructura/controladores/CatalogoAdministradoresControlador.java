@@ -228,9 +228,11 @@ public class CatalogoAdministradoresControlador {
                 System.out.println("Busqueda de administradores por criterio: '" + criterioBusqueda + "'");
                 administradores = buscarAdministradores.buscarPorCriterio(criterioBusqueda);
             }
-        }
 
-        cargarAdministradoresEnTabla(administradores);
+            cargarAdministradoresEnTabla(administradores);
+        } catch (Sql2oException e) {
+            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+        }
     }
 
     private void cargarAdministradoresEnTabla(AdministradoresData administradores) {
