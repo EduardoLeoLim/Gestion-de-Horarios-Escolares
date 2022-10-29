@@ -3,6 +3,7 @@ package com.gamma.gestorhorariosescolares.secretario.infrestructura.controladore
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
 import com.gamma.gestorhorariosescolares.secretario.aplicacion.SecretarioData;
 import com.gamma.gestorhorariosescolares.secretario.aplicacion.SecretariosData;
+import com.gamma.gestorhorariosescolares.secretario.infrestructura.stages.FormularioSecretarioStage;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ public class CatalogoSecretariosControlador {
     private Temporizador temporizadorBusqueda;
 
     private ObservableList<SecretarioData> coleccionSecretarios;
+    private boolean esBusquedaDeSecretario;
 
     @FXML
     private TextField txtBuscar;
@@ -35,7 +37,7 @@ public class CatalogoSecretariosControlador {
             buscarSecretarios(txtBuscar.getText().trim());
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue.trim().equals(newValue.trim()))//No se realiza la busqueda cuando se presionan teclas que no modifican la cadena de búsqueda.
+            if (oldValue.trim().equals(newValue.trim()) && esBusquedaDeSecretario)//No se realiza la busqueda cuando se presionan teclas que no modifican la cadena de búsqueda.
                 return;
             temporizadorBusqueda.reiniciar();
         });
@@ -122,8 +124,19 @@ public class CatalogoSecretariosControlador {
         tablaSecretarios.setItems(coleccionSecretarios);
     }
 
-    public void editarSecretario(SecretarioData secretario) {
+    @FXML
+    private void registrarNuevoSecretario() {
+        var formulario = new FormularioSecretarioStage();
+        formulario.initOwner(stage);
+        formulario.showAndWait();
+        buscarSecretarios();
+    }
 
+    public void editarSecretario(SecretarioData secretario) {
+        var formulario = new FormularioSecretarioStage(secretario);
+        formulario.initOwner(stage);
+        formulario.showAndWait();
+        buscarSecretarios();
     }
 
     public void habilitarSecretario(SecretarioData secretario) {
@@ -132,6 +145,13 @@ public class CatalogoSecretariosControlador {
 
     public void deshabilitarSecretario(SecretarioData secretarioData) {
 
+    }
+
+    private void buscarSecretarios() {
+        esBusquedaDeSecretario = false;
+        txtBuscar.setText("");
+        buscarSecretarios("");
+        esBusquedaDeSecretario = true;
     }
 
     private void buscarSecretarios(String criterioBuscqueda) {
