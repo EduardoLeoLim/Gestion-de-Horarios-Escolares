@@ -79,7 +79,6 @@ public class MySqlCriteriaParser {
     private String generarCondiciones() {
         List<String> condiciones = new ArrayList<>();
 
-
         if (!filtrosObligatorios.isEmpty()) {
             String condicionesObligatorias = filtrosObligatorios.stream().map(filter -> generarCondicion(filter))
                     .collect(Collectors.joining(" AND ", "(", ")"));
@@ -193,9 +192,6 @@ public class MySqlCriteriaParser {
             } else {
                 parametro.put(1, filtro.value().value());
             }
-
-
-
             parametros.add(parametro);
         }
 

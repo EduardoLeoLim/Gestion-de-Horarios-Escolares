@@ -5,10 +5,10 @@ import java.util.List;
 /**
  * Interfaz que define los filtros para busaar un recurso
  *
+ * @param <T> Tipo de recurso que se quiere buscar
  * @author Angel Eduardo Martínez Leo Lim
  * @version 1.0.0
  * @since 1.0.0
- * @param <T> Tipo de recurso que se quiere buscar
  */
 public interface ServicioBuscador<T> {
 

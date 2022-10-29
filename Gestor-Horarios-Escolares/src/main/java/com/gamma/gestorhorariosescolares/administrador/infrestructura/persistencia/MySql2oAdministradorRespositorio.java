@@ -106,10 +106,10 @@ public class MySql2oAdministradorRespositorio implements AdministradorRepositori
                 .executeAndFetchTable();
 
         conexion.createQuery(consultaUpdate)
-                .addParameter("noPersonal",administrador.noPersonal())
-                .addParameter("nombre",administrador.nombre())
-                .addParameter("apellidoPaterno",administrador.apellidoPaterno())
-                .addParameter("apellidoMaterno",administrador.apellidoMaterno())
+                .addParameter("noPersonal", administrador.noPersonal())
+                .addParameter("nombre", administrador.nombre())
+                .addParameter("apellidoPaterno", administrador.apellidoPaterno())
+                .addParameter("apellidoMaterno", administrador.apellidoMaterno())
                 .addParameter("estatus", administrador.estatus())
                 .addParameter("id", administrador.id())
                 .executeUpdate();

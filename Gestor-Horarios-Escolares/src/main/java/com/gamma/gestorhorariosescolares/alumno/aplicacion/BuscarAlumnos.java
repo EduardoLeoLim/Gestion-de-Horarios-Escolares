@@ -1,6 +1,5 @@
 package com.gamma.gestorhorariosescolares.alumno.aplicacion;
 
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.AdministradorData;
 import com.gamma.gestorhorariosescolares.alumno.dominio.Alumno;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;

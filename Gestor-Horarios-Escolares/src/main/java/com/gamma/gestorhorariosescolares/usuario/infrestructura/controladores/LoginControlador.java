@@ -91,7 +91,7 @@ public class LoginControlador {
             case "Alumno":
                 break;
             default:
-               throw new Exception("Tipo de usario desconocido");
+                throw new Exception("Tipo de usario desconocido");
         }
 
         stage.close();

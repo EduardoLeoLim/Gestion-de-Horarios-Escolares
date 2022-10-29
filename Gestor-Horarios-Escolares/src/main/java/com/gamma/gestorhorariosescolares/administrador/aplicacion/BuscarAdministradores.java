@@ -47,8 +47,8 @@ public class BuscarAdministradores {
     public AdministradoresData buscarPorCriterio(String criterio) {
         List<Administrador> listaAdministradores = buscadorAdministrador
                 .contiene("noPersonal", criterio).esOpcional()
-                .contiene("nombre",criterio).esOpcional()
-                .contiene("apellidoPaterno",criterio).esOpcional()
+                .contiene("nombre", criterio).esOpcional()
+                .contiene("apellidoPaterno", criterio).esOpcional()
                 .contiene("apellidoMaterno", criterio).esOpcional()
                 .buscar();
 

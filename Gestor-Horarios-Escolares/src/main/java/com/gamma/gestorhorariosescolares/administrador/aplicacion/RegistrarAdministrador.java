@@ -1,8 +1,8 @@
 package com.gamma.gestorhorariosescolares.administrador.aplicacion;
 
-import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.NoPersonalDuplicadoException;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.ServicioRegistradorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.NoPersonalDuplicadoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.UsuarioDuplicadoException;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.registrar.ServicioRegistradorUsuario;
@@ -45,10 +45,10 @@ public class RegistrarAdministrador {
      * @param nombre            Nombre del administrador
      * @param apellidoPaterno   Apellido paterno del administrador
      * @param apellidoMaterno   Apellido materno del administrador
-     * @param telefono          Número telefonico del administrador
-     * @param correoElectronico Correo electrónico del usaurio del administrador
-     * @param claveAcceso       Clave de acceso del usuario del usuario del administrador
-     * @throws NoPersonalDuplicadoException Ya hay un usaurio registrado con el número de personal
+     * @param telefono          Número telefónico del administrador
+     * @param correoElectronico Correo electrónico del usuario del administrador
+     * @param claveAcceso       Clave de acceso del usuario del administrador
+     * @throws NoPersonalDuplicadoException Ya hay un usuario registrado con el número de personal
      * @throws UsuarioDuplicadoException    Ya hay un usuario registrado en el sistema
      */
     public void registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,
