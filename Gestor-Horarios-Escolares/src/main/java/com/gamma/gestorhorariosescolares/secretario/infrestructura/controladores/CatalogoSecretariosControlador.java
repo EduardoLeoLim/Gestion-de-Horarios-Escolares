@@ -1,10 +1,13 @@
 package com.gamma.gestorhorariosescolares.secretario.infrestructura.controladores;
 
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
 import com.gamma.gestorhorariosescolares.secretario.aplicacion.BuscarSecretarios;
+import com.gamma.gestorhorariosescolares.secretario.aplicacion.GestionarEstatusSecretario;
 import com.gamma.gestorhorariosescolares.secretario.aplicacion.SecretarioData;
 import com.gamma.gestorhorariosescolares.secretario.aplicacion.SecretariosData;
+import com.gamma.gestorhorariosescolares.secretario.aplicacion.actualizar.ActualizadorSecretario;
 import com.gamma.gestorhorariosescolares.secretario.aplicacion.buscar.BuscadorSecretario;
 import com.gamma.gestorhorariosescolares.secretario.infrestructura.persistencia.MySql2oSecretarioRepositorio;
 import com.gamma.gestorhorariosescolares.secretario.infrestructura.stages.FormularioSecretarioStage;
@@ -152,11 +155,43 @@ public class CatalogoSecretariosControlador {
     }
 
     public void habilitarSecretario(SecretarioData secretario) {
-
+        cambiarEstatus("habilitar", secretario);
     }
 
-    public void deshabilitarSecretario(SecretarioData secretarioData) {
+    public void deshabilitarSecretario(SecretarioData secretario) {
+        cambiarEstatus("deshabilitar", secretario);
+    }
 
+    private void cambiarEstatus(String estatus, SecretarioData secretario) {
+
+        Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
+
+        try (Connection transaccion = conexion.beginTransaction()) {
+            //Repositorios
+            var secretarioRepositorio = new MySql2oSecretarioRepositorio(transaccion);
+
+            //Servicios
+            var buscadorSecretario = new BuscadorSecretario(secretarioRepositorio);
+            var actualizadorSecretario = new ActualizadorSecretario(secretarioRepositorio);
+
+            GestionarEstatusSecretario gestionarEstatusSecretario = new GestionarEstatusSecretario(
+                    buscadorSecretario,
+                    actualizadorSecretario
+            );
+
+            switch (estatus.toLowerCase()) {
+                case "habilitar" -> gestionarEstatusSecretario.habilitarSecretario(secretario.id());
+                case "deshabilitar" -> gestionarEstatusSecretario.deshabilitarSecretario(secretario.id());
+            }
+
+            transaccion.commit();
+        } catch (Sql2oException e) {
+            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+        } catch (RecursoNoEncontradoException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
+        } finally {
+            buscarSecretarios();
+        }
     }
 
     private void buscarSecretarios() {
