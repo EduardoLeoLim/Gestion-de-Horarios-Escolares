@@ -27,7 +27,6 @@ public class MySql2oUsuarioRepositorio implements UsuarioRepositorio {
         List<Usuario> usuarios = new ArrayList<>();
 
         MySqlCriteriaParser conversorCriteria = new MySqlCriteriaParser("usuario", criterio);
-        conversorCriteria.agregarCampos("id", "correoElectronico", "claveAcceso");
         String consulta = conversorCriteria.generarConsultaSql2o();
         List<Map<Integer, String>> parametros = conversorCriteria.generarParametrosSql2o();
 
@@ -46,7 +45,7 @@ public class MySql2oUsuarioRepositorio implements UsuarioRepositorio {
             String telefono = fila.getString("telefono");
             String correoElectronico = fila.getString("correoElectronico");
             String claveAcceso = fila.getString("claveAcceso");
-            String tipo = fila.getString("Administrador");
+            String tipo = fila.getString("tipo");
             Usuario usuario = new Usuario(id, telefono, correoElectronico, claveAcceso, tipo);
             usuarios.add(usuario);
         });
