@@ -3,6 +3,7 @@ package com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
+import com.gamma.gestorhorariosescolares.maestro.aplicacion.BuscarMaestros;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.GestionarEstatusMaestro;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestroData;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestrosData;
@@ -10,6 +11,8 @@ import com.gamma.gestorhorariosescolares.maestro.aplicacion.actualizar.Actualiza
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.buscar.BuscadorMaestro;
 import com.gamma.gestorhorariosescolares.maestro.infrestructura.persistencia.MySql2oMaestroRepositorio;
 import com.gamma.gestorhorariosescolares.maestro.infrestructura.stages.FormularioMaestroStage;
+import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
+import com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,7 +56,7 @@ public class CatalogoMaestrosControlador {
         });
 
         inicializarTabla();
-        //Buscar todos los maestros
+        buscarMaestros();
     }
 
     private void inicializarTabla() {
@@ -196,7 +199,35 @@ public class CatalogoMaestrosControlador {
         temporizadorBusqueda.reiniciar();
     }
     
-    private void buscarMaestros(String criterioBusquesa) {
+    private void buscarMaestros(String criterioBusqueda) {
+        if (criterioBusqueda == null)
+            criterioBusqueda = "";
+
+        MaestrosData maestros;
+        Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
+
+        try (Connection transaccion = conexion.beginTransaction()) {
+            //Repositorios
+            var maestroRepositorio = new MySql2oMaestroRepositorio(transaccion);
+            var usuarioRepositorio = new MySql2oUsuarioRepositorio(transaccion);
+
+            //Servicios
+            var buscadorMaestro = new BuscadorMaestro(maestroRepositorio);
+            var buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
+
+            BuscarMaestros buscarMaestros = new BuscarMaestros(buscadorMaestro, buscadorUsuario);
+
+            if (criterioBusqueda.isBlank()) {
+                maestros = buscarMaestros.buscarTodos();
+            } else {
+                System.out.println("Busqueda de maestros por criterio: '" + criterioBusqueda + "'");
+                maestros = buscarMaestros.buscarPorCriterio(criterioBusqueda);
+            }
+
+            cargarMaestrosEnTabla(maestros);
+        } catch (Sql2oException e) {
+            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+        }
 
     }
 
