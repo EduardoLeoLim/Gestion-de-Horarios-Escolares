@@ -1,5 +1,6 @@
 package com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores;
 
+import com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnoData;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.RegistrarAlumno;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.buscar.BuscadorAlumno;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.CurpDuplicadoException;
@@ -15,11 +16,33 @@ import com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MyS
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
 public class FormularioAlumnoControlador {
+
+    private final Stage stage;
+    private final boolean esNuevoRegistro;
+    private final AlumnoData alumno;
+
+    public FormularioAlumnoControlador(Stage stage) {
+        if (stage == null)
+            throw new NullPointerException();
+        this.stage = stage;
+        this.esNuevoRegistro = true;
+        this.alumno = null;
+    }
+
+    public FormularioAlumnoControlador(Stage stage, AlumnoData alumno) {
+        if (stage == null || alumno == null)
+            throw new NullPointerException();
+        this.stage = stage;
+        this.esNuevoRegistro = false;
+        this.alumno = alumno;
+    }
+
     @FXML
     protected void guardarClick() {
         //Datos válidos del formulario
@@ -55,10 +78,14 @@ public class FormularioAlumnoControlador {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
         } catch (FormatoInvalidoException e) {
             new Alert(Alert.AlertType.WARNING, e.getMessage(), ButtonType.OK).showAndWait();
-            e.printStackTrace();
         } catch (Sql2oException e) {
             new Alert(Alert.AlertType.ERROR, "Error al registrar en base de datos", ButtonType.OK).showAndWait();
-            e.printStackTrace();
+            cerrarFormulario();
         }
+    }
+
+    @FXML
+    private void cerrarFormulario() {
+        stage.close();
     }
 }

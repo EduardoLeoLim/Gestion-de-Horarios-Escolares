@@ -50,13 +50,15 @@ public class FormularioAdministradorControlador {
     private TextField txtConfirmarClaveAcceso;
 
     public FormularioAdministradorControlador(Stage stage) {
+        if (stage == null)
+            throw new NullPointerException();
         this.stage = stage;
         this.esNuevoRegistro = true;
         this.administrador = null;
     }
 
     public FormularioAdministradorControlador(Stage stage, AdministradorData administrador) {
-        if (administrador == null)
+        if (stage == null || administrador == null)
             throw new NullPointerException();
         this.stage = stage;
         this.esNuevoRegistro = false;
@@ -128,12 +130,9 @@ public class FormularioAdministradorControlador {
         } catch (UsuarioDuplicadoException | NoPersonalDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (FormatoInvalidoException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
-            e.printStackTrace();
+            new Alert(Alert.AlertType.WARNING, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (Sql2oException e) {
             new Alert(Alert.AlertType.ERROR, "Error al registrar en base de datos", ButtonType.OK).showAndWait();
-            e.printStackTrace();
-        } finally {
             cerrarFormulario();
         }
     }
@@ -177,11 +176,8 @@ public class FormularioAdministradorControlador {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (FormatoInvalidoException e) {
             new Alert(Alert.AlertType.WARNING, e.getMessage(), ButtonType.OK).showAndWait();
-            e.printStackTrace();
         } catch (Sql2oException e) {
             new Alert(Alert.AlertType.ERROR, "Error de base de datos.", ButtonType.OK).showAndWait();
-            e.printStackTrace();
-        } finally {
             cerrarFormulario();
         }
     }
