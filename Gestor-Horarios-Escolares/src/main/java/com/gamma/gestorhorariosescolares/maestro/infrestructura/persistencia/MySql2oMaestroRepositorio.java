@@ -34,7 +34,7 @@ public class MySql2oMaestroRepositorio implements MaestroRepositorio {
         String consulta;
 
         //Se añade filtro obligatorio para solo obtener Maestros
-        Filter filtroTipoEmpleado = Filter.create("tipo", "=", "Administrador");
+        Filter filtroTipoEmpleado = Filter.create("tipo", "=", "Maestro");
         filtroTipoEmpleado.obligatory();
         criterio.filters().filters().add(filtroTipoEmpleado);
 
@@ -81,7 +81,7 @@ public class MySql2oMaestroRepositorio implements MaestroRepositorio {
                 .addParameter("apellidoPaterno", maestro.apellidoPaterno())
                 .addParameter("apellidoMaterno", maestro.apellidoMaterno())
                 .addParameter("estatus", maestro.estatus())
-                .addParameter("tipo", "Administrador")
+                .addParameter("tipo", "Maestro")
                 .addParameter("idUsuario", maestro.idUsuario())
                 .executeUpdate()
                 .getKey(Integer.class);
