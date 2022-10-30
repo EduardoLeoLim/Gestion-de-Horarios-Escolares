@@ -1,5 +1,6 @@
 package com.gamma.gestorhorariosescolares.secretario.aplicacion;
 
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.FormatoInvalidoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.NoPersonalDuplicadoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
@@ -30,7 +31,7 @@ public class ActualizarSecretario {
     }
 
     public void actualizar(SecretarioData secretarioData)
-            throws RecursoNoEncontradoException, NoPersonalDuplicadoException, UsuarioDuplicadoException {
+            throws RecursoNoEncontradoException, NoPersonalDuplicadoException, UsuarioDuplicadoException, FormatoInvalidoException {
         if (secretarioData == null)
             throw new NullPointerException();
 

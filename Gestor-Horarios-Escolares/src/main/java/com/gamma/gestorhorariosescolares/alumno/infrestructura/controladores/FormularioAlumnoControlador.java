@@ -6,6 +6,7 @@ import com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.CurpDupli
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.MatriculaDuplicadaException;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.registrar.RegistradorAlumno;
 import com.gamma.gestorhorariosescolares.alumno.infrestructura.persistencia.MySql2oAlumnoRepositorio;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.FormatoInvalidoException;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.UsuarioDuplicadoException;
@@ -16,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
 
 public class FormularioAlumnoControlador {
     @FXML
@@ -51,6 +53,12 @@ public class FormularioAlumnoControlador {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
         } catch (UsuarioDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
+        } catch (FormatoInvalidoException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage(), ButtonType.OK).showAndWait();
+            e.printStackTrace();
+        } catch (Sql2oException e) {
+            new Alert(Alert.AlertType.ERROR, "Error al registrar en base de datos", ButtonType.OK).showAndWait();
+            e.printStackTrace();
         }
     }
 }

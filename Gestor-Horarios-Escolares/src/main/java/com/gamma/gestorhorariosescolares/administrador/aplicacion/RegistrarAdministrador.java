@@ -2,6 +2,7 @@ package com.gamma.gestorhorariosescolares.administrador.aplicacion;
 
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.ServicioRegistradorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.FormatoInvalidoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.NoPersonalDuplicadoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.UsuarioDuplicadoException;
@@ -52,7 +53,7 @@ public class RegistrarAdministrador {
      * @throws UsuarioDuplicadoException    Ya hay un usuario registrado en el sistema
      */
     public void registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,
-                          String correoElectronico, String claveAcceso) throws NoPersonalDuplicadoException, UsuarioDuplicadoException {
+                          String correoElectronico, String claveAcceso) throws NoPersonalDuplicadoException, UsuarioDuplicadoException, FormatoInvalidoException {
         if (buscadorAdministrador.igual("noPersonal", noPersonal).buscar().size() > 0)
             throw new NoPersonalDuplicadoException("Ya hay un administrador registrado con ese número de personal");
         if (buscadorUsuario.igual("correoElectronico", correoElectronico).buscar().size() > 0)

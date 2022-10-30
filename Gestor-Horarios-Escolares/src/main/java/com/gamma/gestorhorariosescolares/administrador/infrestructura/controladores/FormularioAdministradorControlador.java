@@ -7,6 +7,7 @@ import com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.Act
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar.BuscadorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.RegistradorAdministrador;
 import com.gamma.gestorhorariosescolares.administrador.infrestructura.persistencia.MySql2oAdministradorRespositorio;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.FormatoInvalidoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.NoPersonalDuplicadoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
@@ -126,6 +127,9 @@ public class FormularioAdministradorControlador {
 
         } catch (UsuarioDuplicadoException | NoPersonalDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
+        } catch (FormatoInvalidoException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
+            e.printStackTrace();
         } catch (Sql2oException e) {
             new Alert(Alert.AlertType.ERROR, "Error al registrar en base de datos", ButtonType.OK).showAndWait();
             e.printStackTrace();
@@ -171,6 +175,9 @@ public class FormularioAdministradorControlador {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (NoPersonalDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
+        } catch (FormatoInvalidoException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage(), ButtonType.OK).showAndWait();
+            e.printStackTrace();
         } catch (Sql2oException e) {
             new Alert(Alert.AlertType.ERROR, "Error de base de datos.", ButtonType.OK).showAndWait();
             e.printStackTrace();

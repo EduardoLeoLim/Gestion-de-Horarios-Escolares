@@ -1,5 +1,6 @@
 package com.gamma.gestorhorariosescolares.maestro.aplicacion;
 
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.FormatoInvalidoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.NoPersonalDuplicadoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.registrar.ServicioRegistradorMaestro;
@@ -27,7 +28,7 @@ public class RegistrarMaestro {
 
     public void registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno,
                           String telefono, String correoElectronico, String claveAcceso)
-            throws NoPersonalDuplicadoException, UsuarioDuplicadoException {
+            throws NoPersonalDuplicadoException, UsuarioDuplicadoException, FormatoInvalidoException {
         List<Maestro> listaBusquedaMaestro;
         List<Usuario> listaBusquedaUsuario;
 

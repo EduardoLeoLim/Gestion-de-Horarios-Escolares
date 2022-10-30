@@ -4,6 +4,7 @@ import com.gamma.gestorhorariosescolares.alumno.aplicacion.actualizar.ServicioAc
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.CurpDuplicadoException;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.MatriculaDuplicadaException;
 import com.gamma.gestorhorariosescolares.alumno.dominio.Alumno;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.FormatoInvalidoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.UsuarioData;
@@ -28,7 +29,7 @@ public class ActualizarAlumno {
         this.buscadorUsuario = buscadorUsuario;
     }
 
-    private void actualizar(AlumnoData alumnoData) throws RecursoNoEncontradoException, MatriculaDuplicadaException, CurpDuplicadoException, UsuarioDuplicadoException {
+    private void actualizar(AlumnoData alumnoData) throws RecursoNoEncontradoException, MatriculaDuplicadaException, CurpDuplicadoException, UsuarioDuplicadoException, FormatoInvalidoException {
         if (alumnoData == null)
             throw new NullPointerException();
 

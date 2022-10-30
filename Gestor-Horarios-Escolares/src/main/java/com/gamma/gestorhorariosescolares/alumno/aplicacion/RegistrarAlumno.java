@@ -4,6 +4,7 @@ import com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.CurpDupli
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.MatriculaDuplicadaException;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.registrar.ServicioRegistradorAlumno;
 import com.gamma.gestorhorariosescolares.alumno.dominio.Alumno;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.FormatoInvalidoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.UsuarioDuplicadoException;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.registrar.ServicioRegistradorUsuario;
@@ -24,7 +25,7 @@ public class RegistrarAlumno {
     }
 
     public void registrar(String nombre, String appellidoPaterno, String apellidoMaterno, String curp, String matricula,
-                          String telefono, String correoElectronico, String claveAcceso) throws CurpDuplicadoException, UsuarioDuplicadoException, MatriculaDuplicadaException {
+                          String telefono, String correoElectronico, String claveAcceso) throws CurpDuplicadoException, UsuarioDuplicadoException, MatriculaDuplicadaException, FormatoInvalidoException {
         //Validar curp duplicado
         if (buscadorAlumno.igual("curp", curp).buscar().size() > 0)
             throw new CurpDuplicadoException();
