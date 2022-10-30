@@ -1,15 +1,15 @@
-package com.gamma.gestorhorariosescolares.administrador.infrestructura.controladores;
+package com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores;
 
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.ActualizarAdministrador;
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.AdministradorData;
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.RegistrarAdministrador;
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.ActualizadorAdministrador;
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar.BuscadorAdministrador;
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.RegistradorAdministrador;
-import com.gamma.gestorhorariosescolares.administrador.infrestructura.persistencia.MySql2oAdministradorRespositorio;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.NoPersonalDuplicadoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
+import com.gamma.gestorhorariosescolares.maestro.aplicacion.ActualizarMaestro;
+import com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestroData;
+import com.gamma.gestorhorariosescolares.maestro.aplicacion.RegistrarMaestro;
+import com.gamma.gestorhorariosescolares.maestro.aplicacion.actualizar.ActualizadorMaestro;
+import com.gamma.gestorhorariosescolares.maestro.aplicacion.buscar.BuscadorMaestro;
+import com.gamma.gestorhorariosescolares.maestro.aplicacion.registrar.RegistradorMaestro;
+import com.gamma.gestorhorariosescolares.maestro.infrestructura.persistencia.MySql2oMaestroRepositorio;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.UsuarioData;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.actualizar.ActualizadorUsuario;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
@@ -25,11 +25,11 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
-public class FormularioAdministradorControlador {
+public class FormularioMaestroControlador {
 
     private final Stage stage;
     private final boolean esNuevoRegistro;
-    private final AdministradorData administrador;
+    private final MaestroData maestro;
 
     @FXML
     private TextField txtNoPersonal;
@@ -48,28 +48,41 @@ public class FormularioAdministradorControlador {
     @FXML
     private TextField txtConfirmarClaveAcceso;
 
-    public FormularioAdministradorControlador(Stage stage) {
+    public FormularioMaestroControlador(Stage stage) {
         this.stage = stage;
         this.esNuevoRegistro = true;
-        this.administrador = null;
+        this.maestro = null;
     }
 
-    public FormularioAdministradorControlador(Stage stage, AdministradorData administrador) {
-        if (administrador == null)
+    public FormularioMaestroControlador(Stage stage, MaestroData maestro) {
+        if (maestro == null)
             throw new NullPointerException();
         this.stage = stage;
         this.esNuevoRegistro = false;
-        this.administrador = administrador;
+        this.maestro = maestro;
     }
 
     @FXML
     public void initialize() {
         if (!esNuevoRegistro)
-            cargarDatosAdministrador();
+            cargarDatosMaestro();
+    }
+
+    private void cargarDatosMaestro() {
+        if (maestro == null)
+            throw new NullPointerException();
+        txtNoPersonal.setText(maestro.noPersonal());
+        txtNombre.setText(maestro.nombre());
+        txtApellidoPaterno.setText(maestro.apellidoPaterno());
+        txtApellidoMaterno.setText(maestro.apellidoMaterno());
+        txtTelefono.setText(maestro.usuario().telefono());
+        txtCorreoElectronico.setText(maestro.usuario().correoElectronico());
+        txtClaveAcceso.setText(maestro.usuario().claveAcceso());
+        txtConfirmarClaveAcceso.setText(maestro.usuario().claveAcceso());
     }
 
     @FXML
-    private void guardarAdministrador() {
+    private void guardarMaestro() {
         Boolean sonDatosValidos = sonValidosDatosFormulario(txtNoPersonal.getText(), txtNombre.getText(),
                 txtApellidoPaterno.getText(), txtApellidoMaterno.getText(), txtTelefono.getText(),
                 txtCorreoElectronico.getText(), txtClaveAcceso.getText(), txtConfirmarClaveAcceso.getText());
@@ -77,52 +90,36 @@ public class FormularioAdministradorControlador {
             return;
 
         if (esNuevoRegistro)
-            registrarAdministrador(txtNoPersonal.getText(), txtNombre.getText(), txtApellidoPaterno.getText(),
+            registrarMaestro(txtNoPersonal.getText(), txtNombre.getText(), txtApellidoPaterno.getText(),
                     txtApellidoMaterno.getText(), txtTelefono.getText(), txtCorreoElectronico.getText(),
                     txtClaveAcceso.getText());
         else
-            actualizarAdministrador(txtNoPersonal.getText(), txtNombre.getText(), txtApellidoPaterno.getText(),
+            actualizarMaestro(txtNoPersonal.getText(), txtNombre.getText(), txtApellidoPaterno.getText(),
                     txtApellidoMaterno.getText(), txtTelefono.getText(), txtCorreoElectronico.getText(),
                     txtClaveAcceso.getText());
     }
 
-    @FXML
-    private void cerrarFormulario() {
-        stage.close();
-    }
-
-    private void cargarDatosAdministrador() {
-        if (administrador == null)
-            throw new NullPointerException();
-        txtNoPersonal.setText(administrador.noPersonal());
-        txtNombre.setText(administrador.nombre());
-        txtApellidoPaterno.setText(administrador.apellidoPaterno());
-        txtApellidoMaterno.setText(administrador.apellidoMaterno());
-        txtTelefono.setText(administrador.usuario().telefono());
-        txtCorreoElectronico.setText(administrador.usuario().correoElectronico());
-        txtClaveAcceso.setText(administrador.usuario().claveAcceso());
-        txtConfirmarClaveAcceso.setText(administrador.usuario().claveAcceso());
-    }
-
-    public void registrarAdministrador(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno,
-                                       String telefono, String correoElectronico, String claveAcceso) {
+    private void registrarMaestro(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno,
+                                  String telefono, String correoElectronico, String claveAcceso) {
+        //Conexión a base de datos
         Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
 
         try (Connection transaccion = conexion.beginTransaction()) {
             //Repositorios
+            var maestroRepositorio = new MySql2oMaestroRepositorio(transaccion);
             var usuarioRepositorio = new MySql2oUsuarioRepositorio(transaccion);
-            var administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
 
-            var buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
+            //Servicios
+            var buscadorMaestro = new BuscadorMaestro(maestroRepositorio);
             var buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
-            var registradorAdministrador = new RegistradorAdministrador(administradorRepositorio);
+            var registradorMaestro = new RegistradorMaestro(maestroRepositorio);
             var registradorUsuario = new RegistradorUsuario(usuarioRepositorio);
 
-            RegistrarAdministrador registrarAdministrador = new RegistrarAdministrador(buscadorAdministrador, registradorAdministrador, buscadorUsuario, registradorUsuario);
-            registrarAdministrador.registrar(noPersonal, nombre, apellidoPaterno, apellidoMaterno, telefono, correoElectronico, claveAcceso);
+            RegistrarMaestro registrarMaestro = new RegistrarMaestro(buscadorMaestro, registradorMaestro, buscadorUsuario, registradorUsuario);
+            registrarMaestro.registrar(noPersonal, nombre, apellidoPaterno, apellidoMaterno, telefono, correoElectronico, claveAcceso);
 
             transaccion.commit();
-            new Alert(Alert.AlertType.INFORMATION, "Administrador registrado correctamente.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.INFORMATION, "Maestro registrado correctamente.", ButtonType.OK).showAndWait();
 
         } catch (UsuarioDuplicadoException | NoPersonalDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
@@ -134,9 +131,9 @@ public class FormularioAdministradorControlador {
         }
     }
 
-    public void actualizarAdministrador(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno,
-                                        String telefono, String correoElectronico, String claveAcceso) {
-        if (administrador == null)
+    private void actualizarMaestro(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno,
+                                   String telefono, String correoElectronico, String claveAcceso) {
+        if (maestro == null)
             throw new NullPointerException();
 
         Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
@@ -144,26 +141,23 @@ public class FormularioAdministradorControlador {
         try (Connection transaccion = conexion.beginTransaction()) {
             //Repositorios
             var usuarioRepositorio = new MySql2oUsuarioRepositorio(transaccion);
-            var administradorRepositorio = new MySql2oAdministradorRespositorio(transaccion);
+            var maestroRepositorio = new MySql2oMaestroRepositorio(transaccion);
 
             //Servicios
-            var actualizadorAdministrador = new ActualizadorAdministrador(administradorRepositorio);
+            var actualizadorMaestro = new ActualizadorMaestro(maestroRepositorio);
             var actualizadorUsuario = new ActualizadorUsuario(usuarioRepositorio);
-            var buscadorAdministrador = new BuscadorAdministrador(administradorRepositorio);
+            var buscadorMaestro = new BuscadorMaestro(maestroRepositorio);
             var buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
 
-            ActualizarAdministrador actualizarAdministrador = new ActualizarAdministrador(actualizadorAdministrador,
-                    buscadorAdministrador, buscadorUsuario, actualizadorUsuario);
+            ActualizarMaestro actualizarMaestro = new ActualizarMaestro(buscadorMaestro, actualizadorMaestro, buscadorUsuario, actualizadorUsuario);
 
             //Preparando datos
-            UsuarioData usuarioData = new UsuarioData(administrador.usuario().id(), telefono, correoElectronico,
-                    claveAcceso, administrador.usuario().tipo());
-            AdministradorData administradorData = new AdministradorData(administrador.id(), noPersonal, nombre,
-                    apellidoPaterno, apellidoMaterno, administrador.estatus(), usuarioData);
+            UsuarioData usuarioData = new UsuarioData(maestro.usuario().id(), telefono, correoElectronico, claveAcceso, maestro.usuario().tipo());
+            MaestroData maestroData = new MaestroData(maestro.id(), noPersonal, nombre, apellidoPaterno, apellidoMaterno, maestro.estatus(), usuarioData);
+            actualizarMaestro.actualizar(maestroData);
 
-            actualizarAdministrador.actualizar(administradorData);
             transaccion.commit();
-            new Alert(Alert.AlertType.INFORMATION, "Administrador actualizado correctamente.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.INFORMATION, "Maestro actualizado correctamente.", ButtonType.OK).showAndWait();
 
         } catch (RecursoNoEncontradoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
@@ -177,6 +171,11 @@ public class FormularioAdministradorControlador {
         } finally {
             cerrarFormulario();
         }
+    }
+
+    @FXML
+    private void cerrarFormulario() {
+        stage.close();
     }
 
     private Boolean sonValidosDatosFormulario(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno,

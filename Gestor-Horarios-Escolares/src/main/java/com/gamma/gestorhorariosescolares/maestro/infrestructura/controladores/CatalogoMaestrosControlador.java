@@ -1,21 +1,31 @@
 package com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores;
 
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
+import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
+import com.gamma.gestorhorariosescolares.maestro.aplicacion.GestionarEstatusMaestro;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestroData;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestrosData;
+import com.gamma.gestorhorariosescolares.maestro.aplicacion.actualizar.ActualizadorMaestro;
+import com.gamma.gestorhorariosescolares.maestro.aplicacion.buscar.BuscadorMaestro;
+import com.gamma.gestorhorariosescolares.maestro.infrestructura.persistencia.MySql2oMaestroRepositorio;
+import com.gamma.gestorhorariosescolares.maestro.infrestructura.stages.FormularioMaestroStage;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.sql2o.Connection;
+import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
 
 public class CatalogoMaestrosControlador {
+    
     private final Stage stage;
-
     private Temporizador temporizadorBusqueda;
-
     private ObservableList<MaestroData> coleccionMaestros;
+    private Boolean esBusquedaDeMaestro;
 
     @FXML
     private TextField txtBuscar;
@@ -28,6 +38,7 @@ public class CatalogoMaestrosControlador {
             throw new NullPointerException();
 
         this.stage = stage;
+        esBusquedaDeMaestro = true;
     }
 
     @FXML
@@ -36,7 +47,7 @@ public class CatalogoMaestrosControlador {
             buscarMaestros(txtBuscar.getText().trim());
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue.trim().equals(newValue.trim()))
+            if (oldValue.trim().equals(newValue.trim()) && esBusquedaDeMaestro)
                 return;
             temporizadorBusqueda.reiniciar();
         });
@@ -123,18 +134,68 @@ public class CatalogoMaestrosControlador {
         tablaMaestros.setItems(coleccionMaestros);
     }
 
-    private void editarMaestro(MaestroData maestro) {
+    @FXML
+    private void registrarNuevoMaestro() {
+        FormularioMaestroStage formulario = new FormularioMaestroStage();
+        formulario.initOwner(stage);
+        formulario.showAndWait();
 
+        buscarMaestros();
+    }
+
+    private void editarMaestro(MaestroData maestro) {
+        FormularioMaestroStage formulario = new FormularioMaestroStage(maestro);
+        formulario.initOwner(stage);
+        formulario.showAndWait();
+
+        buscarMaestros();
     }
 
     private void habilitarMaestro(MaestroData maestro) {
-
+        cambiarEstatus("habilitar", maestro);
     }
 
     private void deshabilitarMaestro(MaestroData maestro) {
-
+        cambiarEstatus("deshabilitar", maestro);
     }
 
+    private void cambiarEstatus(String estatus, MaestroData maestro) {
+
+        Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
+
+        try (Connection transaccion = conexion.beginTransaction()) {
+            //Repositorios
+            var maestroRepositorio = new MySql2oMaestroRepositorio(transaccion);
+
+            //Servicios
+            var buscadorMaestro = new BuscadorMaestro(maestroRepositorio);
+            var actualizadorMaestro = new ActualizadorMaestro(maestroRepositorio);
+
+            GestionarEstatusMaestro gestionarEstatusMaestro = new GestionarEstatusMaestro(
+                    buscadorMaestro, actualizadorMaestro);
+
+            switch (estatus.toLowerCase()) {
+                case "habilitar" -> gestionarEstatusMaestro.habilitarMaestro(maestro.id());
+                case "deshabilitar" -> gestionarEstatusMaestro.deshabilitarMaestro(maestro.id());
+            }
+
+            transaccion.commit();
+        } catch (Sql2oException e) {
+            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+        } catch (RecursoNoEncontradoException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
+        } finally {
+            buscarMaestros();
+        }
+    }
+
+    public void buscarMaestros() {
+        esBusquedaDeMaestro = false;
+        txtBuscar.setText("");
+        esBusquedaDeMaestro = true;
+        temporizadorBusqueda.reiniciar();
+    }
+    
     private void buscarMaestros(String criterioBusquesa) {
 
     }
