@@ -13,9 +13,9 @@ import java.io.IOException;
 public class FormularioMaestroStage extends CustomStage {
 
     private final boolean esNuevoRegistro;
+    FormularioMaestroControlador controladorFormulario;
     private MaestroData maestroEdicion;
     private AnchorPane panelFormulario;
-    FormularioMaestroControlador controladorFormulario;
     private boolean sePuedeMostrar;
 
     public FormularioMaestroStage() {
@@ -66,7 +66,7 @@ public class FormularioMaestroStage extends CustomStage {
 
     @Override
     public void showAndWait() {
-        if(sePuedeMostrar)
+        if (sePuedeMostrar)
             super.showAndWait();
     }
 }

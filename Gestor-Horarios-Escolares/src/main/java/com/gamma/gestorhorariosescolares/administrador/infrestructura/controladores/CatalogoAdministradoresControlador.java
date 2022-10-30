@@ -177,9 +177,7 @@ public class CatalogoAdministradoresControlador {
             var actualizadorAdministrador = new ActualizadorAdministrador(administradorRepositorio);
 
             GestionarEstatusAdministrador gestionarEstatusAdministrador = new GestionarEstatusAdministrador(
-                    buscadorAdministrador,
-                    actualizadorAdministrador
-            );
+                    buscadorAdministrador, actualizadorAdministrador);
 
             switch (estatus.toLowerCase()) {
                 case "habilitar" -> gestionarEstatusAdministrador.habilitarAdministrador(administrador.id());

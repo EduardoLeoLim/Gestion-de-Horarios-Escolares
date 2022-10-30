@@ -101,7 +101,7 @@ public class MySql2oMaestroRepositorio implements MaestroRepositorio {
                 "apellidoMaterno=:apellidoMaterno, estatus=:estatus WHERE id=:id;";
 
         conexion.createQuery(consultaSelect)
-                .addParameter("id",maestro.id())
+                .addParameter("id", maestro.id())
                 .executeAndFetchTable();
 
         conexion.createQuery(consultaUpdate)

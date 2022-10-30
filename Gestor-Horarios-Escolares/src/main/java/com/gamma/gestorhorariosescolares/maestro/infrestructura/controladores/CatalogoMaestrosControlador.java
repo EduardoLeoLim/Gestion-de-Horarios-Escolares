@@ -24,7 +24,7 @@ import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
 public class CatalogoMaestrosControlador {
-    
+
     private final Stage stage;
     private Temporizador temporizadorBusqueda;
     private ObservableList<MaestroData> coleccionMaestros;
@@ -198,7 +198,7 @@ public class CatalogoMaestrosControlador {
         esBusquedaDeMaestro = true;
         temporizadorBusqueda.reiniciar();
     }
-    
+
     private void buscarMaestros(String criterioBusqueda) {
         if (criterioBusqueda == null)
             criterioBusqueda = "";
