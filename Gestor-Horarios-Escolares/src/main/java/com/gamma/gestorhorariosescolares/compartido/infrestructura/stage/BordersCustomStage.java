@@ -28,6 +28,7 @@ public class BordersCustomStage extends AnchorPane {
     public BordersCustomStage(Stage stage) {
         this.stage = stage;
         loadBorders();
+        loadResizeableConfiguration();
         loadMaximizedConfiguration();
         this.setStyle("-fx-background-color: #0072D2");
     }
@@ -339,6 +340,19 @@ public class BordersCustomStage extends AnchorPane {
         prePositionY = stage.getY();
         preWidth = stage.getWidth();
         preHeight = stage.getHeight();
+    }
+
+    private void loadResizeableConfiguration() {
+        stage.resizableProperty().addListener((observable, oldValue, newValue) -> {
+            topBorder.setVisible(newValue);
+            topRightBorder.setVisible(newValue);
+            topLeftBorder.setVisible(newValue);
+            rightBorder.setVisible(newValue);
+            leftBorder.setVisible(newValue);
+            bottomBorder.setVisible(newValue);
+            bottomRightBorder.setVisible(newValue);
+            bottomLeftBorder.setVisible(newValue);
+        });
     }
 
     private void loadMaximizedConfiguration() {
