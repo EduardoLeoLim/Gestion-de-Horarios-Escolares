@@ -70,6 +70,8 @@ public class FormularioAlumnoControlador {
 
             transaccion.commit();//Guardar cambios en base de datos
             System.out.println("Alumno registrado");
+
+            cerrarFormulario();
         } catch (CurpDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
         } catch (MatriculaDuplicadaException e) {

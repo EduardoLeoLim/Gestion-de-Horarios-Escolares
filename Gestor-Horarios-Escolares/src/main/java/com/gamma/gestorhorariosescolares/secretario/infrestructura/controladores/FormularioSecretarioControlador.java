@@ -144,6 +144,8 @@ public class FormularioSecretarioControlador {
 
             transaccion.commit();
             new Alert(Alert.AlertType.INFORMATION, "Secretario registrado correctamente.", ButtonType.OK).showAndWait();
+
+            cerrarFormulario();
         } catch (UsuarioDuplicadoException | NoPersonalDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (FormatoInvalidoException e) {
@@ -188,6 +190,7 @@ public class FormularioSecretarioControlador {
             transaccion.commit();
             new Alert(Alert.AlertType.INFORMATION, "Secretario actualizado correctamente.", ButtonType.OK).showAndWait();
 
+            cerrarFormulario();
         } catch (UsuarioDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (NoPersonalDuplicadoException e) {

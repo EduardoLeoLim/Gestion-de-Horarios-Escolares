@@ -127,6 +127,7 @@ public class FormularioAdministradorControlador {
             transaccion.commit();
             new Alert(Alert.AlertType.INFORMATION, "Administrador registrado correctamente.", ButtonType.OK).showAndWait();
 
+            cerrarFormulario();
         } catch (UsuarioDuplicadoException | NoPersonalDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (FormatoInvalidoException e) {
@@ -168,6 +169,7 @@ public class FormularioAdministradorControlador {
             transaccion.commit();
             new Alert(Alert.AlertType.INFORMATION, "Administrador actualizado correctamente.", ButtonType.OK).showAndWait();
 
+            cerrarFormulario();
         } catch (RecursoNoEncontradoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (UsuarioDuplicadoException e) {

@@ -124,6 +124,7 @@ public class FormularioMaestroControlador {
             transaccion.commit();
             new Alert(Alert.AlertType.INFORMATION, "Maestro registrado correctamente.", ButtonType.OK).showAndWait();
 
+            cerrarFormulario();
         } catch (UsuarioDuplicadoException | NoPersonalDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (FormatoInvalidoException e) {
@@ -162,6 +163,7 @@ public class FormularioMaestroControlador {
             transaccion.commit();
             new Alert(Alert.AlertType.INFORMATION, "Maestro actualizado correctamente.", ButtonType.OK).showAndWait();
 
+            cerrarFormulario();
         } catch (RecursoNoEncontradoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (UsuarioDuplicadoException e) {
