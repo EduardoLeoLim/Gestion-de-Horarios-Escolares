@@ -1,5 +1,6 @@
 package com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar;
 
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filter;
@@ -214,11 +215,35 @@ public class BuscadorUsuario implements ServicioBuscador<Usuario> {
     public List<Usuario> buscar() {
         Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
         List<Usuario> listaUsuarios = repositorio.buscar(criterio);
+
+        limpiarFiltros();
+
+        return listaUsuarios;
+    }
+
+    /**
+     * Busca el primer recurso que cumpla con los filtros
+     *
+     * @return Un recurso
+     * @throws RecursoNoEncontradoException Si no se encontró algún recurso
+     */
+    @Override
+    public Usuario buscarPrimero() throws RecursoNoEncontradoException {
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        List<Usuario> listaUsuarios = repositorio.buscar(criterio);
+
+        limpiarFiltros();
+
+        if (listaUsuarios.isEmpty())
+            throw new RecursoNoEncontradoException("No se encontró ningún usuario.");
+        return null;
+    }
+
+    private void limpiarFiltros() {
         filtros.clear();
         ordenador = Order.none();
-        limite = Optional.empty();
         intervalo = Optional.empty();
-        return listaUsuarios;
+        limite = Optional.empty();
     }
 
 }

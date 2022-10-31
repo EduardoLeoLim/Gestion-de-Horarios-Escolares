@@ -1,5 +1,6 @@
 package com.gamma.gestorhorariosescolares.maestro.aplicacion.buscar;
 
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filter;
@@ -158,7 +159,7 @@ public class BuscadorMaestro implements ServicioBuscador<Maestro> {
     }
 
     /**
-     * Define al último filtro agregado como opcional
+     * Define al último filtro agregado como obligatorio
      *
      * @return ServicioBuscador
      */
@@ -170,7 +171,7 @@ public class BuscadorMaestro implements ServicioBuscador<Maestro> {
     }
 
     /**
-     * Define al último filtro agregado como obligatorio
+     * Define al último filtro agregado como opcional
      *
      * @return ServicioBuscador
      */
@@ -214,12 +215,35 @@ public class BuscadorMaestro implements ServicioBuscador<Maestro> {
     public List<Maestro> buscar() {
         Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
         List<Maestro> listaMaestros = repositorio.buscar(criterio);
-        //Resetaer para reutilizar instacia
+
+        limpiarFiltros();
+
+        return listaMaestros;
+    }
+
+    /**
+     * Busca el primer recurso que cumpla con los filtros
+     *
+     * @return Un recurso
+     * @throws RecursoNoEncontradoException Si no se encontró algún recurso
+     */
+    @Override
+    public Maestro buscarPrimero() throws RecursoNoEncontradoException {
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        List<Maestro> listaMaestros = repositorio.buscar(criterio);
+
+        limpiarFiltros();
+
+        if (listaMaestros.isEmpty())
+            throw new RecursoNoEncontradoException("No se encontró ningún maestro.");
+        return listaMaestros.get(0);
+    }
+
+    private void limpiarFiltros() {
         filtros.clear();
         ordenador = Order.none();
         intervalo = Optional.empty();
         limite = Optional.empty();
-        return listaMaestros;
     }
 
 }

@@ -1,5 +1,7 @@
 package com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios;
 
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
+
 import java.util.List;
 
 /**
@@ -136,4 +138,12 @@ public interface ServicioBuscador<T> {
      * @return Lista de recursos que cumplan los filtros definidos
      */
     List<T> buscar();
+
+    /**
+     * Busca el primer recurso que cumpla con los filtros
+     *
+     * @return Un recurso
+     * @throws RecursoNoEncontradoException Si no se encontró algún recurso
+     */
+    T buscarPrimero() throws RecursoNoEncontradoException;
 }

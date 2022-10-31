@@ -2,6 +2,7 @@ package com.gamma.gestorhorariosescolares.alumno.aplicacion.buscar;
 
 import com.gamma.gestorhorariosescolares.alumno.dominio.Alumno;
 import com.gamma.gestorhorariosescolares.alumno.dominio.AlumnoRepositorio;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filter;
@@ -156,7 +157,7 @@ public class BuscadorAlumno implements ServicioBuscador<Alumno> {
     }
 
     /**
-     * Define al último filtro agregado como opcional
+     * Define al último filtro agregado como obligatorio
      *
      * @return ServicioBuscador
      */
@@ -168,7 +169,7 @@ public class BuscadorAlumno implements ServicioBuscador<Alumno> {
     }
 
     /**
-     * Define al último filtro agregado como obligatorio
+     * Define al último filtro agregado como opcional
      *
      * @return ServicioBuscador
      */
@@ -212,11 +213,35 @@ public class BuscadorAlumno implements ServicioBuscador<Alumno> {
     public List<Alumno> buscar() {
         Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
         List<Alumno> listaAlumnos = repositorio.buscar(criterio);
-        //Resetaer para reutilizar instacia
+
+        limpiarFiltros();
+
+        return listaAlumnos;
+    }
+
+    /**
+     * Busca el primer recurso que cumpla con los filtros
+     *
+     * @return Un recurso
+     * @throws RecursoNoEncontradoException Si no se encontró algún recurso
+     */
+    @Override
+    public Alumno buscarPrimero() throws RecursoNoEncontradoException {
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        List<Alumno> listaAlumnos = repositorio.buscar(criterio);
+
+        limpiarFiltros();
+
+        if (listaAlumnos.isEmpty())
+            throw new RecursoNoEncontradoException("No se encontró ningún alumno.");
+        return listaAlumnos.get(0);
+    }
+
+    private void limpiarFiltros() {
         filtros.clear();
         ordenador = Order.none();
         intervalo = Optional.empty();
         limite = Optional.empty();
-        return listaAlumnos;
     }
+
 }

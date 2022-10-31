@@ -1,5 +1,6 @@
 package com.gamma.gestorhorariosescolares.secretario.aplicacion.buscar;
 
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filter;
@@ -213,12 +214,35 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
     public List<Secretario> buscar() {
         Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
         List<Secretario> listaSecretarios = repositorio.buscar(criterio);
-        //Resetaer para reutilizar instacia
+
+        limpiarFiltros();
+
+        return listaSecretarios;
+    }
+
+    /**
+     * Busca el primer recurso que cumpla con los filtros
+     *
+     * @return Un recurso
+     * @throws RecursoNoEncontradoException Si no se encontró algún recurso
+     */
+    @Override
+    public Secretario buscarPrimero() throws RecursoNoEncontradoException {
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        List<Secretario> listaSecretarios = repositorio.buscar(criterio);
+
+        limpiarFiltros();
+
+        if (listaSecretarios.isEmpty())
+            throw new RecursoNoEncontradoException("No se encontró ningún secretario.");
+        return listaSecretarios.get(0);
+    }
+
+    private void limpiarFiltros() {
         filtros.clear();
         ordenador = Order.none();
         intervalo = Optional.empty();
         limite = Optional.empty();
-        return listaSecretarios;
     }
 
 }
