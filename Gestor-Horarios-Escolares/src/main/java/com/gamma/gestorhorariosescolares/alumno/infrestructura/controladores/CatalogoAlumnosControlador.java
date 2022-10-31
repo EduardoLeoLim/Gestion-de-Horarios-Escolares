@@ -2,20 +2,33 @@ package com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores;
 
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnoData;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnosData;
+import com.gamma.gestorhorariosescolares.alumno.aplicacion.BuscarAlumnos;
+import com.gamma.gestorhorariosescolares.alumno.aplicacion.GestionarEstatusAlumno;
+import com.gamma.gestorhorariosescolares.alumno.aplicacion.actualizar.ActualizadorAlumno;
+import com.gamma.gestorhorariosescolares.alumno.aplicacion.buscar.BuscadorAlumno;
+import com.gamma.gestorhorariosescolares.alumno.infrestructura.persistencia.MySql2oAlumnoRepositorio;
+import com.gamma.gestorhorariosescolares.alumno.infrestructura.stages.FormularioAlumnoStage;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
+import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
+import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
+import com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.sql2o.Connection;
+import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
 
 public class CatalogoAlumnosControlador {
+
     private final Stage stage;
-
     private Temporizador temporizadorBusqueda;
-
     private ObservableList<AlumnoData> coleccionAlumnos;
+    private boolean esBusquedaAlumno;
 
     @FXML
     private TextField txtBuscar;
@@ -36,12 +49,13 @@ public class CatalogoAlumnosControlador {
             buscarAlumnos(txtBuscar.getText().trim());
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue.trim().equals(newValue.trim()))
+            if (oldValue.trim().equals(newValue.trim()) && esBusquedaAlumno)
                 return;
             temporizadorBusqueda.reiniciar();
         });
 
         inicializarTabla();
+        buscarAlumnos();
     }
 
     private void inicializarTabla() {
@@ -50,6 +64,10 @@ public class CatalogoAlumnosControlador {
         TableColumn<AlumnoData, String> columnaMatricula = new TableColumn<>("Matrícula");
         columnaMatricula.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().matricula()));
         columnaMatricula.setMinWidth(150);
+
+        TableColumn<AlumnoData, String> columnaCurp = new TableColumn<>("CURP");
+        columnaCurp.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().curp()));
+        columnaCurp.setMinWidth(150);
 
         TableColumn<AlumnoData, String> columnaNombre = new TableColumn<>("Nombre");
         columnaNombre.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().nombre()));
@@ -101,41 +119,114 @@ public class CatalogoAlumnosControlador {
                     return;
                 }
                 AlumnoData alumno = getTableView().getItems().get(getIndex());
-                Button botonEliminar = new Button();
-                botonEliminar.setPrefWidth(Double.MAX_VALUE);
+                Button botonEstatus = new Button();
+                botonEstatus.setPrefWidth(Double.MAX_VALUE);
                 if (alumno.estatus()) {
-                    botonEliminar.setText("Deshabilitar");
-                    botonEliminar.getStyleClass().addAll("b", "btn-danger");
-                    botonEliminar.setOnAction(event -> deshabilitarAlumno(alumno));
+                    botonEstatus.setText("Deshabilitar");
+                    botonEstatus.getStyleClass().addAll("b", "btn-danger");
+                    botonEstatus.setOnAction(event -> deshabilitarAlumno(alumno));
                 } else {
-                    botonEliminar.setText("Habilitar");
-                    botonEliminar.getStyleClass().addAll("b", "btn-primary");
-                    botonEliminar.setOnAction(event -> habilitarAlumno(alumno));
+                    botonEstatus.setText("Habilitar");
+                    botonEstatus.getStyleClass().addAll("b", "btn-primary");
+                    botonEstatus.setOnAction(event -> habilitarAlumno(alumno));
                 }
-                setGraphic(botonEliminar);
+                setGraphic(botonEstatus);
             }
         });
 
         tablaAlumnos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        tablaAlumnos.getColumns().addAll(columnaMatricula, columnaNombre, columnaApellidoPaterno, columnaApellidoMaterno,
-                columnaCorreoElectronico, columnaEditar, columnaEstatus);
+        tablaAlumnos.getColumns().addAll(columnaMatricula, columnaCurp, columnaNombre, columnaApellidoPaterno,
+                columnaApellidoMaterno, columnaCorreoElectronico, columnaEditar, columnaEstatus);
         tablaAlumnos.setItems(coleccionAlumnos);
     }
 
-    private void editarAlumno(AlumnoData alumno) {
+    @FXML
+    private void registrarNuevoAlumno() {
+        var formulario = new FormularioAlumnoStage();
+        formulario.initOwner(stage);
+        formulario.showAndWait();
+        buscarAlumnos();
+    }
 
+    private void editarAlumno(AlumnoData alumno) {
+        var formulario = new FormularioAlumnoStage(alumno);
+        formulario.initOwner(stage);
+        formulario.showAndWait();
+        buscarAlumnos();
     }
 
     private void habilitarAlumno(AlumnoData alumno) {
-
+        cambiarEstatus("habilitar", alumno);
     }
 
     private void deshabilitarAlumno(AlumnoData alumno) {
+        cambiarEstatus("deshabilitar", alumno);
+    }
 
+    private void cambiarEstatus(String estatus, AlumnoData alumno) {
+        Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
+
+        try (Connection transaccion = conexion.beginTransaction()) {
+            //Repositorios
+            var alumnoRepositorio = new MySql2oAlumnoRepositorio(transaccion);
+
+            //Servicios
+            var buscadorAlumno = new BuscadorAlumno(alumnoRepositorio);
+            var actualizadorAlumno = new ActualizadorAlumno(alumnoRepositorio);
+
+            GestionarEstatusAlumno gestionarEstatusAlumno = new GestionarEstatusAlumno(buscadorAlumno, actualizadorAlumno);
+
+            switch (estatus.toLowerCase()) {
+                case "habilitar" -> gestionarEstatusAlumno.habilitarAlumno(alumno.id());
+                case "deshabilitar" -> gestionarEstatusAlumno.deshabilitarAlumno(alumno.id());
+            }
+
+            transaccion.commit();
+        } catch (Sql2oException e) {
+            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+        } catch (RecursoNoEncontradoException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
+        } finally {
+            buscarAlumnos();
+        }
+    }
+
+    public void buscarAlumnos() {
+        esBusquedaAlumno = false;
+        txtBuscar.setText("");
+        esBusquedaAlumno = true;
+        temporizadorBusqueda.reiniciar();
     }
 
     private void buscarAlumnos(String criterioBusqueda) {
-        System.out.println("Busqueda de alumnos por criterio: '" + criterioBusqueda + "'");
+        if (criterioBusqueda == null)
+            criterioBusqueda = "";
+
+        AlumnosData alumnos;
+        Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
+
+        try (Connection trasaccion = conexion.beginTransaction()) {
+            //Repositorios
+            var alumnoRepositorio = new MySql2oAlumnoRepositorio(trasaccion);
+            var usuarioRepositorio = new MySql2oUsuarioRepositorio(trasaccion);
+
+            //Servicios
+            var buscadorAlumno = new BuscadorAlumno(alumnoRepositorio);
+            var buscadorUsuario = new BuscadorUsuario(usuarioRepositorio);
+
+            BuscarAlumnos buscarAlumnos = new BuscarAlumnos(buscadorAlumno, buscadorUsuario);
+
+            if (criterioBusqueda.isBlank()) {
+                alumnos = buscarAlumnos.buscarTodos();
+            } else {
+                System.out.println("Busqueda de alumnos por criterio: '" + criterioBusqueda + "'");
+                alumnos = buscarAlumnos.buscarPorCriterio(criterioBusqueda);
+            }
+
+            cargarAlumnosEnTabla(alumnos);
+        } catch (Sql2oException e) {
+            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+        }
     }
 
     private void cargarAlumnosEnTabla(AlumnosData listaAlumnos) {
