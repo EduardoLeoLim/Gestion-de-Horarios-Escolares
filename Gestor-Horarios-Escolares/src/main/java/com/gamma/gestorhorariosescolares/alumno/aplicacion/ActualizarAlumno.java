@@ -29,7 +29,7 @@ public class ActualizarAlumno {
         this.buscadorUsuario = buscadorUsuario;
     }
 
-    private void actualizar(AlumnoData alumnoData) throws RecursoNoEncontradoException, MatriculaDuplicadaException, CurpDuplicadoException, UsuarioDuplicadoException, FormatoInvalidoException {
+    public void actualizar(AlumnoData alumnoData) throws RecursoNoEncontradoException, MatriculaDuplicadaException, CurpDuplicadoException, UsuarioDuplicadoException, FormatoInvalidoException {
         if (alumnoData == null)
             throw new NullPointerException();
 
