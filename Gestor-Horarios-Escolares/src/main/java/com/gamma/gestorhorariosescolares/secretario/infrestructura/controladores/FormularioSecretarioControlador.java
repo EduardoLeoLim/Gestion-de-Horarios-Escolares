@@ -149,8 +149,9 @@ public class FormularioSecretarioControlador {
         } catch (UsuarioDuplicadoException | NoPersonalDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (FormatoInvalidoException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
-            e.printStackTrace();
+            Alert mensaje = new Alert(Alert.AlertType.WARNING, e.descripcion(), ButtonType.OK);
+            mensaje.setTitle(e.titulo());
+            mensaje.showAndWait();
         } catch (Sql2oException e) {
             new Alert(Alert.AlertType.ERROR, "Error al registrar en base de datos", ButtonType.OK).showAndWait();
             e.printStackTrace();
@@ -198,7 +199,9 @@ public class FormularioSecretarioControlador {
         } catch (RecursoNoEncontradoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
         } catch (FormatoInvalidoException e) {
-            new Alert(Alert.AlertType.WARNING, e.getMessage(), ButtonType.OK).showAndWait();
+            Alert mensaje = new Alert(Alert.AlertType.WARNING, e.descripcion(), ButtonType.OK);
+            mensaje.setTitle(e.titulo());
+            mensaje.showAndWait();
         } catch (Sql2oException e) {
             new Alert(Alert.AlertType.ERROR, "Error de base de datos.", ButtonType.OK).showAndWait();
             cerrarFormulario();

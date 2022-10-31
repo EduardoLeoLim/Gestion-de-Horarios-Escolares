@@ -17,9 +17,9 @@ public class ActualizadorUsuario implements ServicioActualizadorUsuario {
     @Override
     public void actualizar(Usuario usuario) throws FormatoInvalidoException {
         if (!esValidoCorreoElectronico(usuario.correoElectronico()))
-            throw new FormatoInvalidoException("El formato del correo electrónico es inválido.");
+            throw new FormatoInvalidoException("Correo electronico inválido", "El formato del correo electrónico es inválido.");
         if (!esValidoTelefono(usuario.telefono()))
-            throw new FormatoInvalidoException("El formato del número telefónico es inválido.");
+            throw new FormatoInvalidoException("Teléfono inválido", "El formato del número telefónico es inválido.");
 
         repositorio.actualizar(usuario);
     }

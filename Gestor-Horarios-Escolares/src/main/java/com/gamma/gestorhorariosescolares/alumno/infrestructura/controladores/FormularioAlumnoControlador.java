@@ -79,7 +79,9 @@ public class FormularioAlumnoControlador {
         } catch (UsuarioDuplicadoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
         } catch (FormatoInvalidoException e) {
-            new Alert(Alert.AlertType.WARNING, e.getMessage(), ButtonType.OK).showAndWait();
+            Alert mensaje = new Alert(Alert.AlertType.WARNING, e.descripcion(), ButtonType.OK);
+            mensaje.setTitle(e.titulo());
+            mensaje.showAndWait();
         } catch (Sql2oException e) {
             new Alert(Alert.AlertType.ERROR, "Error al registrar en base de datos", ButtonType.OK).showAndWait();
             cerrarFormulario();
