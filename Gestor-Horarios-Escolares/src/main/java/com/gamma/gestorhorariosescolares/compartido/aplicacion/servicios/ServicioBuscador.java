@@ -101,14 +101,14 @@ public interface ServicioBuscador<T> {
     ServicioBuscador<T> ordenarDescendente(String campo);
 
     /**
-     * Define al último filtro agregado como opcional
+     * Define al último filtro agregado como obligatorio
      *
      * @return ServicioBuscador
      */
     ServicioBuscador<T> esObligatorio();
 
     /**
-     * Define al último filtro agregado como obligatorio
+     * Define al último filtro agregado como opcional
      *
      * @return ServicioBuscador
      */

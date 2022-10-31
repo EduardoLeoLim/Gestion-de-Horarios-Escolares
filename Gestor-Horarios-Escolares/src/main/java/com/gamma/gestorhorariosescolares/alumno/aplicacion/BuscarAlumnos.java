@@ -45,8 +45,8 @@ public class BuscarAlumnos {
     public AlumnosData buscarPorCriterio(String criterio) {
         List<Alumno> listaAlumnos = buscadorAlumno
                 .contiene("matricula", criterio).esOpcional()
-                .contiene("curp",criterio).esOpcional()
-                .contiene("nombre",criterio).esOpcional()
+                .contiene("curp", criterio).esOpcional()
+                .contiene("nombre", criterio).esOpcional()
                 .contiene("apellidoPaterno", criterio).esOpcional()
                 .contiene("apellidoMaterno", criterio).esOpcional()
                 .ordenarAscendente("matricula")

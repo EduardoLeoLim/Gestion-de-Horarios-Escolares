@@ -17,9 +17,9 @@ public class RegistradorUsuario implements ServicioRegistradorUsuario {
     @Override
     public int registrar(String telefono, String correoElectronico, String claveAcceso, String tipo) throws FormatoInvalidoException {
         if (!esValidoCorreoElectronico(correoElectronico))
-            throw new FormatoInvalidoException("Correo electrónico invalido","El formato del correo electrónico es inválido.");
+            throw new FormatoInvalidoException("Correo electrónico invalido", "El formato del correo electrónico es inválido.");
         if (!esValidoTelefono(telefono))
-            throw new FormatoInvalidoException("Teléfono inválido","El formato del número telefónico es inválido.");
+            throw new FormatoInvalidoException("Teléfono inválido", "El formato del número telefónico es inválido.");
 
         Usuario nuevoUsuario = new Usuario(telefono, correoElectronico, claveAcceso, tipo);
         return repositorio.registrar(nuevoUsuario);
