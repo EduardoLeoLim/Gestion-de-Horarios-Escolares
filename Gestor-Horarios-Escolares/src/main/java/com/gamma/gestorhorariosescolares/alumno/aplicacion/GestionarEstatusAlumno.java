@@ -25,7 +25,7 @@ public class GestionarEstatusAlumno {
 
     public void deshabilitarAlumno(int idAlumno) throws RecursoNoEncontradoException {
         Alumno alumno = this.buscarAlumno(idAlumno);
-        alumno.habilitar();
+        alumno.deshabilitar();
         actualizadorAlumno.actualizar(alumno);
     }
 
