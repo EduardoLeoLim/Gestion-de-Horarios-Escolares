@@ -41,4 +41,21 @@ public class BuscarAlumnos {
         }).collect(Collectors.toList());
         return new AlumnosData(listaAlumnosData);
     }
+
+    public AlumnosData buscarPorCriterio(String criterio) {
+        List<Alumno> listaAlumnos = buscadorAlumno
+                .contiene("matricula", criterio).esOpcional()
+                .contiene("curp",criterio).esOpcional()
+                .contiene("nombre",criterio).esOpcional()
+                .contiene("apellidoPaterno", criterio).esOpcional()
+                .contiene("apellidoMaterno", criterio).esOpcional()
+                .ordenarAscendente("matricula")
+                .buscar();
+
+        List<AlumnoData> listaAlumnosData = listaAlumnos.stream().map(alumno -> {
+            Usuario usuario = buscadorUsuario.igual("id", String.valueOf(alumno.idUsuario())).buscar().get(0);
+            return AlumnoData.fromAggregate(alumno, usuario);
+        }).collect(Collectors.toList());
+        return new AlumnosData(listaAlumnosData);
+    }
 }
