@@ -57,7 +57,6 @@ jlink {
         name = project.name
     }
     jpackage {
-        outputDir = 'installer'
         installerOptions = [
                 '--description', description,
                 '--copyright', 'Copyrigth 2022-2022 GAMMA',
