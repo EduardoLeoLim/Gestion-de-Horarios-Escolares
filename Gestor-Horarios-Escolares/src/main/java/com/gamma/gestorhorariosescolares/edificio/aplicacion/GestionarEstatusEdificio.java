@@ -18,23 +18,17 @@ public class GestionarEstatusEdificio {
     }
 
     public void habilitarEdificio(int idEdificio) throws RecursoNoEncontradoException {
-        List<Edificio> edificios;
-        edificios = buscadorEdificio.igual("id", String.valueOf(idEdificio)).buscar();
-        if (edificios.isEmpty())
-            throw new RecursoNoEncontradoException("El edificio no se encuentra registrado en el siste,a");
-
-        Edificio edificio = edificios.get(0);
+        Edificio edificio = buscadorEdificio
+                .igual("id", String.valueOf(idEdificio))
+                .buscarPrimero();
         edificio.habilitar();
         actualizadorEdificio.actualizar(edificio);
     }
 
     public void deshabilitarEdificio(int idEdificio) throws RecursoNoEncontradoException {
-        List<Edificio> edificios;
-        edificios = buscadorEdificio.igual("id", String.valueOf(idEdificio)).buscar();
-        if (edificios.isEmpty())
-            throw new RecursoNoEncontradoException("El edificio no se encuentra registrado en el siste,a");
-
-        Edificio edificio = edificios.get(0);
+        Edificio edificio = buscadorEdificio
+                .igual("id", String.valueOf(idEdificio))
+                .buscarPrimero();
         edificio.deshabilitar();
         actualizadorEdificio.actualizar(edificio);
     }

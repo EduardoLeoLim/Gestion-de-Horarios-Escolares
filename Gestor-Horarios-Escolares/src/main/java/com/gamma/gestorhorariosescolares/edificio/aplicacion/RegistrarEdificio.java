@@ -21,7 +21,7 @@ public class RegistrarEdificio {
         List<Edificio> listaBusquedaEdificio;
         listaBusquedaEdificio = buscadorEdificio.igual("clave", clave).buscar();
 
-        if (listaBusquedaEdificio.size() > 0)
+        if (!listaBusquedaEdificio.isEmpty())
             throw new ClaveDuplicadaException("Ya hay un edificio registrado con la clave " + clave);
 
         registradorEdificio.registrar(clave, nombre);

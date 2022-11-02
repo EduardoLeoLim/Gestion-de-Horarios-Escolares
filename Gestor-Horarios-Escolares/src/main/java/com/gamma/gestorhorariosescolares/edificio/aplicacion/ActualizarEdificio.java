@@ -18,7 +18,7 @@ public class ActualizarEdificio {
         this.actualizadorEdificio = actualizadorEdificio;
     }
 
-    private void actualizar(EdificioData edificioData) throws RecursoNoEncontradoException, ClaveDuplicadaException {
+    public void actualizar(EdificioData edificioData) throws RecursoNoEncontradoException, ClaveDuplicadaException {
         if (edificioData == null)
             throw new NullPointerException();
 
@@ -28,7 +28,7 @@ public class ActualizarEdificio {
         listaBusquedaEdificio = buscadorEdificio
                 .igual("id", String.valueOf(edificioData.id()))
                 .buscar();
-        if (!(listaBusquedaEdificio.size() > 0))
+        if (listaBusquedaEdificio.isEmpty())
             throw new RecursoNoEncontradoException("El edificio no se encuentra registrado en el sistema");
 
         //¿Otro edificio tiene la clave que se desea asignar a este edificio?
@@ -36,7 +36,7 @@ public class ActualizarEdificio {
                 .diferente("id", String.valueOf(edificioData.id()))
                 .igual("clave", edificioData.clave())
                 .buscar();
-        if (listaBusquedaEdificio.size() > 0)
+        if (!listaBusquedaEdificio.isEmpty())
             throw new ClaveDuplicadaException("Ya hay un edificio registrado con la clave " + edificioData.clave());
 
         Edificio edificio = new Edificio(edificioData.id(), edificioData.clave(), edificioData.nombre(), edificioData.estatus());
