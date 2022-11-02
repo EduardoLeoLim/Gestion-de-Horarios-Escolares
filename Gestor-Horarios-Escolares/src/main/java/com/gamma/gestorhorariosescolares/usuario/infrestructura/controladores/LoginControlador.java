@@ -44,7 +44,9 @@ public class LoginControlador {
         String claveAcceso = txtClaveAcceso.getText();
 
         if (hayCamposVacios(correoElectronico, claveAcceso)) {
-            new Alert(Alert.AlertType.WARNING, "Por favor, ingresa los datos correctamente", ButtonType.OK).show();
+            Alert mensaje = new Alert(Alert.AlertType.WARNING, "Por favor, ingresa tu usuario y contraseña", ButtonType.OK);
+            mensaje.setTitle("Credenciales inválidas");
+            mensaje.showAndWait();
             return;
         }
 
@@ -52,11 +54,13 @@ public class LoginControlador {
             UsuarioData usuario = ingresar(correoElectronico, claveAcceso);
             mostrarMenu(usuario);
         } catch (RecursoNoEncontradoException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
+            Alert mensaje = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+            mensaje.setTitle("Usuario no encontrado");
+            mensaje.showAndWait();
         } catch (Sql2oException e) {
-            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK).show();
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
+            Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
+            mensaje.setTitle("Error Base de datos");
+            mensaje.showAndWait();
         }
     }
 
@@ -73,12 +77,10 @@ public class LoginControlador {
             Autenticacion autenticacion = new Autenticacion(buscadorUsuario);
 
             return autenticacion.ingresar(correoElectronico, claveAcceso);
-        } catch (RecursoNoEncontradoException e) {
-            throw e;
         }
     }
 
-    private void mostrarMenu(UsuarioData usuario) throws Exception {
+    private void mostrarMenu(UsuarioData usuario) throws RecursoNoEncontradoException {
         switch (usuario.tipo()) {
             case "Administrador":
                 new MenuAdministradorStage().show();
@@ -91,7 +93,7 @@ public class LoginControlador {
             case "Alumno":
                 break;
             default:
-                throw new Exception("Tipo de usario desconocido");
+                throw new RecursoNoEncontradoException("Tipo de usuario desconocido");
         }
 
         stage.close();
