@@ -52,7 +52,7 @@ public class CatalogoSecretariosControlador {
             buscarSecretarios(txtBuscar.getText().trim());
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue.trim().equals(newValue.trim()) && esBusquedaDeSecretario)//No se realiza la busqueda cuando se presionan teclas que no modifican la cadena de búsqueda.
+            if (oldValue.trim().equals(newValue.trim()) || !esBusquedaDeSecretario)//No se realiza la busqueda cuando se presionan teclas que no modifican la cadena de búsqueda.
                 return;
             temporizadorBusqueda.reiniciar();
         });

@@ -50,7 +50,7 @@ public class CatalogoMaestrosControlador {
             buscarMaestros(txtBuscar.getText().trim());
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue.trim().equals(newValue.trim()) && esBusquedaDeMaestro)
+            if (oldValue.trim().equals(newValue.trim()) || !esBusquedaDeMaestro)
                 return;
             temporizadorBusqueda.reiniciar();
         });

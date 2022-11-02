@@ -49,7 +49,7 @@ public class CatalogoAlumnosControlador {
             buscarAlumnos(txtBuscar.getText().trim());
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue.trim().equals(newValue.trim()) && esBusquedaAlumno)
+            if (oldValue.trim().equals(newValue.trim()) || !esBusquedaAlumno)
                 return;
             temporizadorBusqueda.reiniciar();
         });
