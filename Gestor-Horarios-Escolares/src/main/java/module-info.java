@@ -2,6 +2,7 @@ module com.gamma.gestorhorariosescolares {
     requires java.sql;
     requires javafx.controls;
     requires javafx.fxml;
+    requires jdk.crypto.ec;
     requires org.kordamp.bootstrapfx.core;
     requires sql2o;
 
