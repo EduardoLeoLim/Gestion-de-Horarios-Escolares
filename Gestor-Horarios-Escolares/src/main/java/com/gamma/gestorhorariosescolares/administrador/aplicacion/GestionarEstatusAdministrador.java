@@ -5,8 +5,6 @@ import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 
-import java.util.List;
-
 public class GestionarEstatusAdministrador {
 
     private final ServicioBuscador<Administrador> buscadorAdministrador;
@@ -19,21 +17,17 @@ public class GestionarEstatusAdministrador {
     }
 
     public void habilitarAdministrador(int idAdministrador) throws RecursoNoEncontradoException {
-        List<Administrador> administradores = buscadorAdministrador.igual("id", String.valueOf(idAdministrador)).buscar();
-        if (administradores.size() == 0)
-            throw new RecursoNoEncontradoException("El administrador no se encuentra registrado en el sistema.");
-
-        Administrador administrador = administradores.get(0);
+        Administrador administrador = buscadorAdministrador
+                .igual("id", String.valueOf(idAdministrador))
+                .buscarPrimero();
         administrador.habilitar();
         actualizadorAdministrador.actualizar(administrador);
     }
 
     public void deshabilitarAdministrador(int idAdministrador) throws RecursoNoEncontradoException {
-        List<Administrador> administradores = buscadorAdministrador.igual("id", String.valueOf(idAdministrador)).buscar();
-        if (administradores.size() == 0)
-            throw new RecursoNoEncontradoException("El administrador no se encuentra registrado en el sistema.");
-
-        Administrador administrador = administradores.get(0);
+        Administrador administrador = buscadorAdministrador
+                .igual("id", String.valueOf(idAdministrador))
+                .buscarPrimero();
         administrador.deshabilitar();
         actualizadorAdministrador.actualizar(administrador);
     }

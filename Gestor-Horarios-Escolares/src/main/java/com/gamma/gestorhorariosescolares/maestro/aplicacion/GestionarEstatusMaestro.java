@@ -5,8 +5,6 @@ import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.Servici
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.actualizar.ServicioActualizadorMaestro;
 import com.gamma.gestorhorariosescolares.maestro.dominio.Maestro;
 
-import java.util.List;
-
 public class GestionarEstatusMaestro {
 
     private final ServicioBuscador<Maestro> buscadorMaestro;
@@ -19,21 +17,17 @@ public class GestionarEstatusMaestro {
     }
 
     public void habilitarMaestro(int idMaestro) throws RecursoNoEncontradoException {
-        List<Maestro> maestros = buscadorMaestro.igual("id", String.valueOf(idMaestro)).buscar();
-        if (maestros.isEmpty())
-            throw new RecursoNoEncontradoException("El maestro no se encuentra registrado en el sistema.");
-
-        Maestro maestro = maestros.get(0);
+        Maestro maestro = buscadorMaestro
+                .igual("id", String.valueOf(idMaestro))
+                .buscarPrimero();
         maestro.habilitar();
         actualizadorMaestro.actualizar(maestro);
     }
 
     public void deshabilitarMaestro(int idMaestro) throws RecursoNoEncontradoException {
-        List<Maestro> maestros = buscadorMaestro.igual("id", String.valueOf(idMaestro)).buscar();
-        if (maestros.isEmpty())
-            throw new RecursoNoEncontradoException("El maestro no se encuentra registrado en el sistema.");
-
-        Maestro maestro = maestros.get(0);
+        Maestro maestro = buscadorMaestro
+                .igual("id", String.valueOf(idMaestro))
+                .buscarPrimero();
         maestro.deshabilitar();
         actualizadorMaestro.actualizar(maestro);
     }

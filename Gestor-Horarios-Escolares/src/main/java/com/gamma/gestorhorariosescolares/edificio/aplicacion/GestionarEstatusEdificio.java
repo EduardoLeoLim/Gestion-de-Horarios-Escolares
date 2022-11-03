@@ -5,8 +5,6 @@ import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.Servici
 import com.gamma.gestorhorariosescolares.edificio.aplicacion.actualizar.ServicioActualizadorEdificio;
 import com.gamma.gestorhorariosescolares.edificio.dominio.Edificio;
 
-import java.util.List;
-
 public class GestionarEstatusEdificio {
 
     private final ServicioBuscador<Edificio> buscadorEdificio;

@@ -5,8 +5,6 @@ import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.Servici
 import com.gamma.gestorhorariosescolares.salon.aplicacion.actualizar.ServicioActualizadorSalon;
 import com.gamma.gestorhorariosescolares.salon.dominio.Salon;
 
-import java.util.List;
-
 public class GestionarEstatusSalon {
 
     private final ServicioBuscador<Salon> buscadorSalon;
@@ -18,23 +16,13 @@ public class GestionarEstatusSalon {
     }
 
     public void habilitarSalon(int idSalon) throws RecursoNoEncontradoException {
-        List<Salon> salones;
-        salones = buscadorSalon.igual("id", String.valueOf(idSalon)).buscar();
-        if (salones.isEmpty())
-            throw new RecursoNoEncontradoException("El salón no se encuentra registrado");
-
-        Salon salon = salones.get(0);
+        Salon salon = buscadorSalon.igual("id", String.valueOf(idSalon)).buscarPrimero();
         salon.habilitar();
         actualizadorSalon.actualizar(salon);
     }
 
     public void deshabilitarSalon(int idSalon) throws RecursoNoEncontradoException {
-        List<Salon> salones;
-        salones = buscadorSalon.igual("id", String.valueOf(idSalon)).buscar();
-        if (salones.isEmpty())
-            throw new RecursoNoEncontradoException("El salón no se encuentra registrado");
-
-        Salon salon = salones.get(0);
+        Salon salon = buscadorSalon.igual("id", String.valueOf(idSalon)).buscarPrimero();
         salon.deshabilitar();
         actualizadorSalon.actualizar(salon);
     }
