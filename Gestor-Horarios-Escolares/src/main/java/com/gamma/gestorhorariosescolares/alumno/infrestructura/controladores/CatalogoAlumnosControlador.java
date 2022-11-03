@@ -41,6 +41,7 @@ public class CatalogoAlumnosControlador {
             throw new NullPointerException();
 
         this.stage = stage;
+        this.esBusquedaAlumno = true;
     }
 
     @FXML

@@ -1,25 +1,35 @@
 package com.gamma.gestorhorariosescolares.edificio.infrestructura.controladores;
 
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
+import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
+import com.gamma.gestorhorariosescolares.edificio.aplicacion.BuscarEdificios;
 import com.gamma.gestorhorariosescolares.edificio.aplicacion.EdificioData;
 import com.gamma.gestorhorariosescolares.edificio.aplicacion.EdificiosData;
+import com.gamma.gestorhorariosescolares.edificio.aplicacion.GestionarEstatusEdificio;
+import com.gamma.gestorhorariosescolares.edificio.aplicacion.actualizar.ActualizadorEdficio;
+import com.gamma.gestorhorariosescolares.edificio.aplicacion.buscar.BuscadorEdificio;
+import com.gamma.gestorhorariosescolares.edificio.infrestructura.persistencia.MySql2oEdificioRepositorio;
+import com.gamma.gestorhorariosescolares.edificio.infrestructura.stages.FormularioEdificioStage;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.sql2o.Connection;
+import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
 
 public class CatalogoEdificiosControlador {
+
     private final Stage stage;
-
     private Temporizador temporizadorBusqueda;
-
     private ObservableList<EdificioData> coleccionEdificios;
+    private boolean esBusquedaEdificio;
 
     @FXML
     private TextField txtBuscar;
-
     @FXML
     private TableView<EdificioData> tablaEdificios;
 
@@ -28,6 +38,7 @@ public class CatalogoEdificiosControlador {
             throw new NullPointerException();
 
         this.stage = stage;
+        this.esBusquedaEdificio = true;
     }
 
     @FXML
@@ -43,6 +54,7 @@ public class CatalogoEdificiosControlador {
         });
 
         inicializarTabla();
+        buscarEdificios();
     }
 
     private void inicializarTabla() {
@@ -64,15 +76,20 @@ public class CatalogoEdificiosControlador {
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(null);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    EdificioData edificio = getTableView().getItems().get(getIndex());
-                    Button botonEditor = new Button("Editar");
-                    botonEditor.setPrefWidth(Double.MAX_VALUE);
-                    botonEditor.getStyleClass().addAll("b", "btn-success");
-                    botonEditor.setOnAction(event -> editarEdificio(edificio));
-                }
+                setGraphic(null);
+                if (empty)
+                    return;
+                TableRow<EdificioData> fila = getTableRow();
+                fila.setDisable(false);
+                EdificioData edificio = getTableView().getItems().get(getIndex());
+                Button botonEditor = new Button("Editar");
+                botonEditor.setPrefWidth(Double.MAX_VALUE);
+                botonEditor.getStyleClass().addAll("b", "btn-success");
+                botonEditor.setOnAction(event -> {
+                    fila.setDisable(true);
+                    editarEdificio(edificio);
+                });
+                setGraphic(botonEditor);
             }
         });
 
@@ -84,23 +101,32 @@ public class CatalogoEdificiosControlador {
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(null);
-                if (empty) {
-                    setGraphic(null);
+                setGraphic(null);
+                if (empty)
                     return;
-                }
+
                 EdificioData edificio = getTableView().getItems().get(getIndex());
-                Button botonEliminar = new Button();
-                botonEliminar.setPrefWidth(Double.MAX_VALUE);
+                Button botonEstatus = new Button();
+                botonEstatus.setPrefWidth(Double.MAX_VALUE);
+                TableRow<EdificioData> fila = getTableRow();
+                fila.setDisable(false);
                 if (edificio.estatus()) {
-                    botonEliminar.setText("Deshabilitar");
-                    botonEliminar.getStyleClass().addAll("b", "btn-danger");
-                    botonEliminar.setOnAction(event -> deshabilitarEdificio(edificio));
+                    botonEstatus.setText("Deshabilitar");
+                    botonEstatus.getStyleClass().addAll("b", "btn-danger");
+                    botonEstatus.setOnAction(event -> {
+                        fila.setDisable(true);
+                        deshabilitarEdificio(edificio);
+                    });
                 } else {
-                    botonEliminar.setText("Habilitar");
-                    botonEliminar.getStyleClass().addAll("b", "btn-primary");
-                    botonEliminar.setOnAction(event -> habilitarEdificio(edificio));
+                    botonEstatus.setText("Habilitar");
+                    botonEstatus.getStyleClass().addAll("b", "btn-primary");
+                    botonEstatus.setOnAction(event -> {
+                        fila.setDisable(true);
+                        habilitarEdificio(edificio);
+                    });
                 }
-                setGraphic(botonEliminar);
+                setGraphic(botonEstatus);
+
             }
         });
 
@@ -109,20 +135,95 @@ public class CatalogoEdificiosControlador {
         tablaEdificios.setItems(coleccionEdificios);
     }
 
-    private void editarEdificio(EdificioData edificio) {
+    @FXML
+    private void registrarNuevoEdificio() {
+        var formulario = new FormularioEdificioStage();
+        formulario.initOwner(stage);
+        formulario.showAndWait();
+        buscarEdificios();
+    }
 
+    private void editarEdificio(EdificioData edificio) {
+        var formulario = new FormularioEdificioStage(edificio);
+        formulario.initOwner(stage);
+        formulario.showAndWait();
+        buscarEdificios();
     }
 
     private void habilitarEdificio(EdificioData edificio) {
-
+        cambiarEstatus("habilitar", edificio);
     }
 
     private void deshabilitarEdificio(EdificioData edificio) {
+        cambiarEstatus("deshabilitar", edificio);
+    }
 
+    private void cambiarEstatus(String estatus, EdificioData edificio) {
+        Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
+
+        try (Connection transaccion = conexion.beginTransaction()) {
+            //Repositorios
+            var edificioRepositorio = new MySql2oEdificioRepositorio(transaccion);
+
+            //Servicios
+            var buscadorEdificio = new BuscadorEdificio(edificioRepositorio);
+            var actualizadorEficio = new ActualizadorEdficio(edificioRepositorio);
+
+            GestionarEstatusEdificio gestionarEstatusEdificio = new GestionarEstatusEdificio(buscadorEdificio, actualizadorEficio);
+
+            switch (estatus.toLowerCase()) {
+                case "habilitar" -> gestionarEstatusEdificio.habilitarEdificio(edificio.id());
+                case "deshabilitar" -> gestionarEstatusEdificio.deshabilitarEdificio(edificio.id());
+            }
+
+            transaccion.commit();
+        } catch (Sql2oException e) {
+            Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no diponible", ButtonType.OK);
+            mensaje.setTitle("Error de base de datos");
+            mensaje.showAndWait();
+        } catch (RecursoNoEncontradoException e) {
+            Alert mensaje = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+            mensaje.setTitle("Edificio no encontrado");
+            mensaje.showAndWait();
+        } finally {
+            buscarEdificios();
+        }
+    }
+
+    private void buscarEdificios() {
+        esBusquedaEdificio = false;
+        txtBuscar.setText("");
+        esBusquedaEdificio = true;
+        temporizadorBusqueda.reiniciar();
     }
 
     private void buscarEdificios(String criterioBusqueda) {
-        System.out.println("Busqueda de edificios por criterio: '" + criterioBusqueda + "'");
+        if (criterioBusqueda == null)
+            criterioBusqueda = "";
+
+        EdificiosData edificios;
+        Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
+
+        try (Connection transaccion = conexion.beginTransaction()) {
+            //Repositorios
+            var edificioRepositorio = new MySql2oEdificioRepositorio(transaccion);
+
+            //Servicios
+            var buscadorEdificio = new BuscadorEdificio(edificioRepositorio);
+
+            BuscarEdificios buscarEdificios = new BuscarEdificios(buscadorEdificio);
+
+            if (criterioBusqueda.isBlank()) {
+                edificios = buscarEdificios.buscarTodos();
+            } else {
+                System.out.println("Busqueda de edificios por criterio: '" + criterioBusqueda + "'");
+                edificios = buscarEdificios.buscarPorCriterio(criterioBusqueda);
+            }
+
+            cargarEdificiosEnTabla(edificios);
+        } catch (Sql2oException e) {
+            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+        }
     }
 
     private void cargarEdificiosEnTabla(EdificiosData listaEdificios) {

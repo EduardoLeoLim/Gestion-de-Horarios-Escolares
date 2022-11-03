@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
 <AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" minWidth="450" minHeight="550"
-            prefWidth="450" prefHeight="550" style="-fx-background-color: EFEFEF;">
+            prefWidth="450" prefHeight="550" style="-fx-background-color: #EFEFEF;">
     <GridPane AnchorPane.topAnchor="25.0" AnchorPane.bottomAnchor="60" AnchorPane.leftAnchor="30"
               AnchorPane.rightAnchor="30">
         <columnConstraints>
