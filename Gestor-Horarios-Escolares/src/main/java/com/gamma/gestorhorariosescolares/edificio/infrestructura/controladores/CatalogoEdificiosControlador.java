@@ -48,7 +48,7 @@ public class CatalogoEdificiosControlador {
             buscarEdificios(txtBuscar.getText().trim());
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue.trim().equals(newValue.trim()))
+            if (oldValue.trim().equals(newValue.trim()) || !esBusquedaEdificio)
                 return;
             temporizadorBusqueda.reiniciar();
         });
