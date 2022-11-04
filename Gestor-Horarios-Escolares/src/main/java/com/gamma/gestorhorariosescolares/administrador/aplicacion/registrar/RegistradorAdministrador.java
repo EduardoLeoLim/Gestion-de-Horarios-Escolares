@@ -34,9 +34,9 @@ public class RegistradorAdministrador implements ServicioRegistradorAdministrado
      * @param idUsuario       El parámetro idUsuario corresponde al identificador del usuario del administrador
      */
     @Override
-    public void registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario) {
+    public int registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario) {
         var administrador = new Administrador(noPersonal, nombre, apellidoPaterno, apellidoMaterno, idUsuario);
-        repositorio.registrar(administrador);
+        return repositorio.registrar(administrador);
     }
 
 }

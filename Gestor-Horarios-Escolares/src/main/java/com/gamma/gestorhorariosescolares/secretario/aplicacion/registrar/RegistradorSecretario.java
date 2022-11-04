@@ -12,10 +12,10 @@ public class RegistradorSecretario implements ServicioRegistradorSecretario {
     }
 
     @Override
-    public void registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario) {
+    public int registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario) {
         //Validar formato de datos
         Secretario secretario = new Secretario(noPersonal, nombre, apellidoPaterno, apellidoMaterno, idUsuario);
-        repositorio.registrar(secretario);
+        return repositorio.registrar(secretario);
     }
 
 }

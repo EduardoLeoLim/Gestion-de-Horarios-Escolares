@@ -12,9 +12,9 @@ public class RegistradorMaestro implements ServicioRegistradorMaestro {
     }
 
     @Override
-    public void registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario) {
+    public int registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario) {
         //Validar formato de datos
         Maestro maestro = new Maestro(noPersonal, nombre, apellidoPaterno, apellidoMaterno, idUsuario);
-        repositorio.registrar(maestro);
+        return repositorio.registrar(maestro);
     }
 }

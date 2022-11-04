@@ -18,6 +18,6 @@ public interface ServicioRegistradorAdministrador {
      * @param apellidoMaterno El parámetor apellidoMaterno corresponde al apellido materno del administrador
      * @param idUsuario       El parámetro idUsuario corresponde al identificador del usuario del administrador
      */
-    void registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario);
+    int registrar(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario);
 
 }
