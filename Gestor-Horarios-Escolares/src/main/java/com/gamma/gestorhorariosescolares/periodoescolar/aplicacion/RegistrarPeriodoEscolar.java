@@ -6,6 +6,10 @@ import com.gamma.gestorhorariosescolares.materia.aplicacion.excepciones.Superpos
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.registrar.RegistradorPeriodoEscolar;
 import com.gamma.gestorhorariosescolares.periodoescolar.dominio.PeriodoEscolar;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +24,7 @@ public class RegistrarPeriodoEscolar {
         this.registradorPeriodoEscolar = registradorPeriodoEscolar;
     }
 
-    public void registrar(String clave, String nombre, Date fechaInicio, Date fechaFin) throws ClaveDuplicadaException,
+    public void registrar(String clave, String nombre, LocalDate fechaInicio, LocalDate fechaFin) throws ClaveDuplicadaException,
             SuperposicionRangoFechasException {
         List<PeriodoEscolar> periodosEscolares;
 
@@ -33,21 +37,30 @@ public class RegistrarPeriodoEscolar {
             throw new ClaveDuplicadaException("Ya hay un periodo escolar registrado con la clave " + clave);
 
         //Superposición de fechas con fechaInicio
+        //yyyy-MM-dd
+        String fechaInicioFormateada = fechaInicio.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        String fechaFinFormateada = fechaFin.format(DateTimeFormatter.ISO_LOCAL_DATE);
+
         periodosEscolares = buscadorPeriodoEscolar
-                .mayorIgualQue("fechaInicio", fechaInicio.toString())
-                .menorIgualQue("fechaFin", fechaInicio.toString())
+                .mayorIgualQue("fechaInicio", fechaInicioFormateada)
+                .menorIgualQue("fechaFin", fechaInicioFormateada)
                 .buscar();
         if (!periodosEscolares.isEmpty())
             throw new SuperposicionRangoFechasException("La fecha de inicio se superpone con otros periodos escolares");
 
         periodosEscolares = buscadorPeriodoEscolar
-                .mayorIgualQue("fechaInicio", fechaFin.toString())
-                .menorIgualQue("fechaFin", fechaFin.toString())
+                .mayorIgualQue("fechaInicio", fechaFinFormateada)
+                .menorIgualQue("fechaFin", fechaFinFormateada)
                 .buscar();
         if (!periodosEscolares.isEmpty())
             throw new SuperposicionRangoFechasException("La fecha de finalización se superpone con otros periodos escolares");
 
-
-        registradorPeriodoEscolar.registrar(clave, nombre, fechaInicio, fechaFin);
+        Date fechaInicioRegistro = Date.from(fechaInicio.atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant());
+        Date fechaFinRegistro = Date.from(fechaFin.atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant());
+        registradorPeriodoEscolar.registrar(clave, nombre, fechaInicioRegistro, fechaFinRegistro);
     }
 }
