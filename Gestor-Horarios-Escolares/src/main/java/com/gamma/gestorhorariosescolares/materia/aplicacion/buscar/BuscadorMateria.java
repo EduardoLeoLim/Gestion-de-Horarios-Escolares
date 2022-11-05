@@ -6,7 +6,6 @@ import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filter;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filters;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Order;
-import com.gamma.gestorhorariosescolares.maestro.dominio.Maestro;
 import com.gamma.gestorhorariosescolares.materia.dominio.Materia;
 import com.gamma.gestorhorariosescolares.materia.dominio.MateriaRepositorio;
 
@@ -38,7 +37,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Materia> igual(String campo, String valor) {
+    public BuscadorMateria igual(String campo, String valor) {
         filtros.add(Filter.create(campo, "=", valor));
         return this;
     }
@@ -51,7 +50,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Materia> diferente(String campo, String valor) {
+    public BuscadorMateria diferente(String campo, String valor) {
         filtros.add(Filter.create(campo, "!=", valor));
         return this;
     }
@@ -64,7 +63,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Materia> mayorQue(String campo, String valor) {
+    public BuscadorMateria mayorQue(String campo, String valor) {
         filtros.add(Filter.create(campo, ">", valor));
         return this;
     }
@@ -77,7 +76,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Materia> mayorIgualQue(String campo, String valor) {
+    public BuscadorMateria mayorIgualQue(String campo, String valor) {
         filtros.add(Filter.create(campo, ">=", valor));
         return this;
     }
@@ -90,7 +89,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Materia> menorQue(String campo, String valor) {
+    public BuscadorMateria menorQue(String campo, String valor) {
         filtros.add(Filter.create(campo, "<", valor));
         return this;
     }
@@ -103,7 +102,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Materia> menorIgualQue(String campo, String valor) {
+    public BuscadorMateria menorIgualQue(String campo, String valor) {
         filtros.add(Filter.create(campo, "<=", valor));
         return this;
     }
@@ -116,7 +115,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Materia> contiene(String campo, String valor) {
+    public BuscadorMateria contiene(String campo, String valor) {
         filtros.add(Filter.create(campo, "CONTAINS", valor));
         return this;
     }
@@ -129,7 +128,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Materia> noContiene(String campo, String valor) {
+    public BuscadorMateria noContiene(String campo, String valor) {
         filtros.add(Filter.create(campo, "NOT_CONTAINS", valor));
         return this;
     }
@@ -141,7 +140,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Materia> ordenarAscendente(String campo) {
+    public BuscadorMateria ordenarAscendente(String campo) {
         ordenador = Order.asc(campo);
         return this;
     }
@@ -153,7 +152,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Materia> ordenarDescendente(String campo) {
+    public BuscadorMateria ordenarDescendente(String campo) {
         ordenador = Order.desc(campo);
         return this;
     }
@@ -164,7 +163,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Materia> esObligatorio() {
+    public BuscadorMateria esObligatorio() {
         if (!filtros.isEmpty())
             filtros.get(filtros.size() - 1).obligatory();
         return this;
@@ -176,7 +175,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Materia> esOpcional() {
+    public BuscadorMateria esOpcional() {
         if (!filtros.isEmpty())
             filtros.get(filtros.size() - 1).optional();
         return this;
@@ -189,7 +188,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Materia> intervalo(int intervalo) {
+    public BuscadorMateria intervalo(int intervalo) {
         this.intervalo = Optional.of(intervalo);
         return this;
     }
@@ -201,7 +200,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Materia> limite(int limite) {
+    public BuscadorMateria limite(int limite) {
         this.limite = Optional.of(limite);
         return this;
     }
