@@ -19,6 +19,15 @@ public class PeriodoEscolar {
         this.estatus = estatus;
     }
 
+    public PeriodoEscolar( String clave, String nombre, Date fechaInicio, Date fechaFin) {
+        this.id = 0;
+        this.estatus = true;
+        this.clave = clave;
+        this.nombre = nombre;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+    }
+
     public int id() {
         return id;
     }

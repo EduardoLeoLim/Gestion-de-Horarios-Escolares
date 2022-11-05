@@ -16,7 +16,7 @@ public class RegistradorPeriodoEscolar implements ServicioRegistradorPeriodoEsco
     @Override
     public int registrar(String clave, String nombre, Date fechaInicio, Date fechaFin) {
         //Validar formato de datos
-        PeriodoEscolar periodoEscolar = new PeriodoEscolar(0,clave,nombre,fechaInicio,fechaFin,true);
+        PeriodoEscolar periodoEscolar = new PeriodoEscolar(clave,nombre,fechaInicio,fechaFin);
         return repositorio.registrar(periodoEscolar);
     }
 }
