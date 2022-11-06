@@ -202,7 +202,7 @@ public class FormularioSalonControlador {
 
             ActualizarSalon actualizarSalon = new ActualizarSalon(buscadorEdificio, buscadorSalon, actualizadorSalon);
 
-            SalonData salonData = new SalonData(id,clave, capacidad, estatus, edificio);
+            SalonData salonData = new SalonData(id, clave, capacidad, estatus, edificio);
 
             actualizarSalon.actualizar(salonData);
 

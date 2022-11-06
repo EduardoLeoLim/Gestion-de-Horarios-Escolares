@@ -6,7 +6,6 @@ import com.gamma.gestorhorariosescolares.materia.aplicacion.excepciones.Superpos
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.registrar.RegistradorPeriodoEscolar;
 import com.gamma.gestorhorariosescolares.periodoescolar.dominio.PeriodoEscolar;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;

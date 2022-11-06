@@ -2,7 +2,6 @@ package com.gamma.gestorhorariosescolares.salon.infrestructura.persistencia;
 
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.MySqlCriteriaParser;
-import com.gamma.gestorhorariosescolares.edificio.dominio.Edificio;
 import com.gamma.gestorhorariosescolares.salon.dominio.Salon;
 import com.gamma.gestorhorariosescolares.salon.dominio.SalonRepositorio;
 import org.sql2o.Connection;

@@ -2,7 +2,6 @@ package com.gamma.gestorhorariosescolares.salon.infrestructura.stages;
 
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.InicializarPanel;
-import com.gamma.gestorhorariosescolares.edificio.infrestructura.controladores.FormularioEdificioControlador;
 import com.gamma.gestorhorariosescolares.salon.aplicacion.SalonData;
 import com.gamma.gestorhorariosescolares.salon.infrestructura.controladores.FormularioSalonControlador;
 import javafx.scene.layout.AnchorPane;
@@ -14,9 +13,9 @@ import java.io.IOException;
 public class FormularioSalonStage extends CustomStage {
 
     private final boolean esNuevoRegistro;
+    private AnchorPane panelFormulario;
+    private FormularioSalonControlador controladorFormulario;
     private SalonData salonEdicion;
-    AnchorPane panelFormulario;
-    FormularioSalonControlador controladorFormulario;
 
     public FormularioSalonStage() {
         setTitle("Registrar salón");

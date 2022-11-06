@@ -86,7 +86,7 @@ public class FormularioPeriodoEscolarControlador {
             if (dpckFechaInicio.getValue() == null || dpckFechaFin.getValue() == null)
                 return;
 
-            String nombreParteInicio = dpckFechaInicio.getValue().format(DateTimeFormatter.ofPattern("MMMM yyyy", Locale.getDefault()) );
+            String nombreParteInicio = dpckFechaInicio.getValue().format(DateTimeFormatter.ofPattern("MMMM yyyy", Locale.getDefault()));
             String nombreParteFinal = dpckFechaFin.getValue().format(DateTimeFormatter.ofPattern("MMMM yyyy", Locale.getDefault()));
 
             txtNombre.setText(nombreParteInicio + " - " + nombreParteFinal);

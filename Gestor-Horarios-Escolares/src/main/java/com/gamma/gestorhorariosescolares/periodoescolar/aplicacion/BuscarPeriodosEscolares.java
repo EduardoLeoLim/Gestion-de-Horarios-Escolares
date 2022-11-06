@@ -23,7 +23,7 @@ public class BuscarPeriodosEscolares {
 
     public PeriodosEscolaresData buscarHabilitados() {
         List<PeriodoEscolar> periodosEscolares = buscadorPeriodoEscolar
-                .igual("estatus","1")
+                .igual("estatus", "1")
                 .ordenarAscendente("clave")
                 .buscar();
 

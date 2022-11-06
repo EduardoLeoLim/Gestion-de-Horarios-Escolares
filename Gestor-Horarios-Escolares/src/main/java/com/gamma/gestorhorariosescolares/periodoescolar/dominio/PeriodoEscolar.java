@@ -19,7 +19,7 @@ public class PeriodoEscolar {
         this.estatus = estatus;
     }
 
-    public PeriodoEscolar( String clave, String nombre, Date fechaInicio, Date fechaFin) {
+    public PeriodoEscolar(String clave, String nombre, Date fechaInicio, Date fechaFin) {
         this.id = 0;
         this.estatus = true;
         this.clave = clave;

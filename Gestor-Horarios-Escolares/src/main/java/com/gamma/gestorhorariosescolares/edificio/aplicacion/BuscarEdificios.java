@@ -23,7 +23,7 @@ public class BuscarEdificios {
 
     public EdificiosData buscarHabilitados() {
         List<Edificio> listaEdificios = buscadorEdificio
-                .igual("estatus","1")
+                .igual("estatus", "1")
                 .ordenarAscendente("clave")
                 .buscar();
 

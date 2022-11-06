@@ -13,9 +13,9 @@ import java.io.IOException;
 public class FormularioEdificioStage extends CustomStage {
 
     private final boolean esNuevoRegistro;
+    private AnchorPane panelFormulario;
+    private FormularioEdificioControlador controladorFormulario;
     private EdificioData edificioEdicion;
-    AnchorPane panelFormulario;
-    FormularioEdificioControlador controladorFormulario;
 
     public FormularioEdificioStage() {
         setTitle("Registrar Edificio");

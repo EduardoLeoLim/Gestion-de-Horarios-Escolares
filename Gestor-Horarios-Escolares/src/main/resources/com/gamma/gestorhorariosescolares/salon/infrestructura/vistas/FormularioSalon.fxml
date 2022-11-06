@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" minWidth="380" minHeight="300"
+<AnchorPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" minWidth="380" minHeight="300"
             prefWidth="380" prefHeight="300" style="-fx-background-color: #EFEFEF;">
     <GridPane AnchorPane.topAnchor="25.0" AnchorPane.bottomAnchor="60" AnchorPane.leftAnchor="30"
               AnchorPane.rightAnchor="30">
@@ -22,7 +22,8 @@
                GridPane.rowIndex="0"/>
 
         <Label styleClass="h5" text="Edificio:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <ComboBox fx:id="cbxEdificio" promptText="Selecciona un edificio" styleClass="h5" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <ComboBox fx:id="cbxEdificio" promptText="Selecciona un edificio" styleClass="h5" GridPane.columnIndex="1"
+                  GridPane.rowIndex="1"/>
 
         <Label styleClass="h5" text="Clave:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
         <TextField fx:id="txtClave" styleClass="h5" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
