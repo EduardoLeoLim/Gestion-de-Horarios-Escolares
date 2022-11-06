@@ -21,8 +21,8 @@
         <Label styleClass="h4" text="Datos generales" GridPane.columnIndex="0" GridPane.columnSpan="2"
                GridPane.rowIndex="0"/>
 
-        <Label styleClass="h5" text="Salón:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <ComboBox fx:id="cbxEdificio" promptText="Selecciona un salón" styleClass="h5" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label styleClass="h5" text="Edificio:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <ComboBox fx:id="cbxEdificio" promptText="Selecciona un edificio" styleClass="h5" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
         <Label styleClass="h5" text="Clave:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
         <TextField fx:id="txtClave" styleClass="h5" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
