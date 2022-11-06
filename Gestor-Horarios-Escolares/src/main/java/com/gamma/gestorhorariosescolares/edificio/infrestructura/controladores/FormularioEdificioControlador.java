@@ -70,7 +70,7 @@ public class FormularioEdificioControlador {
         if (esNuevoRegistro)
             registrarEdificio(clave, nombre);
         else
-            actualizar(clave, nombre);
+            actualizarEdificio(clave, nombre);
     }
 
     private Boolean sonValidosDatosFormulario(String clave, String nombre) {
@@ -117,7 +117,7 @@ public class FormularioEdificioControlador {
 
     }
 
-    private void actualizar(String clave, String nombre) {
+    private void actualizarEdificio(String clave, String nombre) {
         if (edificio == null)
             throw new NullPointerException();
 
