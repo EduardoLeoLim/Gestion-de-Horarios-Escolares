@@ -183,6 +183,8 @@ public class CatalogoPeriodosEscolaresControlador {
                 case "habilitar" -> gestionarEstatusPeriodoEscolar.habilitarPeriodoEscolar(periodoEscolar.id());
                 case "deshabilitar" -> gestionarEstatusPeriodoEscolar.deshabilitarPeriodoEscolar(periodoEscolar.id());
             }
+
+            transaccion.commit();
         } catch (RecursoNoEncontradoException e) {
             Alert mensaje = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
             mensaje.setTitle("Periodo escolar no encontrado");
