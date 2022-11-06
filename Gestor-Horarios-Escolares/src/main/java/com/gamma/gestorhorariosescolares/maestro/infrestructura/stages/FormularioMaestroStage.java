@@ -13,7 +13,7 @@ import java.io.IOException;
 public class FormularioMaestroStage extends CustomStage {
 
     private final boolean esNuevoRegistro;
-    FormularioMaestroControlador controladorFormulario;
+    private FormularioMaestroControlador controladorFormulario;
     private MaestroData maestroEdicion;
     private AnchorPane panelFormulario;
     private boolean sePuedeMostrar;
