@@ -5,6 +5,7 @@ import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Ini
 import com.gamma.gestorhorariosescolares.edificio.infrestructura.controladores.CatalogoEdificiosControlador;
 import com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores.CatalogoMaestrosControlador;
 import com.gamma.gestorhorariosescolares.materia.infrestructura.controladores.CatalogoMateriasControlador;
+import com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.controladores.CatalogoPeriodosEscolaresControlador;
 import com.gamma.gestorhorariosescolares.salon.infrestructura.controladores.CatalogoSalonesControlador;
 import com.gamma.gestorhorariosescolares.secretario.infrestructura.controladores.CatalogoSecretariosControlador;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.stages.LoginStage;
@@ -35,6 +36,8 @@ public class MenuAdministradorControlador {
     private CatalogoSalonesControlador controladorSalones;
     private AnchorPane panelCatalogoMaterias;
     private CatalogoMateriasControlador controladorMaterias;
+    private AnchorPane panelCatalogoPeriodosEscolares;
+    private CatalogoPeriodosEscolaresControlador controladorPeriodosEscolares;
 
     @FXML
     private BorderPane panelMenuAdministrador;
@@ -212,7 +215,21 @@ public class MenuAdministradorControlador {
 
     @FXML
     protected void mostrarCatalogoPeriodosEscolaresClick() {
-
+        if (panelCatalogoPeriodosEscolares == null) {
+            try {
+                controladorPeriodosEscolares = new CatalogoPeriodosEscolaresControlador(stage);
+                panelCatalogoPeriodosEscolares = InicializarPanel.inicializarAnchorPane(
+                        "periodoescolar/infrestructura/vistas/CatalogoPeriodosEscolares.fxml",
+                        controladorPeriodosEscolares
+                );
+                panelCatalogoPeriodosEscolares.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                panelMenuAdministrador.setCenter(panelCatalogoPeriodosEscolares);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            panelMenuAdministrador.setCenter(panelCatalogoPeriodosEscolares);
+        }
     }
 
     @FXML
@@ -238,6 +255,8 @@ public class MenuAdministradorControlador {
             controladorSalones.liberarRecursos();
         if (controladorMaterias != null)
             controladorMaterias.liberarRecursos();
+        if (controladorPeriodosEscolares != null)
+            controladorPeriodosEscolares.liberarRecursos();
     }
 
 }
