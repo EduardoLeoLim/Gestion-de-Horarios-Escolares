@@ -29,7 +29,7 @@ public class MySql2oPeriodoEscolarRepositorio implements PeriodoEscolarRepositor
         List<PeriodoEscolar> periodosEscolares = new ArrayList<>();
         String consulta;
 
-        MySqlCriteriaParser conversorCriteria = new MySqlCriteriaParser("edificio", criterio);
+        MySqlCriteriaParser conversorCriteria = new MySqlCriteriaParser("periodoescolar", criterio);
 
         consulta = conversorCriteria.generarConsultaSql2o();
         List<Map<Integer, String>> parametros = conversorCriteria.generarParametrosSql2o();
