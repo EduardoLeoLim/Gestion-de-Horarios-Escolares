@@ -10,6 +10,7 @@ import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodosEscol
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.actualizar.ActualizadorPeriodoEscolar;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.buscar.BuscadorPeriodoEscolar;
 import com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.persistencia.MySql2oPeriodoEscolarRepositorio;
+import com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.stages.FormularioPeriodoEscolarStage;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -151,11 +152,17 @@ public class CatalogoPeriodosEscolaresControlador {
 
     @FXML
     private void registrarNuevoPeriodoEscolar() {
-
+        var formulario = new FormularioPeriodoEscolarStage();
+        formulario.initOwner(stage);
+        formulario.showAndWait();
+        buscarPeriodosEscolares();
     }
 
     private void editarPeriodoEscolar(PeriodoEscolarData periodoEscolar) {
-
+        var formulario = new FormularioPeriodoEscolarStage(periodoEscolar);
+        formulario.initOwner(stage);
+        formulario.showAndWait();
+        buscarPeriodosEscolares();
     }
 
     private void habilitarPeriodoEscolar(PeriodoEscolarData periodoEscolar) {
