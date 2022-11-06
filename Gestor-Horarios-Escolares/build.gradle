@@ -17,6 +17,10 @@ repositories {
 
 ext {
     junitVersion = '5.8.1'
+    calendarfxVersion = '11.12.3'
+    bootstrapfxVersion = '0.4.0'
+    mysqlConnectorVersion = '8.0.30'
+    sql2oVersion = '1.6.0'
     jlinkCompression = '2'
 }
 
@@ -41,9 +45,10 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-    implementation("org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0")
-    implementation("mysql:mysql-connector-java:8.0.30")
-    implementation("org.sql2o:sql2o:1.6.0")
+    //implementation("com.calendarfx:view:${calendarfxVersion}")
+    implementation("org.kordamp.bootstrapfx:bootstrapfx-core:${bootstrapfxVersion}")
+    implementation("mysql:mysql-connector-java:${mysqlConnectorVersion}")
+    implementation("org.sql2o:sql2o:${sql2oVersion}")
 }
 
 test {
