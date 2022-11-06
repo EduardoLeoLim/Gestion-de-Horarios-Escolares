@@ -118,7 +118,7 @@ public class CatalogoPeriodosEscolaresControlador {
                     return;
 
                 TableRow<PeriodoEscolarData> fila = getTableRow();
-                PeriodoEscolarData periodoEscolar = fila.getItem();
+                PeriodoEscolarData periodoEscolar = getTableView().getItems().get(getIndex());
                 fila.setDisable(false);
 
                 Button botonEstatus = new Button();
@@ -131,8 +131,8 @@ public class CatalogoPeriodosEscolaresControlador {
                         deshabilitarPeriodoEscolar(periodoEscolar);
                     });
                 } else {
-                    botonEstatus.setText("Deshabilitar");
-                    botonEstatus.getStyleClass().addAll("b", "btn-danger");
+                    botonEstatus.setText("Habilitar");
+                    botonEstatus.getStyleClass().addAll("b", "btn-primary");
                     botonEstatus.setOnAction(event -> {
                         fila.setDisable(true);
                         habilitarPeriodoEscolar(periodoEscolar);
