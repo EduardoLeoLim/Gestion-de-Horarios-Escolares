@@ -13,6 +13,7 @@ import com.gamma.gestorhorariosescolares.maestro.infrestructura.persistencia.MyS
 import com.gamma.gestorhorariosescolares.maestro.infrestructura.stages.FormularioMaestroStage;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,7 +48,12 @@ public class CatalogoMaestrosControlador {
     @FXML
     public void initialize() {
         temporizadorBusqueda = new Temporizador(1, (temporizador) -> {
-            buscarMaestros(txtBuscar.getText().trim());
+            //Búsqueda de maestros
+            Platform.runLater(() -> {
+                tablaMaestros.setDisable(true);
+                buscarMaestros(txtBuscar.getText().trim());
+                tablaMaestros.setDisable(false);
+            });
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()) || !esBusquedaDeMaestro)
@@ -90,16 +96,17 @@ public class CatalogoMaestrosControlador {
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(null);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    MaestroData maestro = getTableView().getItems().get(getIndex());
-                    Button botonEditar = new Button("Editar");
-                    botonEditar.setPrefWidth(Double.MAX_VALUE);
-                    botonEditar.getStyleClass().addAll("b", "btn-success");
-                    botonEditar.setOnAction(event -> editarMaestro(maestro));
-                    setGraphic(botonEditar);
-                }
+                setGraphic(null);
+
+                if (empty)
+                    return;
+
+                MaestroData maestro = getTableView().getItems().get(getIndex());
+                Button botonEditar = new Button("Editar");
+                botonEditar.setPrefWidth(Double.MAX_VALUE);
+                botonEditar.getStyleClass().addAll("b", "btn-success");
+                botonEditar.setOnAction(event -> editarMaestro(maestro));
+                setGraphic(botonEditar);
             }
         });
 
@@ -111,21 +118,37 @@ public class CatalogoMaestrosControlador {
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(null);
-                if (empty) {
-                    setGraphic(null);
+                setGraphic(null);
+
+                if (empty)
                     return;
-                }
+
                 MaestroData maestro = getTableView().getItems().get(getIndex());
+                TableRow<MaestroData> fila = getTableRow();
+                fila.setDisable(false);
+
                 Button botonEliminar = new Button();
                 botonEliminar.setPrefWidth(Double.MAX_VALUE);
                 if (maestro.estatus()) {
                     botonEliminar.setText("Deshabilitar");
                     botonEliminar.getStyleClass().addAll("b", "btn-danger");
-                    botonEliminar.setOnAction(event -> deshabilitarMaestro(maestro));
+                    botonEliminar.setOnAction(event -> {
+                        fila.setDisable(true);
+                        Platform.runLater(() -> {
+                            deshabilitarMaestro(maestro);
+                            buscarMaestros();
+                        });
+                    });
                 } else {
                     botonEliminar.setText("Habilitar");
                     botonEliminar.getStyleClass().addAll("b", "btn-primary");
-                    botonEliminar.setOnAction(event -> habilitarMaestro(maestro));
+                    botonEliminar.setOnAction(event -> {
+                        fila.setDisable(true);
+                        Platform.runLater(() -> {
+                            habilitarMaestro(maestro);
+                            buscarMaestros();
+                        });
+                    });
                 }
                 setGraphic(botonEliminar);
             }
@@ -142,7 +165,6 @@ public class CatalogoMaestrosControlador {
         FormularioMaestroStage formulario = new FormularioMaestroStage();
         formulario.initOwner(stage);
         formulario.showAndWait();
-
         buscarMaestros();
     }
 
@@ -150,7 +172,6 @@ public class CatalogoMaestrosControlador {
         FormularioMaestroStage formulario = new FormularioMaestroStage(maestro);
         formulario.initOwner(stage);
         formulario.showAndWait();
-
         buscarMaestros();
     }
 
@@ -187,8 +208,6 @@ public class CatalogoMaestrosControlador {
             new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
         } catch (RecursoNoEncontradoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
-        } finally {
-            buscarMaestros();
         }
     }
 

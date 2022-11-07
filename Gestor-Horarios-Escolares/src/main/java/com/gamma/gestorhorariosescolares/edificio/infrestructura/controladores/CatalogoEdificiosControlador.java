@@ -11,6 +11,7 @@ import com.gamma.gestorhorariosescolares.edificio.aplicacion.actualizar.Actualiz
 import com.gamma.gestorhorariosescolares.edificio.aplicacion.buscar.BuscadorEdificio;
 import com.gamma.gestorhorariosescolares.edificio.infrestructura.persistencia.MySql2oEdificioRepositorio;
 import com.gamma.gestorhorariosescolares.edificio.infrestructura.stages.FormularioEdificioStage;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,7 +46,11 @@ public class CatalogoEdificiosControlador {
     public void initialize() {
         temporizadorBusqueda = new Temporizador(1, temporizador -> {
             //busca edificios
-            buscarEdificios(txtBuscar.getText().trim());
+            Platform.runLater(() -> {
+                tablaEdificios.setDisable(true);
+                buscarEdificios(txtBuscar.getText().trim());
+                tablaEdificios.setDisable(false);
+            });
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()) || !esBusquedaEdificio)
@@ -79,16 +84,12 @@ public class CatalogoEdificiosControlador {
                 setGraphic(null);
                 if (empty)
                     return;
-                TableRow<EdificioData> fila = getTableRow();
-                fila.setDisable(false);
+
                 EdificioData edificio = getTableView().getItems().get(getIndex());
                 Button botonEditor = new Button("Editar");
                 botonEditor.setPrefWidth(Double.MAX_VALUE);
                 botonEditor.getStyleClass().addAll("b", "btn-success");
-                botonEditor.setOnAction(event -> {
-                    fila.setDisable(true);
-                    editarEdificio(edificio);
-                });
+                botonEditor.setOnAction(event -> editarEdificio(edificio));
                 setGraphic(botonEditor);
             }
         });
@@ -106,27 +107,33 @@ public class CatalogoEdificiosControlador {
                     return;
 
                 EdificioData edificio = getTableView().getItems().get(getIndex());
-                Button botonEstatus = new Button();
-                botonEstatus.setPrefWidth(Double.MAX_VALUE);
                 TableRow<EdificioData> fila = getTableRow();
                 fila.setDisable(false);
+
+                Button botonEstatus = new Button();
+                botonEstatus.setPrefWidth(Double.MAX_VALUE);
                 if (edificio.estatus()) {
                     botonEstatus.setText("Deshabilitar");
                     botonEstatus.getStyleClass().addAll("b", "btn-danger");
                     botonEstatus.setOnAction(event -> {
                         fila.setDisable(true);
-                        deshabilitarEdificio(edificio);
+                        Platform.runLater(() -> {
+                            deshabilitarEdificio(edificio);
+                            buscarEdificios();
+                        });
                     });
                 } else {
                     botonEstatus.setText("Habilitar");
                     botonEstatus.getStyleClass().addAll("b", "btn-primary");
                     botonEstatus.setOnAction(event -> {
                         fila.setDisable(true);
-                        habilitarEdificio(edificio);
+                        Platform.runLater(() -> {
+                            habilitarEdificio(edificio);
+                            buscarEdificios();
+                        });
                     });
                 }
                 setGraphic(botonEstatus);
-
             }
         });
 
@@ -185,8 +192,6 @@ public class CatalogoEdificiosControlador {
             Alert mensaje = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
             mensaje.setTitle("Edificio no encontrado");
             mensaje.showAndWait();
-        } finally {
-            buscarEdificios();
         }
     }
 

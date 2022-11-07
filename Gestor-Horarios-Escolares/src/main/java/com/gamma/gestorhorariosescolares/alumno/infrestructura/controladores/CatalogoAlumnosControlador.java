@@ -13,6 +13,7 @@ import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.My
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,7 +48,12 @@ public class CatalogoAlumnosControlador {
     @FXML
     public void initialize() {
         temporizadorBusqueda = new Temporizador(1, temporizador -> {
-            buscarAlumnos(txtBuscar.getText().trim());
+            //Búsqueda de alumnos
+            Platform.runLater(() -> {
+                tablaAlumnos.setDisable(true);
+                buscarAlumnos(txtBuscar.getText().trim());
+                tablaAlumnos.setDisable(false);
+            });
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()) || !esBusquedaAlumno)
@@ -94,16 +100,16 @@ public class CatalogoAlumnosControlador {
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(null);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    AlumnoData alumno = getTableView().getItems().get(getIndex());
-                    Button botonEditar = new Button("Editar");
-                    botonEditar.setPrefWidth(Double.MAX_VALUE);
-                    botonEditar.getStyleClass().addAll("b", "btn-success");
-                    botonEditar.setOnAction(event -> editarAlumno(alumno));
-                    setGraphic(botonEditar);
-                }
+                setGraphic(null);
+                if (empty)
+                    return;
+
+                AlumnoData alumno = getTableView().getItems().get(getIndex());
+                Button botonEditar = new Button("Editar");
+                botonEditar.setPrefWidth(Double.MAX_VALUE);
+                botonEditar.getStyleClass().addAll("b", "btn-success");
+                botonEditar.setOnAction(event -> editarAlumno(alumno));
+                setGraphic(botonEditar);
             }
         });
 
@@ -115,21 +121,36 @@ public class CatalogoAlumnosControlador {
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(null);
-                if (empty) {
-                    setGraphic(null);
+                setGraphic(null);
+                if (empty)
                     return;
-                }
+
                 AlumnoData alumno = getTableView().getItems().get(getIndex());
+                TableRow<AlumnoData> fila = getTableRow();
+                fila.setDisable(false);
+
                 Button botonEstatus = new Button();
                 botonEstatus.setPrefWidth(Double.MAX_VALUE);
                 if (alumno.estatus()) {
                     botonEstatus.setText("Deshabilitar");
                     botonEstatus.getStyleClass().addAll("b", "btn-danger");
-                    botonEstatus.setOnAction(event -> deshabilitarAlumno(alumno));
+                    botonEstatus.setOnAction(event -> {
+                        fila.setDisable(true);
+                        Platform.runLater(() -> {
+                            deshabilitarAlumno(alumno);
+                            buscarAlumnos();
+                        });
+                    });
                 } else {
                     botonEstatus.setText("Habilitar");
                     botonEstatus.getStyleClass().addAll("b", "btn-primary");
-                    botonEstatus.setOnAction(event -> habilitarAlumno(alumno));
+                    botonEstatus.setOnAction(event -> {
+                        fila.setDisable(true);
+                        Platform.runLater(() -> {
+                            habilitarAlumno(alumno);
+                            buscarAlumnos();
+                        });
+                    });
                 }
                 setGraphic(botonEstatus);
             }
@@ -187,8 +208,6 @@ public class CatalogoAlumnosControlador {
             new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
         } catch (RecursoNoEncontradoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
-        } finally {
-            buscarAlumnos();
         }
     }
 

@@ -92,16 +92,12 @@ public class CatalogoPeriodosEscolaresControlador {
                 setGraphic(null);
                 if (empty)
                     return;
-                TableRow<PeriodoEscolarData> fila = getTableRow();
-                fila.setDisable(false);
+
                 PeriodoEscolarData periodoEscolar = getTableView().getItems().get(getIndex());
                 Button botonEditor = new Button("Editar");
                 botonEditor.setPrefWidth(Double.MAX_VALUE);
                 botonEditor.getStyleClass().addAll("b", "btn-success");
-                botonEditor.setOnAction(event -> {
-                    fila.setDisable(true);
-                    editarPeriodoEscolar(periodoEscolar);
-                });
+                botonEditor.setOnAction(event -> editarPeriodoEscolar(periodoEscolar));
                 setGraphic(botonEditor);
             }
         });
@@ -118,8 +114,8 @@ public class CatalogoPeriodosEscolaresControlador {
                 if (empty)
                     return;
 
-                TableRow<PeriodoEscolarData> fila = getTableRow();
                 PeriodoEscolarData periodoEscolar = getTableView().getItems().get(getIndex());
+                TableRow<PeriodoEscolarData> fila = getTableRow();
                 fila.setDisable(false);
 
                 Button botonEstatus = new Button();
@@ -129,14 +125,20 @@ public class CatalogoPeriodosEscolaresControlador {
                     botonEstatus.getStyleClass().addAll("b", "btn-danger");
                     botonEstatus.setOnAction(event -> {
                         fila.setDisable(true);
-                        deshabilitarPeriodoEscolar(periodoEscolar);
+                        Platform.runLater(() -> {
+                            deshabilitarPeriodoEscolar(periodoEscolar);
+                            buscarPeriodosEscolares();
+                        });
                     });
                 } else {
                     botonEstatus.setText("Habilitar");
                     botonEstatus.getStyleClass().addAll("b", "btn-primary");
                     botonEstatus.setOnAction(event -> {
                         fila.setDisable(true);
-                        habilitarPeriodoEscolar(periodoEscolar);
+                        Platform.runLater(() -> {
+                            habilitarPeriodoEscolar(periodoEscolar);
+                            buscarPeriodosEscolares();
+                        });
                     });
                 }
                 setGraphic(botonEstatus);
@@ -200,8 +202,6 @@ public class CatalogoPeriodosEscolaresControlador {
             Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no diponible", ButtonType.OK);
             mensaje.setTitle("Error de base de datos");
             mensaje.showAndWait();
-        } finally {
-            buscarPeriodosEscolares();
         }
     }
 

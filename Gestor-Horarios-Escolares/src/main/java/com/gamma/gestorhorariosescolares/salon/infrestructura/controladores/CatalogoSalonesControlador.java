@@ -48,7 +48,11 @@ public class CatalogoSalonesControlador {
     public void initialize() {
         temporizadorBusqueda = new Temporizador(1, temporizador -> {
             //busca salones en hilo seguro
-            Platform.runLater(() -> buscarSalones(txtBuscar.getText().trim()));
+            Platform.runLater(() -> {
+                tablaSalones.setDisable(true);
+                buscarSalones(txtBuscar.getText().trim());
+                tablaSalones.setDisable(false);
+            });
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()) || !esBusquedaSalon)
@@ -92,7 +96,6 @@ public class CatalogoSalonesControlador {
                 botonEditar.setPrefWidth(Double.MAX_VALUE);
                 botonEditar.getStyleClass().addAll("b", "btn-success");
                 botonEditar.setOnAction(event -> editarSalon(salon));
-
                 setGraphic(botonEditar);
             }
         });
@@ -110,15 +113,32 @@ public class CatalogoSalonesControlador {
                     return;
 
                 SalonData salon = getTableView().getItems().get(getIndex());
+                TableRow<SalonData> fila = getTableRow();
+                fila.setDisable(false);
+
                 Button botonEstatus = new Button(salon.estatus() ? "Deshabilitar" : "Habilitar");
-                botonEstatus.getStyleClass().addAll("b", salon.estatus() ? "btn-danger" : "btn-primary");
                 botonEstatus.setPrefWidth(Double.MAX_VALUE);
-                botonEstatus.setOnAction(event -> {
-                    if (salon.estatus())
-                        deshabilitarSalon(salon);
-                    else
-                        habilitarSalon(salon);
-                });
+                if (salon.estatus()) {
+                    botonEstatus.setText("Deshabilitar");
+                    botonEstatus.getStyleClass().addAll("b", "btn-danger");
+                    botonEstatus.setOnAction(event -> {
+                        fila.setDisable(true);
+                        Platform.runLater(() -> {
+                            deshabilitarSalon(salon);
+                            buscarSalones();
+                        });
+                    });
+                } else {
+                    botonEstatus.setText("Habilitar");
+                    botonEstatus.getStyleClass().addAll("b", "btn-danger");
+                    botonEstatus.setOnAction(event -> {
+                        fila.setDisable(true);
+                        Platform.runLater(() -> {
+                            habilitarSalon(salon);
+                            buscarSalones();
+                        });
+                    });
+                }
                 setGraphic(botonEstatus);
             }
         });
@@ -178,8 +198,6 @@ public class CatalogoSalonesControlador {
             Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no diponible", ButtonType.OK);
             mensaje.setTitle("Error de base de datos");
             mensaje.showAndWait();
-        } finally {
-            buscarSalones();
         }
     }
 

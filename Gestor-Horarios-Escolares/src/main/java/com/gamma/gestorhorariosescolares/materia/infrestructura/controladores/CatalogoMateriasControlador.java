@@ -3,6 +3,7 @@ package com.gamma.gestorhorariosescolares.materia.infrestructura.controladores;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
 import com.gamma.gestorhorariosescolares.materia.aplicacion.MateriaData;
 import com.gamma.gestorhorariosescolares.materia.aplicacion.MateriasData;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,11 +12,11 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class CatalogoMateriasControlador {
+
     private final Stage stage;
-
     private Temporizador temporizadorBusqueda;
-
     private ObservableList<MateriaData> coleccionMaterias;
+    private boolean esBusquedaMateria;
 
     @FXML
     private TextField txtBuscar;
@@ -35,7 +36,12 @@ public class CatalogoMateriasControlador {
 
         //Configuración de busqueda
         temporizadorBusqueda = new Temporizador(1, temporizador -> {
-            buscarMaterias(txtBuscar.getText().trim());
+            //Búsqueda de materias
+            Platform.runLater(() -> {
+                tablaMaterias.setDisable(true);
+                buscarMaterias(txtBuscar.getText().trim());
+                tablaMaterias.setDisable(false);
+            });
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()))
@@ -83,6 +89,7 @@ public class CatalogoMateriasControlador {
                 botonEditar.setPrefWidth(Double.MAX_VALUE);
                 botonEditar.getStyleClass().addAll("b", "btn-success");
                 botonEditar.setOnAction(event -> editarMateria(materia));
+                setGraphic(botonEditar);
             }
         });
 
@@ -99,14 +106,31 @@ public class CatalogoMateriasControlador {
                     return;
 
                 MateriaData materia = getTableView().getItems().get(getIndex());
-                Button botonEstatus = new Button(materia.estatus() ? "Deshabilitar" : "Habilitar");
-                botonEstatus.getStyleClass().addAll("b", materia.estatus() ? "btn-danger" : "btn-primary");
-                botonEstatus.setOnAction(event -> {
-                    if (materia.estatus())
-                        deshabilitarMateria(materia);
-                    else
-                        habilitarMateria(materia);
-                });
+                TableRow<MateriaData> fila = getTableRow();
+                fila.setDisable(false);
+
+                Button botonEstatus = new Button();
+                if (materia.estatus()) {
+                    botonEstatus.setText("Deshabilitar");
+                    botonEstatus.getStyleClass().addAll("b", "btn-danger");
+                    botonEstatus.setOnAction(event -> {
+                        fila.setDisable(true);
+                        Platform.runLater(() -> {
+                            deshabilitarMateria(materia);
+                            buscarMaterias();
+                        });
+                    });
+                } else {
+                    botonEstatus.setText("Habilitar");
+                    botonEstatus.getStyleClass().addAll("b", "btn-primary");
+                    botonEstatus.setOnAction(event -> {
+                        fila.setDisable(true);
+                        Platform.runLater(() -> {
+                            habilitarMateria(materia);
+                            buscarMaterias();
+                        });
+                    });
+                }
                 setGraphic(botonEstatus);
             }
         });
@@ -127,6 +151,13 @@ public class CatalogoMateriasControlador {
 
     private void deshabilitarMateria(MateriaData materia) {
 
+    }
+
+    private void buscarMaterias() {
+        esBusquedaMateria = false;
+        txtBuscar.setText("");
+        temporizadorBusqueda.reiniciar();
+        esBusquedaMateria = true;
     }
 
     private void buscarMaterias(String criterioBusqueda) {

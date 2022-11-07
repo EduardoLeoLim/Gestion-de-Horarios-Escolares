@@ -13,6 +13,7 @@ import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.My
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,8 +49,12 @@ public class CatalogoAdministradoresControlador {
 
         //Configuración de busqueda
         temporizadorBusqueda = new Temporizador(1, (temporizador) -> {
-            //La funcion es llamada cuando se agota el tiempo
-            buscarAdministradores(txtBuscar.getText().trim());
+            //La función es llamada cuando se agota el tiempo
+            Platform.runLater(() -> {
+                tablaAdministradores.setDisable(true);
+                buscarAdministradores(txtBuscar.getText().trim());
+                tablaAdministradores.setDisable(false);
+            });
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()) || !esBusquedaDeAdministrador)//No se realiza la busqueda cuando se presionan teclas que no modifican la cadena de búsqueda.
@@ -86,7 +91,7 @@ public class CatalogoAdministradoresControlador {
         columnaCorreoElectronico.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().usuario().correoElectronico()));
         columnaCorreoElectronico.setMinWidth(200);
 
-        TableColumn<AdministradorData, String> columnaEditar = new TableColumn<>("");
+        TableColumn<AdministradorData, String> columnaEditar = new TableColumn<>();
         columnaEditar.setMinWidth(80);
         columnaEditar.setMaxWidth(80);
         columnaEditar.setCellFactory(ft -> new TableCell<>() {
@@ -94,20 +99,20 @@ public class CatalogoAdministradoresControlador {
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(null);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    AdministradorData administrador = getTableView().getItems().get(getIndex());
-                    Button botonEditar = new Button("Editar");
-                    botonEditar.setPrefWidth(Double.MAX_VALUE);
-                    botonEditar.getStyleClass().addAll("b", "btn-success");
-                    botonEditar.setOnAction(event -> editarAdministrador(administrador));
-                    setGraphic(botonEditar);
-                }
+                setGraphic(null);
+                if (empty)
+                    return;
+
+                AdministradorData administrador = getTableView().getItems().get(getIndex());
+                Button botonEditar = new Button("Editar");
+                botonEditar.setPrefWidth(Double.MAX_VALUE);
+                botonEditar.getStyleClass().addAll("b", "btn-success");
+                botonEditar.setOnAction(event -> editarAdministrador(administrador));
+                setGraphic(botonEditar);
             }
         });
 
-        TableColumn<AdministradorData, String> columnaEstatus = new TableColumn<>("");
+        TableColumn<AdministradorData, String> columnaEstatus = new TableColumn<>();
         columnaEstatus.setMinWidth(120);
         columnaEstatus.setMaxWidth(120);
         columnaEstatus.setCellFactory(ft -> new TableCell<>() {
@@ -115,21 +120,36 @@ public class CatalogoAdministradoresControlador {
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(null);
-                if (empty) {
-                    setGraphic(null);
+                setGraphic(null);
+                if (empty)
                     return;
-                }
+
                 AdministradorData administrador = getTableView().getItems().get(getIndex());
+                TableRow<AdministradorData> fila = getTableRow();
+                fila.setDisable(false);
+
                 Button botonEliminar = new Button();
                 botonEliminar.setPrefWidth(Double.MAX_VALUE);
                 if (administrador.estatus()) {
                     botonEliminar.setText("Deshabilitar");
                     botonEliminar.getStyleClass().addAll("b", "btn-danger");
-                    botonEliminar.setOnAction(event -> deshabilitarAdministrador(administrador));
+                    botonEliminar.setOnAction(event -> {
+                        fila.setDisable(true);
+                        Platform.runLater(() -> {
+                            deshabilitarAdministrador(administrador);
+                            buscarAdministradores();
+                        });
+                    });
                 } else {
                     botonEliminar.setText("Habilitar");
                     botonEliminar.getStyleClass().addAll("b", "btn-primary");
-                    botonEliminar.setOnAction(event -> habilitarAdministrador(administrador));
+                    botonEliminar.setOnAction(event -> {
+                        fila.setDisable(true);
+                        Platform.runLater(() -> {
+                            habilitarAdministrador(administrador);
+                            buscarAdministradores();
+                        });
+                    });
                 }
                 setGraphic(botonEliminar);
             }
@@ -189,8 +209,6 @@ public class CatalogoAdministradoresControlador {
             new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
         } catch (RecursoNoEncontradoException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
-        } finally {
-            buscarAdministradores();
         }
     }
 
