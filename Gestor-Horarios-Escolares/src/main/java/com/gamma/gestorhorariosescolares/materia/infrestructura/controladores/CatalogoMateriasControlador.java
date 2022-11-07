@@ -44,7 +44,7 @@ public class CatalogoMateriasControlador {
             });
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue.trim().equals(newValue.trim()))
+            if (oldValue.trim().equals(newValue.trim()) || !esBusquedaMateria)
                 return;
             temporizadorBusqueda.reiniciar();
         });
