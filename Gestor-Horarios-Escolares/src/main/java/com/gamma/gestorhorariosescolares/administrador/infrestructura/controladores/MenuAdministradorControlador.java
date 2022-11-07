@@ -6,6 +6,7 @@ import com.gamma.gestorhorariosescolares.edificio.infrestructura.controladores.C
 import com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores.CatalogoMaestrosControlador;
 import com.gamma.gestorhorariosescolares.materia.infrestructura.controladores.CatalogoMateriasControlador;
 import com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.controladores.CatalogoPeriodosEscolaresControlador;
+import com.gamma.gestorhorariosescolares.planestudio.infrestructura.controladores.CatalogoPlanesEstudioControlador;
 import com.gamma.gestorhorariosescolares.salon.infrestructura.controladores.CatalogoSalonesControlador;
 import com.gamma.gestorhorariosescolares.secretario.infrestructura.controladores.CatalogoSecretariosControlador;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.stages.LoginStage;
@@ -34,6 +35,8 @@ public class MenuAdministradorControlador {
     private CatalogoEdificiosControlador controladorEdificios;
     private AnchorPane panelCatalogoSalones;
     private CatalogoSalonesControlador controladorSalones;
+    private AnchorPane panelCatalogoPlanesEstudio;
+    private CatalogoPlanesEstudioControlador controladorPlanesEstudio;
     private AnchorPane panelCatalogoMaterias;
     private CatalogoMateriasControlador controladorMaterias;
     private AnchorPane panelCatalogoPeriodosEscolares;
@@ -56,9 +59,9 @@ public class MenuAdministradorControlador {
     @FXML
     private Button btnCatalogoSalones;
     @FXML
-    private Button btnCatalogoMaterias;
-    @FXML
     private Button btnCatalogoPlanesEstudios;
+    @FXML
+    private Button btnCatalogoMaterias;
     @FXML
     private Button btnCatalogoPeriodosEscolares;
     @FXML
@@ -190,6 +193,25 @@ public class MenuAdministradorControlador {
     }
 
     @FXML
+    protected void mostrarCatalogoPlanesEstudioClick() {
+        if (panelCatalogoPlanesEstudio == null) {
+            try {
+                controladorPlanesEstudio = new CatalogoPlanesEstudioControlador(stage);
+                panelCatalogoPlanesEstudio = InicializarPanel.inicializarAnchorPane(
+                        "planestudio/infrestructura/vistas/CatalogoPlanesEstudio.fxml",
+                        controladorPlanesEstudio
+                );
+                panelCatalogoPlanesEstudio.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                panelMenuAdministrador.setCenter(panelCatalogoPlanesEstudio);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            panelMenuAdministrador.setCenter(panelCatalogoPlanesEstudio);
+        }
+    }
+
+    @FXML
     protected void mostrarCatalogoMateriasClick() {
         if (panelCatalogoMaterias == null) {
             try {
@@ -206,11 +228,6 @@ public class MenuAdministradorControlador {
         } else {
             panelMenuAdministrador.setCenter(panelCatalogoMaterias);
         }
-    }
-
-    @FXML
-    protected void mostrarCatalogoPlanesEstudioClick() {
-
     }
 
     @FXML

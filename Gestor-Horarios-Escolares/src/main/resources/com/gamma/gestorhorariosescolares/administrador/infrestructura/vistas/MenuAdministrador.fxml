@@ -70,19 +70,19 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <Button fx:id="btnCatalogoMaterias" text="Materias" styleClass="menu-item" mnemonicParsing="false"
-                    onAction="#mostrarCatalogoMateriasClick">
-                <graphic>
-                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../../compartido/infrestructura/imagenes/materia-64px.png"/>
-                    </ImageView>
-                </graphic>
-            </Button>
             <Button fx:id="btnCatalogoPlanesEstudios" text="Planes de estudio" styleClass="menu-item"
                     mnemonicParsing="false" onAction="#mostrarCatalogoPlanesEstudioClick">
                 <graphic>
                     <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../../../compartido/infrestructura/imagenes/plan-estudio-64px.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnCatalogoMaterias" text="Materias" styleClass="menu-item" mnemonicParsing="false"
+                    onAction="#mostrarCatalogoMateriasClick">
+                <graphic>
+                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../../compartido/infrestructura/imagenes/materia-64px.png"/>
                     </ImageView>
                 </graphic>
             </Button>
