@@ -10,4 +10,6 @@ public interface PlanEstudioRepositorio {
     int registrar(PlanEstudio planEstudio);
 
     void actualizar(PlanEstudio planEstudio);
+
+    void eliminar(int idPlanEstudio);
 }
