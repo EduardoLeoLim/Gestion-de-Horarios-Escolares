@@ -21,4 +21,10 @@ public class MySql2oPlanEstudioRepositorio implements PlanEstudioRepositorio {
     public void actualizar(PlanEstudio planEstudio) {
 
     }
+
+    @Override
+    public void eliminar(int idPlanEstudio) {
+
+    }
+
 }
