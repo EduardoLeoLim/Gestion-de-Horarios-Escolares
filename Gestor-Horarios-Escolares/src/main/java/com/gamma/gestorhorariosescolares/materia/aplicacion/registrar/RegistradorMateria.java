@@ -12,8 +12,8 @@ public class RegistradorMateria implements ServicioRegistradorMateria {
     }
 
     @Override
-    public int registrar(String clave, String nombre, int horasPracticas, int horasTeoricas) {
-        Materia materia = new Materia(clave, nombre, horasPracticas, horasTeoricas);
+    public int registrar(String clave, String nombre, int horasPracticas, int horasTeoricas, int idGrado) {
+        Materia materia = new Materia(clave, nombre, horasPracticas, horasTeoricas, idGrado);
         //Validar datos aquí
         return repositorio.registrar(materia);
     }

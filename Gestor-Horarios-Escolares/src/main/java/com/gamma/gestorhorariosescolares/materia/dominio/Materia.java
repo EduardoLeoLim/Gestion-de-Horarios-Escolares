@@ -6,24 +6,27 @@ public class Materia {
     private final String nombre;
     private final int horasPracticas;
     private final int horasTeoricas;
+    private final int idGrado;
     private boolean estatus;
 
-    public Materia(int id, String clave, String nombre, int horasPracticas, int horasTeoricas, boolean estatus) {
+    public Materia(int id, String clave, String nombre, int horasPracticas, int horasTeoricas, int idGrado, boolean estatus) {
         this.id = id;
         this.clave = clave;
         this.nombre = nombre;
         this.horasPracticas = horasPracticas;
         this.horasTeoricas = horasTeoricas;
+        this.idGrado = idGrado;
         this.estatus = estatus;
     }
 
-    public Materia(String clave, String nombre, int horasPracticas, int horasTeoricas) {
+    public Materia(String clave, String nombre, int horasPracticas, int horasTeoricas, int idGrado) {
         id = 0;
         estatus = true;
         this.clave = clave;
         this.nombre = nombre;
         this.horasPracticas = horasPracticas;
         this.horasTeoricas = horasTeoricas;
+        this.idGrado = idGrado;
     }
 
     public int id() {
@@ -44,6 +47,10 @@ public class Materia {
 
     public int horasTeoricas() {
         return horasTeoricas;
+    }
+
+    public int idGrado() {
+        return idGrado;
     }
 
     public void habilitar() {

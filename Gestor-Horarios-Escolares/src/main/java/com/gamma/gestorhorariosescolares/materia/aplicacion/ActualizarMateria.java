@@ -40,7 +40,8 @@ public class ActualizarMateria {
 
         //Actualización
         Materia materia = new Materia(materiaData.id(), materiaData.clave(), materiaData.nombre(),
-                materiaData.horasPracticas(), materiaData.horasTeoricas(), materiaData.estatus());
+                materiaData.horasPracticas(), materiaData.horasTeoricas(), materiaData.grado().id(),
+                materiaData.estatus());
 
         actualizadorMateria.actualizar(materia);
     }
