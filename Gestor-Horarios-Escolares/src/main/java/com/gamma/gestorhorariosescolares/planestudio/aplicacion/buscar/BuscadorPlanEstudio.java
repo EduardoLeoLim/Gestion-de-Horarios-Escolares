@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class BuscarPlanEstudio implements ServicioBuscador<PlanEstudio> {
+public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
 
     private final PlanEstudioRepositorio repositorio;
     private final List<Filter> filtros;
@@ -21,7 +21,7 @@ public class BuscarPlanEstudio implements ServicioBuscador<PlanEstudio> {
     private Optional<Integer> intervalo;
     private Optional<Integer> limite;
 
-    public BuscarPlanEstudio(PlanEstudioRepositorio repositorio) {
+    public BuscadorPlanEstudio(PlanEstudioRepositorio repositorio) {
         this.repositorio = repositorio;
         filtros = new ArrayList<>();
         ordenador = Order.none();
