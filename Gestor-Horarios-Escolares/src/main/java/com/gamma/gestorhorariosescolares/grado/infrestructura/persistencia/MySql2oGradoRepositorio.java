@@ -3,10 +3,18 @@ package com.gamma.gestorhorariosescolares.grado.infrestructura.persistencia;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.grado.dominio.Grado;
 import com.gamma.gestorhorariosescolares.grado.dominio.GradoRepositorio;
+import org.sql2o.Connection;
 
 import java.util.List;
 
 public class MySql2oGradoRepositorio implements GradoRepositorio {
+
+    private final Connection conexion;
+
+    public MySql2oGradoRepositorio(Connection conexion) {
+        this.conexion = conexion;
+    }
+
     @Override
     public List<Grado> buscar(Criteria criterio) {
         return null;
