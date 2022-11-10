@@ -5,6 +5,7 @@ import com.gamma.gestorhorariosescolares.grado.dominio.Grado;
 import com.gamma.gestorhorariosescolares.grado.dominio.GradoRepositorio;
 import org.sql2o.Connection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MySql2oGradoRepositorio implements GradoRepositorio {
@@ -17,7 +18,8 @@ public class MySql2oGradoRepositorio implements GradoRepositorio {
 
     @Override
     public List<Grado> buscar(Criteria criterio) {
-        return null;
+        List<Grado> grados = new ArrayList<>();
+        return grados;
     }
 
     @Override
@@ -29,4 +31,10 @@ public class MySql2oGradoRepositorio implements GradoRepositorio {
     public int actualizar(Grado grado) {
         return 0;
     }
+
+    @Override
+    public void eliminar(int idGrado) {
+
+    }
+
 }

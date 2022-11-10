@@ -10,4 +10,6 @@ public interface GradoRepositorio {
     int registrar(Grado grado);
 
     int actualizar(Grado grado);
+
+    void eliminar(int idGrado);
 }
