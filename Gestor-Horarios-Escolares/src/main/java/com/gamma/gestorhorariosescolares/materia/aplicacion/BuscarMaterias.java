@@ -53,7 +53,7 @@ public class BuscarMaterias {
         return new MateriasData(prepararMateriasData(materias));
     }
 
-    public MateriasData buscarMateriasDeGrado(GradoData grado){
+    public MateriasData buscarPorGrado(GradoData grado){
         List<Materia> materias = buscadorMateria
                 .igual("idGrado", grado.id().toString())
                 .ordenarAscendente("clave")
