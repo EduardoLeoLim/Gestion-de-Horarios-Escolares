@@ -270,6 +270,8 @@ public class MenuAdministradorControlador {
             controladorEdificios.liberarRecursos();
         if (controladorSalones != null)
             controladorSalones.liberarRecursos();
+        if(controladorPlanesEstudio != null)
+            controladorPlanesEstudio.liberarRecursos();
         if (controladorMaterias != null)
             controladorMaterias.liberarRecursos();
         if (controladorPeriodosEscolares != null)
