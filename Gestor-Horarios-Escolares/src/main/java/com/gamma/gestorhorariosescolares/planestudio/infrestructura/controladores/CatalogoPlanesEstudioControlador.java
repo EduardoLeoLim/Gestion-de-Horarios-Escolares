@@ -1,15 +1,23 @@
 package com.gamma.gestorhorariosescolares.planestudio.infrestructura.controladores;
 
+import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
+import com.gamma.gestorhorariosescolares.planestudio.aplicacion.BuscarPlanEstudio;
 import com.gamma.gestorhorariosescolares.planestudio.aplicacion.PlanEstudioData;
 import com.gamma.gestorhorariosescolares.planestudio.aplicacion.PlanesEstudioData;
+import com.gamma.gestorhorariosescolares.planestudio.aplicacion.buscar.BuscadorPlanEstudio;
+import com.gamma.gestorhorariosescolares.planestudio.infrestructura.persistencia.MySql2oPlanEstudioRepositorio;
+import com.gamma.gestorhorariosescolares.planestudio.infrestructura.stages.FormularioPlanEstudioStage;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.sql2o.Connection;
+import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
 
 public class CatalogoPlanesEstudioControlador {
 
@@ -53,6 +61,10 @@ public class CatalogoPlanesEstudioControlador {
 
     @FXML
     private void registrarNuevoPlanEstudio() {
+        var formulario = new FormularioPlanEstudioStage();
+        formulario.initOwner(stage);
+        formulario.showAndWait();
+        buscarPlanesEstudio();
 
     }
 
@@ -62,6 +74,14 @@ public class CatalogoPlanesEstudioControlador {
 
     private void inicializarTabla() {
         coleccionPlanesEstudio = FXCollections.observableArrayList();
+        TableColumn<PlanEstudioData, String> columnaClave = new TableColumn<>("Clave");
+        columnaClave.setCellValueFactory(ft-> new SimpleStringProperty(ft.getValue().clave()));
+        columnaClave.setMinWidth(150);
+
+
+        tablaPlanesEstudio.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tablaPlanesEstudio.getColumns().addAll(columnaClave);
+        tablaPlanesEstudio.setItems(coleccionPlanesEstudio);
     }
 
     private void habilitarPlanEstudio(PlanesEstudioData planesEstudio) {
@@ -84,7 +104,29 @@ public class CatalogoPlanesEstudioControlador {
     }
 
     private void buscarPlanesEstudio(String criterioBusqueda) {
+        PlanesEstudioData planesEstudio;
+        Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
 
+        try (Connection transaccion = conexion.beginTransaction()){
+            //Repositoro
+            var planEstudioRepositorio = new MySql2oPlanEstudioRepositorio(transaccion);
+
+            //Servicios
+            var buscadorPlanEstudio = new BuscadorPlanEstudio(planEstudioRepositorio);
+            BuscarPlanEstudio buscarPlanEstudio = new BuscarPlanEstudio(buscadorPlanEstudio);
+
+            if(criterioBusqueda.isBlank()){
+                planesEstudio = buscarPlanEstudio.buscarTodos();
+            }else{
+                planesEstudio = buscarPlanEstudio.buscarPorCriterio(criterioBusqueda);
+            }
+            cargarPlanesEstudioEnTabla(planesEstudio);
+
+        }catch (Sql2oException e) {
+            Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no diponible", ButtonType.OK);
+            mensaje.setTitle("Error de base de datos");
+            mensaje.showAndWait();
+        }
     }
 
     private void cargarPlanesEstudioEnTabla(PlanesEstudioData listaPlanesEstudio) {
