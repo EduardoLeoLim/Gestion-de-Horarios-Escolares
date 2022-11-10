@@ -30,4 +30,14 @@ public class BuscarPlanEstudio {
         return new PlanesEstudioData(planesEstudio);
     }
 
+    public PlanesEstudioData buscarPorCriterio(String criterio){
+        List<PlanEstudio> planesEstudio = buscadorPlanEstudio
+                .contiene("clave", criterio).esOpcional()
+                .contiene("nombre",criterio).esOpcional()
+                .ordenarAscendente("clave")
+                .buscar();
+
+        return new PlanesEstudioData(planesEstudio);
+    }
+
 }
