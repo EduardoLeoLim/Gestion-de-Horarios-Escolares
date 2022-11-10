@@ -1,6 +1,7 @@
 package com.gamma.gestorhorariosescolares.materia.aplicacion;
 
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
+import com.gamma.gestorhorariosescolares.grado.aplicacion.GradoData;
 import com.gamma.gestorhorariosescolares.grado.dominio.Grado;
 import com.gamma.gestorhorariosescolares.materia.dominio.Materia;
 import com.gamma.gestorhorariosescolares.planestudio.dominio.PlanEstudio;
@@ -49,6 +50,14 @@ public class BuscarMaterias {
                 .ordenarAscendente("clave")
                 .buscar();
 
+        return new MateriasData(prepararMateriasData(materias));
+    }
+
+    public MateriasData buscarMateriasDeGrado(GradoData grado){
+        List<Materia> materias = buscadorMateria
+                .igual("idGrado", grado.id().toString())
+                .ordenarAscendente("clave")
+                .buscar();
         return new MateriasData(prepararMateriasData(materias));
     }
 
