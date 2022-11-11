@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            style="-fx-background-color: #EFEFEF;">
+
+    <GridPane AnchorPane.topAnchor="25.0" AnchorPane.bottomAnchor="60" AnchorPane.leftAnchor="30"
+              AnchorPane.rightAnchor="30">
+        <columnConstraints>
+            <ColumnConstraints minWidth="120"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="50"/>
+            <RowConstraints minHeight="40"/>
+            <RowConstraints minHeight="40"/>
+            <RowConstraints minHeight="40"/>
+            <RowConstraints minHeight="40"/>
+            <RowConstraints minHeight="40"/>
+            <RowConstraints minHeight="40"/>
+        </rowConstraints>
+
+        <Label styleClass="h4" text="Datos generales" GridPane.columnIndex="0" GridPane.columnSpan="2"
+               GridPane.rowIndex="0"/>
+
+        <Label styleClass="h5" text="Plan de Estudio:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <ComboBox fx:id="cbxPlanEstudio" promptText="Selecciona un plan de estudio" styleClass="h5"
+                  GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Label styleClass="h5" text="Grado:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="cbxGrado" promptText="Selecciona un grado" styleClass="h5" GridPane.columnIndex="1"
+                  GridPane.rowIndex="2"/>
+
+        <Label styleClass="h5" text="Clave:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <TextField fx:id="txtClave" styleClass="h5" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+        <Label styleClass="h5" text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <TextField fx:id="txtNombre" styleClass="h5" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+        <Label styleClass="h5" text="Horas prácticas:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+        <TextField fx:id="txtHorasPracticas" styleClass="h5" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+        <Label styleClass="h5" text="Horas teóricas:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+        <TextField fx:id="txtHorasTeoricas" styleClass="h5" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+    </GridPane>
+
+    <Button fx:id="btnGuardar" prefWidth="100" text="Guardar" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="150"
+            onAction="#guardarMateria">
+        <styleClass>
+            <String fx:value="h5"/>
+            <String fx:value="b"/>
+            <String fx:value="btn-success"/>
+        </styleClass>
+    </Button>
+    <Button fx:id="btnCancelar" cancelButton="true" prefWidth="100" text="Cancelar"
+            AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="30" onAction="#cerrarFormulario">
+        <styleClass>
+            <String fx:value="h5"/>
+            <String fx:value="b"/>
+            <String fx:value="btn-danger"/>
+        </styleClass>
+    </Button>
+</AnchorPane>
