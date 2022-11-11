@@ -4,7 +4,7 @@ import com.gamma.gestorhorariosescolares.administrador.infrestructura.stages.Men
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
-import com.gamma.gestorhorariosescolares.secretario.infrestructura.MenuSecretarioStage;
+import com.gamma.gestorhorariosescolares.secretario.infrestructura.stages.MenuSecretarioStage;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.Autenticacion;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.UsuarioData;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
