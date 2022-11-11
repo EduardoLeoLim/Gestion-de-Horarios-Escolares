@@ -2,7 +2,9 @@ package com.gamma.gestorhorariosescolares.grado.aplicacion.buscar;
 
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
+import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filter;
+import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filters;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Order;
 import com.gamma.gestorhorariosescolares.grado.dominio.Grado;
 import com.gamma.gestorhorariosescolares.grado.dominio.GradoRepositorio;
@@ -36,7 +38,8 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public ServicioBuscador<Grado> igual(String campo, String valor) {
-        return null;
+        filtros.add(Filter.create(campo, "=", valor));
+        return this;
     }
 
     /**
@@ -48,7 +51,8 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public ServicioBuscador<Grado> diferente(String campo, String valor) {
-        return null;
+        filtros.add(Filter.create(campo, "!=", valor));
+        return this;
     }
 
     /**
@@ -60,7 +64,8 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public ServicioBuscador<Grado> mayorQue(String campo, String valor) {
-        return null;
+        filtros.add(Filter.create(campo, ">", valor));
+        return this;
     }
 
     /**
@@ -72,7 +77,8 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public ServicioBuscador<Grado> mayorIgualQue(String campo, String valor) {
-        return null;
+        filtros.add(Filter.create(campo, ">=", valor));
+        return this;
     }
 
     /**
@@ -84,7 +90,8 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public ServicioBuscador<Grado> menorQue(String campo, String valor) {
-        return null;
+        filtros.add(Filter.create(campo, "<", valor));
+        return this;
     }
 
     /**
@@ -96,7 +103,8 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public ServicioBuscador<Grado> menorIgualQue(String campo, String valor) {
-        return null;
+        filtros.add(Filter.create(campo, "<=", valor));
+        return this;
     }
 
     /**
@@ -108,7 +116,8 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public ServicioBuscador<Grado> contiene(String campo, String valor) {
-        return null;
+        filtros.add(Filter.create(campo, "CONTAINS", valor));
+        return this;
     }
 
     /**
@@ -120,7 +129,8 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public ServicioBuscador<Grado> noContiene(String campo, String valor) {
-        return null;
+        filtros.add(Filter.create(campo, "NOT_CONTAINS", valor));
+        return this;
     }
 
     /**
@@ -131,7 +141,8 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public ServicioBuscador<Grado> ordenarAscendente(String campo) {
-        return null;
+        ordenador = Order.asc(campo);
+        return this;
     }
 
     /**
@@ -142,7 +153,8 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public ServicioBuscador<Grado> ordenarDescendente(String campo) {
-        return null;
+        ordenador = Order.desc(campo);
+        return this;
     }
 
     /**
@@ -152,7 +164,9 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public ServicioBuscador<Grado> esObligatorio() {
-        return null;
+        if (!filtros.isEmpty())
+            filtros.get(filtros.size() - 1).obligatory();
+        return this;
     }
 
     /**
@@ -162,7 +176,9 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public ServicioBuscador<Grado> esOpcional() {
-        return null;
+        if (!filtros.isEmpty())
+            filtros.get(filtros.size() - 1).optional();
+        return this;
     }
 
     /**
@@ -173,7 +189,8 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public ServicioBuscador<Grado> intervalo(int intervalo) {
-        return null;
+        this.intervalo = Optional.of(intervalo);
+        return this;
     }
 
     /**
@@ -184,7 +201,8 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public ServicioBuscador<Grado> limite(int limite) {
-        return null;
+        this.limite = Optional.of(limite);
+        return this;
     }
 
     /**
@@ -194,7 +212,12 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public List<Grado> buscar() {
-        return null;
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        List<Grado> listaGrados = repositorio.buscar(criterio);
+
+        limpiarFiltros();
+
+        return listaGrados;
     }
 
     /**
@@ -205,6 +228,21 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      */
     @Override
     public Grado buscarPrimero() throws RecursoNoEncontradoException {
-        return null;
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        List<Grado> listaGrados = repositorio.buscar(criterio);
+
+        limpiarFiltros();
+
+        if (listaGrados.isEmpty())
+            throw new RecursoNoEncontradoException("No se encontró ningún grado.");
+        return listaGrados.get(0);
     }
+
+    private void limpiarFiltros() {
+        filtros.clear();
+        ordenador = Order.none();
+        intervalo = Optional.empty();
+        limite = Optional.empty();
+    }
+
 }
