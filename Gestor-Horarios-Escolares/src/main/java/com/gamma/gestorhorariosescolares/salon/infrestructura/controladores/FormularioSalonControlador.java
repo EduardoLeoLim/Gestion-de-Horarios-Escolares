@@ -53,7 +53,7 @@ public class FormularioSalonControlador {
 
     @FXML
     public void initialize() {
-        cargarComboBoxSalones();
+        cargarComboBoxEdificios();
 
         if (!esNuevoRegistro)
             cargarDatosSecretario();
@@ -72,7 +72,7 @@ public class FormularioSalonControlador {
         txtCapacidad.setText(salon.capacidad().toString());
     }
 
-    private void cargarComboBoxSalones() {
+    private void cargarComboBoxEdificios() {
         cbxEdificio.getItems().clear();
 
         cbxEdificio.setButtonCell(new ListCell<>() {
