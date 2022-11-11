@@ -90,7 +90,7 @@
                     mnemonicParsing="false" onAction="#mostrarCatalogoPeriodosEscolaresClick">
                 <graphic>
                     <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../../compartido/infrestructura/imagenes/salon-64px.png"/>
+                        <Image url="@../../../compartido/infrestructura/imagenes/periodo-escolar-64px.png"/>
                     </ImageView>
                 </graphic>
             </Button>
