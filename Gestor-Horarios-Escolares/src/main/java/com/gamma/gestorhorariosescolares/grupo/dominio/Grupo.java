@@ -1,31 +1,30 @@
 package com.gamma.gestorhorariosescolares.grupo.dominio;
 
+import com.gamma.gestorhorariosescolares.compartido.dominio.IntArrayUtils;
+
 public class Grupo {
     private final int id;
     private final String clave;
     private final String nombre;
     private final int idGrado;
-    private final int[] idMaterias;
-    private final int[] idInscripciones;
+    private int[] idInscripciones;
     private final int idPeriodoEscolar;
 
-    public Grupo(int id, String clave, String nombre, int idGrado, int[] idMaterias, int[] idInscripciones, int idPeriodoEscolar) {
+    public Grupo(int id, String clave, String nombre, int idGrado,  int[] idInscripciones, int idPeriodoEscolar) {
         this.id = id;
         this.clave = clave;
         this.nombre = nombre;
         this.idGrado = idGrado;
-        this.idMaterias = idMaterias;
         this.idInscripciones = idInscripciones;
         this.idPeriodoEscolar = idPeriodoEscolar;
     }
 
-    public Grupo(String clave, String nombre, int idGrado, int[] idMaterias, int[] idInscripciones, int idPeriodoEscolar) {
-        this.idInscripciones = idInscripciones;
+    public Grupo(String clave, String nombre, int idGrado, int idPeriodoEscolar) {
         this.id = 0;
         this.clave = clave;
         this.nombre = nombre;
         this.idGrado = idGrado;
-        this.idMaterias = idMaterias;
+        this.idInscripciones = new int[0];
         this.idPeriodoEscolar = idPeriodoEscolar;
     }
 
@@ -45,8 +44,20 @@ public class Grupo {
         return idGrado;
     }
 
-    public int[] idMaterias() {
-        return idMaterias;
+    public int[] idInscripciones() {
+        return idInscripciones;
+    }
+
+    public void agregarInscripcion(int idInscripcion) {
+        if (IntArrayUtils.contains(idInscripciones, idInscripcion))
+            return;
+        idInscripciones = IntArrayUtils.add(idInscripciones, idInscripcion);
+    }
+
+    public void removerInscripcion(int idInscripcion) {
+        if (!IntArrayUtils.contains(idInscripciones, idInscripcion))
+            return;
+        idInscripciones = IntArrayUtils.remove(idInscripciones, idInscripcion);
     }
 
     public int idPeriodoEscolar() {
