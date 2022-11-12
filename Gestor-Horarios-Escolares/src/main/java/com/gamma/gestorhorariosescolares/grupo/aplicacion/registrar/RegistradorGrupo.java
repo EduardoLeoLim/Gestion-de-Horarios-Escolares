@@ -12,8 +12,8 @@ public class RegistradorGrupo implements ServicioRegistradorGrupo {
     }
 
     @Override
-    public int registrar(String clave, String nombre, int idGrado, int[] idMaterias, int[] idInscripciones, int idPeriodoEscolar) {
-        Grupo grupo = new Grupo(clave, nombre, idGrado, idMaterias, idInscripciones, idPeriodoEscolar);
+    public int registrar(String clave, String nombre, int idGrado, int idPeriodoEscolar) {
+        Grupo grupo = new Grupo(clave, nombre, idGrado, idPeriodoEscolar);
         return repositorio.registrar(grupo);
     }
 }
