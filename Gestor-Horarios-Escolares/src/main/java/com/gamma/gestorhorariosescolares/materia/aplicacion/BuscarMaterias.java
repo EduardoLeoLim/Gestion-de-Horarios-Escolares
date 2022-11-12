@@ -53,7 +53,7 @@ public class BuscarMaterias {
         return new MateriasData(prepararMateriasData(materias));
     }
 
-    public MateriasData buscarPorGrado(GradoData grado){
+    public MateriasData buscarPorGrado(GradoData grado) {
         List<Materia> materias = buscadorMateria
                 .igual("idGrado", grado.id().toString())
                 .ordenarAscendente("clave")
@@ -79,7 +79,7 @@ public class BuscarMaterias {
             PlanEstudio planEstudioMateria = planesEstudio.stream()
                     .filter(planEstudio -> planEstudio.id() == gradoMateria.idPlanEstudio())
                     .findFirst()
-                    .orElse(new PlanEstudio(0,"","", false));
+                    .orElse(new PlanEstudio(0, "", "", false));
 
             return MateriaData.fromAggregate(materia, planEstudioMateria, gradoMateria);
         }).collect(Collectors.toList());

@@ -7,10 +7,10 @@ public class Grupo {
     private final String clave;
     private final String nombre;
     private final int idGrado;
-    private int[] idInscripciones;
     private final int idPeriodoEscolar;
+    private int[] idInscripciones;
 
-    public Grupo(int id, String clave, String nombre, int idGrado,  int[] idInscripciones, int idPeriodoEscolar) {
+    public Grupo(int id, String clave, String nombre, int idGrado, int[] idInscripciones, int idPeriodoEscolar) {
         this.id = id;
         this.clave = clave;
         this.nombre = nombre;

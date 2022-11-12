@@ -14,7 +14,7 @@ public class FormularioPlanEstudioStage extends CustomStage {
     private AnchorPane panelFormulario;
     private FormularioPlanEstudioControlador controladorFormulario;
 
-    public FormularioPlanEstudioStage(){
+    public FormularioPlanEstudioStage() {
         setTitle("Registrar Plan de Estudio");
         cargarFormulario();
     }
@@ -25,14 +25,14 @@ public class FormularioPlanEstudioStage extends CustomStage {
 
         controladorFormulario = new FormularioPlanEstudioControlador(this);
 
-        try{
+        try {
             panelFormulario = InicializarPanel.inicializarAnchorPane(
                     "planEstudio/infrestructura/vistas/FormularioPlanEstudio.fxml",
                     controladorFormulario);
             panelFormulario.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
             setContent(panelFormulario);
 
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
