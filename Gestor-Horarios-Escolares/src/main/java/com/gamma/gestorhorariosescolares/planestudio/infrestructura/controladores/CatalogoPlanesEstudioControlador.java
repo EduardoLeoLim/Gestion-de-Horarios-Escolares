@@ -2,7 +2,7 @@ package com.gamma.gestorhorariosescolares.planestudio.infrestructura.controlador
 
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
-import com.gamma.gestorhorariosescolares.planestudio.aplicacion.BuscarPlanEstudio;
+import com.gamma.gestorhorariosescolares.planestudio.aplicacion.BuscarPlanesEstudio;
 import com.gamma.gestorhorariosescolares.planestudio.aplicacion.PlanEstudioData;
 import com.gamma.gestorhorariosescolares.planestudio.aplicacion.PlanesEstudioData;
 import com.gamma.gestorhorariosescolares.planestudio.aplicacion.buscar.BuscadorPlanEstudio;
@@ -75,7 +75,7 @@ public class CatalogoPlanesEstudioControlador {
     private void inicializarTabla() {
         coleccionPlanesEstudio = FXCollections.observableArrayList();
         TableColumn<PlanEstudioData, String> columnaClave = new TableColumn<>("Clave");
-        columnaClave.setCellValueFactory(ft-> new SimpleStringProperty(ft.getValue().clave()));
+        columnaClave.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().clave()));
         columnaClave.setMinWidth(150);
 
 
@@ -107,22 +107,22 @@ public class CatalogoPlanesEstudioControlador {
         PlanesEstudioData planesEstudio;
         Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
 
-        try (Connection transaccion = conexion.beginTransaction()){
+        try (Connection transaccion = conexion.beginTransaction()) {
             //Repositoro
             var planEstudioRepositorio = new MySql2oPlanEstudioRepositorio(transaccion);
 
             //Servicios
             var buscadorPlanEstudio = new BuscadorPlanEstudio(planEstudioRepositorio);
-            BuscarPlanEstudio buscarPlanEstudio = new BuscarPlanEstudio(buscadorPlanEstudio);
+            BuscarPlanesEstudio buscarPlanesEstudio = new BuscarPlanesEstudio(buscadorPlanEstudio);
 
-            if(criterioBusqueda.isBlank()){
-                planesEstudio = buscarPlanEstudio.buscarTodos();
-            }else{
-                planesEstudio = buscarPlanEstudio.buscarPorCriterio(criterioBusqueda);
+            if (criterioBusqueda.isBlank()) {
+                planesEstudio = buscarPlanesEstudio.buscarTodos();
+            } else {
+                planesEstudio = buscarPlanesEstudio.buscarPorCriterio(criterioBusqueda);
             }
             cargarPlanesEstudioEnTabla(planesEstudio);
 
-        }catch (Sql2oException e) {
+        } catch (Sql2oException e) {
             Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no diponible", ButtonType.OK);
             mensaje.setTitle("Error de base de datos");
             mensaje.showAndWait();

@@ -15,7 +15,7 @@ import com.gamma.gestorhorariosescolares.materia.aplicacion.actualizar.Actualiza
 import com.gamma.gestorhorariosescolares.materia.aplicacion.buscar.BuscadorMateria;
 import com.gamma.gestorhorariosescolares.materia.aplicacion.registrar.RegistradorMateria;
 import com.gamma.gestorhorariosescolares.materia.infrestructura.persistencia.MySql2oMateriaRepositorio;
-import com.gamma.gestorhorariosescolares.planestudio.aplicacion.BuscarPlanEstudio;
+import com.gamma.gestorhorariosescolares.planestudio.aplicacion.BuscarPlanesEstudio;
 import com.gamma.gestorhorariosescolares.planestudio.aplicacion.PlanEstudioData;
 import com.gamma.gestorhorariosescolares.planestudio.aplicacion.PlanesEstudioData;
 import com.gamma.gestorhorariosescolares.planestudio.aplicacion.buscar.BuscadorPlanEstudio;
@@ -107,9 +107,9 @@ public class FormularioMateriaControlador {
             //Servicios
             var buscadorPlanEstudio = new BuscadorPlanEstudio(planEstudioRepositorio);
 
-            BuscarPlanEstudio buscarPlanEstudio = new BuscarPlanEstudio(buscadorPlanEstudio);
+            BuscarPlanesEstudio buscarPlanesEstudio = new BuscarPlanesEstudio(buscadorPlanEstudio);
 
-            planesEstudio = buscarPlanEstudio.buscarTodos();
+            planesEstudio = buscarPlanesEstudio.buscarTodos();
             cbxPlanEstudio.getItems().clear();
             cbxPlanEstudio.getItems().addAll(planesEstudio.planesEstudio());
 

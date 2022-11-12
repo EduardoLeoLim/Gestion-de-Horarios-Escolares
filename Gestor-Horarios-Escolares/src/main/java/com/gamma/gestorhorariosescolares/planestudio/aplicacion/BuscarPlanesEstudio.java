@@ -5,11 +5,11 @@ import com.gamma.gestorhorariosescolares.planestudio.dominio.PlanEstudio;
 
 import java.util.List;
 
-public class BuscarPlanEstudio {
+public class BuscarPlanesEstudio {
 
     private final ServicioBuscador<PlanEstudio> buscadorPlanEstudio;
 
-    public BuscarPlanEstudio(ServicioBuscador<PlanEstudio> buscadorPlanEstudio) {
+    public BuscarPlanesEstudio(ServicioBuscador<PlanEstudio> buscadorPlanEstudio) {
         this.buscadorPlanEstudio = buscadorPlanEstudio;
     }
 
@@ -30,10 +30,10 @@ public class BuscarPlanEstudio {
         return new PlanesEstudioData(planesEstudio);
     }
 
-    public PlanesEstudioData buscarPorCriterio(String criterio){
+    public PlanesEstudioData buscarPorCriterio(String criterio) {
         List<PlanEstudio> planesEstudio = buscadorPlanEstudio
                 .contiene("clave", criterio).esOpcional()
-                .contiene("nombre",criterio).esOpcional()
+                .contiene("nombre", criterio).esOpcional()
                 .ordenarAscendente("clave")
                 .buscar();
 
