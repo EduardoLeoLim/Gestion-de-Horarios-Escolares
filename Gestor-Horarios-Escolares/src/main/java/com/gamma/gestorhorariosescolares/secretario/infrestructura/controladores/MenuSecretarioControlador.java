@@ -1,15 +1,23 @@
 package com.gamma.gestorhorariosescolares.secretario.infrestructura.controladores;
 
+import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.InicializarPanel;
+import com.gamma.gestorhorariosescolares.grupo.infrestructura.controladores.CatalogoGruposControlador;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.stages.LoginStage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.kordamp.bootstrapfx.BootstrapFX;
+
+import java.io.IOException;
 
 public class MenuSecretarioControlador {
 
     private final Stage stage;
+    private AnchorPane panelCatalogoGrupos;
+    private CatalogoGruposControlador controladorGrupos;
 
     @FXML
     private BorderPane panelMenuSecretario;
@@ -39,7 +47,21 @@ public class MenuSecretarioControlador {
 
     @FXML
     protected void mostrarCatalogoGruposClick() {
-
+        if (panelCatalogoGrupos == null) {
+            try {
+                controladorGrupos = new CatalogoGruposControlador(stage);
+                panelCatalogoGrupos = InicializarPanel.inicializarAnchorPane(
+                        "grupo/infrestructura/vistas/CatalogoGrupos.fxml",
+                        controladorGrupos
+                );
+                panelCatalogoGrupos.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                panelMenuSecretario.setCenter(panelCatalogoGrupos);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            panelMenuSecretario.setCenter(panelCatalogoGrupos);
+        }
     }
 
     @FXML

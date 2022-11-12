@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx">
+    <Label text="Catálogo de Grupos" prefHeight="40" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"
+           AnchorPane.topAnchor="20.0">
+        <styleClass>
+            <String fx:value="h2"/>
+            <String fx:value="b"/>
+        </styleClass>
+    </Label>
+
+    <Label styleClass="h5" text="Clave:" AnchorPane.leftAnchor="50" AnchorPane.topAnchor="80"/>
+    <TextField fx:id="txtBuscar" styleClass="h5" AnchorPane.leftAnchor="120" AnchorPane.topAnchor="75"/>
+
+    <Label styleClass="h5" text="Periodo escolar:" AnchorPane.leftAnchor="320" AnchorPane.topAnchor="80"/>
+    <ComboBox fx:id="cbxPeriodoEscolar" promptText="Selecciona un periodo escolar" AnchorPane.leftAnchor="420"
+              AnchorPane.topAnchor="75"/>
+
+    <Button text="Registrar" AnchorPane.rightAnchor="40" AnchorPane.topAnchor="75" onAction="#registrarNuevoGrupo">
+        <styleClass>
+            <String fx:value="b"/>
+            <String fx:value="h5"/>
+            <String fx:value="btn-primary"/>
+        </styleClass>
+    </Button>
+
+</AnchorPane>
