@@ -213,7 +213,7 @@ public class BuscadorPeriodoEscolar implements ServicioBuscador<PeriodoEscolar> 
      */
     @Override
     public List<PeriodoEscolar> buscar() {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
         List<PeriodoEscolar> periodosEscolares = repositorio.buscar(criterio);
 
         limpiarFiltros();
@@ -229,7 +229,7 @@ public class BuscadorPeriodoEscolar implements ServicioBuscador<PeriodoEscolar> 
      */
     @Override
     public PeriodoEscolar buscarPrimero() throws RecursoNoEncontradoException {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
         List<PeriodoEscolar> periodosEscolares = repositorio.buscar(criterio);
 
         limpiarFiltros();

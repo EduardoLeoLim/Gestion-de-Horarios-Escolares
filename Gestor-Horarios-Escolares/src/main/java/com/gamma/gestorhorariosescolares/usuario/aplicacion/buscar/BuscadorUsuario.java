@@ -213,7 +213,7 @@ public class BuscadorUsuario implements ServicioBuscador<Usuario> {
      */
     @Override
     public List<Usuario> buscar() {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
         List<Usuario> listaUsuarios = repositorio.buscar(criterio);
 
         limpiarFiltros();
@@ -229,7 +229,7 @@ public class BuscadorUsuario implements ServicioBuscador<Usuario> {
      */
     @Override
     public Usuario buscarPrimero() throws RecursoNoEncontradoException {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
         List<Usuario> listaUsuarios = repositorio.buscar(criterio);
 
         limpiarFiltros();

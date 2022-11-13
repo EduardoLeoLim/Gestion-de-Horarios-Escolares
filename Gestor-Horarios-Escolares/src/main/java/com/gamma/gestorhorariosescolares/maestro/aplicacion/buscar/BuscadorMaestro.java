@@ -213,7 +213,7 @@ public class BuscadorMaestro implements ServicioBuscador<Maestro> {
      */
     @Override
     public List<Maestro> buscar() {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
         List<Maestro> listaMaestros = repositorio.buscar(criterio);
 
         limpiarFiltros();
@@ -229,7 +229,7 @@ public class BuscadorMaestro implements ServicioBuscador<Maestro> {
      */
     @Override
     public Maestro buscarPrimero() throws RecursoNoEncontradoException {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
         List<Maestro> listaMaestros = repositorio.buscar(criterio);
 
         limpiarFiltros();

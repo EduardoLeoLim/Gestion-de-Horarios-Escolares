@@ -212,7 +212,7 @@ public class BuscadorAdministrador implements ServicioBuscador<Administrador> {
      */
     @Override
     public List<Administrador> buscar() {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
         List<Administrador> listaAdministradores = repositorio.buscar(criterio);
 
         limpiarFiltros();
@@ -228,7 +228,7 @@ public class BuscadorAdministrador implements ServicioBuscador<Administrador> {
      */
     @Override
     public Administrador buscarPrimero() throws RecursoNoEncontradoException {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
         List<Administrador> listaAdministradores = repositorio.buscar(criterio);
 
         limpiarFiltros();

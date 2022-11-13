@@ -212,7 +212,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      */
     @Override
     public List<PlanEstudio> buscar() {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
         List<PlanEstudio> listaPlanesEstudio = repositorio.buscar(criterio);
 
         limpiarFiltros();
@@ -228,7 +228,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      */
     @Override
     public PlanEstudio buscarPrimero() throws RecursoNoEncontradoException {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
         List<PlanEstudio> listaPlanesEstudio = repositorio.buscar(criterio);
 
         limpiarFiltros();

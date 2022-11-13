@@ -212,7 +212,7 @@ public class BuscadorGrupo implements ServicioBuscador<Grupo> {
      */
     @Override
     public List<Grupo> buscar() {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
         List<Grupo> listaGrupos = repositorio.buscar(criterio);
 
         limpiarFiltros();
@@ -228,7 +228,7 @@ public class BuscadorGrupo implements ServicioBuscador<Grupo> {
      */
     @Override
     public Grupo buscarPrimero() throws RecursoNoEncontradoException {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, intervalo, limite);
+        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
         List<Grupo> listaGrupos = repositorio.buscar(criterio);
 
         limpiarFiltros();
