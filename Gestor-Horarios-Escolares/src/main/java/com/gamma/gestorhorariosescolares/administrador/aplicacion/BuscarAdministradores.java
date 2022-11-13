@@ -49,6 +49,7 @@ public class BuscarAdministradores {
                 .contiene("nombre", criterio).esOpcional()
                 .contiene("apellidoPaterno", criterio).esOpcional()
                 .contiene("apellidoMaterno", criterio).esOpcional()
+                .ordenarAscendente("noPersonal")
                 .buscar();
 
         List<AdministradorData> listaAdministradoresData = listaAdministradores.stream().map(administrador -> {
