@@ -228,10 +228,7 @@ public class BuscadorSalon implements ServicioBuscador<Salon> {
      */
     @Override
     public Salon buscarPrimero() throws RecursoNoEncontradoException {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
-        List<Salon> listaSalones = repositorio.buscar(criterio);
-
-        limpiarFiltros();
+        List<Salon> listaSalones = buscar();
         if (listaSalones.isEmpty())
             throw new RecursoNoEncontradoException("No se encontró ningún salón.");
         return listaSalones.get(0);

@@ -229,14 +229,10 @@ public class BuscadorUsuario implements ServicioBuscador<Usuario> {
      */
     @Override
     public Usuario buscarPrimero() throws RecursoNoEncontradoException {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
-        List<Usuario> listaUsuarios = repositorio.buscar(criterio);
-
-        limpiarFiltros();
-
+        List<Usuario> listaUsuarios = buscar();
         if (listaUsuarios.isEmpty())
             throw new RecursoNoEncontradoException("No se encontró ningún usuario.");
-        return null;
+        return listaUsuarios.get(0);
     }
 
     private void limpiarFiltros() {

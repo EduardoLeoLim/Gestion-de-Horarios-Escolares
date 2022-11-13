@@ -229,11 +229,7 @@ public class BuscadorPeriodoEscolar implements ServicioBuscador<PeriodoEscolar> 
      */
     @Override
     public PeriodoEscolar buscarPrimero() throws RecursoNoEncontradoException {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
-        List<PeriodoEscolar> periodosEscolares = repositorio.buscar(criterio);
-
-        limpiarFiltros();
-
+        List<PeriodoEscolar> periodosEscolares = buscar();
         if (periodosEscolares.isEmpty())
             throw new RecursoNoEncontradoException("No se encontró ningún periodo escolar.");
         return periodosEscolares.get(0);

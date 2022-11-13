@@ -228,11 +228,7 @@ public class BuscadorMateria implements ServicioBuscador<Materia> {
      */
     @Override
     public Materia buscarPrimero() throws RecursoNoEncontradoException {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
-        List<Materia> listaMaterias = repositorio.buscar(criterio);
-
-        limpiarFiltros();
-
+        List<Materia> listaMaterias = buscar();
         if (listaMaterias.isEmpty())
             throw new RecursoNoEncontradoException("No se encontró ninguna materia.");
         return listaMaterias.get(0);

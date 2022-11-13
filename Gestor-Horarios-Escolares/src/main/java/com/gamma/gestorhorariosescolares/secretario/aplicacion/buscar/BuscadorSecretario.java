@@ -228,11 +228,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      */
     @Override
     public Secretario buscarPrimero() throws RecursoNoEncontradoException {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
-        List<Secretario> listaSecretarios = repositorio.buscar(criterio);
-
-        limpiarFiltros();
-
+        List<Secretario> listaSecretarios = buscar();
         if (listaSecretarios.isEmpty())
             throw new RecursoNoEncontradoException("No se encontró ningún secretario.");
         return listaSecretarios.get(0);

@@ -228,11 +228,7 @@ public class BuscadorGrupo implements ServicioBuscador<Grupo> {
      */
     @Override
     public Grupo buscarPrimero() throws RecursoNoEncontradoException {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
-        List<Grupo> listaGrupos = repositorio.buscar(criterio);
-
-        limpiarFiltros();
-
+        List<Grupo> listaGrupos = buscar();
         if (listaGrupos.isEmpty())
             throw new RecursoNoEncontradoException("No se encontró ningún grupo.");
         return listaGrupos.get(0);

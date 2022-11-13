@@ -229,11 +229,7 @@ public class BuscadorMaestro implements ServicioBuscador<Maestro> {
      */
     @Override
     public Maestro buscarPrimero() throws RecursoNoEncontradoException {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
-        List<Maestro> listaMaestros = repositorio.buscar(criterio);
-
-        limpiarFiltros();
-
+        List<Maestro> listaMaestros = buscar();
         if (listaMaestros.isEmpty())
             throw new RecursoNoEncontradoException("No se encontró ningún maestro.");
         return listaMaestros.get(0);

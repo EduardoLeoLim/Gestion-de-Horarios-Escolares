@@ -228,11 +228,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      */
     @Override
     public PlanEstudio buscarPrimero() throws RecursoNoEncontradoException {
-        Criteria criterio = new Criteria(new Filters(filtros), ordenador, limite, intervalo);
-        List<PlanEstudio> listaPlanesEstudio = repositorio.buscar(criterio);
-
-        limpiarFiltros();
-
+        List<PlanEstudio> listaPlanesEstudio = buscar();
         if (listaPlanesEstudio.isEmpty())
             throw new RecursoNoEncontradoException("No se encontró ningún plan de estudio");
         return listaPlanesEstudio.get(0);
