@@ -25,25 +25,35 @@ public class BuscarGrupos {
         this.buscadorPeriodoEscolar = buscadorPeriodoEscolar;
     }
 
-    public GruposData buscar(String clave, String nombre, GradoData gradoData, PeriodoEscolarData periodoEscolarData) {
-        List<Grupo> grupos = buscadorGrupo
-                .contiene("clave", clave)
-                .contiene("nombre", nombre)
-                .contiene("idGrado", gradoData.id().toString())
-                .contiene("idPeriodoEscolar", periodoEscolarData.id().toString())
-                .ordenarAscendente("clave")
-                .buscar();
+    public GruposData buscar(String clave, String nombre, Integer idGrado, Integer idPeriodoEscolar) {
+        if (clave != null && !clave.isBlank())
+            buscadorGrupo.igual("clave", clave);
+        if (nombre != null && !nombre.isBlank())
+            buscadorGrupo.igual("nombre", nombre);
+        if (idGrado != null)
+            buscadorGrupo.igual("idGrado", idGrado.toString());
+        if (idPeriodoEscolar != null)
+            buscadorGrupo.igual("idPeriodoEscolar", idPeriodoEscolar.toString());
+        buscadorGrupo.ordenarAscendente("clave");
+
+        List<Grupo> grupos = buscadorGrupo.buscar();
+
         return new GruposData(prepararResultado(grupos));
     }
 
-    public GruposData buscarPorCoincidencia(String clave, String nombre, GradoData gradoData, PeriodoEscolarData periodoEscolarData) {
-        List<Grupo> grupos = buscadorGrupo
-                .contiene("clave", clave).esOpcional()
-                .contiene("nombre", nombre).esOpcional()
-                .contiene("idGrado", gradoData.id().toString()).esOpcional()
-                .contiene("idPeriodoEscolar", periodoEscolarData.id().toString()).esOpcional()
-                .ordenarAscendente("clave")
-                .buscar();
+    public GruposData buscarPorCoincidencia(String clave, String nombre, Integer idGrado, Integer idPeriodoEscolar) {
+        if (clave != null && !clave.isBlank())
+            buscadorGrupo.contiene("clave", clave).esOpcional();
+        if (nombre != null && !nombre.isBlank())
+            buscadorGrupo.contiene("nombre", nombre).esOpcional();
+        if (idGrado != null)
+            buscadorGrupo.contiene("idGrado", idGrado.toString()).esOpcional();
+        if (idPeriodoEscolar != null)
+            buscadorGrupo.contiene("idPeriodoEscolar", idPeriodoEscolar.toString()).esOpcional();
+        buscadorGrupo.ordenarAscendente("clave");
+
+        List<Grupo> grupos = buscadorGrupo.buscar();
+
         return new GruposData(prepararResultado(grupos));
     }
 
