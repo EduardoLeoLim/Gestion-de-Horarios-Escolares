@@ -189,7 +189,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      */
     @Override
     public ServicioBuscador<PlanEstudio> intervalo(int intervalo) {
-        this.intervalo = Optional.of(intervalo);
+        this.intervalo = Optional.of(intervalo < 0 ? 0 : intervalo);
         return this;
     }
 
@@ -201,7 +201,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      */
     @Override
     public ServicioBuscador<PlanEstudio> limite(int limite) {
-        this.limite = Optional.of(limite);
+        this.limite = Optional.of(limite < 0 ? 0 : limite);
         return this;
     }
 

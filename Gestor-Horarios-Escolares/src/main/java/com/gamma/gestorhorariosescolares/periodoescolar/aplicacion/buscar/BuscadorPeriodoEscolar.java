@@ -190,7 +190,7 @@ public class BuscadorPeriodoEscolar implements ServicioBuscador<PeriodoEscolar> 
      */
     @Override
     public BuscadorPeriodoEscolar intervalo(int intervalo) {
-        this.intervalo = Optional.of(intervalo);
+        this.intervalo = Optional.of(intervalo < 0 ? 0 : intervalo);
         return this;
     }
 
@@ -202,7 +202,7 @@ public class BuscadorPeriodoEscolar implements ServicioBuscador<PeriodoEscolar> 
      */
     @Override
     public BuscadorPeriodoEscolar limite(int limite) {
-        this.limite = Optional.of(limite);
+        this.limite = Optional.of(limite < 0 ? 0 : limite);
         return this;
     }
 

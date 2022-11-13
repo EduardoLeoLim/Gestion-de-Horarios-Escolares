@@ -189,7 +189,7 @@ public class BuscadorGrupo implements ServicioBuscador<Grupo> {
      */
     @Override
     public ServicioBuscador<Grupo> intervalo(int intervalo) {
-        this.intervalo = Optional.of(intervalo);
+        this.intervalo = Optional.of(intervalo < 0 ? 0 : intervalo);
         return this;
     }
 
@@ -201,7 +201,7 @@ public class BuscadorGrupo implements ServicioBuscador<Grupo> {
      */
     @Override
     public ServicioBuscador<Grupo> limite(int limite) {
-        this.limite = Optional.of(limite);
+        this.limite = Optional.of(limite < 0 ? 0 : limite);
         return this;
     }
 
