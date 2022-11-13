@@ -10,6 +10,7 @@ module com.gamma.gestorhorariosescolares {
     opens com.gamma.gestorhorariosescolares.administrador.infrestructura.controladores to javafx.fxml;
     opens com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores to javafx.fxml;
     opens com.gamma.gestorhorariosescolares.edificio.infrestructura.controladores to javafx.fxml;
+    opens com.gamma.gestorhorariosescolares.grupo.infrestructura.controladores to javafx.fxml;
     opens com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores to javafx.fxml;
     opens com.gamma.gestorhorariosescolares.materia.infrestructura.controladores to javafx.fxml;
     opens com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.controladores to javafx.fxml;

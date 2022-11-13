@@ -87,6 +87,8 @@ public class MenuSecretarioControlador {
 
     private void liberarRecursos() {
         System.out.println("Liberando recursos");
+        if (controladorGrupos != null)
+            controladorGrupos.liberarRecursos();
     }
 
 }

@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx">
-    <Label text="Catálogo de Grupos" prefHeight="40" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"
+    <Label text="Grupos" prefHeight="40" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"
            AnchorPane.topAnchor="20.0">
         <styleClass>
             <String fx:value="h2"/>
@@ -13,14 +13,14 @@
         </styleClass>
     </Label>
 
-    <Label styleClass="h5" text="Clave:" AnchorPane.leftAnchor="50" AnchorPane.topAnchor="80"/>
-    <TextField fx:id="txtBuscar" styleClass="h5" AnchorPane.leftAnchor="120" AnchorPane.topAnchor="75"/>
+    <Label styleClass="h5" text="Buscar:" AnchorPane.leftAnchor="50" AnchorPane.topAnchor="80"/>
+    <TextField fx:id="txtBuscar" styleClass="h5" AnchorPane.topAnchor="75" AnchorPane.leftAnchor="100"/>
 
-    <Label styleClass="h5" text="Periodo escolar:" AnchorPane.leftAnchor="320" AnchorPane.topAnchor="80"/>
-    <ComboBox fx:id="cbxPeriodoEscolar" promptText="Selecciona un periodo escolar" AnchorPane.leftAnchor="420"
-              AnchorPane.topAnchor="75"/>
+    <Label styleClass="h5" text="Periodo escolar:" AnchorPane.topAnchor="80" AnchorPane.leftAnchor="320"/>
+    <ComboBox fx:id="cbxPeriodoEscolar" promptText="Selecciona un periodo escolar" styleClass="h5"
+              AnchorPane.topAnchor="75" AnchorPane.leftAnchor="430"/>
 
-    <Button text="Registrar" AnchorPane.rightAnchor="40" AnchorPane.topAnchor="75" onAction="#registrarNuevoGrupo">
+    <Button text="Registrar" AnchorPane.topAnchor="75" AnchorPane.rightAnchor="50" onAction="#registrarNuevoGrupo">
         <styleClass>
             <String fx:value="b"/>
             <String fx:value="h5"/>
@@ -28,4 +28,7 @@
         </styleClass>
     </Button>
 
+    <TableView fx:id="tablaGrupos" styleClass="h5" AnchorPane.topAnchor="130" AnchorPane.bottomAnchor="20"
+               AnchorPane.rightAnchor="30" AnchorPane.leftAnchor="30">
+    </TableView>
 </AnchorPane>
