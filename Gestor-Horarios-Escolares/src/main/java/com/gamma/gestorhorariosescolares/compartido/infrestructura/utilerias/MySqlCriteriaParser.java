@@ -1,8 +1,6 @@
 package com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias;
 
-import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
-import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filter;
-import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.FilterOperator;
+import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +45,7 @@ public class MySqlCriteriaParser {
     public String generarConsulta() {
         String consulta = "SELECT " + generarColumnas() + " FROM " + tabla;
         String condiciones = generarCondiciones();
-        if (!condiciones.isEmpty()) {
+        if (criteria.hasFilters()) {
             consulta += " WHERE " + condiciones;
         }
 
@@ -58,9 +56,24 @@ public class MySqlCriteriaParser {
 
     public String generarConsultaSql2o() {
         String consulta = "SELECT " + generarColumnas() + " FROM " + tabla;
-        String condiciones = generarCondicionesSql2o();
-        if (!condiciones.isEmpty()) {
+
+        if (criteria.hasFilters()) {
+            String condiciones = generarCondicionesSql2o();
             consulta += " WHERE " + condiciones;
+        }
+
+        Order orden = criteria.order();
+        if (orden.orderType() != OrderType.NONE) {
+            consulta += " ORDER BY " + orden.orderBy().value() + " " + orden.orderType().value().toUpperCase();
+        }
+
+        if (criteria.limit().isPresent()) {
+            consulta += " LIMIT " + criteria.limit().get();
+            if (criteria.offset().isPresent())
+                consulta += " OFFSET " + criteria.offset().get();
+        } else if (!criteria.offset().isEmpty()) {
+            // https:dev.mysql.com/doc/refman/5.6/en/select.html
+            consulta += " LIMIT " + criteria.offset().get() + ",18446744073709551615";
         }
 
 
