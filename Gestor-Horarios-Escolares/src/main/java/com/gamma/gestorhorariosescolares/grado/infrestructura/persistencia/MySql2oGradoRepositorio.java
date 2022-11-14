@@ -53,17 +53,40 @@ public class MySql2oGradoRepositorio implements GradoRepositorio {
 
     @Override
     public int registrar(Grado grado) {
-        return 0;
+        String consulta = "INSERT INTO grado (clave, nombre, estatus, idPlanEstudio) VALUES (:clave, :nombre, :estatus, :idPlanEstudio);";
+        int idGrado = conexion.createQuery(consulta)
+                .addParameter("clave", grado.clave())
+                .addParameter("nombre", grado.nombre())
+                .addParameter("estatus", grado.estatus())
+                .addParameter("idPlanEstudio", grado.idPlanEstudio())
+                .executeUpdate()
+                .getKey(Integer.class);
+        return idGrado;
     }
 
     @Override
-    public int actualizar(Grado grado) {
-        return 0;
+    public void actualizar(Grado grado) {
+        String consultaSelect = "SELECT * FROM grado WHERE (id = :id) FOR UPDATE;";
+        String consultaUpdate = "UPDATE grado SET clave=:clave, nombre=:nombre, estatus=:estatus, idPlanEstudio=:idPlanEstudio WHERE (id = :id);";
+
+        conexion.createQuery(consultaSelect)
+                .addParameter("id", grado.id())
+                .executeAndFetchTable();
+
+        conexion.createQuery(consultaUpdate)
+                .addParameter("clave", grado.clave())
+                .addParameter("nombre", grado.nombre())
+                .addParameter("estatus", grado.estatus())
+                .addParameter("idPlanEstudio", grado.idPlanEstudio())
+                .executeUpdate();
     }
 
     @Override
     public void eliminar(int idGrado) {
-
+        String consulta = "DELETE FROM grado WHERE (id = :id);";
+        conexion.createQuery(consulta)
+                .addParameter("id", idGrado)
+                .executeUpdate();
     }
 
 }
