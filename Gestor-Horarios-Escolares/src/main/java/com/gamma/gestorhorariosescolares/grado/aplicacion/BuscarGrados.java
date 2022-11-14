@@ -22,9 +22,9 @@ public class BuscarGrados {
         return new GradosData(grados);
     }
 
-    public GradosData buscarPorPlanEstudio(PlanEstudioData planEstudio) {
+    public GradosData buscarPorPlanEstudio(Integer idPlanEstudio) {
         List<Grado> grados = buscadorGrado
-                .igual("idPlanEstudio", planEstudio.id().toString())
+                .igual("idPlanEstudio", idPlanEstudio.toString())
                 .ordenarAscendente("clave")
                 .buscar();
 
