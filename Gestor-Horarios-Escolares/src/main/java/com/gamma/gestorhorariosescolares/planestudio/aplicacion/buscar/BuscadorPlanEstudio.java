@@ -37,7 +37,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<PlanEstudio> igual(String campo, String valor) {
+    public BuscadorPlanEstudio igual(String campo, String valor) {
         filtros.add(Filter.create(campo, "=", valor));
         return this;
     }
@@ -50,7 +50,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<PlanEstudio> diferente(String campo, String valor) {
+    public BuscadorPlanEstudio diferente(String campo, String valor) {
         filtros.add(Filter.create(campo, "!=", valor));
         return this;
     }
@@ -63,7 +63,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<PlanEstudio> mayorQue(String campo, String valor) {
+    public BuscadorPlanEstudio mayorQue(String campo, String valor) {
         filtros.add(Filter.create(campo, ">", valor));
         return this;
     }
@@ -76,7 +76,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<PlanEstudio> mayorIgualQue(String campo, String valor) {
+    public BuscadorPlanEstudio mayorIgualQue(String campo, String valor) {
         filtros.add(Filter.create(campo, ">=", valor));
         return this;
     }
@@ -89,7 +89,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<PlanEstudio> menorQue(String campo, String valor) {
+    public BuscadorPlanEstudio menorQue(String campo, String valor) {
         filtros.add(Filter.create(campo, "<", valor));
         return this;
     }
@@ -102,7 +102,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<PlanEstudio> menorIgualQue(String campo, String valor) {
+    public BuscadorPlanEstudio menorIgualQue(String campo, String valor) {
         filtros.add(Filter.create(campo, "<=", valor));
         return this;
     }
@@ -115,7 +115,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<PlanEstudio> contiene(String campo, String valor) {
+    public BuscadorPlanEstudio contiene(String campo, String valor) {
         filtros.add(Filter.create(campo, "CONTAINS", valor));
         return this;
     }
@@ -128,7 +128,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<PlanEstudio> noContiene(String campo, String valor) {
+    public BuscadorPlanEstudio noContiene(String campo, String valor) {
         filtros.add(Filter.create(campo, "NOT_CONTAINS", valor));
         return this;
     }
@@ -140,7 +140,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<PlanEstudio> ordenarAscendente(String campo) {
+    public BuscadorPlanEstudio ordenarAscendente(String campo) {
         ordenador = Order.asc(campo);
         return this;
     }
@@ -152,7 +152,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<PlanEstudio> ordenarDescendente(String campo) {
+    public BuscadorPlanEstudio ordenarDescendente(String campo) {
         ordenador = Order.desc(campo);
         return this;
     }
@@ -163,7 +163,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<PlanEstudio> esObligatorio() {
+    public BuscadorPlanEstudio esObligatorio() {
         if (!filtros.isEmpty())
             filtros.get(filtros.size() - 1).obligatory();
         return this;
@@ -175,7 +175,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<PlanEstudio> esOpcional() {
+    public BuscadorPlanEstudio esOpcional() {
         if (!filtros.isEmpty())
             filtros.get(filtros.size() - 1).optional();
         return this;
@@ -188,7 +188,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<PlanEstudio> intervalo(int intervalo) {
+    public BuscadorPlanEstudio intervalo(int intervalo) {
         this.intervalo = Optional.of(intervalo < 0 ? 0 : intervalo);
         return this;
     }
@@ -200,7 +200,7 @@ public class BuscadorPlanEstudio implements ServicioBuscador<PlanEstudio> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<PlanEstudio> limite(int limite) {
+    public BuscadorPlanEstudio limite(int limite) {
         this.limite = Optional.of(limite < 0 ? 0 : limite);
         return this;
     }

@@ -37,7 +37,7 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Grado> igual(String campo, String valor) {
+    public BuscadorGrado igual(String campo, String valor) {
         filtros.add(Filter.create(campo, "=", valor));
         return this;
     }
@@ -50,7 +50,7 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Grado> diferente(String campo, String valor) {
+    public BuscadorGrado diferente(String campo, String valor) {
         filtros.add(Filter.create(campo, "!=", valor));
         return this;
     }
@@ -63,7 +63,7 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Grado> mayorQue(String campo, String valor) {
+    public BuscadorGrado mayorQue(String campo, String valor) {
         filtros.add(Filter.create(campo, ">", valor));
         return this;
     }
@@ -76,7 +76,7 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Grado> mayorIgualQue(String campo, String valor) {
+    public BuscadorGrado mayorIgualQue(String campo, String valor) {
         filtros.add(Filter.create(campo, ">=", valor));
         return this;
     }
@@ -89,7 +89,7 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Grado> menorQue(String campo, String valor) {
+    public BuscadorGrado menorQue(String campo, String valor) {
         filtros.add(Filter.create(campo, "<", valor));
         return this;
     }
@@ -102,7 +102,7 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Grado> menorIgualQue(String campo, String valor) {
+    public BuscadorGrado menorIgualQue(String campo, String valor) {
         filtros.add(Filter.create(campo, "<=", valor));
         return this;
     }
@@ -115,7 +115,7 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Grado> contiene(String campo, String valor) {
+    public BuscadorGrado contiene(String campo, String valor) {
         filtros.add(Filter.create(campo, "CONTAINS", valor));
         return this;
     }
@@ -128,7 +128,7 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Grado> noContiene(String campo, String valor) {
+    public BuscadorGrado noContiene(String campo, String valor) {
         filtros.add(Filter.create(campo, "NOT_CONTAINS", valor));
         return this;
     }
@@ -140,7 +140,7 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Grado> ordenarAscendente(String campo) {
+    public BuscadorGrado ordenarAscendente(String campo) {
         ordenador = Order.asc(campo);
         return this;
     }
@@ -152,7 +152,7 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Grado> ordenarDescendente(String campo) {
+    public BuscadorGrado ordenarDescendente(String campo) {
         ordenador = Order.desc(campo);
         return this;
     }
@@ -163,7 +163,7 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Grado> esObligatorio() {
+    public BuscadorGrado esObligatorio() {
         if (!filtros.isEmpty())
             filtros.get(filtros.size() - 1).obligatory();
         return this;
@@ -175,7 +175,7 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Grado> esOpcional() {
+    public BuscadorGrado esOpcional() {
         if (!filtros.isEmpty())
             filtros.get(filtros.size() - 1).optional();
         return this;
@@ -188,7 +188,7 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Grado> intervalo(int intervalo) {
+    public BuscadorGrado intervalo(int intervalo) {
         this.intervalo = Optional.of(intervalo);
         return this;
     }
@@ -200,7 +200,7 @@ public class BuscadorGrado implements ServicioBuscador<Grado> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Grado> limite(int limite) {
+    public BuscadorGrado limite(int limite) {
         this.limite = Optional.of(limite);
         return this;
     }

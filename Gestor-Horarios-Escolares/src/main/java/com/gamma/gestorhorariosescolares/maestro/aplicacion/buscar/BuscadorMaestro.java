@@ -164,7 +164,7 @@ public class BuscadorMaestro implements ServicioBuscador<Maestro> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Maestro> esObligatorio() {
+    public BuscadorMaestro esObligatorio() {
         if (!filtros.isEmpty())
             filtros.get(filtros.size() - 1).obligatory();
         return this;
@@ -176,7 +176,7 @@ public class BuscadorMaestro implements ServicioBuscador<Maestro> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Maestro> esOpcional() {
+    public BuscadorMaestro esOpcional() {
         if (!filtros.isEmpty())
             filtros.get(filtros.size() - 1).optional();
         return this;

@@ -163,7 +163,7 @@ public class BuscadorSalon implements ServicioBuscador<Salon> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Salon> esObligatorio() {
+    public BuscadorSalon esObligatorio() {
         if (!filtros.isEmpty())
             filtros.get(filtros.size() - 1).obligatory();
         return this;
@@ -175,7 +175,7 @@ public class BuscadorSalon implements ServicioBuscador<Salon> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Salon> esOpcional() {
+    public BuscadorSalon esOpcional() {
         if (!filtros.isEmpty())
             filtros.get(filtros.size() - 1).optional();
         return this;

@@ -37,7 +37,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Secretario> igual(String campo, String valor) {
+    public BuscadorSecretario igual(String campo, String valor) {
         filtros.add(Filter.create(campo, "=", valor));
         return this;
     }
@@ -50,7 +50,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Secretario> diferente(String campo, String valor) {
+    public BuscadorSecretario diferente(String campo, String valor) {
         filtros.add(Filter.create(campo, "!=", valor));
         return this;
     }
@@ -63,7 +63,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Secretario> mayorQue(String campo, String valor) {
+    public BuscadorSecretario mayorQue(String campo, String valor) {
         filtros.add(Filter.create(campo, ">", valor));
         return this;
     }
@@ -76,7 +76,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Secretario> mayorIgualQue(String campo, String valor) {
+    public BuscadorSecretario mayorIgualQue(String campo, String valor) {
         filtros.add(Filter.create(campo, ">=", valor));
         return this;
     }
@@ -89,7 +89,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Secretario> menorQue(String campo, String valor) {
+    public BuscadorSecretario menorQue(String campo, String valor) {
         filtros.add(Filter.create(campo, "<", valor));
         return this;
     }
@@ -102,7 +102,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Secretario> menorIgualQue(String campo, String valor) {
+    public BuscadorSecretario menorIgualQue(String campo, String valor) {
         filtros.add(Filter.create(campo, "<=", valor));
         return this;
     }
@@ -115,7 +115,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Secretario> contiene(String campo, String valor) {
+    public BuscadorSecretario contiene(String campo, String valor) {
         filtros.add(Filter.create(campo, "CONTAINS", valor));
         return this;
     }
@@ -128,7 +128,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Secretario> noContiene(String campo, String valor) {
+    public BuscadorSecretario noContiene(String campo, String valor) {
         filtros.add(Filter.create(campo, "NOT_CONTAINS", valor));
         return this;
     }
@@ -140,7 +140,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Secretario> ordenarAscendente(String campo) {
+    public BuscadorSecretario ordenarAscendente(String campo) {
         ordenador = Order.asc(campo);
         return this;
     }
@@ -152,7 +152,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Secretario> ordenarDescendente(String campo) {
+    public BuscadorSecretario ordenarDescendente(String campo) {
         ordenador = Order.desc(campo);
         return this;
     }
@@ -163,7 +163,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Secretario> esObligatorio() {
+    public BuscadorSecretario esObligatorio() {
         if (!filtros.isEmpty())
             filtros.get(filtros.size() - 1).obligatory();
         return this;
@@ -175,7 +175,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Secretario> esOpcional() {
+    public BuscadorSecretario esOpcional() {
         if (!filtros.isEmpty())
             filtros.get(filtros.size() - 1).optional();
         return this;
@@ -188,7 +188,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Secretario> intervalo(int intervalo) {
+    public BuscadorSecretario intervalo(int intervalo) {
         this.intervalo = Optional.of(intervalo < 0 ? 0 : intervalo);
         return this;
     }
@@ -200,7 +200,7 @@ public class BuscadorSecretario implements ServicioBuscador<Secretario> {
      * @return ServicioBuscador
      */
     @Override
-    public ServicioBuscador<Secretario> limite(int limite) {
+    public BuscadorSecretario limite(int limite) {
         this.limite = Optional.of(limite < 0 ? 0 : limite);
         return this;
     }
