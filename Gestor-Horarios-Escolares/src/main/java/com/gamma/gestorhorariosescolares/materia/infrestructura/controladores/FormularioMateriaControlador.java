@@ -166,7 +166,7 @@ public class FormularioMateriaControlador {
 
                 BuscarGrados buscarGrados = new BuscarGrados(buscadorGrado);
 
-                grados = buscarGrados.buscarPorPlanEstudio(newValue);
+                grados = buscarGrados.buscarPorPlanEstudio(newValue.id());
                 cbxGrado.getItems().addAll(grados.grados());
             } catch (Sql2oException e) {
                 Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
