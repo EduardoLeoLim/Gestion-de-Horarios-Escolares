@@ -1,9 +1,11 @@
 package com.gamma.gestorhorariosescolares.usuario.infrestructura.controladores;
 
 import com.gamma.gestorhorariosescolares.administrador.infrestructura.stages.MenuAdministradorStage;
+import com.gamma.gestorhorariosescolares.alumno.infrestructura.stages.MenuAlumnoStage;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
+import com.gamma.gestorhorariosescolares.maestro.infrestructura.stages.MenuMaestroStage;
 import com.gamma.gestorhorariosescolares.secretario.infrestructura.stages.MenuSecretarioStage;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.Autenticacion;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.UsuarioData;
@@ -89,8 +91,10 @@ public class LoginControlador {
                 new MenuSecretarioStage().show();
                 break;
             case "Maestro":
+                new MenuMaestroStage().show();
                 break;
             case "Alumno":
+                new MenuAlumnoStage().show();
                 break;
             default:
                 throw new RecursoNoEncontradoException("Tipo de usuario desconocido");
