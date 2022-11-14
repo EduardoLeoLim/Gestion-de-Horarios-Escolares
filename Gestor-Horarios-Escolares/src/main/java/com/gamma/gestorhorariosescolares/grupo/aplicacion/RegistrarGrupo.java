@@ -4,12 +4,10 @@ import com.gamma.gestorhorariosescolares.clase.aplicacion.registrar.ServicioRegi
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.ClaveDuplicadaException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
-import com.gamma.gestorhorariosescolares.grado.aplicacion.GradoData;
 import com.gamma.gestorhorariosescolares.grado.dominio.Grado;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.registrar.ServicioRegistradorGrupo;
 import com.gamma.gestorhorariosescolares.grupo.dominio.Grupo;
 import com.gamma.gestorhorariosescolares.materia.dominio.Materia;
-import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodoEscolarData;
 import com.gamma.gestorhorariosescolares.periodoescolar.dominio.PeriodoEscolar;
 
 import java.util.List;
@@ -35,17 +33,17 @@ public class RegistrarGrupo {
         this.registradorClase = registradorClase;
     }
 
-    public void registrar(String clave, String nombre, GradoData grado, PeriodoEscolarData periodoEscolar)
+    public void registrar(String clave, String nombre, Integer idGrado, Integer idPeriodoEscolar)
             throws RecursoNoEncontradoException, ClaveDuplicadaException {
         List<Grado> grados = buscadorGrado
-                .igual("id", grado.id().toString())
+                .igual("id", idGrado.toString())
                 .igual("estatus", "1")
                 .buscar();
         if (grados.isEmpty())
             throw new RecursoNoEncontradoException("El grado seleccionado no existe o no se encuentra disponible");
 
         List<PeriodoEscolar> periodosEscolares = buscadorPeriodoEscolar
-                .igual("id", periodoEscolar.id().toString())
+                .igual("id", idPeriodoEscolar.toString())
                 .igual("estatus", "1")
                 .buscar();
         if (periodosEscolares.isEmpty())
@@ -58,10 +56,10 @@ public class RegistrarGrupo {
             throw new ClaveDuplicadaException("Ya existe un grupo registrado con la clave " + clave);
 
         //Registrar grupo
-        int idGrupo = registradorGrupo.registrar(clave, nombre, grado.id(), periodoEscolar.id());
+        int idGrupo = registradorGrupo.registrar(clave, nombre, idGrado, idPeriodoEscolar);
 
         List<Materia> materias = buscadorMateria
-                .igual("idGrado", grado.id().toString())
+                .igual("idGrado", idGrado.toString())
                 .igual("estatus", "1")
                 .buscar();
 
