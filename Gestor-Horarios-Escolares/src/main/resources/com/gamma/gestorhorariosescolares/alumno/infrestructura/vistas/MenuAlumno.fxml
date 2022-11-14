@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane fx:id="panelMenuAlumno" style="-fx-background-color: EFEFEF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <left>
+        <VBox fx:id="vbMenu" spacing="5" styleClass="menu" stylesheets="@../../../compartido/infrestructura/estilos/Menu.css" BorderPane.alignment="CENTER">
+            <children>
+                <Label styleClass="menu-seccion" text="Horarios">
+                    <VBox.margin>
+                        <Insets top="20" />
+                    </VBox.margin>
+                </Label>
+                <Separator />
+                <Button fx:id="btnConsultarHorario" mnemonicParsing="false" onAction="#mostrarHorarioClick" styleClass="menu-item" text="Consultar Horario">
+                    <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../compartido/infrestructura/imagenes/salon-64px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Label styleClass="menu-seccion" text="Materias">
+                    <VBox.margin>
+                        <Insets top="20" />
+                    </VBox.margin>
+                </Label>
+                <Separator />
+                <Button fx:id="btnConsultarMaterias" mnemonicParsing="false" onAction="#mostrarMateriasClick" styleClass="menu-item" text="Consultar Materias">
+                    <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../compartido/infrestructura/imagenes/materia-64px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="btnConsultarCalificaciones" mnemonicParsing="false" onAction="#mostrarCalificacionesClick" styleClass="menu-item" text="Consultar Calificaciones">
+                    <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../compartido/infrestructura/imagenes/plan-estudio-64px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Region VBox.vgrow="ALWAYS" />
+
+                <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#cerrarSesionClick" styleClass="menu-item" text="Cerrar sesión">
+                    <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../compartido/infrestructura/imagenes/cerrar-sesion-64px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets bottom="10" />
+                    </VBox.margin>
+                </Button>
+            </children>
+
+        </VBox>
+
+    </left>
+
+</BorderPane>
