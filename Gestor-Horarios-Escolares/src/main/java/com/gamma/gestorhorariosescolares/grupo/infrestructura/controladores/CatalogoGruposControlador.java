@@ -9,6 +9,7 @@ import com.gamma.gestorhorariosescolares.grupo.aplicacion.GrupoData;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.GruposData;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.buscar.BuscadorGrupo;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.persistencia.MySql2oGrupoRepositorio;
+import com.gamma.gestorhorariosescolares.grupo.infrestructura.stages.FormularioGrupoStage;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.BuscarPeriodosEscolares;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodoEscolarData;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodosEscolaresData;
@@ -151,7 +152,12 @@ public class CatalogoGruposControlador {
 
     @FXML
     private void registrarNuevoGrupo() {
+        var formulario = new FormularioGrupoStage();
+        formulario.initOwner(stage);
+        formulario.showAndWait();
 
+        buscarPeriodosEscolares();
+        buscarGrupos();
     }
 
     private void editarGrupo(GrupoData grupo) {
