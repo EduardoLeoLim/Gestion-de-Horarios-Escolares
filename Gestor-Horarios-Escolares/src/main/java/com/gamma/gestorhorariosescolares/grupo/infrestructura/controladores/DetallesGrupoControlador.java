@@ -1,7 +1,7 @@
 package com.gamma.gestorhorariosescolares.grupo.infrestructura.controladores;
 
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnoData;
-import com.gamma.gestorhorariosescolares.clase.aplicacion.ClaseData;
+import com.gamma.gestorhorariosescolares.clase.aplicacion.ClaseGrupoData;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
@@ -41,7 +41,7 @@ public class DetallesGrupoControlador {
 
     //Clases
     @FXML
-    private TableView<ClaseData> tablaMaterias;
+    private TableView<ClaseGrupoData> tablaClases;
 
     //Alumnos
     @FXML
@@ -63,7 +63,7 @@ public class DetallesGrupoControlador {
         txtPeriodoEscolar.setDisable(true);
         txtPlanEstudio.setDisable(true);
         txtGrado.setDisable(true);
-        tablaMaterias.setDisable(true);
+        tablaClases.setDisable(true);
         btnAgregarAlumno.setDisable(true);
         tablaAlumnos.setDisable(true);
 
@@ -90,7 +90,7 @@ public class DetallesGrupoControlador {
             txtPeriodoEscolar.setDisable(false);
             txtPlanEstudio.setDisable(false);
             txtGrado.setDisable(false);
-            tablaMaterias.setDisable(false);
+            tablaClases.setDisable(false);
             btnAgregarAlumno.setDisable(false);
             tablaAlumnos.setDisable(false);
         }
