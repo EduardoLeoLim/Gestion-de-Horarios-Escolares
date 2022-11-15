@@ -1,5 +1,6 @@
 package com.gamma.gestorhorariosescolares.grupo.aplicacion;
 
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.grado.aplicacion.GradoData;
 import com.gamma.gestorhorariosescolares.grado.dominio.Grado;
@@ -8,6 +9,7 @@ import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodoEscola
 import com.gamma.gestorhorariosescolares.periodoescolar.dominio.PeriodoEscolar;
 
 import java.time.Instant;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,6 +57,11 @@ public class BuscarGrupos {
         List<Grupo> grupos = buscadorGrupo.buscar();
 
         return new GruposData(prepararResultado(grupos));
+    }
+
+    public GrupoData buscarPorId(Integer id) throws RecursoNoEncontradoException {
+        Grupo grupo = buscadorGrupo.igual("id", id.toString()).buscarPrimero();
+        return prepararResultado(Collections.singletonList(grupo)).get(0);
     }
 
     private List<GrupoData> prepararResultado(List<Grupo> grupos) {
