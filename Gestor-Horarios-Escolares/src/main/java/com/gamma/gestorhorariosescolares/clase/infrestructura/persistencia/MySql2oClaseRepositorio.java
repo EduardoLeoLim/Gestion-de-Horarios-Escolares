@@ -1,6 +1,7 @@
 package com.gamma.gestorhorariosescolares.clase.infrestructura.persistencia;
 
 import com.gamma.gestorhorariosescolares.clase.dominio.Clase;
+import com.gamma.gestorhorariosescolares.clase.dominio.ClaseId;
 import com.gamma.gestorhorariosescolares.clase.dominio.ClaseRepositorio;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.MySqlCriteriaParser;
@@ -44,7 +45,7 @@ public class MySql2oClaseRepositorio implements ClaseRepositorio {
             Integer idMateria = fila.getInteger("idMateria");
             Integer idMaestro = fila.getInteger("idMaestro");
 
-            Clase clase = new Clase(id, idGrupo, idMateria, idMaestro == null ? 0 : idMaestro);
+            Clase clase = new Clase(new ClaseId(id), idGrupo, idMateria, idMaestro == null ? null : new MaestroId(idMaestro));
             clases.add(clase);
         });
 

@@ -20,7 +20,7 @@ public class ClaseData {
     }
 
     public static ClaseData fromAggregate(Clase clase, GrupoData grupo, MateriaData materia, MaestroData maestro) {
-        return new ClaseData(clase.id(), grupo, materia, maestro);
+        return new ClaseData(clase.id().value(), grupo, materia, maestro);
     }
 
     public Integer id() {

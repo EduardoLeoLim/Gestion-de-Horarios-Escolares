@@ -1,12 +1,14 @@
 package com.gamma.gestorhorariosescolares.clase.dominio;
 
+import com.gamma.gestorhorariosescolares.maestro.dominio.MaestroId;
+
 public class Clase {
-    private final int id;
+    private final ClaseId id;
     private final int idGrupo;
     private final int idMateria;
-    private int idMaestro;
+    private MaestroId idMaestro;
 
-    public Clase(int id, int idGrupo, int idMateria, int idMaestro) {
+    public Clase(ClaseId id, int idGrupo, int idMateria, MaestroId idMaestro) {
         this.id = id;
         this.idGrupo = idGrupo;
         this.idMateria = idMateria;
@@ -14,13 +16,13 @@ public class Clase {
     }
 
     public Clase(int idGrupo, int idMateria) {
-        this.id = 0;
+        this.id = new ClaseId(0);
         this.idGrupo = idGrupo;
         this.idMateria = idMateria;
-        this.idMaestro = 0;
+        this.idMaestro = new MaestroId(0);
     }
 
-    public int id() {
+    public ClaseId id() {
         return id;
     }
 
@@ -32,11 +34,11 @@ public class Clase {
         return idMateria;
     }
 
-    public int idMaestro() {
+    public MaestroId idMaestro() {
         return idMaestro;
     }
 
     public void asignarIdMaestro(int idMaestro) {
-        this.idMaestro = idMaestro;
+        this.idMaestro = new MaestroId(idMaestro);
     }
 }
