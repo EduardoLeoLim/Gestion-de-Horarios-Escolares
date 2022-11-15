@@ -28,7 +28,7 @@ public class MySql2oClaseRepositorio implements ClaseRepositorio {
         List<Clase> clases = new ArrayList<>();
         String consulta;
 
-        MySqlCriteriaParser conversorCriteria = new MySqlCriteriaParser("grupo", criterio);
+        MySqlCriteriaParser conversorCriteria = new MySqlCriteriaParser("clase", criterio);
 
         consulta = conversorCriteria.generarConsultaSql2o();
         List<Map<Integer, String>> parametros = conversorCriteria.generarParametrosSql2o();
