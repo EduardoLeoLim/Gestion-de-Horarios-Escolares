@@ -17,7 +17,7 @@ public class DetallesGrupoStage extends CustomStage {
         initModality(Modality.WINDOW_MODAL);
 
         try {
-            DetallesGrupoControlador controlador = new DetallesGrupoControlador(idGrupo);
+            DetallesGrupoControlador controlador = new DetallesGrupoControlador(this, idGrupo);
             AnchorPane panel = InicializarPanel.inicializarAnchorPane("grupo/infrestructura/vistas/DetallesGrupo.fxml",
                     controlador);
             panel.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
