@@ -11,14 +11,14 @@ import java.io.IOException;
 
 public class MenuAlumnoStage extends CustomStage {
 
-    public MenuAlumnoStage(){
+    public MenuAlumnoStage() {
         setTitle("Sistema de Gestión Escolar - Alumno");
         setMinWidth(1100);
         setMinHeight(690);
         setWidth(1100);
         setHeight(690);
         try {
-            FXMLLoader root = new FXMLLoader(App.class.getResource("administrador/infrestructura/vistas/MenuAlumno.fxml"));
+            FXMLLoader root = new FXMLLoader(App.class.getResource("alumno/infrestructura/vistas/MenuAlumno.fxml"));
             MenuAlumnoControlador menuAlumnoControlador = new MenuAlumnoControlador(this);
             root.setController(menuAlumnoControlador);
             root.load();
