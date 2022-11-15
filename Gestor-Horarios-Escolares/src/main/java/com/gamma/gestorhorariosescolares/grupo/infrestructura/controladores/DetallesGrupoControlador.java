@@ -1,7 +1,11 @@
 package com.gamma.gestorhorariosescolares.grupo.infrestructura.controladores;
 
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnoData;
+import com.gamma.gestorhorariosescolares.clase.aplicacion.BuscarClasesPorGrupo;
 import com.gamma.gestorhorariosescolares.clase.aplicacion.ClaseGrupoData;
+import com.gamma.gestorhorariosescolares.clase.aplicacion.ClasesGrupoData;
+import com.gamma.gestorhorariosescolares.clase.aplicacion.buscar.BuscadorClase;
+import com.gamma.gestorhorariosescolares.clase.infrestructura.persistencia.MySql2oClaseRepositorio;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
@@ -11,9 +15,17 @@ import com.gamma.gestorhorariosescolares.grupo.aplicacion.BuscarGrupos;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.GrupoData;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.buscar.BuscadorGrupo;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.persistencia.MySql2oGrupoRepositorio;
+import com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestroClaseData;
+import com.gamma.gestorhorariosescolares.maestro.aplicacion.buscar.BuscadorMaestro;
+import com.gamma.gestorhorariosescolares.maestro.infrestructura.persistencia.MySql2oMaestroRepositorio;
+import com.gamma.gestorhorariosescolares.materia.aplicacion.buscar.BuscadorMateria;
+import com.gamma.gestorhorariosescolares.materia.infrestructura.persistencia.MySql2oMateriaRepositorio;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.buscar.BuscadorPeriodoEscolar;
 import com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.persistencia.MySql2oPeriodoEscolarRepositorio;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -25,7 +37,8 @@ public class DetallesGrupoControlador {
 
     private final Stage stage;
     private final Integer idGrupo;
-    private final Temporizador temporizador;
+    private Temporizador temporizador;
+    private ObservableList<ClaseGrupoData> colleccionClases;
 
     //Datos generales
     @FXML
@@ -53,8 +66,53 @@ public class DetallesGrupoControlador {
         this.stage = stage;
         stage.setOnHidden(event -> liberarRecursos());
         this.idGrupo = idGrupo;
+    }
+
+    @FXML
+    private void initialize() {
+        inicializarTablaClases();
+        inicializarTablaAlumnos();
+
         temporizador = new Temporizador(1, temporizador1 -> cargarDetallesGrupo());
         temporizador.reiniciar();
+    }
+
+    private void inicializarTablaClases() {
+        colleccionClases = FXCollections.observableArrayList();
+
+        TableColumn<ClaseGrupoData, String> columnaClave = new TableColumn<>("Clave");
+        columnaClave.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().materia().clave()));
+        columnaClave.setMinWidth(120);
+
+        TableColumn<ClaseGrupoData, String> columnaNombre = new TableColumn<>("Nombre");
+        columnaNombre.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().materia().nombre()));
+        columnaNombre.setMinWidth(120);
+
+        TableColumn<ClaseGrupoData, String> columnaHorasTeoricas = new TableColumn<>("Horas teóricas");
+        columnaHorasTeoricas.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().materia().horasTeoricas() + " horas"));
+        columnaHorasTeoricas.setMinWidth(120);
+
+        TableColumn<ClaseGrupoData, String> columnaHorasPracticas = new TableColumn<>("Horas prácticas");
+        columnaHorasPracticas.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().materia().horasPracticas() + " horas"));
+        columnaHorasPracticas.setMinWidth(120);
+
+        TableColumn<ClaseGrupoData, String> columnaMestro = new TableColumn<>("Maestro");
+        columnaMestro.setCellValueFactory(ft -> {
+            MaestroClaseData maestro = ft.getValue().maestro();
+            if (maestro == null)
+                return new SimpleStringProperty("Sin asignar");
+            return new SimpleStringProperty(maestro.nombre());
+        });
+        columnaMestro.setMinWidth(150);
+
+        tablaClases.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tablaClases.getColumns().addAll(columnaClave, columnaNombre, columnaHorasTeoricas, columnaHorasPracticas, columnaMestro);
+        tablaClases.setItems(colleccionClases);
+
+    }
+
+    private void inicializarTablaAlumnos() {
+
     }
 
     private void cargarDetallesGrupo() {
@@ -83,6 +141,7 @@ public class DetallesGrupoControlador {
                 Alert mensaje = new Alert(Alert.AlertType.ERROR, "Error de base de datos", ButtonType.OK);
                 mensaje.setTitle("Error de conexión");
                 mensaje.showAndWait();
+                e.printStackTrace();
             });
         } finally {
             txtClave.setDisable(false);
@@ -119,7 +178,22 @@ public class DetallesGrupoControlador {
     }
 
     private void cargarDatosClases(Connection conexion) {
+        colleccionClases.clear();
 
+        //Repositorios
+        var claseRepositorio = new MySql2oClaseRepositorio(conexion);
+        var materiaRepositorio = new MySql2oMateriaRepositorio(conexion);
+        var maestroRepositorio = new MySql2oMaestroRepositorio(conexion);
+
+        //Servicios
+        var buscadorClase = new BuscadorClase(claseRepositorio);
+        var buscadorMateria = new BuscadorMateria(materiaRepositorio);
+        var buscadorMaestro = new BuscadorMaestro(maestroRepositorio);
+
+        BuscarClasesPorGrupo buscarClasesPorGrupo = new BuscarClasesPorGrupo(buscadorClase, buscadorMateria, buscadorMaestro);
+        ClasesGrupoData clases = buscarClasesPorGrupo.buscar(idGrupo);
+
+        colleccionClases.addAll(clases.clases());
     }
 
     private void cargarDatosAlumnos(Connection conexion) {
