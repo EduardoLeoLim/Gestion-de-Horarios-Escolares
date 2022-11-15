@@ -29,7 +29,7 @@ public class MaestroData {
             throw new NullPointerException();
 
         UsuarioData usuarioData = UsuarioData.fromAggregate(usuario);
-        return new MaestroData(maestro.id(), maestro.noPersonal(), maestro.nombre(), maestro.apellidoPaterno(), maestro.apellidoMaterno(), maestro.estatus(), usuarioData);
+        return new MaestroData(maestro.id().value(), maestro.noPersonal(), maestro.nombre(), maestro.apellidoPaterno(), maestro.apellidoMaterno(), maestro.estatus(), usuarioData);
     }
 
     public int id() {

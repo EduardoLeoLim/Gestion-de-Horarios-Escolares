@@ -29,7 +29,7 @@ public class AsignarMaestro {
                 .igual("estatus", "1")
                 .buscarPrimero();
 
-        clase.asignarIdMaestro(maestro.id());
+        clase.asignarIdMaestro(maestro.id().value());
 
         actualizadorClase.actualizar(clase);
     }

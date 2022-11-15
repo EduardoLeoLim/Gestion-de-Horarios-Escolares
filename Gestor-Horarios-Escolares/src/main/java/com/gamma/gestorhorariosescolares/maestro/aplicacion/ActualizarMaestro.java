@@ -6,6 +6,7 @@ import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.Recur
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.actualizar.ServicioActualizadorMaestro;
 import com.gamma.gestorhorariosescolares.maestro.dominio.Maestro;
+import com.gamma.gestorhorariosescolares.maestro.dominio.MaestroId;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.UsuarioData;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.actualizar.ServicioActualizadorUsuario;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.UsuarioDuplicadoException;
@@ -61,7 +62,7 @@ public class ActualizarMaestro {
                     + maestroData.usuario().correoElectronico());
 
         //Preparando datos para actualizar
-        Maestro maestro = new Maestro(maestroData.id(), maestroData.estatus(), maestroData.noPersonal(),
+        Maestro maestro = new Maestro(new MaestroId(maestroData.id()), maestroData.estatus(), maestroData.noPersonal(),
                 maestroData.nombre(), maestroData.apellidoPaterno(), maestroData.apellidoMaterno(),
                 maestroData.usuario().id());
 

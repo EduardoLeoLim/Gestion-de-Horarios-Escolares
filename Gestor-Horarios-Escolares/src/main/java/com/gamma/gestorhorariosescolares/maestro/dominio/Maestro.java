@@ -1,7 +1,7 @@
 package com.gamma.gestorhorariosescolares.maestro.dominio;
 
 public class Maestro {
-    private final int id;
+    private final MaestroId id;
     private final String noPersonal;
     private final String nombre;
     private final String apellidoPaterno;
@@ -9,7 +9,7 @@ public class Maestro {
     private final int idUsuario;
     private boolean estatus;
 
-    public Maestro(int id, boolean estatus, String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario) {
+    public Maestro(MaestroId id, boolean estatus, String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario) {
         this.id = id;
         this.estatus = estatus;
         this.noPersonal = noPersonal;
@@ -20,7 +20,7 @@ public class Maestro {
     }
 
     public Maestro(String noPersonal, String nombre, String apellidoPaterno, String apellidoMaterno, int idUsuario) {
-        id = 0;
+        id = new MaestroId(0);
         estatus = true;
         this.noPersonal = noPersonal;
         this.nombre = nombre;
@@ -29,7 +29,7 @@ public class Maestro {
         this.idUsuario = idUsuario;
     }
 
-    public int id() {
+    public MaestroId id() {
         return id;
     }
 

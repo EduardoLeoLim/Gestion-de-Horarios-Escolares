@@ -4,6 +4,7 @@ import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filter;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.MySqlCriteriaParser;
 import com.gamma.gestorhorariosescolares.maestro.dominio.Maestro;
+import com.gamma.gestorhorariosescolares.maestro.dominio.MaestroId;
 import com.gamma.gestorhorariosescolares.maestro.dominio.MaestroRepositorio;
 import org.sql2o.Connection;
 import org.sql2o.Query;
@@ -50,14 +51,14 @@ public class MySql2oMaestroRepositorio implements MaestroRepositorio {
         Table tabla = query.executeAndFetchTable();
         List<Row> filas = tabla.rows();
         filas.forEach(fila -> {
-            int id = fila.getInteger("id");
-            boolean estatus = fila.getBoolean("estatus");
+            Integer id = fila.getInteger("id");
+            Boolean estatus = fila.getBoolean("estatus");
             String noPersonal = fila.getString("noPersonal");
             String nombre = fila.getString("nombre");
             String apellidoPaterno = fila.getString("apellidoPaterno");
             String apellidoMaterno = fila.getString("apellidoMaterno");
-            int idUsuario = fila.getInteger("idUsuario");
-            Maestro maestro = new Maestro(id, estatus, noPersonal, nombre, apellidoPaterno, apellidoMaterno, idUsuario);
+            Integer idUsuario = fila.getInteger("idUsuario");
+            Maestro maestro = new Maestro(new MaestroId(id), estatus, noPersonal, nombre, apellidoPaterno, apellidoMaterno, idUsuario);
             maestros.add(maestro);
         });
 

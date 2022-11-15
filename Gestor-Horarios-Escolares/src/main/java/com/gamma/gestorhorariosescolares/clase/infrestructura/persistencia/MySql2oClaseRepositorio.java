@@ -4,6 +4,7 @@ import com.gamma.gestorhorariosescolares.clase.dominio.Clase;
 import com.gamma.gestorhorariosescolares.clase.dominio.ClaseRepositorio;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.MySqlCriteriaParser;
+import com.gamma.gestorhorariosescolares.maestro.dominio.MaestroId;
 import org.sql2o.Connection;
 import org.sql2o.Query;
 import org.sql2o.data.Row;
