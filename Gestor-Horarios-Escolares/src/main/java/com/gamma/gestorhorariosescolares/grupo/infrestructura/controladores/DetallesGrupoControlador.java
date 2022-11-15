@@ -16,12 +16,14 @@ import com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.persisten
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
 public class DetallesGrupoControlador {
 
+    private final Stage stage;
     private final Integer idGrupo;
     private final Temporizador temporizador;
 
@@ -47,7 +49,9 @@ public class DetallesGrupoControlador {
     @FXML
     private TableView<AlumnoData> tablaAlumnos;
 
-    public DetallesGrupoControlador(int idGrupo) {
+    public DetallesGrupoControlador(Stage stage, int idGrupo) {
+        this.stage = stage;
+        stage.setOnHidden(event -> liberarRecursos());
         this.idGrupo = idGrupo;
         temporizador = new Temporizador(1, temporizador1 -> cargarDetallesGrupo());
         temporizador.reiniciar();
@@ -120,5 +124,11 @@ public class DetallesGrupoControlador {
 
     private void cargarDatosAlumnos(Connection conexion) {
 
+    }
+
+    private void liberarRecursos() {
+        System.out.println("Liberando recursos de detalles de grupo");
+        if (temporizador != null)
+            temporizador.cancel();
     }
 }
