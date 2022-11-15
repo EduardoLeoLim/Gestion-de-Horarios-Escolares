@@ -9,6 +9,7 @@ import com.gamma.gestorhorariosescolares.grupo.aplicacion.GrupoData;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.GruposData;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.buscar.BuscadorGrupo;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.persistencia.MySql2oGrupoRepositorio;
+import com.gamma.gestorhorariosescolares.grupo.infrestructura.stages.DetallesGrupoStage;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.stages.FormularioGrupoStage;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.BuscarPeriodosEscolares;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodoEscolarData;
@@ -133,13 +134,13 @@ public class CatalogoGruposControlador {
                 super.updateItem(item, empty);
                 setText(null);
                 setGraphic(null);
-                if (empty || item == null)
+                if (empty)
                     return;
 
                 GrupoData grupo = getTableView().getItems().get(getIndex());
                 Button botonEditar = new Button("Editar");
                 botonEditar.setPrefWidth(Double.MAX_VALUE);
-                botonEditar.getStyleClass().addAll("b", "btn-succes");
+                botonEditar.getStyleClass().addAll("b", "btn-primary");
                 botonEditar.setOnAction(event -> editarGrupo(grupo));
                 setGraphic(botonEditar);
             }
@@ -161,7 +162,9 @@ public class CatalogoGruposControlador {
     }
 
     private void editarGrupo(GrupoData grupo) {
-
+        var ventanaDetallesGrupo = new DetallesGrupoStage(grupo.id());
+        ventanaDetallesGrupo.initOwner(stage);
+        ventanaDetallesGrupo.showAndWait();
     }
 
     public void buscarGrupos() {

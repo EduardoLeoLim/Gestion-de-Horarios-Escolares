@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            style="-fx-background-color: #EFEFEF;"
+            prefHeight="600.0" prefWidth="800">
+    <ScrollPane fitToWidth="true" fitToHeight="true" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+                AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
+        <GridPane vgap="10">
+            <padding>
+                <Insets topRightBottomLeft="30"/>
+            </padding>
+
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <rowConstraints>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+            </rowConstraints>
+
+            <Label styleClass="h4" text="Datos generales" GridPane.rowIndex="0"/>
+
+            <GridPane hgap="20" vgap="20" GridPane.rowIndex="1">
+
+                <padding>
+                    <Insets right="30" left="30" top="10" bottom="10"/>
+                </padding>
+
+                <columnConstraints>
+                    <ColumnConstraints minWidth="80"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                    <ColumnConstraints minWidth="80"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                    <ColumnConstraints minWidth="100"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                </rowConstraints>
+
+                <Label text="Clave" styleClass="h5" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtClave" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Nombre" styleClass="h5" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtNombre" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <Label text="Periodo escolar" styleClass="h5" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
+                <TextField fx:id="txtPeriodoEscolar" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="5"/>
+
+                <Label text="Plan Estudio" styleClass="h5" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtPlanEstudio" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Grado" styleClass="h5" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtGrado" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+            </GridPane>
+
+            <Label styleClass="h4" text="Clases" GridPane.rowIndex="2"/>
+
+            <AnchorPane GridPane.rowIndex="3">
+                <TableView fx:id="tablaMaterias" maxHeight="200" minHeight="200" styleClass="h4"
+                           AnchorPane.topAnchor="5" AnchorPane.bottomAnchor="5"
+                           AnchorPane.rightAnchor="30" AnchorPane.leftAnchor="30"/>
+            </AnchorPane>
+
+            <Label styleClass="h4" text="Estudiantes" GridPane.rowIndex="4"/>
+
+            <AnchorPane GridPane.rowIndex="5">
+
+                <Button fx:id="btnAgregarAlumno" text="Agregar alumno" AnchorPane.rightAnchor="30"/>
+                <TableView fx:id="tablaAlumnos" maxHeight="200" minHeight="200" styleClass="h4"
+                           AnchorPane.topAnchor="40" AnchorPane.bottomAnchor="5"
+                           AnchorPane.rightAnchor="30" AnchorPane.leftAnchor="30"/>
+            </AnchorPane>
+
+        </GridPane>
+    </ScrollPane>
+</AnchorPane>
