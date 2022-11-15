@@ -60,6 +60,10 @@ public class Grupo {
         idInscripciones = IntArrayUtils.remove(idInscripciones, idInscripcion);
     }
 
+    public boolean estaInscrito(int idInscripcion) {
+        return IntArrayUtils.contains(idInscripciones, idInscripcion);
+    }
+
     public int idPeriodoEscolar() {
         return idPeriodoEscolar;
     }
