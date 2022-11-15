@@ -12,7 +12,7 @@ import java.io.IOException;
 public class MenuMaestroStage extends CustomStage {
     public MenuMaestroStage() {
         setTitle("Menu del Maestro ");
-        setResizable(false);
+
         try {
             FXMLLoader root = new FXMLLoader(App.class.getResource("maestro/infrestructura/vistas/MenuMaestro.fxml"));
             MenuMaestroControlador menuMaestroController = new MenuMaestroControlador(this);
@@ -24,6 +24,7 @@ public class MenuMaestroStage extends CustomStage {
         } catch (IOException e) {
             System.err.println("Error al cargar ventana.");
             System.err.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 }
