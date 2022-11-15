@@ -44,7 +44,7 @@ public class BuscarClasesPorGrupo {
                 materiaClaseData = null;
             }
 
-            if (clase.idMaestro() == null) {
+            if (clase.idMaestro() != null) {
                 try {
                     maestro = buscadorMaestro
                             .igual("id", clase.idMaestro().value().toString())

@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.lang.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
             style="-fx-background-color: #EFEFEF;"
@@ -27,7 +28,12 @@
                 <RowConstraints/>
             </rowConstraints>
 
-            <Label styleClass="h4" text="Datos generales" GridPane.rowIndex="0"/>
+            <Label text="Datos generales" GridPane.rowIndex="0">
+                <styleClass>
+                    <String fx:value="h4"/>
+                    <String fx:value="b"/>
+                </styleClass>
+            </Label>
 
             <GridPane hgap="20" vgap="20" GridPane.rowIndex="1">
 
@@ -50,36 +56,51 @@
                 </rowConstraints>
 
                 <Label text="Clave" styleClass="h5" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="txtClave" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <TextField fx:id="txtClave" editable="false" styleClass="h5" GridPane.rowIndex="0"
+                           GridPane.columnIndex="1"/>
 
                 <Label text="Nombre" styleClass="h5" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                <TextField fx:id="txtNombre" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                <TextField fx:id="txtNombre" editable="false" styleClass="h5" GridPane.rowIndex="0"
+                           GridPane.columnIndex="3"/>
 
                 <Label text="Periodo escolar" styleClass="h5" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
-                <TextField fx:id="txtPeriodoEscolar" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="5"/>
+                <TextField fx:id="txtPeriodoEscolar" editable="false" styleClass="h5" GridPane.rowIndex="0"
+                           GridPane.columnIndex="5"/>
 
                 <Label text="Plan Estudio" styleClass="h5" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextField fx:id="txtPlanEstudio" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <TextField fx:id="txtPlanEstudio" editable="false" styleClass="h5" GridPane.rowIndex="1"
+                           GridPane.columnIndex="1"/>
 
                 <Label text="Grado" styleClass="h5" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                <TextField fx:id="txtGrado" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                <TextField fx:id="txtGrado" editable="false" styleClass="h5" GridPane.rowIndex="1"
+                           GridPane.columnIndex="3"/>
 
             </GridPane>
 
-            <Label styleClass="h4" text="Clases" GridPane.rowIndex="2"/>
+            <Label text="Clases" GridPane.rowIndex="2">
+                <styleClass>
+                    <String fx:value="h4"/>
+                    <String fx:value="b"/>
+                </styleClass>
+            </Label>
 
             <AnchorPane GridPane.rowIndex="3">
-                <TableView fx:id="tablaMaterias" maxHeight="200" minHeight="200" styleClass="h4"
+                <TableView fx:id="tablaClases" maxHeight="200" minHeight="200" styleClass="h5"
                            AnchorPane.topAnchor="5" AnchorPane.bottomAnchor="5"
                            AnchorPane.rightAnchor="30" AnchorPane.leftAnchor="30"/>
             </AnchorPane>
 
-            <Label styleClass="h4" text="Estudiantes" GridPane.rowIndex="4"/>
+            <Label text="Estudiantes" GridPane.rowIndex="4">
+                <styleClass>
+                    <String fx:value="h4"/>
+                    <String fx:value="b"/>
+                </styleClass>
+            </Label>
 
             <AnchorPane GridPane.rowIndex="5">
 
                 <Button fx:id="btnAgregarAlumno" text="Agregar alumno" AnchorPane.rightAnchor="30"/>
-                <TableView fx:id="tablaAlumnos" maxHeight="200" minHeight="200" styleClass="h4"
+                <TableView fx:id="tablaAlumnos" maxHeight="200" minHeight="200" styleClass="h5"
                            AnchorPane.topAnchor="40" AnchorPane.bottomAnchor="5"
                            AnchorPane.rightAnchor="30" AnchorPane.leftAnchor="30"/>
             </AnchorPane>
