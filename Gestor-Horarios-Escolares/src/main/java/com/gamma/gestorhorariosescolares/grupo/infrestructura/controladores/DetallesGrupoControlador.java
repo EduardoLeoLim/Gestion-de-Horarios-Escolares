@@ -105,8 +105,32 @@ public class DetallesGrupoControlador {
         });
         columnaMestro.setMinWidth(150);
 
+        TableColumn<ClaseGrupoData, String> columnaAsignar = new TableColumn<>();
+        columnaAsignar.setMinWidth(90);
+        columnaAsignar.setMaxWidth(90);
+        columnaAsignar.setCellFactory(ft -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(null);
+                setGraphic(null);
+
+                if (empty)
+                    return;
+
+                ClaseGrupoData clase = getTableView().getItems().get(getIndex());
+
+                Button btnAsignarMaestro = new Button("Asignar");
+                btnAsignarMaestro.setPrefWidth(Double.MAX_VALUE);
+                btnAsignarMaestro.getStyleClass().addAll("b", "btn-primary");
+                btnAsignarMaestro.setOnAction(event -> asignarMaestro(clase));
+                setGraphic(btnAsignarMaestro);
+            }
+        });
+
         tablaClases.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        tablaClases.getColumns().addAll(columnaClave, columnaNombre, columnaHorasTeoricas, columnaHorasPracticas, columnaMestro);
+        tablaClases.getColumns().addAll(columnaClave, columnaNombre, columnaHorasTeoricas, columnaHorasPracticas,
+                columnaMestro, columnaAsignar);
         tablaClases.setItems(colleccionClases);
 
     }
