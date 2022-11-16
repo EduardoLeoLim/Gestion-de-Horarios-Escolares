@@ -3,6 +3,7 @@ package com.gamma.gestorhorariosescolares.clase.aplicacion;
 import com.gamma.gestorhorariosescolares.clase.dominio.Clase;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
+import com.gamma.gestorhorariosescolares.grupo.dominio.Grupo;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestroClaseData;
 import com.gamma.gestorhorariosescolares.maestro.dominio.Maestro;
 import com.gamma.gestorhorariosescolares.materia.aplicacion.MateriaClaseData;
@@ -13,20 +14,26 @@ import java.util.stream.Collectors;
 
 public class BuscarClasesPorGrupo {
 
+    private final ServicioBuscador<Grupo> buscadorGrupo;
     private final ServicioBuscador<Clase> buscadorClase;
     private final ServicioBuscador<Materia> buscadorMateria;
     private final ServicioBuscador<Maestro> buscadorMaestro;
 
-    public BuscarClasesPorGrupo(ServicioBuscador<Clase> buscadorClase, ServicioBuscador<Materia> buscadorMateria,
+    public BuscarClasesPorGrupo(ServicioBuscador<Grupo> buscadorGrupo, ServicioBuscador<Clase> buscadorClase, ServicioBuscador<Materia> buscadorMateria,
                                 ServicioBuscador<Maestro> buscadorMaestro) {
+        this.buscadorGrupo = buscadorGrupo;
         this.buscadorClase = buscadorClase;
         this.buscadorMateria = buscadorMateria;
         this.buscadorMaestro = buscadorMaestro;
     }
 
-    public ClasesGrupoData buscar(Integer idGrupo) {
+    public ClasesGrupoData buscar(Integer idGrupo) throws RecursoNoEncontradoException {
+        Grupo grupo = buscadorGrupo
+                .igual("id", idGrupo.toString())
+                .buscarPrimero();
+
         List<Clase> clases = buscadorClase
-                .igual("idGrupo", idGrupo.toString())
+                .igual("idGrupo", String.valueOf(grupo.id()))
                 .buscar();
 
         List<ClaseGrupoData> clasesGrupoData = clases.stream().map(clase -> {
