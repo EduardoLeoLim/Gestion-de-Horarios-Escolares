@@ -285,6 +285,10 @@ public class DetallesGrupoControlador {
         }
     }
 
+    private void asignarMaestro(ClaseGrupoData clase) {
+
+    }
+
     private void liberarRecursos() {
         System.out.println("Liberando recursos de detalles de grupo");
         if (temporizador != null)
