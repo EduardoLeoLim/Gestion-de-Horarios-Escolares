@@ -1,6 +1,7 @@
 package com.gamma.gestorhorariosescolares.grupo.infrestructura.controladores;
 
-import com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnoData;
+import com.gamma.gestorhorariosescolares.alumno.aplicacion.buscar.BuscadorAlumno;
+import com.gamma.gestorhorariosescolares.alumno.infrestructura.persistencia.MySql2oAlumnoRepositorio;
 import com.gamma.gestorhorariosescolares.clase.aplicacion.BuscarClasesPorGrupo;
 import com.gamma.gestorhorariosescolares.clase.aplicacion.ClaseGrupoData;
 import com.gamma.gestorhorariosescolares.clase.aplicacion.ClasesGrupoData;
@@ -15,6 +16,11 @@ import com.gamma.gestorhorariosescolares.grupo.aplicacion.BuscarGrupos;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.GrupoData;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.buscar.BuscadorGrupo;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.persistencia.MySql2oGrupoRepositorio;
+import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.BuscarInscripcionesPorGrupo;
+import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.InscripcionGrupoData;
+import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.InscripcionesGrupoData;
+import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.buscar.BuscadorInscripcion;
+import com.gamma.gestorhorariosescolares.inscripcion.infrestructura.persistencia.MySql2oInscripcionRepositorio;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestroClaseData;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.buscar.BuscadorMaestro;
 import com.gamma.gestorhorariosescolares.maestro.infrestructura.persistencia.MySql2oMaestroRepositorio;
@@ -39,6 +45,7 @@ public class DetallesGrupoControlador {
     private final Integer idGrupo;
     private Temporizador temporizador;
     private ObservableList<ClaseGrupoData> colleccionClases;
+    private ObservableList<InscripcionGrupoData> coleccionInscripciones;
 
     //Datos generales
     @FXML
@@ -60,7 +67,7 @@ public class DetallesGrupoControlador {
     @FXML
     private Button btnAgregarAlumno;
     @FXML
-    private TableView<AlumnoData> tablaAlumnos;
+    private TableView<InscripcionGrupoData> tablaAlumnos;
 
     public DetallesGrupoControlador(Stage stage, int idGrupo) {
         this.stage = stage;
@@ -136,7 +143,27 @@ public class DetallesGrupoControlador {
     }
 
     private void inicializarTablaAlumnos() {
+        coleccionInscripciones = FXCollections.observableArrayList();
 
+        TableColumn<InscripcionGrupoData, String> columnaMatricula = new TableColumn<>("Matrícula");
+        columnaMatricula.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().alumno().matricula()));
+        columnaMatricula.setMinWidth(150);
+
+        TableColumn<InscripcionGrupoData, String> columnaNombre = new TableColumn<>("Nombre");
+        columnaNombre.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().alumno().nombre()));
+        columnaNombre.setMinWidth(150);
+
+        TableColumn<InscripcionGrupoData, String> columnaApellidoPaterno = new TableColumn<>("Apellido paterno");
+        columnaApellidoPaterno.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().alumno().nombre()));
+        columnaApellidoPaterno.setMinWidth(150);
+
+        TableColumn<InscripcionGrupoData, String> columnaApellidoMaterno = new TableColumn<>("Apellido materno");
+        columnaApellidoMaterno.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().alumno().nombre()));
+        columnaApellidoMaterno.setMinWidth(150);
+
+        tablaAlumnos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tablaAlumnos.getColumns().addAll(columnaMatricula, columnaNombre, columnaApellidoPaterno, columnaApellidoMaterno);
+        tablaAlumnos.setItems(coleccionInscripciones);
     }
 
     private void cargarDetallesGrupo() {
@@ -231,7 +258,31 @@ public class DetallesGrupoControlador {
     }
 
     private void cargarDatosAlumnos(Connection conexion) {
+        coleccionInscripciones.clear();
 
+        //Repositorios
+        var grupoRepositorio = new MySql2oGrupoRepositorio(conexion);
+        var inscripcionRepositorio = new MySql2oInscripcionRepositorio(conexion);
+        var alumnoRepositorio = new MySql2oAlumnoRepositorio(conexion);
+
+        //Servicios
+        var buscadorGrupo = new BuscadorGrupo(grupoRepositorio);
+        var buscadorInscripcion = new BuscadorInscripcion(inscripcionRepositorio);
+        var buscadorAlumno = new BuscadorAlumno(alumnoRepositorio);
+
+        BuscarInscripcionesPorGrupo buscarInscripcionesPorGrupo = new BuscarInscripcionesPorGrupo(buscadorGrupo,
+                buscadorInscripcion, buscadorAlumno);
+
+        try {
+            InscripcionesGrupoData inscripciones = buscarInscripcionesPorGrupo.buscar(this.idGrupo);
+            coleccionInscripciones.addAll(inscripciones.inscripciones());
+        } catch (RecursoNoEncontradoException e) {
+            Platform.runLater(() -> {
+                Alert mensaje = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+                mensaje.setTitle("Recurso no encontrado");
+                mensaje.showAndWait();
+            });
+        }
     }
 
     private void liberarRecursos() {
