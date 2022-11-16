@@ -205,19 +205,29 @@ public class DetallesGrupoControlador {
         colleccionClases.clear();
 
         //Repositorios
+        var grupoRepositorio = new MySql2oGrupoRepositorio(conexion);
         var claseRepositorio = new MySql2oClaseRepositorio(conexion);
         var materiaRepositorio = new MySql2oMateriaRepositorio(conexion);
         var maestroRepositorio = new MySql2oMaestroRepositorio(conexion);
 
         //Servicios
+        var buscadorGrupo = new BuscadorGrupo(grupoRepositorio);
         var buscadorClase = new BuscadorClase(claseRepositorio);
         var buscadorMateria = new BuscadorMateria(materiaRepositorio);
         var buscadorMaestro = new BuscadorMaestro(maestroRepositorio);
 
-        BuscarClasesPorGrupo buscarClasesPorGrupo = new BuscarClasesPorGrupo(buscadorClase, buscadorMateria, buscadorMaestro);
-        ClasesGrupoData clases = buscarClasesPorGrupo.buscar(idGrupo);
-
-        colleccionClases.addAll(clases.clases());
+        BuscarClasesPorGrupo buscarClasesPorGrupo = new BuscarClasesPorGrupo(buscadorGrupo, buscadorClase,
+                buscadorMateria, buscadorMaestro);
+        try {
+            ClasesGrupoData clases = buscarClasesPorGrupo.buscar(idGrupo);
+            colleccionClases.addAll(clases.clases());
+        } catch (RecursoNoEncontradoException e) {
+            Platform.runLater(() -> {
+                Alert mensaje = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
+                mensaje.setTitle("Recurso no encontrado");
+                mensaje.showAndWait();
+            });
+        }
     }
 
     private void cargarDatosAlumnos(Connection conexion) {
