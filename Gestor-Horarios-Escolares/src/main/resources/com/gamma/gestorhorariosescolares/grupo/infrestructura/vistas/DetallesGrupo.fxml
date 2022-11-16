@@ -26,16 +26,24 @@
                 <RowConstraints/>
                 <RowConstraints/>
                 <RowConstraints/>
+                <RowConstraints/>
             </rowConstraints>
 
-            <Label text="Datos generales" GridPane.rowIndex="0">
+            <Label text="Detalles de grupo">
+                <styleClass>
+                    <String fx:value="h2"/>
+                    <String fx:value="b"/>
+                </styleClass>
+            </Label>
+
+            <Label text="Datos generales" GridPane.rowIndex="1">
                 <styleClass>
                     <String fx:value="h4"/>
                     <String fx:value="b"/>
                 </styleClass>
             </Label>
 
-            <GridPane hgap="20" vgap="20" GridPane.rowIndex="1">
+            <GridPane hgap="20" vgap="20" GridPane.rowIndex="2">
 
                 <padding>
                     <Insets right="30" left="30" top="10" bottom="10"/>
@@ -77,27 +85,27 @@
 
             </GridPane>
 
-            <Label text="Clases" GridPane.rowIndex="2">
+            <Label text="Clases" GridPane.rowIndex="3">
                 <styleClass>
                     <String fx:value="h4"/>
                     <String fx:value="b"/>
                 </styleClass>
             </Label>
 
-            <AnchorPane GridPane.rowIndex="3">
+            <AnchorPane GridPane.rowIndex="4">
                 <TableView fx:id="tablaClases" maxHeight="200" minHeight="200" styleClass="h5"
                            AnchorPane.topAnchor="5" AnchorPane.bottomAnchor="5"
                            AnchorPane.rightAnchor="30" AnchorPane.leftAnchor="30"/>
             </AnchorPane>
 
-            <Label text="Estudiantes" GridPane.rowIndex="4">
+            <Label text="Estudiantes" GridPane.rowIndex="5">
                 <styleClass>
                     <String fx:value="h4"/>
                     <String fx:value="b"/>
                 </styleClass>
             </Label>
 
-            <AnchorPane GridPane.rowIndex="5">
+            <AnchorPane GridPane.rowIndex="6">
 
                 <Button fx:id="btnAgregarAlumno" text="Agregar alumno" AnchorPane.rightAnchor="30"/>
                 <TableView fx:id="tablaAlumnos" maxHeight="200" minHeight="200" styleClass="h5"
