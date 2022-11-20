@@ -13,7 +13,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -43,11 +46,9 @@ public class CatalogoPlanesEstudioControlador {
     public void initialize() {
         temporizadorBusqueda = new Temporizador(1, temporizador -> {
             //Búsqueda de planes de estudio
-            Platform.runLater(() -> {
-                tablaPlanesEstudio.setDisable(true);
-                buscarPlanesEstudio(txtBuscar.getText().trim());
-                tablaPlanesEstudio.setDisable(false);
-            });
+            tablaPlanesEstudio.setDisable(true);
+            buscarPlanesEstudio(txtBuscar.getText().trim());
+            tablaPlanesEstudio.setDisable(false);
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()) || !esBusquedaPlanEstudio)
@@ -123,9 +124,13 @@ public class CatalogoPlanesEstudioControlador {
             cargarPlanesEstudioEnTabla(planesEstudio);
 
         } catch (Sql2oException e) {
-            Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no diponible", ButtonType.OK);
-            mensaje.setTitle("Error de base de datos");
-            mensaje.showAndWait();
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error al buscar planes de estudio");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            });
         }
     }
 
