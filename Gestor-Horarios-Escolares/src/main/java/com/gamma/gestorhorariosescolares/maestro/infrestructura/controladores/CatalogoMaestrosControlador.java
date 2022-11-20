@@ -49,11 +49,9 @@ public class CatalogoMaestrosControlador {
     public void initialize() {
         temporizadorBusqueda = new Temporizador(1, (temporizador) -> {
             //Búsqueda de maestros
-            Platform.runLater(() -> {
-                tablaMaestros.setDisable(true);
-                buscarMaestros(txtBuscar.getText().trim());
-                tablaMaestros.setDisable(false);
-            });
+            tablaMaestros.setDisable(true);
+            buscarMaestros(txtBuscar.getText().trim());
+            tablaMaestros.setDisable(false);
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()) || !esBusquedaDeMaestro)
@@ -245,7 +243,11 @@ public class CatalogoMaestrosControlador {
 
             cargarMaestrosEnTabla(maestros);
         } catch (Sql2oException e) {
-            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+            Platform.runLater(() -> {
+                Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no diponible", ButtonType.OK);
+                mensaje.setTitle("Error de base de datos");
+                mensaje.showAndWait();
+            });
         }
 
     }
