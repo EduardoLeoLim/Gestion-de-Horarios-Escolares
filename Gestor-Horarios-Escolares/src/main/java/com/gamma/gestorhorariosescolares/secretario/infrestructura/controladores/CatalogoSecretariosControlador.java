@@ -13,6 +13,7 @@ import com.gamma.gestorhorariosescolares.secretario.infrestructura.persistencia.
 import com.gamma.gestorhorariosescolares.secretario.infrestructura.stages.FormularioSecretarioStage;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -231,7 +232,13 @@ public class CatalogoSecretariosControlador {
 
             cargarSecretariosEnTabla(secretarios);
         } catch (Sql2oException e) {
-            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error al buscar secretarios");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            });
         }
 
 
