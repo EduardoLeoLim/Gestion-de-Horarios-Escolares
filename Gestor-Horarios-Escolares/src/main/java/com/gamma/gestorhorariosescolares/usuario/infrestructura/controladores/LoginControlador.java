@@ -14,10 +14,7 @@ import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;
 import com.gamma.gestorhorariosescolares.usuario.dominio.UsuarioRepositorio;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -30,7 +27,7 @@ public class LoginControlador {
     private TextField txtUsuario;
 
     @FXML
-    private TextField txtClaveAcceso;
+    private PasswordField txtClaveAcceso;
 
     @FXML
     private Button btnIngresar;

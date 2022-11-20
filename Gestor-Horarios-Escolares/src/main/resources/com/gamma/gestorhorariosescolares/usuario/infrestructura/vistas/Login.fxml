@@ -41,11 +41,11 @@
         </GridPane.margin>
     </Label>
 
-    <TextField fx:id="txtClaveAcceso" styleClass="h4" GridPane.rowIndex="4">
+    <PasswordField fx:id="txtClaveAcceso" styleClass="h4" GridPane.rowIndex="4">
         <GridPane.margin>
             <Insets left="30" right="30"/>
         </GridPane.margin>
-    </TextField>
+    </PasswordField>
 
     <Button fx:id="btnIngresar" text="Ingresar" mnemonicParsing="false" prefWidth="380.0" GridPane.rowIndex="5"
             onAction="#ingresarClick">
