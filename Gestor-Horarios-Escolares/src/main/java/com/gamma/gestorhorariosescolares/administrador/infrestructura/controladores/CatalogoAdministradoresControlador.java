@@ -34,6 +34,8 @@ public class CatalogoAdministradoresControlador {
     @FXML
     private TextField txtBuscar;
     @FXML
+    private Button btnRegistrar;
+    @FXML
     private TableView<AdministradorData> tablaAdministradores;
 
     public CatalogoAdministradoresControlador(Stage stage) {
@@ -47,7 +49,9 @@ public class CatalogoAdministradoresControlador {
     @FXML
     public void initialize() {
 
-        //Configuración de busqueda
+        btnRegistrar.setOnAction(event -> registrarNuevoAdministrador());
+
+        //Configuración de búsqueda
         temporizadorBusqueda = new Temporizador(1, (temporizador) -> {
             //La función es llamada cuando se agota el tiempo
             Platform.runLater(() -> {
@@ -161,7 +165,6 @@ public class CatalogoAdministradoresControlador {
         tablaAdministradores.setItems(colleccionAdministradores);
     }
 
-    @FXML
     private void registrarNuevoAdministrador() {
         var formulario = new FormularioAdministradorStage();
         formulario.initOwner(stage);
