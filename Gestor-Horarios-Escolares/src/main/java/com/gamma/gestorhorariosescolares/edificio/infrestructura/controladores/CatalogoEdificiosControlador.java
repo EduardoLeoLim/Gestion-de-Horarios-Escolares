@@ -45,12 +45,10 @@ public class CatalogoEdificiosControlador {
     @FXML
     public void initialize() {
         temporizadorBusqueda = new Temporizador(1, temporizador -> {
-            //busca edificios
-            Platform.runLater(() -> {
-                tablaEdificios.setDisable(true);
-                buscarEdificios(txtBuscar.getText().trim());
-                tablaEdificios.setDisable(false);
-            });
+            //búsqueda edificios
+            tablaEdificios.setDisable(true);
+            buscarEdificios(txtBuscar.getText().trim());
+            tablaEdificios.setDisable(false);
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()) || !esBusquedaEdificio)
@@ -227,7 +225,11 @@ public class CatalogoEdificiosControlador {
 
             cargarEdificiosEnTabla(edificios);
         } catch (Sql2oException e) {
-            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+            Platform.runLater(() -> {
+                Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no diponible", ButtonType.OK);
+                mensaje.setTitle("Error de base de datos");
+                mensaje.showAndWait();
+            });
         }
     }
 
