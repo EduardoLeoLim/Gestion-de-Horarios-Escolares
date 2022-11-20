@@ -49,11 +49,9 @@ public class CatalogoAlumnosControlador {
     public void initialize() {
         temporizadorBusqueda = new Temporizador(1, temporizador -> {
             //Búsqueda de alumnos
-            Platform.runLater(() -> {
-                tablaAlumnos.setDisable(true);
-                buscarAlumnos(txtBuscar.getText().trim());
-                tablaAlumnos.setDisable(false);
-            });
+            tablaAlumnos.setDisable(true);
+            buscarAlumnos(txtBuscar.getText().trim());
+            tablaAlumnos.setDisable(false);
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()) || !esBusquedaAlumno)
@@ -245,7 +243,8 @@ public class CatalogoAlumnosControlador {
 
             cargarAlumnosEnTabla(alumnos);
         } catch (Sql2oException e) {
-            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+            Platform.runLater(() -> new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde",
+                    ButtonType.OK).showAndWait());
         }
     }
 
