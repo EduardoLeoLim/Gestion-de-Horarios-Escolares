@@ -52,11 +52,9 @@ public class CatalogoMateriasControlador {
         //Configuración de búsqueda
         temporizadorBusqueda = new Temporizador(1, temporizador -> {
             //Búsqueda de materias
-            Platform.runLater(() -> {
-                tablaMaterias.setDisable(true);
-                buscarMaterias(txtBuscar.getText().trim());
-                tablaMaterias.setDisable(false);
-            });
+            tablaMaterias.setDisable(true);
+            buscarMaterias(txtBuscar.getText().trim());
+            tablaMaterias.setDisable(false);
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()) || !esBusquedaMateria)
@@ -251,7 +249,11 @@ public class CatalogoMateriasControlador {
 
             cargarMateriaEnTabla(materias);
         } catch (Sql2oException e) {
-            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+            Platform.runLater(() -> {
+                Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
+                mensaje.setTitle("Error de base de datos");
+                mensaje.showAndWait();
+            });
         }
     }
 
