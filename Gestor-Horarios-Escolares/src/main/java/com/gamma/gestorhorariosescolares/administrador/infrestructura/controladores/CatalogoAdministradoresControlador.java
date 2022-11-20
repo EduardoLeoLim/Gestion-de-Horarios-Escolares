@@ -54,11 +54,9 @@ public class CatalogoAdministradoresControlador {
         //Configuración de búsqueda
         temporizadorBusqueda = new Temporizador(1, (temporizador) -> {
             //La función es llamada cuando se agota el tiempo
-            Platform.runLater(() -> {
-                tablaAdministradores.setDisable(true);
-                buscarAdministradores(txtBuscar.getText().trim());
-                tablaAdministradores.setDisable(false);
-            });
+            tablaAdministradores.setDisable(true);
+            buscarAdministradores(txtBuscar.getText().trim());
+            tablaAdministradores.setDisable(false);
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()) || !esBusquedaDeAdministrador)//No se realiza la busqueda cuando se presionan teclas que no modifican la cadena de búsqueda.
@@ -250,7 +248,9 @@ public class CatalogoAdministradoresControlador {
 
             cargarAdministradoresEnTabla(administradores);
         } catch (Sql2oException e) {
-            new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+            Platform.runLater(() -> {
+                new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+            });
         }
     }
 
