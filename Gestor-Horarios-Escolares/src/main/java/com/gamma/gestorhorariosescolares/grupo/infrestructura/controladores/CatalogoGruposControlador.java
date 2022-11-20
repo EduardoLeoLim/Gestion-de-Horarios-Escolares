@@ -55,11 +55,9 @@ public class CatalogoGruposControlador {
         temporizadorBusqueda = new Temporizador(1, temporizador -> {
             String criterioBusqueda = txtBuscar.getText();
             PeriodoEscolarData periodoEscolar = cbxPeriodoEscolar.getValue();
-            Platform.runLater(() -> {
-                tablaGrupos.setDisable(true);
-                buscarGrupos(criterioBusqueda, periodoEscolar);
-                tablaGrupos.setDisable(false);
-            });
+            tablaGrupos.setDisable(true);
+            buscarGrupos(criterioBusqueda, periodoEscolar);
+            tablaGrupos.setDisable(false);
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()) || !esBusquedaGrupo)
@@ -195,7 +193,11 @@ public class CatalogoGruposControlador {
             GruposData grupos = buscarGrupos.buscarPorCoincidencia(criterioBusqueda, criterioBusqueda, null, idPeriodoEscolar);
             cargarGruposEnTabla(grupos);
         } catch (Sql2oException e) {
-            e.printStackTrace();
+            Platform.runLater(() -> {
+                Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no diponible", ButtonType.OK);
+                mensaje.setTitle("Error de base de datos");
+                mensaje.showAndWait();
+            });
         }
     }
 
