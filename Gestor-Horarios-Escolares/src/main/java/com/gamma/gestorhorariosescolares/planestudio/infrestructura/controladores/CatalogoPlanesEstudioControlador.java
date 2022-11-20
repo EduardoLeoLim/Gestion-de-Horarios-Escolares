@@ -13,10 +13,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -125,11 +122,9 @@ public class CatalogoPlanesEstudioControlador {
 
         } catch (Sql2oException e) {
             Platform.runLater(() -> {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Error al buscar planes de estudio");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+                Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
+                mensaje.setTitle("Error de base de datos");
+                mensaje.showAndWait();
             });
         }
     }

@@ -249,7 +249,9 @@ public class CatalogoAdministradoresControlador {
             cargarAdministradoresEnTabla(administradores);
         } catch (Sql2oException e) {
             Platform.runLater(() -> {
-                new Alert(Alert.AlertType.ERROR, "Base de datos no disponible.\nIntentalo más tarde", ButtonType.OK).showAndWait();
+                Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
+                mensaje.setTitle("Error de base de datos");
+                mensaje.showAndWait();
             });
         }
     }

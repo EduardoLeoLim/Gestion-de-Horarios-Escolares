@@ -234,11 +234,9 @@ public class CatalogoSalonesControlador {
             cargarSalonesEnTabla(salones);
         } catch (Sql2oException e) {
             Platform.runLater(() -> {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Error al buscar salones");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+                Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
+                mensaje.setTitle("Error de base de datos");
+                mensaje.showAndWait();
             });
         }
     }

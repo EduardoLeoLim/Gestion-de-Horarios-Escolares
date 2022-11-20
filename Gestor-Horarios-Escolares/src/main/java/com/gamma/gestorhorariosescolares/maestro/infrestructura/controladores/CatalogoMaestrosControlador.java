@@ -244,7 +244,7 @@ public class CatalogoMaestrosControlador {
             cargarMaestrosEnTabla(maestros);
         } catch (Sql2oException e) {
             Platform.runLater(() -> {
-                Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no diponible", ButtonType.OK);
+                Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
                 mensaje.setTitle("Error de base de datos");
                 mensaje.showAndWait();
             });
