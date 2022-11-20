@@ -46,11 +46,9 @@ public class CatalogoPeriodosEscolaresControlador {
     public void initialize() {
         temporizadorBusqueda = new Temporizador(1, temporizador -> {
             //Busca periodos escolares con hilo seguro
-            Platform.runLater(() -> {
-                tablaPeriodosEscolares.setDisable(true);
-                buscarPeriodosEscolares(txtBuscar.getText().trim());
-                tablaPeriodosEscolares.setDisable(false);
-            });
+            tablaPeriodosEscolares.setDisable(true);
+            buscarPeriodosEscolares(txtBuscar.getText().trim());
+            tablaPeriodosEscolares.setDisable(false);
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()) || !esBusquedaPeriodoEscolar)
@@ -236,10 +234,11 @@ public class CatalogoPeriodosEscolaresControlador {
 
             cargarPeriodosEscolaresEnTabla(periodosEscolares);
         } catch (Sql2oException e) {
-            Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no diponible", ButtonType.OK);
-            mensaje.setTitle("Error de base de datos");
-            mensaje.showAndWait();
-            e.printStackTrace();
+            Platform.runLater(() -> {
+                Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
+                mensaje.setTitle("Error de base de datos");
+                mensaje.showAndWait();
+            });
         }
     }
 
