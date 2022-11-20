@@ -48,11 +48,9 @@ public class CatalogoSalonesControlador {
     public void initialize() {
         temporizadorBusqueda = new Temporizador(1, temporizador -> {
             //busca salones en hilo seguro
-            Platform.runLater(() -> {
-                tablaSalones.setDisable(true);
-                buscarSalones(txtBuscar.getText().trim());
-                tablaSalones.setDisable(false);
-            });
+            tablaSalones.setDisable(true);
+            buscarSalones(txtBuscar.getText().trim());
+            tablaSalones.setDisable(false);
         });
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue.trim().equals(newValue.trim()) || !esBusquedaSalon)
@@ -235,9 +233,13 @@ public class CatalogoSalonesControlador {
 
             cargarSalonesEnTabla(salones);
         } catch (Sql2oException e) {
-            Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no diponible", ButtonType.OK);
-            mensaje.setTitle("Error de base de datos");
-            mensaje.showAndWait();
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error al buscar salones");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            });
         }
     }
 
