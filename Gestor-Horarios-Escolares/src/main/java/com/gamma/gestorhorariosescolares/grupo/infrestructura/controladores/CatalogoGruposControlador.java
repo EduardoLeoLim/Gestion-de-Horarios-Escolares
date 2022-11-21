@@ -65,9 +65,8 @@ public class CatalogoGruposControlador {
             temporizadorBusqueda.reiniciar();
         });
         cbxPeriodoEscolar.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == null)
-                return;
-            temporizadorBusqueda.reiniciar();
+            if (esBusquedaGrupo)
+                temporizadorBusqueda.reiniciar();
         });
 
         inicializarComboBoxPeriodoEscolar();
