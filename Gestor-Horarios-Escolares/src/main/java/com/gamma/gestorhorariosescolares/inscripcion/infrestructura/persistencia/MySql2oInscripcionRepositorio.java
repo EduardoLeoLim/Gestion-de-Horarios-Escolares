@@ -9,6 +9,8 @@ import org.sql2o.Query;
 import org.sql2o.data.Row;
 import org.sql2o.data.Table;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,7 +42,14 @@ public class MySql2oInscripcionRepositorio implements InscripcionRepositorio {
         List<Row> filas = tabla.rows();
         filas.forEach(fila -> {
             Integer id = fila.getInteger("id");
-            Date fechaRegistro = fila.getDate("idfechaRegistro");
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaRegistro;
+            try {
+                fechaRegistro = formatoFecha.parse(fila.getString("fechaRegistro"));
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
             Integer idGrado = fila.getInteger("idGrado");
             Integer idPeriodoEscolar = fila.getInteger("idPeriodoEscolar");
             Integer idAlumno = fila.getInteger("idAlumno");
