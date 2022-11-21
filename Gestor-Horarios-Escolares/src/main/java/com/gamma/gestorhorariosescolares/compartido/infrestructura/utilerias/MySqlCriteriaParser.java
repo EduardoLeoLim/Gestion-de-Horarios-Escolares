@@ -187,7 +187,7 @@ public class MySqlCriteriaParser {
             default -> condicion += "";
         }
 
-        condicion += ":parametro" + numeroParamentro;
+        condicion += ":param" + numeroParamentro;
 
         return condicion;
     }
@@ -198,7 +198,7 @@ public class MySqlCriteriaParser {
         for (Filter filtro : filtrosObligatorios) {
             numeroParametro += 1;
             Map<Integer, String> parametro = new HashMap<>();
-            parametro.put(0, "parametro" + numeroParametro);
+            parametro.put(0, "param" + numeroParametro);
             if (filtro.operator() == FilterOperator.CONTAINS || filtro.operator() == FilterOperator.NOT_CONTAINS) {
                 String valor = "%" + filtro.value().value() + "%";
                 parametro.put(1, valor);
@@ -211,7 +211,7 @@ public class MySqlCriteriaParser {
         for (Filter filtro : filtrosOpcionales) {
             numeroParametro += 1;
             Map<Integer, String> parametro = new HashMap<>();
-            parametro.put(0, "parametro" + numeroParametro);
+            parametro.put(0, "param" + numeroParametro);
             if (filtro.operator() == FilterOperator.CONTAINS || filtro.operator() == FilterOperator.NOT_CONTAINS) {
                 String valor = "%" + filtro.value().value() + "%";
                 parametro.put(1, valor);
