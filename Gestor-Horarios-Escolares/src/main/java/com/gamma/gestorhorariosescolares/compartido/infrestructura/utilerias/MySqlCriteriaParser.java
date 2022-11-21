@@ -42,18 +42,6 @@ public class MySqlCriteriaParser {
         this.columnas.addAll(List.of(columnas));
     }
 
-    public String generarConsulta() {
-        String consulta = "SELECT " + generarColumnas() + " FROM " + tabla;
-        String condiciones = generarCondiciones();
-        if (criteria.hasFilters()) {
-            consulta += " WHERE " + condiciones;
-        }
-
-        consulta += ";";
-
-        return consulta;
-    }
-
     public String generarConsultaSql2o() {
         String consulta = "SELECT " + generarColumnas() + " FROM " + tabla;
 
@@ -89,28 +77,6 @@ public class MySqlCriteriaParser {
         return this.columnas.stream().collect(Collectors.joining(", "));
     }
 
-    private String generarCondiciones() {
-        List<String> condiciones = new ArrayList<>();
-
-        if (!filtrosObligatorios.isEmpty()) {
-            String condicionesObligatorias = filtrosObligatorios.stream().map(filter -> generarCondicion(filter))
-                    .collect(Collectors.joining(" AND ", "(", ")"));
-            condiciones.add(condicionesObligatorias);
-        }
-
-        if (!filtrosOpcionales.isEmpty()) {
-            String condicionesOpcionales = filtrosOpcionales.stream().map(filter -> generarCondicion(filter))
-                    .collect(Collectors.joining(" OR ", "(", ")"));
-            condiciones.add(condicionesOpcionales);
-        }
-
-        String cadenaCondiciones = "";
-        if (!condiciones.isEmpty())
-            cadenaCondiciones = condiciones.stream().collect(Collectors.joining(" AND ", "(", ")"));
-
-        return cadenaCondiciones;
-    }
-
     private String generarCondicionesSql2o() {
         List<String> condiciones = new ArrayList<>();
         int numeroFiltro = 0;
@@ -142,32 +108,6 @@ public class MySqlCriteriaParser {
             cadenaCondiciones = condiciones.stream().collect(Collectors.joining(" AND ", "(", ")"));
 
         return cadenaCondiciones;
-    }
-
-    private String generarCondicion(Filter filtro) {
-        FilterOperator operador = filtro.operator();
-
-        String condicion = "";
-        condicion += filtro.field().value();
-        switch (operador) {
-            case EQUAL -> condicion += " = ";
-            case NOT_EQUAL -> condicion += " != ";
-            case GT -> condicion += " > ";
-            case GTE -> condicion += " >= ";
-            case LT -> condicion += " < ";
-            case LTE -> condicion += " <= ";
-            case CONTAINS -> condicion += " LIKE ";
-            case NOT_CONTAINS -> condicion += " NOT LIKE ";
-            default -> condicion += "";
-        }
-
-        if (operador == FilterOperator.CONTAINS || operador == FilterOperator.NOT_CONTAINS) {
-            condicion += "'%" + filtro.value().value() + "%'";
-        } else {
-            condicion += "'" + filtro.value().value() + "'";
-        }
-
-        return condicion;
     }
 
     private String generarCondicionSql2o(Filter filtro, int numeroParamentro) {
