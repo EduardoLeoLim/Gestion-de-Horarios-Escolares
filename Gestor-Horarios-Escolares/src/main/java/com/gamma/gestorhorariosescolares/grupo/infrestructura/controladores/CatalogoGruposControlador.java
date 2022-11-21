@@ -163,6 +163,9 @@ public class CatalogoGruposControlador {
         var ventanaDetallesGrupo = new DetallesGrupoStage(grupo.id());
         ventanaDetallesGrupo.initOwner(stage);
         ventanaDetallesGrupo.showAndWait();
+
+        buscarPeriodosEscolares();
+        buscarGrupos();
     }
 
     public void buscarGrupos() {
