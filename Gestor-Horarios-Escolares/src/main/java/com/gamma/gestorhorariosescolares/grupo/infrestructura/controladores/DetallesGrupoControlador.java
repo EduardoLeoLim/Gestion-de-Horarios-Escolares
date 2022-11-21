@@ -13,7 +13,9 @@ import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Tem
 import com.gamma.gestorhorariosescolares.grado.aplicacion.buscar.BuscadorGrado;
 import com.gamma.gestorhorariosescolares.grado.infrestructura.persistencia.MySql2oGradoRepositorio;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.BuscarGrupos;
+import com.gamma.gestorhorariosescolares.grupo.aplicacion.GestionarInscripcionesGrupo;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.GrupoData;
+import com.gamma.gestorhorariosescolares.grupo.aplicacion.actualizar.ActualizadorGrupo;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.buscar.BuscadorGrupo;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.persistencia.MySql2oGrupoRepositorio;
 import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.BuscarInscripcionesPorGrupo;
@@ -38,6 +40,8 @@ import javafx.stage.Stage;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
+
+import java.util.Optional;
 
 public class DetallesGrupoControlador {
 
@@ -160,6 +164,29 @@ public class DetallesGrupoControlador {
         TableColumn<InscripcionGrupoData, String> columnaApellidoMaterno = new TableColumn<>("Apellido materno");
         columnaApellidoMaterno.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().alumno().nombre()));
         columnaApellidoMaterno.setMinWidth(150);
+
+        TableColumn<InscripcionGrupoData, String> columnaRemover = new TableColumn<>();
+        columnaRemover.setMinWidth(90);
+        columnaRemover.setMaxWidth(90);
+        columnaRemover.setCellFactory(ft -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(null);
+                setGraphic(null);
+
+                if (empty)
+                    return;
+
+                InscripcionGrupoData inscripcion = getTableView().getItems().get(getIndex());
+
+                Button btnRemover = new Button("Remover");
+                btnRemover.setPrefWidth(Double.MAX_VALUE);
+                btnRemover.getStyleClass().addAll("b", "btn-danger");
+                btnRemover.setOnAction(event -> removerAlumno(inscripcion));
+                setGraphic(btnRemover);
+            }
+        });
 
         tablaAlumnos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tablaAlumnos.getColumns().addAll(columnaMatricula, columnaNombre, columnaApellidoPaterno, columnaApellidoMaterno);
@@ -287,6 +314,47 @@ public class DetallesGrupoControlador {
 
     private void asignarMaestro(ClaseGrupoData clase) {
 
+    }
+
+
+    private void removerAlumno(InscripcionGrupoData inscripcion) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación");
+        alert.setHeaderText("¿Estás seguro de que deseas remover al alumno?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
+            try (Connection transaccion = conexion.beginTransaction()) {
+                //Repositorios
+                var repositorioGrupo = new MySql2oGrupoRepositorio(transaccion);
+                var repositorioInscripcion = new MySql2oInscripcionRepositorio(transaccion);
+
+                //Servicios
+                var buscadorGrupo = new BuscadorGrupo(repositorioGrupo);
+                var buscadorInscripcion = new BuscadorInscripcion(repositorioInscripcion);
+                var actualizadorGrupo = new ActualizadorGrupo(repositorioGrupo);
+
+                //Eliminar inscripción
+                GestionarInscripcionesGrupo gestionarInscripcionesGrupo = new GestionarInscripcionesGrupo(buscadorGrupo,
+                        buscadorInscripcion, actualizadorGrupo);
+                gestionarInscripcionesGrupo.removerInscripcion(this.idGrupo, inscripcion.id());
+
+            } catch (RecursoNoEncontradoException e) {
+                Alert mensaje = new Alert(Alert.AlertType.ERROR);
+                mensaje.setTitle("Error");
+                mensaje.setHeaderText("No se pudo remover al alumno");
+                mensaje.setContentText(e.getMessage());
+                mensaje.showAndWait();
+            } catch (Sql2oException e) {
+                e.printStackTrace();
+                Alert mensaje = new Alert(Alert.AlertType.ERROR);
+                mensaje.setTitle("Error");
+                mensaje.setHeaderText("No se pudo remover al alumno");
+                mensaje.setContentText("Ocurrió un error al intentar remover al alumno del grupo.");
+                mensaje.showAndWait();
+            }
+        }
+        temporizador.reiniciar();
     }
 
     private void liberarRecursos() {

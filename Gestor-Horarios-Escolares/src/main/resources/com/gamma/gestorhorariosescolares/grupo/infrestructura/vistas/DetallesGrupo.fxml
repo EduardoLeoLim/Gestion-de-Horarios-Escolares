@@ -107,7 +107,13 @@
 
             <AnchorPane GridPane.rowIndex="6">
 
-                <Button fx:id="btnAgregarAlumno" text="Agregar alumno" AnchorPane.rightAnchor="30"/>
+                <Button fx:id="btnAgregarAlumno" text="Agregar alumno" AnchorPane.rightAnchor="30">
+                    <styleClass>
+                        <String fx:value="btn-success"/>
+                        <String fx:value="b"/>
+                        <String fx:value="h5"/>
+                    </styleClass>
+                </Button>
                 <TableView fx:id="tablaAlumnos" maxHeight="200" minHeight="200" styleClass="h5"
                            AnchorPane.topAnchor="40" AnchorPane.bottomAnchor="5"
                            AnchorPane.rightAnchor="30" AnchorPane.leftAnchor="30"/>
