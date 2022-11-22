@@ -7,9 +7,10 @@ import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.My
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.InicializarPanel;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
-import com.gamma.gestorhorariosescolares.grupo.aplicacion.GestionarInscripcionesGrupo;
+import com.gamma.gestorhorariosescolares.grupo.aplicacion.AgregarInscripcion;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.actualizar.ActualizadorGrupo;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.buscar.BuscadorGrupo;
+import com.gamma.gestorhorariosescolares.grupo.aplicacion.excepciones.AsignacionInvalidaException;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.controladores.DetallesGrupoControlador;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.persistencia.MySql2oGrupoRepositorio;
 import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.BuscarInscripcionesSinAsignar;
@@ -160,10 +161,10 @@ public class AsignarInscripcionEnGrupoControlador {
             var buscadorInscripcion = new BuscadorInscripcion(inscripcionRepositorio);
             var actualizadorGrupo = new ActualizadorGrupo(grupoRepositorio);
 
-            GestionarInscripcionesGrupo gestionarInscripcionesGrupo = new GestionarInscripcionesGrupo(buscadorGrupo,
+            AgregarInscripcion agregarInscripcion = new AgregarInscripcion(buscadorGrupo,
                     buscadorInscripcion, actualizadorGrupo);
 
-            gestionarInscripcionesGrupo.agregarInscripcion(this.idGrupo, inscripcion.id());
+            agregarInscripcion.agregar(this.idGrupo, inscripcion.id());
 
             trasaccion.commit();
 
@@ -174,7 +175,7 @@ public class AsignarInscripcionEnGrupoControlador {
 
             regresarDetalles();
 
-        } catch (RecursoNoEncontradoException | Sql2oException e) {
+        } catch (RecursoNoEncontradoException | Sql2oException | AsignacionInvalidaException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error al asignar inscripción");
