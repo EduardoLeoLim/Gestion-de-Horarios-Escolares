@@ -28,6 +28,10 @@ public class BuscarInscripcionesPorGrupo {
     public InscripcionesGrupoData buscar(Integer idGrupo) throws RecursoNoEncontradoException {
         Grupo grupo = buscadorGrupo.igual("id", idGrupo.toString()).buscarPrimero();
 
+        if (grupo.idInscripciones().length == 0) {
+            return new InscripcionesGrupoData(List.of());
+        }
+
         for (int idInscripcion : grupo.idInscripciones()) {
             buscadorInscripcion
                     .igual("id", String.valueOf(idInscripcion))
