@@ -33,9 +33,9 @@ public class BuscarInscripcionesPorGrupo {
         }
 
         for (int idInscripcion : grupo.idInscripciones()) {
-            buscadorInscripcion
-                    .igual("id", String.valueOf(idInscripcion))
-                    .esOpcional();
+            buscadorInscripcion.igual("id", String.valueOf(idInscripcion));
+            if (grupo.idInscripciones().length > 1)
+                buscadorInscripcion.esOpcional();
         }
         List<Inscripcion> inscripciones = buscadorInscripcion.buscar();
 
