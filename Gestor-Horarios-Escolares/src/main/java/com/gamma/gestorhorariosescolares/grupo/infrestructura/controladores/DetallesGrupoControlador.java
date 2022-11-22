@@ -12,13 +12,16 @@ import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.My
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.InicializarPanel;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
+import com.gamma.gestorhorariosescolares.evaluacion.aplicacion.buscar.BuscadorEvaluacion;
+import com.gamma.gestorhorariosescolares.evaluacion.infrestructura.persistencia.MySql2oEvaluacionRepositorio;
 import com.gamma.gestorhorariosescolares.grado.aplicacion.buscar.BuscadorGrado;
 import com.gamma.gestorhorariosescolares.grado.infrestructura.persistencia.MySql2oGradoRepositorio;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.BuscarGrupos;
-import com.gamma.gestorhorariosescolares.grupo.aplicacion.GestionarInscripcionesGrupo;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.GrupoData;
+import com.gamma.gestorhorariosescolares.grupo.aplicacion.RemoverInscripcion;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.actualizar.ActualizadorGrupo;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.buscar.BuscadorGrupo;
+import com.gamma.gestorhorariosescolares.grupo.aplicacion.excepciones.AsignacionInvalidaException;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.persistencia.MySql2oGrupoRepositorio;
 import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.BuscarInscripcionesPorGrupo;
 import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.InscripcionGrupoData;
@@ -351,28 +354,31 @@ public class DetallesGrupoControlador {
             Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
             try (Connection transaccion = conexion.beginTransaction()) {
                 //Repositorios
-                var repositorioGrupo = new MySql2oGrupoRepositorio(transaccion);
-                var repositorioInscripcion = new MySql2oInscripcionRepositorio(transaccion);
+                var grupoRepositorio = new MySql2oGrupoRepositorio(transaccion);
+                var inscripcionRepositorio = new MySql2oInscripcionRepositorio(transaccion);
+                var claseRepositorio = new MySql2oClaseRepositorio(transaccion);
+                var evaluacionRepositorio = new MySql2oEvaluacionRepositorio(transaccion);
 
                 //Servicios
-                var buscadorGrupo = new BuscadorGrupo(repositorioGrupo);
-                var buscadorInscripcion = new BuscadorInscripcion(repositorioInscripcion);
-                var actualizadorGrupo = new ActualizadorGrupo(repositorioGrupo);
+                var buscadorGrupo = new BuscadorGrupo(grupoRepositorio);
+                var buscadorInscripcion = new BuscadorInscripcion(inscripcionRepositorio);
+                var buscadorClase = new BuscadorClase(claseRepositorio);
+                var buscadorEvaluacion = new BuscadorEvaluacion(evaluacionRepositorio);
+                var actualizadorGrupo = new ActualizadorGrupo(grupoRepositorio);
 
                 //Eliminar inscripción
-                GestionarInscripcionesGrupo gestionarInscripcionesGrupo = new GestionarInscripcionesGrupo(buscadorGrupo,
-                        buscadorInscripcion, actualizadorGrupo);
-                gestionarInscripcionesGrupo.removerInscripcion(this.idGrupo, inscripcion.id());
+                RemoverInscripcion removerInscripcion = new RemoverInscripcion(buscadorGrupo, buscadorInscripcion,
+                        buscadorClase, buscadorEvaluacion, actualizadorGrupo);
+                removerInscripcion.remover(this.idGrupo, inscripcion.id());
 
                 transaccion.commit();
-            } catch (RecursoNoEncontradoException e) {
+            } catch (RecursoNoEncontradoException | AsignacionInvalidaException e) {
                 Alert mensaje = new Alert(Alert.AlertType.ERROR);
                 mensaje.setTitle("Error");
                 mensaje.setHeaderText("No se pudo remover al alumno");
                 mensaje.setContentText(e.getMessage());
                 mensaje.showAndWait();
             } catch (Sql2oException e) {
-                e.printStackTrace();
                 Alert mensaje = new Alert(Alert.AlertType.ERROR);
                 mensaje.setTitle("Error");
                 mensaje.setHeaderText("No se pudo remover al alumno");

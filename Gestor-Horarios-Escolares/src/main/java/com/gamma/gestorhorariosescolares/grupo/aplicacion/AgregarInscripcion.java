@@ -33,17 +33,4 @@ public class GestionarInscripcionesGrupo {
         actualizadorGrupo.actualizar(grupo);
     }
 
-    public void removerInscripcion(int idGrupo, int idInscripcion) throws RecursoNoEncontradoException {
-        Grupo grupo = buscadorGrupo
-                .igual("id", String.valueOf(idGrupo))
-                .buscarPrimero();
-        Inscripcion inscripcion = buscadorInscripcion
-                .igual("id", String.valueOf(idInscripcion))
-                .buscarPrimero();
-
-        grupo.removerInscripcion(inscripcion.id());
-
-        actualizadorGrupo.actualizar(grupo);
-    }
-
 }
