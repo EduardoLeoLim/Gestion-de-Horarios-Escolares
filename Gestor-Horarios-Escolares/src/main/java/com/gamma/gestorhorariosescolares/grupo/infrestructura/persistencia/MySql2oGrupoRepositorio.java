@@ -90,13 +90,18 @@ public class MySql2oGrupoRepositorio implements GrupoRepositorio {
                 .addParameter("id", grupo.id())
                 .executeUpdate();
 
+        String consultaDelete = "DELETE FROM asignacion WHERE idGrupo = :idGrupo";
+        consultaDelete += grupo.idInscripciones().length > 0 ? " AND idInscripcion NOT IN (:idInscripciones);" : ";";
+
+        query = conexion.createQuery(consultaDelete);
+        query.addParameter("idGrupo", grupo.id());
         if (grupo.idInscripciones().length > 0) {
-            String consultaDelete = "DELETE FROM asignacion WHERE idInscripcion NOT IN :idInscripciones AND idGrupo = :idGrupo;";
-            query = conexion.createQuery(consultaDelete);
-            query.addParameter("idInscripciones", grupo.idInscripciones())
-                    .addParameter("idGrupo", grupo.id())
-                    .executeUpdate();
+            query.addParameter("idInscripciones", grupo.idInscripciones());
         }
+        query.executeUpdate();
+
+        if (grupo.idInscripciones().length == 0)
+            return;
 
         String consultaInsert = "INSERT IGNORE INTO asignacion (idInscripcion, idGrupo) VALUES (:idInscripcion, :idGrupo);";
         query = conexion.createQuery(consultaInsert);
