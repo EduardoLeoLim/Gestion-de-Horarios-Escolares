@@ -9,6 +9,8 @@ import com.gamma.gestorhorariosescolares.clase.aplicacion.buscar.BuscadorClase;
 import com.gamma.gestorhorariosescolares.clase.infrestructura.persistencia.MySql2oClaseRepositorio;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
+import com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage;
+import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.InicializarPanel;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
 import com.gamma.gestorhorariosescolares.grado.aplicacion.buscar.BuscadorGrado;
 import com.gamma.gestorhorariosescolares.grado.infrestructura.persistencia.MySql2oGradoRepositorio;
@@ -22,6 +24,7 @@ import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.BuscarInscripcio
 import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.InscripcionGrupoData;
 import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.InscripcionesGrupoData;
 import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.buscar.BuscadorInscripcion;
+import com.gamma.gestorhorariosescolares.inscripcion.infrestructura.controladores.AsignarInscripcionEnGrupoControlador;
 import com.gamma.gestorhorariosescolares.inscripcion.infrestructura.persistencia.MySql2oInscripcionRepositorio;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestroClaseData;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.buscar.BuscadorMaestro;
@@ -36,11 +39,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.kordamp.bootstrapfx.BootstrapFX;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public class DetallesGrupoControlador {
@@ -75,12 +81,15 @@ public class DetallesGrupoControlador {
 
     public DetallesGrupoControlador(Stage stage, int idGrupo) {
         this.stage = stage;
+        stage.setTitle("Detalles del grupo");
         stage.setOnHidden(event -> liberarRecursos());
         this.idGrupo = idGrupo;
     }
 
     @FXML
     private void initialize() {
+        btnAgregarAlumno.setOnAction(event -> agregarAlumno());
+
         inicializarTablaClases();
         inicializarTablaAlumnos();
 
@@ -158,11 +167,11 @@ public class DetallesGrupoControlador {
         columnaNombre.setMinWidth(150);
 
         TableColumn<InscripcionGrupoData, String> columnaApellidoPaterno = new TableColumn<>("Apellido paterno");
-        columnaApellidoPaterno.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().alumno().nombre()));
+        columnaApellidoPaterno.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().alumno().apellidoPaterno()));
         columnaApellidoPaterno.setMinWidth(150);
 
         TableColumn<InscripcionGrupoData, String> columnaApellidoMaterno = new TableColumn<>("Apellido materno");
-        columnaApellidoMaterno.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().alumno().nombre()));
+        columnaApellidoMaterno.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().alumno().apellidoMaterno()));
         columnaApellidoMaterno.setMinWidth(150);
 
         TableColumn<InscripcionGrupoData, String> columnaRemover = new TableColumn<>();
@@ -189,7 +198,8 @@ public class DetallesGrupoControlador {
         });
 
         tablaAlumnos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        tablaAlumnos.getColumns().addAll(columnaMatricula, columnaNombre, columnaApellidoPaterno, columnaApellidoMaterno);
+        tablaAlumnos.getColumns().addAll(columnaMatricula, columnaNombre, columnaApellidoPaterno, columnaApellidoMaterno,
+                columnaRemover);
         tablaAlumnos.setItems(coleccionInscripciones);
     }
 
@@ -309,6 +319,8 @@ public class DetallesGrupoControlador {
                 mensaje.setTitle("Recurso no encontrado");
                 mensaje.showAndWait();
             });
+        } catch (Exception e) {
+            System.out.println(e.getClass().toString());
         }
     }
 
@@ -316,6 +328,19 @@ public class DetallesGrupoControlador {
 
     }
 
+    private void agregarAlumno() {
+
+        try {
+            AsignarInscripcionEnGrupoControlador controlador = new AsignarInscripcionEnGrupoControlador(stage, this.idGrupo);
+            AnchorPane panel = InicializarPanel.inicializarAnchorPane("inscripcion/infrestructura/vistas/AsignarInscripcionEnGrupo.fxml",
+                    controlador);
+            panel.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+            ((CustomStage) stage).setContent(panel);
+            liberarRecursos();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void removerAlumno(InscripcionGrupoData inscripcion) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -339,6 +364,7 @@ public class DetallesGrupoControlador {
                         buscadorInscripcion, actualizadorGrupo);
                 gestionarInscripcionesGrupo.removerInscripcion(this.idGrupo, inscripcion.id());
 
+                transaccion.commit();
             } catch (RecursoNoEncontradoException e) {
                 Alert mensaje = new Alert(Alert.AlertType.ERROR);
                 mensaje.setTitle("Error");

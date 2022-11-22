@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" prefHeight="400.0" prefWidth="600.0"
+            style="-fx-background-color: #EFEFEF;">
+    <Button fx:id="btnRegresar" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="30" mnemonicParsing="false"
+            text="Regresar">
+        <styleClass>
+            <String fx:value="btn-danger"/>
+            <String fx:value="h5"/>
+            <String fx:value="b"/>
+        </styleClass>
+    </Button>
+
+    <Label text="Alumnos inscritos" prefHeight="40" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"
+           AnchorPane.topAnchor="40.0">
+        <styleClass>
+            <String fx:value="h2"/>
+            <String fx:value="b"/>
+        </styleClass>
+    </Label>
+
+    <Label styleClass="h5" text="Buscar:" AnchorPane.leftAnchor="50" AnchorPane.topAnchor="80"/>
+    <TextField fx:id="txtBuscar" styleClass="h5" AnchorPane.leftAnchor="120" AnchorPane.topAnchor="75"/>
+
+    <TableView fx:id="tablaInscripciones" styleClass="h5" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30"
+               AnchorPane.topAnchor="130" AnchorPane.bottomAnchor="20">
+    </TableView>
+</AnchorPane>

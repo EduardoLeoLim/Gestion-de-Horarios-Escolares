@@ -13,9 +13,9 @@ public class DetallesGrupoStage extends CustomStage {
 
     public DetallesGrupoStage(int idGrupo) {
         setMinHeight(400);
-        setMinWidth(600);
+        setMinWidth(900);
         initModality(Modality.WINDOW_MODAL);
-        setTitle("Detalles del grupo");
+
         try {
             DetallesGrupoControlador controlador = new DetallesGrupoControlador(this, idGrupo);
             AnchorPane panel = InicializarPanel.inicializarAnchorPane("grupo/infrestructura/vistas/DetallesGrupo.fxml",

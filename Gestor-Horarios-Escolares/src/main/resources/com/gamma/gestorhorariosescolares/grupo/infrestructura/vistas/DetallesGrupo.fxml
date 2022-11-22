@@ -7,7 +7,7 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
             style="-fx-background-color: #EFEFEF;"
-            prefHeight="600.0" prefWidth="800">
+            prefHeight="600.0" prefWidth="900">
     <ScrollPane fitToWidth="true" fitToHeight="true" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
                 AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
         <GridPane vgap="10">
