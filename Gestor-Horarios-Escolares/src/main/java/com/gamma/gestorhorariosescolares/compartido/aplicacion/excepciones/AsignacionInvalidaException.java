@@ -1,4 +1,4 @@
-package com.gamma.gestorhorariosescolares.grupo.aplicacion.excepciones;
+package com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones;
 
 public class AsignacionInvalidaException extends Exception {
 

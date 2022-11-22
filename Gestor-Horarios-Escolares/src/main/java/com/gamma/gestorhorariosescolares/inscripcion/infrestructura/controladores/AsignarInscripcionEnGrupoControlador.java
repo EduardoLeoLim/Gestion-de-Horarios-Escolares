@@ -2,6 +2,7 @@ package com.gamma.gestorhorariosescolares.inscripcion.infrestructura.controlador
 
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.buscar.BuscadorAlumno;
 import com.gamma.gestorhorariosescolares.alumno.infrestructura.persistencia.MySql2oAlumnoRepositorio;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.AsignacionInvalidaException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage;
@@ -10,7 +11,6 @@ import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Tem
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.AgregarInscripcion;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.actualizar.ActualizadorGrupo;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.buscar.BuscadorGrupo;
-import com.gamma.gestorhorariosescolares.grupo.aplicacion.excepciones.AsignacionInvalidaException;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.controladores.DetallesGrupoControlador;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.persistencia.MySql2oGrupoRepositorio;
 import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.BuscarInscripcionesSinAsignar;

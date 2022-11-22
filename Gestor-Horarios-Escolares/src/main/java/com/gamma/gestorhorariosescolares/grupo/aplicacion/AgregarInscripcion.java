@@ -1,9 +1,9 @@
 package com.gamma.gestorhorariosescolares.grupo.aplicacion;
 
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.AsignacionInvalidaException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.actualizar.ServicioActualizadorGrupo;
-import com.gamma.gestorhorariosescolares.grupo.aplicacion.excepciones.AsignacionInvalidaException;
 import com.gamma.gestorhorariosescolares.grupo.dominio.Grupo;
 import com.gamma.gestorhorariosescolares.inscripcion.dominio.Inscripcion;
 
