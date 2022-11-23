@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: bnktupv4hkmgz2gog6kd-mysql.services.clever-cloud.com:3306
--- Generation Time: Nov 12, 2022 at 08:39 PM
+-- Generation Time: Nov 23, 2022 at 03:46 AM
 -- Server version: 8.0.22-13
 -- PHP Version: 7.2.34
 
@@ -58,6 +58,13 @@ CREATE TABLE `asignacion` (
   `idGrupo` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `asignacion`
+--
+
+INSERT INTO `asignacion` (`id`, `idInscripcion`, `idGrupo`) VALUES
+(2, 1, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -66,10 +73,19 @@ CREATE TABLE `asignacion` (
 
 CREATE TABLE `clase` (
   `id` int NOT NULL,
-  `idEmpleado` int DEFAULT NULL,
   `idMateria` int NOT NULL,
-  `idGrupo` int NOT NULL
+  `idGrupo` int NOT NULL,
+  `idMaestro` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `clase`
+--
+
+INSERT INTO `clase` (`id`, `idMateria`, `idGrupo`, `idMaestro`) VALUES
+(1, 1, 1, NULL),
+(2, 1, 2, NULL),
+(3, 2, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -115,10 +131,12 @@ CREATE TABLE `empleado` (
 
 INSERT INTO `empleado` (`id`, `noPersonal`, `nombre`, `apellidoPaterno`, `apellidoMaterno`, `estatus`, `tipo`, `idUsuario`) VALUES
 (1, 'ADMIN-001', 'Angel Eduardo', 'Martínez', 'Leo Lim', 1, 'Administrador', 1),
-(2, 'ADMIN-002', 'Luisa Mariana', 'Pulido', 'Gonzalez', 1, 'Administrador', 5),
+(2, 'ADMIN-002', 'Luisa Mariana', 'Lopez', 'Hernandez', 1, 'Administrador', 5),
 (3, 'ADMIN-003', 'Brandon', 'Lopez', 'Tenorio', 1, 'Administrador', 6),
 (4, 'SEC-001', 'Raúl', 'Perez', 'Gomez', 1, 'Secretario', 7),
-(5, 'MTRO-001', 'Sergio', 'Sanchez', 'Perez', 1, 'Maestro', 8);
+(5, 'MTRO-001', 'Sergio', 'Sanchez', 'Perez', 1, 'Maestro', 8),
+(6, 'SEC-002', 'Pedro', 'Martinez', 'Sanchez', 1, 'Secretario', 10),
+(7, 'ADMIN-004', 'Martin', 'Zuñiga', 'Lopez', 1, 'Administrador', 11);
 
 -- --------------------------------------------------------
 
@@ -169,6 +187,14 @@ CREATE TABLE `grupo` (
   `idPeriodoEscolar` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `grupo`
+--
+
+INSERT INTO `grupo` (`id`, `clave`, `nombre`, `idGrado`, `idPeriodoEscolar`) VALUES
+(1, 'G-221-121', 'Primer Grado 2023-2023', 1, 1),
+(2, 'G-222-125', 'Tercer Grado 2023-2024', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -177,11 +203,31 @@ CREATE TABLE `grupo` (
 
 CREATE TABLE `horario` (
   `id` int NOT NULL,
+  `diaSemana` int NOT NULL,
   `horaInicio` time NOT NULL,
   `horaFin` time NOT NULL,
   `idSalon` int NOT NULL,
   `idClase` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `horariodetalle`
+-- (See below for the actual view)
+--
+CREATE TABLE `horariodetalle` (
+`id` int
+,`idMateria` int
+,`diaSemana` int
+,`horaInicio` time
+,`horaFin` time
+,`idSalon` int
+,`idClase` int
+,`idGrupo` int
+,`idMaestro` int
+,`idPeriodoEscolar` int
+);
 
 -- --------------------------------------------------------
 
@@ -196,6 +242,13 @@ CREATE TABLE `inscripcion` (
   `idPeriodoEscolar` int NOT NULL,
   `idAlumno` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `inscripcion`
+--
+
+INSERT INTO `inscripcion` (`id`, `fechaRegistro`, `idGrado`, `idPeriodoEscolar`, `idAlumno`) VALUES
+(1, '2022-11-21', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -218,7 +271,8 @@ CREATE TABLE `materia` (
 --
 
 INSERT INTO `materia` (`id`, `clave`, `nombre`, `horasPracticas`, `horasTeoricas`, `estatus`, `idGrado`) VALUES
-(1, 'AAA', 'Inglés 1', 34, 26, 1, 1);
+(1, 'AAA', 'Inglés 1', 34, 26, 1, 1),
+(2, '5678', 'Matematicas II', 40, 60, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -281,7 +335,8 @@ CREATE TABLE `salon` (
 --
 
 INSERT INTO `salon` (`id`, `clave`, `capacidad`, `estatus`, `idEdificio`) VALUES
-(1, 'E1S-001', 25, 1, 1);
+(1, 'E1S-001', 25, 1, 1),
+(2, 'FEI-104', 35, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -307,7 +362,18 @@ INSERT INTO `usuario` (`id`, `telefono`, `correoElectronico`, `claveAcceso`, `ti
 (6, '1234567890', 'zs18012159@estudiantes.uv.mx', '12345', 'Administrador'),
 (7, '1345652465', 'raul@gmail.com', 'a', 'Secretario'),
 (8, '2212345653', 'sperez@gmail.com', 'sperez', 'Maestro'),
-(9, '2281963942', 'atorre2012@gmail.com', 'a', 'Alumno');
+(9, '2281963942', 'atorre2012@gmail.com', 'a', 'Alumno'),
+(10, '2281947584', 'pmartinez@gmail.com', 'ccc', 'Secretario'),
+(11, '2281703278', 'junlo98@hotmail.com', 'hola', 'Administrador');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `horariodetalle`
+--
+DROP TABLE IF EXISTS `horariodetalle`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`ua8zbokp6qj8c7wp`@`%` SQL SECURITY DEFINER VIEW `horariodetalle`  AS SELECT `h`.`id` AS `id`, `c`.`idMateria` AS `idMateria`, `h`.`diaSemana` AS `diaSemana`, `h`.`horaInicio` AS `horaInicio`, `h`.`horaFin` AS `horaFin`, `h`.`idSalon` AS `idSalon`, `h`.`idClase` AS `idClase`, `c`.`idGrupo` AS `idGrupo`, `c`.`idMaestro` AS `idMaestro`, `g`.`idPeriodoEscolar` AS `idPeriodoEscolar` FROM ((`horario` `h` join `clase` `c` on((`h`.`idClase` = `c`.`id`))) join `grupo` `g` on((`c`.`idGrupo` = `g`.`id`)))) ;
 
 --
 -- Indexes for dumped tables
@@ -335,7 +401,8 @@ ALTER TABLE `asignacion`
 --
 ALTER TABLE `clase`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_Clase_Empleado1_idx` (`idEmpleado`),
+  ADD UNIQUE KEY `clase_unq` (`idGrupo`,`idMateria`),
+  ADD KEY `fk_Clase_Empleado1_idx` (`idMaestro`),
   ADD KEY `fk_Clase_Grupo1_idx` (`idGrupo`),
   ADD KEY `fk_Clase_Materia1_idx` (`idMateria`);
 
@@ -446,13 +513,13 @@ ALTER TABLE `alumno`
 -- AUTO_INCREMENT for table `asignacion`
 --
 ALTER TABLE `asignacion`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `clase`
 --
 ALTER TABLE `clase`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `edificio`
@@ -464,7 +531,7 @@ ALTER TABLE `edificio`
 -- AUTO_INCREMENT for table `empleado`
 --
 ALTER TABLE `empleado`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `evaluacion`
@@ -482,7 +549,7 @@ ALTER TABLE `grado`
 -- AUTO_INCREMENT for table `grupo`
 --
 ALTER TABLE `grupo`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `horario`
@@ -494,13 +561,13 @@ ALTER TABLE `horario`
 -- AUTO_INCREMENT for table `inscripcion`
 --
 ALTER TABLE `inscripcion`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `periodoescolar`
@@ -518,13 +585,13 @@ ALTER TABLE `planestudio`
 -- AUTO_INCREMENT for table `salon`
 --
 ALTER TABLE `salon`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
@@ -547,7 +614,7 @@ ALTER TABLE `asignacion`
 -- Constraints for table `clase`
 --
 ALTER TABLE `clase`
-  ADD CONSTRAINT `fk_Clase_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`id`),
+  ADD CONSTRAINT `fk_Clase_Empleado1` FOREIGN KEY (`idMaestro`) REFERENCES `empleado` (`id`),
   ADD CONSTRAINT `fk_Clase_Grupo1` FOREIGN KEY (`idGrupo`) REFERENCES `grupo` (`id`),
   ADD CONSTRAINT `fk_Clase_Materia1` FOREIGN KEY (`idMateria`) REFERENCES `materia` (`id`);
 
