@@ -9,5 +9,5 @@ public interface InscripcionRepositorio {
 
     int registrar(Inscripcion inscripcion);
 
-    int actualizar(Inscripcion inscripcion);
+    void actualizar(Inscripcion inscripcion);
 }

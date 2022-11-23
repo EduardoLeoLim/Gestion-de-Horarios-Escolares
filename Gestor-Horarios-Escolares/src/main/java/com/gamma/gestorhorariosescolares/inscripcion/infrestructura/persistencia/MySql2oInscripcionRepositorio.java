@@ -61,11 +61,32 @@ public class MySql2oInscripcionRepositorio implements InscripcionRepositorio {
 
     @Override
     public int registrar(Inscripcion inscripcion) {
-        return 0;
+        String consulta = "INSERT INTO inscripcion (fechaRegistro, idGrado, idPeriodoEscolar, idAlumno) " +
+                "VALUES (:fechaRegistro, :idGrado, :idPeriodoEscolar, :idAlumno)";
+
+        Integer idInscripcion = conexion.createQuery(consulta)
+                .addParameter("fechaRegistro", inscripcion.fechaRegistro())
+                .addParameter("idGrado", inscripcion.idGrado())
+                .addParameter("idPeriodoEscolar", inscripcion.idPeriodoEscolar())
+                .addParameter("idAlumno", inscripcion.idAlumno())
+                .executeUpdate()
+                .getKey(Integer.class);
+
+        return idInscripcion;
     }
 
     @Override
-    public int actualizar(Inscripcion inscripcion) {
-        return 0;
+    public void actualizar(Inscripcion inscripcion) {
+        String consulta = "UPDATE inscripcion SET fechaRegistro = :fechaRegistro, idGrado = :idGrado, " +
+                "idPeriodoEscolar = :idPeriodoEscolar, idAlumno = :idAlumno WHERE id = :id";
+
+        conexion.createQuery(consulta)
+                .addParameter("fechaRegistro", inscripcion.fechaRegistro())
+                .addParameter("idGrado", inscripcion.idGrado())
+                .addParameter("idPeriodoEscolar", inscripcion.idPeriodoEscolar())
+                .addParameter("idAlumno", inscripcion.idAlumno())
+                .addParameter("id", inscripcion.id())
+                .executeUpdate();
     }
+
 }
