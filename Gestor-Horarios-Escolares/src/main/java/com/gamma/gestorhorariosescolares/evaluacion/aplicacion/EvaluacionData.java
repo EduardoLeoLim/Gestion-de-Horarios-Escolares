@@ -1,4 +1,4 @@
-package com.gamma.gestorhorariosescolares.evaluacion;
+package com.gamma.gestorhorariosescolares.evaluacion.aplicacion;
 
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnoData;
 import com.gamma.gestorhorariosescolares.materia.aplicacion.MateriaData;
