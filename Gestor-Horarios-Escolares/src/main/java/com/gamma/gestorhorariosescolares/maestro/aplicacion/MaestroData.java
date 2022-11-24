@@ -25,8 +25,6 @@ public class MaestroData {
     }
 
     public static MaestroData fromAggregate(Maestro maestro, Usuario usuario) {
-        if (maestro == null || usuario == null)
-            throw new NullPointerException();
 
         UsuarioData usuarioData = UsuarioData.fromAggregate(usuario);
         return new MaestroData(maestro.id().value(), maestro.noPersonal(), maestro.nombre(), maestro.apellidoPaterno(), maestro.apellidoMaterno(), maestro.estatus(), usuarioData);
