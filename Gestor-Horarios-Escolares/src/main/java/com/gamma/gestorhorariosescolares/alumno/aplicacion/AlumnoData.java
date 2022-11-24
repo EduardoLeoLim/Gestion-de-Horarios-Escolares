@@ -32,7 +32,7 @@ public class AlumnoData {
                 alumno.apellidoMaterno(), alumno.estaHabilitado(), usuarioData);
     }
 
-    public int id() {
+    public Integer id() {
         return id;
     }
 
