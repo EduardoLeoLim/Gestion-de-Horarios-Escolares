@@ -60,4 +60,23 @@ public class BuscarMaestros {
 
         return new MaestrosData(listaMaestrosData);
     }
+
+    public MaestrosData buscarPorCriterioHabilitados(String criterio) {
+        List<Maestro> listaMaestros = buscadorMaestro
+                .igual("estatus", "1")
+                .contiene("noPersonal", criterio).esOpcional()
+                .contiene("nombre", criterio).esOpcional()
+                .contiene("apellidoPaterno", criterio).esOpcional()
+                .contiene("apellidoMaterno", criterio).esOpcional()
+                .ordenarAscendente("noPersonal")
+                .buscar();
+
+        List<MaestroData> listaMaestrosData = listaMaestros.stream().map(maestro -> {
+            Usuario usuario = buscadorUsuario.igual("id", String.valueOf(maestro.idUsuario())).buscar().get(0);
+            return MaestroData.fromAggregate(maestro, usuario);
+        }).collect(Collectors.toList());
+
+        return new MaestrosData(listaMaestrosData);
+    }
+
 }
