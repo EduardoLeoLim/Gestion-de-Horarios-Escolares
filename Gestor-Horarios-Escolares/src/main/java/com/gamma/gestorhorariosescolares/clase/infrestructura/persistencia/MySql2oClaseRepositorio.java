@@ -70,8 +70,8 @@ public class MySql2oClaseRepositorio implements ClaseRepositorio {
         String consulta = "UPDATE clase SET idMaestro = :idMaestro WHERE id = :id;";
 
         conexion.createQuery(consulta)
-                .addParameter("idMaestro", clase.idMaestro())
-                .addParameter("id", clase.id())
+                .addParameter("idMaestro", clase.idMaestro().value())
+                .addParameter("id", clase.id().value())
                 .executeUpdate();
     }
 }
