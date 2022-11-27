@@ -31,6 +31,7 @@ import com.gamma.gestorhorariosescolares.inscripcion.infrestructura.controladore
 import com.gamma.gestorhorariosescolares.inscripcion.infrestructura.persistencia.MySql2oInscripcionRepositorio;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestroClaseData;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.buscar.BuscadorMaestro;
+import com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores.AsignarMaestroEnClaseControlador;
 import com.gamma.gestorhorariosescolares.maestro.infrestructura.persistencia.MySql2oMaestroRepositorio;
 import com.gamma.gestorhorariosescolares.materia.aplicacion.buscar.BuscadorMateria;
 import com.gamma.gestorhorariosescolares.materia.infrestructura.persistencia.MySql2oMateriaRepositorio;
@@ -328,7 +329,16 @@ public class DetallesGrupoControlador {
     }
 
     private void asignarMaestro(ClaseGrupoData clase) {
-
+        try {
+            AsignarMaestroEnClaseControlador controlador = new AsignarMaestroEnClaseControlador(stage, idGrupo, clase.id());
+            AnchorPane panel = InicializarPanel.inicializarAnchorPane("maestro/infrestructura/vistas/AsignarMaestroEnClase.fxml",
+                    controlador);
+            panel.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+            ((CustomStage) stage).setContent(panel);
+            liberarRecursos();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void agregarAlumno() {
