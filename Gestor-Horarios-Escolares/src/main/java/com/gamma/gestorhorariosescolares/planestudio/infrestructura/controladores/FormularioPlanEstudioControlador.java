@@ -1,4 +1,4 @@
-package com.gamma.gestorhorariosescolares.salon.infrestructura.controladores;
+package com.gamma.gestorhorariosescolares.planestudio.infrestructura.controladores;
 
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.ClaveDuplicadaException;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
