@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx">
+    <GridPane AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"
+              AnchorPane.topAnchor="20.0" AnchorPane.bottomAnchor="20.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <rowConstraints>
+            <RowConstraints vgrow="NEVER"/>
+            <RowConstraints vgrow="NEVER"/>
+            <RowConstraints vgrow="NEVER"/>
+            <RowConstraints vgrow="NEVER"/>
+            <RowConstraints vgrow="ALWAYS"/>
+        </rowConstraints>
+
+        <Label text="Registrar clase" GridPane.rowIndex="0" prefHeight="40">
+            <styleClass>
+                <String fx:value="h2"/>
+                <String fx:value="b"/>
+            </styleClass>
+        </Label>
+
+        <Label text="Buscar horario disponible" GridPane.rowIndex="1" prefHeight="30">
+            <padding>
+                <Insets top="15" bottom="5"/>
+            </padding>
+            <styleClass>
+                <String fx:value="h4"/>
+                <String fx:value="b"/>
+            </styleClass>
+        </Label>
+
+        <FlowPane GridPane.rowIndex="2" hgap="15" vgap="10">
+            <Label styleClass="h5" text="Periodo escolar*:"/>
+            <ComboBox fx:id="cbxPeriodoEscolar" promptText="Selecciona un periodo escolar" styleClass="h5"/>
+
+            <Label styleClass="h5" text="Edificio*:"/>
+            <ComboBox fx:id="cbxEdificio" promptText="Selecciona un edificio" styleClass="h5"/>
+
+            <Label styleClass="h5" text="Salón:"/>
+            <ComboBox fx:id="cbxSalon" promptText="Selecciona un salón" styleClass="h5"/>
+
+            <Button fx:id="btnBuscarHorarios" text="Buscar horarios" onAction="#buscarHorariosDisponiblesClick">
+                <styleClass>
+                    <String fx:value="b"/>
+                    <String fx:value="h5"/>
+                    <String fx:value="btn-primary"/>
+                </styleClass>
+            </Button>
+        </FlowPane>
+
+        <Label text="Horarios disponibles" GridPane.rowIndex="3" prefHeight="30">
+            <padding>
+                <Insets top="15" bottom="5"/>
+            </padding>
+            <styleClass>
+                <String fx:value="h4"/>
+                <String fx:value="b"/>
+            </styleClass>
+        </Label>
+
+        <ScrollPane GridPane.rowIndex="4" fitToWidth="true">
+            <VBox fx:id="panelHorariosDisponibles"/>
+        </ScrollPane>
+    </GridPane>
+</AnchorPane>

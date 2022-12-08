@@ -1,5 +1,6 @@
 package com.gamma.gestorhorariosescolares.secretario.infrestructura.controladores;
 
+import com.gamma.gestorhorariosescolares.clase.infrestructura.controladores.HorariosDisponiblesControlador;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.InicializarPanel;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.controladores.CatalogoGruposControlador;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.stages.LoginStage;
@@ -18,6 +19,8 @@ public class MenuSecretarioControlador {
     private final Stage stage;
     private AnchorPane panelCatalogoGrupos;
     private CatalogoGruposControlador controladorGrupos;
+    private AnchorPane panelHorariosDisponibles;
+    private HorariosDisponiblesControlador controladorHorariosDisponibles;
 
     @FXML
     private BorderPane panelMenuSecretario;
@@ -76,7 +79,21 @@ public class MenuSecretarioControlador {
 
     @FXML
     protected void mostrarRegistrarClaseClick() {
-
+        if (panelHorariosDisponibles == null) {
+            try {
+                controladorHorariosDisponibles = new HorariosDisponiblesControlador(stage);
+                panelHorariosDisponibles = InicializarPanel.inicializarAnchorPane(
+                        "clase/infrestructura/vistas/HorariosDisponibles.fxml",
+                        controladorHorariosDisponibles
+                );
+                panelHorariosDisponibles.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                panelMenuSecretario.setCenter(panelHorariosDisponibles);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            panelMenuSecretario.setCenter(panelHorariosDisponibles);
+        }
     }
 
     @FXML
