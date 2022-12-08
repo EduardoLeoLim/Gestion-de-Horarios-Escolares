@@ -50,11 +50,12 @@ public class MySql2oHorarioRepositorio implements HorarioRepositorio {
             } else {
                 idMaestro = new MaestroId((int) fila.get("idMaestro"));
             }
+            int idEdificio = (int) fila.get("idEdificio");
             int idSalon = (int) fila.get("idSalon");
             int idPeriodoEscolar = (int) fila.get("idPeriodoEscolar");
 
             Horario horario = new Horario(id, diaSemana, horaInicio, horaFin, idMateria, idGrupo, idClase, idMaestro,
-                    idSalon, idPeriodoEscolar);
+                    idEdificio, idSalon, idPeriodoEscolar);
             horarios.add(horario);
         });
 
