@@ -13,10 +13,11 @@ public class Horario {
     private final int idGrupo;
     private final int idClase;
     private final MaestroId idMaestro;
+    private final int idEdificio;
     private final int idSalon;
     private final int idPeriodoEscolar;
 
-    public Horario(int id, int diaSemana, LocalTime horaInicio, LocalTime horaFin, int idMateria, int idGrupo, int idClase, MaestroId idMaestro, int idSalon, int idPeriodoEscolar) {
+    public Horario(int id, int diaSemana, LocalTime horaInicio, LocalTime horaFin, int idMateria, int idGrupo, int idClase, MaestroId idMaestro, int idEdificio, int idSalon, int idPeriodoEscolar) {
         this.id = id;
         this.diaSemana = diaSemana;
         this.horaInicio = horaInicio;
@@ -25,6 +26,7 @@ public class Horario {
         this.idGrupo = idGrupo;
         this.idClase = idClase;
         this.idMaestro = idMaestro;
+        this.idEdificio = idEdificio;
         this.idSalon = idSalon;
         this.idPeriodoEscolar = idPeriodoEscolar;
     }
@@ -38,6 +40,7 @@ public class Horario {
         this.idGrupo = 0;
         this.idClase = idClase;
         this.idMaestro = null;
+        this.idEdificio = 0;
         this.idSalon = idSalon;
         this.idPeriodoEscolar = 0;
     }
@@ -72,6 +75,10 @@ public class Horario {
 
     public MaestroId idMaestro() {
         return idMaestro;
+    }
+
+    public int idEdificio() {
+        return idEdificio;
     }
 
     public int idSalon() {
