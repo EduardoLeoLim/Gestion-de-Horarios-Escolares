@@ -342,11 +342,11 @@ public class HorariosDisponiblesControlador {
         });
 
         TableColumn<HorarioDisponibleData, String> columnaHoraInicio = new TableColumn<>("Hora inicio");
-        columnaHoraInicio.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().horaInicio()));
+        columnaHoraInicio.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().horaInicio().toString()));
         columnaHoraInicio.setMinWidth(80);
 
         TableColumn<HorarioDisponibleData, String> columnaHoraFin = new TableColumn<>("Hora fin");
-        columnaHoraFin.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().horaFin()));
+        columnaHoraFin.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().horaFin().toString()));
         columnaHoraFin.setMinWidth(80);
 
         TableColumn<HorarioDisponibleData, String> columnaSalon = new TableColumn<>("Salon");
