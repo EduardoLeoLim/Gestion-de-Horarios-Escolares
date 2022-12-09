@@ -399,5 +399,10 @@ public class HorariosDisponiblesControlador {
         var formulario = new FormularioRegistrarHorarioClaseStage(horarioDisponible);
         formulario.initOwner(stage);
         formulario.showAndWait();
+
+        panelHorariosDisponibles.getChildren().clear();
+        cargarPeriodosEscolares();
+        cargarEdificios();
+        coleccionSalones.clear();
     }
 }
