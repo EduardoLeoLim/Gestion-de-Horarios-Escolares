@@ -1,6 +1,5 @@
 package com.gamma.gestorhorariosescolares.clase.infrestructura.controladores;
 
-import com.gamma.gestorhorariosescolares.clase.aplicacion.BuscarHorariosDisponibles;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.edificio.aplicacion.BuscarEdificios;
@@ -8,10 +7,12 @@ import com.gamma.gestorhorariosescolares.edificio.aplicacion.EdificioData;
 import com.gamma.gestorhorariosescolares.edificio.aplicacion.EdificiosData;
 import com.gamma.gestorhorariosescolares.edificio.aplicacion.buscar.BuscadorEdificio;
 import com.gamma.gestorhorariosescolares.edificio.infrestructura.persistencia.MySql2oEdificioRepositorio;
+import com.gamma.gestorhorariosescolares.horario.aplicacion.BuscarHorariosDisponibles;
 import com.gamma.gestorhorariosescolares.horario.aplicacion.HorarioDisponibleData;
 import com.gamma.gestorhorariosescolares.horario.aplicacion.HorariosDisponiblesData;
 import com.gamma.gestorhorariosescolares.horario.aplicacion.buscar.BuscadorHorario;
 import com.gamma.gestorhorariosescolares.horario.infrestructura.persistencia.MySql2oHorarioRepositorio;
+import com.gamma.gestorhorariosescolares.horario.infrestructura.stages.FormularioRegistrarHorarioClaseStage;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.BuscarPeriodosEscolares;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodoEscolarData;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodosEscolaresData;
@@ -361,8 +362,8 @@ public class HorariosDisponiblesControlador {
         columnaCapacidad.setMinWidth(80);
 
         TableColumn<HorarioDisponibleData, String> columnaAsignar = new TableColumn<>();
-        columnaAsignar.setMinWidth(80);
-        columnaAsignar.setMaxWidth(80);
+        columnaAsignar.setMinWidth(100);
+        columnaAsignar.setMaxWidth(100);
         columnaAsignar.setCellFactory(param -> new TableCell<>() {
             private final Button btnAsignar = new Button("Asignar");
 
@@ -376,6 +377,7 @@ public class HorariosDisponiblesControlador {
                 }
 
                 btnAsignar.getStyleClass().addAll("btn-primary", "b");
+                btnAsignar.setPrefWidth(Double.MAX_VALUE);
                 btnAsignar.setOnAction(event -> {
                     HorarioDisponibleData horarioDisponible = getTableView().getItems().get(getIndex());
                     asignarHorario(horarioDisponible);
@@ -386,13 +388,16 @@ public class HorariosDisponiblesControlador {
         });
 
         tablaHorariosDisponibles.getColumns().addAll(columnaDia, columnaHoraInicio, columnaHoraFin, columnaEdificio,
-                columnaSalon, columnaCapacidad);
+                columnaSalon, columnaCapacidad, columnaAsignar);
+        tablaHorariosDisponibles.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         tablaHorariosDisponibles.setItems(horariosDisponiblesObservable);
         panelHorariosDisponibles.getChildren().add(tablaHorariosDisponibles);
     }
 
     private void asignarHorario(HorarioDisponibleData horarioDisponible) {
-
+        var formulario = new FormularioRegistrarHorarioClaseStage(horarioDisponible);
+        formulario.initOwner(stage);
+        formulario.showAndWait();
     }
 }
