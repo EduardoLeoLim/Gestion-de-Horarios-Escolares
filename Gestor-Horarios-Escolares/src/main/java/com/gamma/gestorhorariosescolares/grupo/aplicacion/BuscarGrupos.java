@@ -59,6 +59,19 @@ public class BuscarGrupos {
         return new GruposData(prepararResultado(grupos));
     }
 
+    public GruposData buscarPorIdPeriodoEscolar(Integer idPeriodoEscolar) throws RecursoNoEncontradoException {
+        PeriodoEscolar periodoEscolar = buscadorPeriodoEscolar
+                .igual("id", idPeriodoEscolar.toString())
+                .buscarPrimero();
+
+        buscadorGrupo.igual("idPeriodoEscolar", String.valueOf(periodoEscolar.id()));
+        buscadorGrupo.ordenarAscendente("clave");
+
+        List<Grupo> grupos = buscadorGrupo.buscar();
+
+        return new GruposData(prepararResultado(grupos));
+    }
+
     public GrupoData buscarPorId(Integer id) throws RecursoNoEncontradoException {
         Grupo grupo = buscadorGrupo.igual("id", id.toString()).buscarPrimero();
         return prepararResultado(Collections.singletonList(grupo)).get(0);
