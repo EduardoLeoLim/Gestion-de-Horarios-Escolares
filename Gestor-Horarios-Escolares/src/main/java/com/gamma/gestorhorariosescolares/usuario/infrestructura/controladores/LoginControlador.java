@@ -91,7 +91,7 @@ public class LoginControlador {
                 new MenuMaestroStage().show();
                 break;
             case "Alumno":
-                new MenuAlumnoStage().show();
+                new MenuAlumnoStage(usuario).show();
                 break;
             default:
                 throw new RecursoNoEncontradoException("Tipo de usuario desconocido");
