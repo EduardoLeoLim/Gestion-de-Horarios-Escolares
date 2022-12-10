@@ -1,0 +1,3026 @@
+@startuml
+interface com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.ServicioActualizadorAdministrador {
+~ void actualizar(Administrador)
+}
+class com.gamma.gestorhorariosescolares.administrador.infrestructura.controladores.CatalogoAdministradoresControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
+- ObservableList<AdministradorData> colleccionAdministradores
+- Boolean esBusquedaDeAdministrador
+- TextField txtBuscar
+- Button btnRegistrar
+- TableView<AdministradorData> tablaAdministradores
++ <<Create>> CatalogoAdministradoresControlador(Stage)
++ void initialize()
+- void inicializarTabla()
+- void registrarNuevoAdministrador()
++ void editarAdministrador(AdministradorData)
++ void habilitarAdministrador(AdministradorData)
++ void deshabilitarAdministrador(AdministradorData)
+- void cambiarEstatus(String,AdministradorData)
+- void buscarAdministradores()
+- void buscarAdministradores(String)
+- void cargarAdministradoresEnTabla(AdministradoresData)
++ void liberarRecursos()
+}
+interface com.gamma.gestorhorariosescolares.alumno.aplicacion.registrar.ServicioRegistradorAlumno {
+~ int registrar(String,String,String,String,String,int)
+}
+class com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.GestionarEstatusPeriodoEscolar {
+- ServicioBuscador<PeriodoEscolar> buscadorPeriodoEscolar
+- ActualizadorPeriodoEscolar actualizadorPeriodoEscolar
++ <<Create>> GestionarEstatusPeriodoEscolar(ServicioBuscador<PeriodoEscolar>,ActualizadorPeriodoEscolar)
++ void habilitarPeriodoEscolar(int)
++ void deshabilitarPeriodoEscolar(int)
+}
+class com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores.HorarioMaestroControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
++ <<Create>> HorarioMaestroControlador(Stage)
++ void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.EliminacionInvalidaException {
++ <<Create>> EliminacionInvalidaException()
++ <<Create>> EliminacionInvalidaException(String)
+}
+class com.gamma.gestorhorariosescolares.maestro.aplicacion.actualizar.ActualizadorMaestro {
+- MaestroRepositorio repositorio
++ <<Create>> ActualizadorMaestro(MaestroRepositorio)
++ void actualizar(Maestro)
+}
+class com.gamma.gestorhorariosescolares.administrador.dominio.Administrador {
+- int id
+- String noPersonal
+- String nombre
+- String apellidoPaterno
+- String apellidoMaterno
+- int idUsuario
+- boolean estatus
++ <<Create>> Administrador(int,boolean,String,String,String,String,int)
++ <<Create>> Administrador(String,String,String,String,int)
++ int id()
++ String noPersonal()
++ String nombre()
++ String apellidoPaterno()
++ String apellidoMaterno()
++ void habilitar()
++ void deshabilitar()
++ boolean estatus()
++ int idUsuario()
+}
+class com.gamma.gestorhorariosescolares.maestro.dominio.Maestro {
+- MaestroId id
+- String noPersonal
+- String nombre
+- String apellidoPaterno
+- String apellidoMaterno
+- int idUsuario
+- boolean estatus
++ <<Create>> Maestro(MaestroId,boolean,String,String,String,String,int)
++ <<Create>> Maestro(String,String,String,String,int)
++ MaestroId id()
++ String noPersonal()
++ String nombre()
++ String apellidoPaterno()
++ String apellidoMaterno()
++ void habilitar()
++ void deshabilitar()
++ boolean estatus()
++ int idUsuario()
+}
+class com.gamma.gestorhorariosescolares.materia.aplicacion.actualizar.ActualizadorMateria {
+- MateriaRepositorio repositorio
++ <<Create>> ActualizadorMateria(MateriaRepositorio)
++ void actualizar(Materia)
+}
+class com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodoEscolarData {
+- Integer id
+- String clave
+- String nombre
+- LocalDate fechaInicio
+- LocalDate fechaFin
+- Boolean estatus
++ <<Create>> PeriodoEscolarData(Integer,String,String,Date,Date,Boolean)
++ {static} PeriodoEscolarData fromAggregate(PeriodoEscolar)
++ Integer id()
++ String clave()
++ String nombre()
++ LocalDate fechaInicio()
++ String fechaInicioFormateada()
++ LocalDate fechaFin()
++ String fechaFinFormateada()
++ Boolean estatus()
+}
+class com.gamma.gestorhorariosescolares.secretario.infrestructura.controladores.CatalogoSecretariosControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
+- ObservableList<SecretarioData> coleccionSecretarios
+- boolean esBusquedaDeSecretario
+- TextField txtBuscar
+- TableView<SecretarioData> tablaSecretarios
++ <<Create>> CatalogoSecretariosControlador(Stage)
++ void initialize()
+- void inicializarTabla()
+- void registrarNuevoSecretario()
++ void editarSecretario(SecretarioData)
++ void habilitarSecretario(SecretarioData)
++ void deshabilitarSecretario(SecretarioData)
+- void cambiarEstatus(String,SecretarioData)
+- void buscarSecretarios()
+- void buscarSecretarios(String)
+- void cargarSecretariosEnTabla(SecretariosData)
++ void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.grupo.aplicacion.actualizar.ActualizadorGrupo {
+- GrupoRepositorio repositorio
++ <<Create>> ActualizadorGrupo(GrupoRepositorio)
++ void actualizar(Grupo)
+}
+enum com.gamma.gestorhorariosescolares.compartido.dominio.criterio.FilterOperator {
++  EQUAL
++  NOT_EQUAL
++  GT
++  GTE
++  LT
++  LTE
++  CONTAINS
++  NOT_CONTAINS
+- String operator
+~ <<Create>> FilterOperator(String)
++ {static} FilterOperator fromValue(String)
++ boolean isPositive()
++ String value()
+}
+class com.gamma.gestorhorariosescolares.maestro.dominio.MaestroId {
++ <<Create>> MaestroId(Integer)
+}
+class com.gamma.gestorhorariosescolares.planestudio.aplicacion.eliminar.EliminadorPlanEstudio {
+- PlanEstudioRepositorio repositorio
++ <<Create>> EliminadorPlanEstudio(PlanEstudioRepositorio)
++ void eliminar(int)
+}
+class com.gamma.gestorhorariosescolares.grupo.aplicacion.BuscarGrupos {
+- ServicioBuscador<Grupo> buscadorGrupo
+- ServicioBuscador<Grado> buscadorGrado
+- ServicioBuscador<PeriodoEscolar> buscadorPeriodoEscolar
++ <<Create>> BuscarGrupos(ServicioBuscador<Grupo>,ServicioBuscador<Grado>,ServicioBuscador<PeriodoEscolar>)
++ GruposData buscar(String,String,Integer,Integer)
++ GruposData buscarPorCoincidencia(String,String,Integer,Integer)
++ GruposData buscarPorIdPeriodoEscolar(Integer)
++ GrupoData buscarPorId(Integer)
+- List<GrupoData> prepararResultado(List<Grupo>)
+}
+class com.gamma.gestorhorariosescolares.clase.aplicacion.buscar.BuscadorClase {
+- ClaseRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorClase(ClaseRepositorio)
++ ServicioBuscador<Clase> igual(String,String)
++ ServicioBuscador<Clase> diferente(String,String)
++ ServicioBuscador<Clase> mayorQue(String,String)
++ ServicioBuscador<Clase> mayorIgualQue(String,String)
++ ServicioBuscador<Clase> menorQue(String,String)
++ ServicioBuscador<Clase> menorIgualQue(String,String)
++ ServicioBuscador<Clase> contiene(String,String)
++ ServicioBuscador<Clase> noContiene(String,String)
++ ServicioBuscador<Clase> ordenarAscendente(String)
++ ServicioBuscador<Clase> ordenarDescendente(String)
++ ServicioBuscador<Clase> esObligatorio()
++ ServicioBuscador<Clase> esOpcional()
++ ServicioBuscador<Clase> intervalo(int)
++ ServicioBuscador<Clase> limite(int)
++ List<Clase> buscar()
++ Clase buscarPrimero()
+- void limpiarFiltros()
+}
+class com.gamma.gestorhorariosescolares.planestudio.aplicacion.registrar.RegistradorPlanEstudio {
+- PlanEstudioRepositorio repositorio
++ <<Create>> RegistradorPlanEstudio(PlanEstudioRepositorio)
++ int registrar(String,String)
+}
+class com.gamma.gestorhorariosescolares.grupo.aplicacion.AgregarInscripcion {
+- ServicioBuscador<Grupo> buscadorGrupo
+- ServicioBuscador<Inscripcion> buscadorInscripcion
+- ServicioActualizadorGrupo actualizadorGrupo
++ <<Create>> AgregarInscripcion(ServicioBuscador<Grupo>,ServicioBuscador<Inscripcion>,ServicioActualizadorGrupo)
++ void agregar(int,int)
+}
+class com.gamma.gestorhorariosescolares.grupo.infrestructura.controladores.DetallesGrupoControlador {
+- Stage stage
+- Integer idGrupo
+- Temporizador temporizador
+- ObservableList<ClaseGrupoData> colleccionClases
+- ObservableList<InscripcionGrupoData> coleccionInscripciones
+- TextField txtClave
+- TextField txtNombre
+- TextField txtPeriodoEscolar
+- TextField txtPlanEstudio
+- TextField txtGrado
+- TableView<ClaseGrupoData> tablaClases
+- Button btnAgregarAlumno
+- TableView<InscripcionGrupoData> tablaAlumnos
++ <<Create>> DetallesGrupoControlador(Stage,int)
+- void initialize()
+- void inicializarTablaClases()
+- void inicializarTablaAlumnos()
+- void cargarDetallesGrupo()
+- void cargarDatosGrupo(Connection)
+- void cargarDatosClases(Connection)
+- void cargarDatosAlumnos(Connection)
+- void asignarMaestro(ClaseGrupoData)
+- void agregarAlumno()
+- void removerAlumno(InscripcionGrupoData)
+- void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.controladores.FormularioPeriodoEscolarControlador {
+- Stage stage
+- boolean esNuevoRegistro
+- PeriodoEscolarData periodoEscolar
+- TextField txtClave
+- TextField txtNombre
+- DatePicker dpckFechaInicio
+- DatePicker dpckFechaFin
++ <<Create>> FormularioPeriodoEscolarControlador(Stage)
++ <<Create>> FormularioPeriodoEscolarControlador(Stage,PeriodoEscolarData)
++ void initialize()
+- void cargarConfiguracionFormulario()
+- void cargarDatosPeriodoEscolar()
+- void guardarPeriodoEscolar()
+- boolean sonValidosDatosFormulario(String,String,LocalDate,LocalDate)
+- void registrarPeriodoEscolar(String,String,LocalDate,LocalDate)
+- void actualizarPeriodoEscolar(Integer,String,String,LocalDate,LocalDate,Boolean)
+- void cerrarFormulario()
+}
+class com.gamma.gestorhorariosescolares.materia.aplicacion.MateriasData {
+- List<MateriaData> materias
++ <<Create>> MateriasData(List<MateriaData>)
++ List<MateriaData> materias()
+}
+class com.gamma.gestorhorariosescolares.planestudio.aplicacion.buscar.BuscadorPlanEstudio {
+- PlanEstudioRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorPlanEstudio(PlanEstudioRepositorio)
++ BuscadorPlanEstudio igual(String,String)
++ BuscadorPlanEstudio diferente(String,String)
++ BuscadorPlanEstudio mayorQue(String,String)
++ BuscadorPlanEstudio mayorIgualQue(String,String)
++ BuscadorPlanEstudio menorQue(String,String)
++ BuscadorPlanEstudio menorIgualQue(String,String)
++ BuscadorPlanEstudio contiene(String,String)
++ BuscadorPlanEstudio noContiene(String,String)
++ BuscadorPlanEstudio ordenarAscendente(String)
++ BuscadorPlanEstudio ordenarDescendente(String)
++ BuscadorPlanEstudio esObligatorio()
++ BuscadorPlanEstudio esOpcional()
++ BuscadorPlanEstudio intervalo(int)
++ BuscadorPlanEstudio limite(int)
++ List<PlanEstudio> buscar()
++ PlanEstudio buscarPrimero()
+- void limpiarFiltros()
+}
+class com.gamma.gestorhorariosescolares.administrador.aplicacion.RegistrarAdministrador {
+- ServicioBuscador<Administrador> buscadorAdministrador
+- ServicioRegistradorAdministrador registradorAdministrador
+- ServicioBuscador<Usuario> buscadorUsuario
+- ServicioRegistradorUsuario registradorUsuario
++ <<Create>> RegistrarAdministrador(ServicioBuscador<Administrador>,ServicioRegistradorAdministrador,ServicioBuscador<Usuario>,ServicioRegistradorUsuario)
++ void registrar(String,String,String,String,String,String,String)
+}
+class com.gamma.gestorhorariosescolares.secretario.aplicacion.RegistrarSecretario {
+- ServicioBuscador<Secretario> buscadorSecretario
+- ServicioRegistradorSecretario registradorSecretario
+- ServicioBuscador<Usuario> buscadorUsuario
+- ServicioRegistradorUsuario registradorUsuario
++ <<Create>> RegistrarSecretario(ServicioBuscador<Secretario>,ServicioRegistradorSecretario,ServicioBuscador<Usuario>,ServicioRegistradorUsuario)
++ void registrar(String,String,String,String,String,String,String)
+}
+class com.gamma.gestorhorariosescolares.planestudio.infrestructura.persistencia.MySql2oPlanEstudioRepositorio {
+- Connection conexion
++ <<Create>> MySql2oPlanEstudioRepositorio(Connection)
++ List<PlanEstudio> buscar(Criteria)
++ int registrar(PlanEstudio)
++ void actualizar(PlanEstudio)
++ void eliminar(int)
+}
+class com.gamma.gestorhorariosescolares.materia.aplicacion.MateriaData {
+- Integer id
+- String clave
+- String nombre
+- Integer horasPracticas
+- Integer horasTeoricas
+- PlanEstudioData planEstudio
+- GradoData grado
+- Boolean estatus
++ <<Create>> MateriaData(Integer,String,String,Integer,Integer,PlanEstudioData,GradoData,Boolean)
++ {static} MateriaData fromAggregate(Materia,PlanEstudio,Grado)
++ Integer id()
++ String clave()
++ String nombre()
++ Integer horasPracticas()
++ Integer horasTeoricas()
++ PlanEstudioData planEstudio()
++ GradoData grado()
++ Boolean estatus()
+}
+class com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodosEscolaresData {
+- List<PeriodoEscolarData> periodosEscolares
++ <<Create>> PeriodosEscolaresData(List<PeriodoEscolar>)
++ List<PeriodoEscolarData> periodosEscolares()
+}
+class com.gamma.gestorhorariosescolares.planestudio.infrestructura.stages.FormularioPlanEstudioStage {
+- AnchorPane panelFormulario
+- FormularioPlanEstudioControlador controladorFormulario
++ <<Create>> FormularioPlanEstudioStage()
+- void cargarFormulario()
+}
+interface com.gamma.gestorhorariosescolares.horario.aplicacion.actualizar.ServicioActualizadorHorario {
+~ void actualizar(Horario)
+}
+class com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores.MenuMaestroControlador {
+- Stage stage
+- AnchorPane panelHorarioMaestro
+- HorarioMaestroControlador controladorHorarioMaestro
+- AnchorPane panelMateriasMaestro
+- MateriasMaestroControlador controladorMateriasMaestro
+- BorderPane panelMenuMaestro
+- VBox vbMenu
+- Button btnConsultarHorario
+- Button btnConsultarMateriasImpartidas
+- Button btnCerrarSesion
++ <<Create>> MenuMaestroControlador(Stage)
++ void initialize()
+# void mostrarHorarioClick()
+# void mostrarMateriasImpartidasClick()
+# void cerrarSesionClick()
+- void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.edificio.infrestructura.persistencia.MySql2oEdificioRepositorio {
+- Connection conexion
++ <<Create>> MySql2oEdificioRepositorio(Connection)
++ List<Edificio> buscar(Criteria)
++ int registrar(Edificio)
++ void actualizar(Edificio)
+}
+class com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.actualizar.ActualizadorPeriodoEscolar {
+- PeriodoEscolarRepositorio repositorio
++ <<Create>> ActualizadorPeriodoEscolar(PeriodoEscolarRepositorio)
++ void actualizar(PeriodoEscolar)
+}
+class com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnosData {
+- List<AlumnoData> alumnos
++ <<Create>> AlumnosData(List<AlumnoData>)
++ List<AlumnoData> alumnos()
+}
+class com.gamma.gestorhorariosescolares.clase.aplicacion.registrar.RegistradorClase {
+- ClaseRepositorio repositorio
++ <<Create>> RegistradorClase(ClaseRepositorio)
++ int registrar(int,int)
+}
+class com.gamma.gestorhorariosescolares.maestro.infrestructura.stages.MenuMaestroStage {
++ <<Create>> MenuMaestroStage()
+}
+class com.gamma.gestorhorariosescolares.salon.infrestructura.persistencia.MySql2oSalonRepositorio {
+- Connection conexion
++ <<Create>> MySql2oSalonRepositorio(Connection)
++ List<Salon> buscar(Criteria)
++ int registrar(Salon)
++ void actualizar(Salon)
+}
+class com.gamma.gestorhorariosescolares.secretario.infrestructura.stages.MenuSecretarioStage {
++ <<Create>> MenuSecretarioStage()
+}
+enum com.gamma.gestorhorariosescolares.compartido.dominio.criterio.OrderType {
++  ASC
++  DESC
++  NONE
+- String type
+~ <<Create>> OrderType(String)
++ boolean isNone()
++ boolean isAsc()
++ String value()
+}
+interface com.gamma.gestorhorariosescolares.secretario.dominio.SecretarioRepositorio {
+~ List<Secretario> buscar(Criteria)
+~ int registrar(Secretario)
+~ void actualizar(Secretario)
+}
+class com.gamma.gestorhorariosescolares.materia.aplicacion.registrar.RegistradorMateria {
+- MateriaRepositorio repositorio
++ <<Create>> RegistradorMateria(MateriaRepositorio)
++ int registrar(String,String,int,int,int)
+}
+class com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores.CatalogoAlumnosControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
+- ObservableList<AlumnoData> coleccionAlumnos
+- boolean esBusquedaAlumno
+- TextField txtBuscar
+- TableView<AlumnoData> tablaAlumnos
++ <<Create>> CatalogoAlumnosControlador(Stage)
++ void initialize()
+- void inicializarTabla()
+- void registrarNuevoAlumno()
+- void editarAlumno(AlumnoData)
+- void habilitarAlumno(AlumnoData)
+- void deshabilitarAlumno(AlumnoData)
+- void cambiarEstatus(String,AlumnoData)
++ void buscarAlumnos()
+- void buscarAlumnos(String)
+- void cargarAlumnosEnTabla(AlumnosData)
++ void liberarRecursos()
+}
+interface com.gamma.gestorhorariosescolares.usuario.dominio.UsuarioRepositorio {
+~ List<Usuario> buscar(Criteria)
+~ int registrar(Usuario)
+~ void actualizar(Usuario)
+}
+class com.gamma.gestorhorariosescolares.horario.aplicacion.HorarioDisponibleData {
+- int diaSemana
+- LocalTime horaInicio
+- LocalTime horaFin
+- SalonData salon
+- PeriodoEscolarData periodoEscolar
++ <<Create>> HorarioDisponibleData(int,LocalTime,LocalTime,SalonData,PeriodoEscolarData)
++ {static} HorarioDisponibleData fromAggregate(Horario,SalonData,PeriodoEscolarData)
++ int diaSemana()
++ LocalTime horaInicio()
++ LocalTime horaFin()
++ SalonData salon()
++ PeriodoEscolarData periodoEscolar()
+}
+class com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.stages.FormularioPeriodoEscolarStage {
+- boolean esNuevoRegistro
+- FormularioPeriodoEscolarControlador controladorFormulario
+- PeriodoEscolarData periodoEscolarEdicion
+- AnchorPane panelFormulario
++ <<Create>> FormularioPeriodoEscolarStage()
++ <<Create>> FormularioPeriodoEscolarStage(PeriodoEscolarData)
+- void cargarFormulario()
+}
+class com.gamma.gestorhorariosescolares.administrador.infrestructura.persistencia.MySql2oAdministradorRespositorio {
+- Connection conexion
++ <<Create>> MySql2oAdministradorRespositorio(Connection)
++ List<Administrador> buscar(Criteria)
++ int registrar(Administrador)
++ void actualizar(Administrador)
+}
+class com.gamma.gestorhorariosescolares.maestro.aplicacion.buscar.BuscadorMaestro {
+- MaestroRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorMaestro(MaestroRepositorio)
++ BuscadorMaestro igual(String,String)
++ BuscadorMaestro diferente(String,String)
++ BuscadorMaestro mayorQue(String,String)
++ BuscadorMaestro mayorIgualQue(String,String)
++ BuscadorMaestro menorQue(String,String)
++ BuscadorMaestro menorIgualQue(String,String)
++ BuscadorMaestro contiene(String,String)
++ BuscadorMaestro noContiene(String,String)
++ BuscadorMaestro ordenarAscendente(String)
++ BuscadorMaestro ordenarDescendente(String)
++ BuscadorMaestro esObligatorio()
++ BuscadorMaestro esOpcional()
++ BuscadorMaestro intervalo(int)
++ BuscadorMaestro limite(int)
++ List<Maestro> buscar()
++ Maestro buscarPrimero()
+- void limpiarFiltros()
+}
+class com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filters {
+- List<Filter> filters
++ <<Create>> Filters(List<Filter>)
++ {static} Filters fromValues(List<HashMap<String,String>>)
++ {static} Filters none()
++ List<Filter> filters()
++ String serialize()
+}
+class com.gamma.gestorhorariosescolares.clase.aplicacion.ClaseData {
+- Integer id
+- GrupoData grupo
+- MateriaData materia
+- MaestroData maestro
++ <<Create>> ClaseData(Integer,GrupoData,MateriaData,MaestroData)
++ {static} ClaseData fromAggregate(Clase,GrupoData,MateriaData,MaestroData)
++ Integer id()
++ GrupoData grupo()
++ MateriaData materia()
++ MaestroData maestro()
+}
+class com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores.MateriasMaestroControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
++ <<Create>> MateriasMaestroControlador(Stage)
++ void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.materia.infrestructura.controladores.CatalogoMateriasControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
+- ObservableList<MateriaData> coleccionMaterias
+- boolean esBusquedaMateria
+- TextField txtBuscar
+- TableView<MateriaData> tablaMaterias
++ <<Create>> CatalogoMateriasControlador(Stage)
++ void initialize()
+- void inicializarTabla()
+- void registrarNuevaMateria()
+- void editarMateria(MateriaData)
+- void habilitarMateria(MateriaData)
+- void deshabilitarMateria(MateriaData)
+- void cambiarEstatus(String,MateriaData)
+- void buscarMaterias()
+- void buscarMaterias(String)
+- void cargarMateriaEnTabla(MateriasData)
++ void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.horario.aplicacion.RegistrarHorario {
+- ServicioBuscador<Horario> buscadorHorario
+- ServicioBuscador<Clase> buscadorClase
+- ServicioBuscador<Salon> buscadorSalon
+- ServicioBuscador<Grupo> buscadorGrupo
+- ServicioRegistradorHorario registradorHorario
++ <<Create>> RegistrarHorario(ServicioBuscador<Horario>,ServicioBuscador<Clase>,ServicioBuscador<Salon>,ServicioBuscador<Grupo>,ServicioRegistradorHorario)
++ void registrar(Integer,LocalTime,LocalTime,Integer,Integer)
+}
+class com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.RegistrarPeriodoEscolar {
+- ServicioBuscador<PeriodoEscolar> buscadorPeriodoEscolar
+- RegistradorPeriodoEscolar registradorPeriodoEscolar
++ <<Create>> RegistrarPeriodoEscolar(ServicioBuscador<PeriodoEscolar>,RegistradorPeriodoEscolar)
++ void registrar(String,String,LocalDate,LocalDate)
+}
+class com.gamma.gestorhorariosescolares.evaluacion.aplicacion.registrar.RegistradorEvaluacion {
+- EvaluacionRepositorio repositorio
++ <<Create>> RegistradorEvaluacion(EvaluacionRepositorio)
++ int registrar(String,String,Integer,Integer)
+}
+class com.gamma.gestorhorariosescolares.planestudio.dominio.PlanEstudio {
+- int id
+- String clave
+- String nombre
+- boolean estatus
++ <<Create>> PlanEstudio(int,String,String,boolean)
++ <<Create>> PlanEstudio(String,String)
++ int id()
++ String clave()
++ String nombre()
++ void habilitar()
++ void deshabilitar()
++ boolean estatus()
+}
+class com.gamma.gestorhorariosescolares.salon.aplicacion.actualizar.ActualizadorSalon {
+- SalonRepositorio repositorio
++ <<Create>> ActualizadorSalon(SalonRepositorio)
++ void actualizar(Salon)
+}
+class com.gamma.gestorhorariosescolares.evaluacion.aplicacion.EvaluacionData {
+- Integer id
+- String evaluacion
+- AlumnoData alumno
+- MateriaData materia
++ <<Create>> EvaluacionData(Integer,String,AlumnoData,MateriaData)
+}
+class com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.BuscarPeriodosEscolares {
+- ServicioBuscador<PeriodoEscolar> buscadorPeriodoEscolar
++ <<Create>> BuscarPeriodosEscolares(ServicioBuscador<PeriodoEscolar>)
++ PeriodosEscolaresData buscarTodos()
++ PeriodosEscolaresData buscarHabilitados()
++ PeriodosEscolaresData buscarPorCriterio(String)
+}
+class com.gamma.gestorhorariosescolares.materia.aplicacion.MateriaClaseData {
+- Integer id
+- String clave
+- String nombre
+- Integer horasPracticas
+- Integer horasTeoricas
++ <<Create>> MateriaClaseData(Integer,String,String,Integer,Integer)
++ {static} MateriaClaseData fromAggregate(Materia)
++ Integer id()
++ String clave()
++ String nombre()
++ Integer horasPracticas()
++ Integer horasTeoricas()
+}
+class com.gamma.gestorhorariosescolares.edificio.aplicacion.EdificiosData {
+- List<EdificioData> edificios
++ <<Create>> EdificiosData(List<Edificio>)
++ List<EdificioData> edificios()
+}
+class com.gamma.gestorhorariosescolares.salon.aplicacion.GestionarEstatusSalon {
+- ServicioBuscador<Salon> buscadorSalon
+- ServicioActualizadorSalon actualizadorSalon
++ <<Create>> GestionarEstatusSalon(ServicioBuscador<Salon>,ServicioActualizadorSalon)
++ void habilitarSalon(int)
++ void deshabilitarSalon(int)
+}
+class com.gamma.gestorhorariosescolares.evaluacion.dominio.Evaluacion {
+- int id
+- String calificacion
+- String tipo
+- Integer idMateria
+- Integer idAlumno
++ <<Create>> Evaluacion(int,String,String,Integer,Integer)
++ <<Create>> Evaluacion(String,String,Integer,Integer)
++ int id()
++ String calificacion()
++ String tipo()
++ Integer idMateria()
++ Integer idAlumno()
+}
+class com.gamma.gestorhorariosescolares.planestudio.aplicacion.EliminarPlanEstudio {
+- ServicioBuscador<PlanEstudio> buscadorPlanEstudio
+- ServicioBuscador<Grado> buscadorGrado
+- ServicioEliminadorPlanEstudio eliminadorPlanEstudio
++ <<Create>> EliminarPlanEstudio(ServicioBuscador<PlanEstudio>,ServicioBuscador<Grado>,ServicioEliminadorPlanEstudio)
++ void eliminar(int)
+}
+class com.gamma.gestorhorariosescolares.grado.aplicacion.BuscarGrados {
+- ServicioBuscador<Grado> buscadorGrado
++ <<Create>> BuscarGrados(ServicioBuscador<Grado>)
++ GradosData buscarTodos()
++ GradosData buscarPorPlanEstudio(Integer)
++ GradosData buscarHabilitadosPorPlanEstudio(Integer)
+}
+class com.gamma.gestorhorariosescolares.inscripcion.aplicacion.InscripcionGrupoData {
+- Integer id
+- LocalDate fechaRegistro
+- AlumnoInscripcionData alumno
+- GrupoInscripcionData grupo
++ <<Create>> InscripcionGrupoData(Integer,LocalDate,AlumnoInscripcionData,GrupoInscripcionData)
++ {static} InscripcionGrupoData fromAggregate(Inscripcion,AlumnoInscripcionData,GrupoInscripcionData)
++ Integer id()
++ LocalDate fechaRegistro()
++ AlumnoInscripcionData alumno()
++ GrupoInscripcionData grupo()
+}
+class com.gamma.gestorhorariosescolares.CalendarView {
+- ObjectProperty<YearMonth> month
+- ObjectProperty<Locale> locale
+- BorderPane view
+- GridPane calendar
++ <<Create>> CalendarView(YearMonth)
++ <<Create>> CalendarView()
++ void nextMonth()
++ void previousMonth()
+- void rebuildCalendar()
++ Node getView()
++ ObjectProperty<YearMonth> monthProperty()
++ YearMonth getMonth()
++ void setMonth(YearMonth)
++ ObjectProperty<Locale> localeProperty()
++ java.util.Locale getLocale()
++ void setLocale(java.util.Locale)
+}
+class com.gamma.gestorhorariosescolares.edificio.dominio.Edificio {
+- int id
+- String clave
+- String nombre
+- boolean estatus
++ <<Create>> Edificio(int,String,String,boolean)
++ <<Create>> Edificio(String,String)
++ int id()
++ String clave()
++ String nombre()
++ void habilitar()
++ void deshabilitar()
++ boolean estatus()
+}
+class com.gamma.gestorhorariosescolares.clase.aplicacion.actualizar.ActualizadorClase {
+- ClaseRepositorio repositorio
++ <<Create>> ActualizadorClase(ClaseRepositorio)
++ void actualizar(Clase)
+}
+class com.gamma.gestorhorariosescolares.administrador.aplicacion.AdministradorData {
+- Integer id
+- String noPersonal
+- String nombre
+- String apellidoPaterno
+- String apellidoMaterno
+- Boolean estatus
+- UsuarioData usuario
++ <<Create>> AdministradorData(int,String,String,String,String,boolean,UsuarioData)
++ {static} AdministradorData fromAggregate(Administrador,Usuario)
++ int id()
++ String noPersonal()
++ String nombre()
++ String apellidoPaterno()
++ String apellidoMaterno()
++ boolean estatus()
++ UsuarioData usuario()
+}
+class com.gamma.gestorhorariosescolares.secretario.infrestructura.stages.FormularioSecretarioStage {
+- boolean esNuevoRegistro
+- SecretarioData secretarioEdicion
+- AnchorPane panelFormulario
+- FormularioSecretarioControlador controladorFormulario
++ <<Create>> FormularioSecretarioStage()
++ <<Create>> FormularioSecretarioStage(SecretarioData)
+- void cargarFormulario()
+}
+interface com.gamma.gestorhorariosescolares.grupo.dominio.GrupoRepositorio {
+~ List<Grupo> buscar(Criteria)
+~ int registrar(Grupo)
+~ void actualizar(Grupo)
+}
+class com.gamma.gestorhorariosescolares.secretario.infrestructura.controladores.FormularioSecretarioControlador {
+- Stage stage
+- boolean esNuevoRegistro
+- SecretarioData secretario
+- TextField txtNoPersonal
+- TextField txtNombre
+- TextField txtApellidoPaterno
+- TextField txtApellidoMaterno
+- TextField txtTelefono
+- TextField txtCorreoElectronico
+- TextField txtClaveAcceso
+- TextField txtConfirmarClaveAcceso
++ <<Create>> FormularioSecretarioControlador(Stage)
++ <<Create>> FormularioSecretarioControlador(Stage,SecretarioData)
++ void initialize()
+- void cargarDatosSecretario()
+- void guardarSecretario()
+- Boolean sonValidosDatosFormulario(String,String,String,String,String,String,String,String)
++ void registrarSecretario(String,String,String,String,String,String,String)
++ void actualizarSecretario(String,String,String,String,String,String,String)
+- void cerrarFormulario()
+}
+class com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores.CalificacionesAlumnoControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
++ <<Create>> CalificacionesAlumnoControlador(Stage)
++ void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.grado.aplicacion.RegistrarGrado {
+}
+class com.gamma.gestorhorariosescolares.grupo.aplicacion.RegistrarGrupo {
+- ServicioBuscador<Grupo> buscadorGrupo
+- ServicioBuscador<Grado> buscadorGrado
+- ServicioBuscador<Materia> buscadorMateria
+- ServicioBuscador<PeriodoEscolar> buscadorPeriodoEscolar
+- ServicioRegistradorGrupo registradorGrupo
+- ServicioRegistradorClase registradorClase
++ <<Create>> RegistrarGrupo(ServicioBuscador<Grupo>,ServicioBuscador<Grado>,ServicioBuscador<Materia>,ServicioBuscador<PeriodoEscolar>,ServicioRegistradorGrupo,ServicioRegistradorClase)
++ void registrar(String,String,Integer,Integer)
+}
+abstract class com.gamma.gestorhorariosescolares.compartido.dominio.IntValueObject {
+- Integer value
++ <<Create>> IntValueObject(Integer)
++ Integer value()
++ boolean equals(Object)
++ int hashCode()
+}
+class com.gamma.gestorhorariosescolares.compartido.dominio.criterio.FilterField {
++ <<Create>> FilterField(String)
+}
+class com.gamma.gestorhorariosescolares.horario.infrestructura.controladores.FormularioRegistrarHorarioClaseControlador {
+- HorarioDisponibleData horarioDisponible
+- Stage stage
+- ObservableList<GrupoData> coleccionGrupos
+- ObservableList<ClaseGrupoData> coleccionClassesGrupo
+- Label lblEdificio
+- Label lblSalon
+- Label lblPeriodoEscolar
+- Label lblHoraInicio
+- Label lblHoraFin
+- Label lblDia
+- ComboBox<GrupoData> cbxGrupo
+- ComboBox<ClaseGrupoData> cbxMateria
++ <<Create>> FormularioRegistrarHorarioClaseControlador(Stage,HorarioDisponibleData)
+- void initialize()
+- void inicializarCbxGrupo()
+- void cargarGrupos()
+- void inicializarCbxMateria()
+- void cargarMaterias(GrupoData)
+- void cargarDatosHorarioDisponible()
+- void guardarHorario()
+- boolean validarCampos()
+- void cerrarFormulario()
+}
+class com.gamma.gestorhorariosescolares.materia.infrestructura.controladores.FormularioMateriaControlador {
+- Stage stage
+- boolean esNuevoRegistro
+- MateriaData materia
+- ComboBox<PlanEstudioData> cbxPlanEstudio
+- ComboBox<GradoData> cbxGrado
+- TextField txtClave
+- TextField txtNombre
+- TextField txtHorasPracticas
+- TextField txtHorasTeoricas
++ <<Create>> FormularioMateriaControlador(Stage)
++ <<Create>> FormularioMateriaControlador(Stage,MateriaData)
++ void initialize()
+- void cargarComboBoxPlanEstudio()
+- void cargarComboBoxGrado()
+- void cargarDatosMateria()
+- void guardarMateria()
+- Boolean sonValidosDatosFormulario(GradoData,String,String,String,String)
+- void registarMateria(String,String,int,int,GradoData)
+- void actualizarMateria(int,String,String,int,int,PlanEstudioData,GradoData,boolean)
+- void cerrarFormulario()
+}
+class com.gamma.gestorhorariosescolares.usuario.dominio.Usuario {
+- int id
+- String tipo
+- String telefono
+- String correoElectronico
+- String claveAcceso
++ <<Create>> Usuario(int,String,String,String,String)
++ <<Create>> Usuario(String,String,String,String)
++ int id()
++ String telefono()
++ String correoElectronico()
++ String claveAcceso()
++ String tipo()
+}
+class com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.NoPersonalDuplicadoException {
++ <<Create>> NoPersonalDuplicadoException()
++ <<Create>> NoPersonalDuplicadoException(String)
+}
+class com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.registrar.RegistradorPeriodoEscolar {
+- PeriodoEscolarRepositorio repositorio
++ <<Create>> RegistradorPeriodoEscolar(PeriodoEscolarRepositorio)
++ int registrar(String,String,Date,Date)
+}
+class com.gamma.gestorhorariosescolares.planestudio.aplicacion.PlanesEstudioData {
+- List<PlanEstudioData> planesEstudio
++ <<Create>> PlanesEstudioData(List<PlanEstudio>)
++ List<PlanEstudioData> planesEstudio()
+}
+class com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnoInscripcionData {
+- int id
+- String matricula
+- String nombre
+- String apellidoPaterno
+- String apellidoMaterno
++ <<Create>> AlumnoInscripcionData(int,String,String,String,String)
++ {static} AlumnoInscripcionData fromAggregate(Alumno)
++ int id()
++ String matricula()
++ String nombre()
++ String apellidoPaterno()
++ String apellidoMaterno()
+}
+interface com.gamma.gestorhorariosescolares.grupo.aplicacion.registrar.ServicioRegistradorGrupo {
+~ int registrar(String,String,int,int)
+}
+class com.gamma.gestorhorariosescolares.edificio.aplicacion.EdificioData {
+- Integer id
+- String clave
+- String nombre
+- Boolean estatus
++ <<Create>> EdificioData(Integer,String,String,Boolean)
++ {static} EdificioData fromAggregate(Edificio)
++ Integer id()
++ String clave()
++ String nombre()
++ Boolean estatus()
+}
+class com.gamma.gestorhorariosescolares.clase.aplicacion.AsignarMaestro {
+- ServicioBuscador<Clase> buscadorClase
+- ServicioBuscador<Maestro> buscadorMaestro
+- ServicioBuscador<Grupo> buscadorGrupo
+- ServicioBuscador<Horario> buscadorHorario
+- ServicioActualizadorClase actualizadorClase
++ <<Create>> AsignarMaestro(ServicioBuscador<Clase>,ServicioBuscador<Maestro>,ServicioBuscador<Grupo>,ServicioBuscador<Horario>,ServicioActualizadorClase)
++ void asignar(int,int)
+}
+class com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.BordersCustomStage {
+- Stage stage
+- Pane topBorder
+- Pane topRightBorder
+- Pane topLeftBorder
+- Pane rightBorder
+- Pane leftBorder
+- Pane bottomBorder
+- Pane bottomRightBorder
+- Pane bottomLeftBorder
+- double prePositionX
+- double prePositionY
+- double preWidth
+- double preHeight
++ <<Create>> BordersCustomStage(Stage)
+- void loadBorders()
+- void loadBottomLeftBorder()
+- void loadBottomRightBorder()
+- void loadBottomBorder()
+- void loadLeftBorder()
+- void loadRightBorder()
+- void loadTopLeftBorder()
+- void loadTopRightBorder()
+- void loadTopBorder()
+- void PressedDetected(MouseEvent)
+- void loadResizeableConfiguration()
+- void loadMaximizedConfiguration()
+- void setLocation(double,double,double,double)
+- double calculateHeight(double)
+- double calculateWidth(double)
+}
+class com.gamma.gestorhorariosescolares.secretario.aplicacion.BuscarSecretarios {
+- ServicioBuscador<Secretario> buscadorSecretario
+- ServicioBuscador<Usuario> buscadorUsuario
++ <<Create>> BuscarSecretarios(ServicioBuscador<Secretario>,ServicioBuscador<Usuario>)
++ SecretariosData buscarTodos()
++ SecretariosData buscarHabilitados()
++ SecretariosData buscarPorCriterio(String)
+}
+interface com.gamma.gestorhorariosescolares.periodoescolar.dominio.PeriodoEscolarRepositorio {
+~ List<PeriodoEscolar> buscar(Criteria)
+~ int registrar(PeriodoEscolar)
+~ void actualizar(PeriodoEscolar)
+}
+class com.gamma.gestorhorariosescolares.maestro.infrestructura.stages.FormularioMaestroStage {
+- boolean esNuevoRegistro
+- FormularioMaestroControlador controladorFormulario
+- MaestroData maestroEdicion
+- AnchorPane panelFormulario
+- boolean sePuedeMostrar
++ <<Create>> FormularioMaestroStage()
++ <<Create>> FormularioMaestroStage(MaestroData)
+- void cargarFormulario()
++ void showAndWait()
+}
+class com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores.MenuAlumnoControlador {
+- Stage stage
+- AnchorPane panelHorarioAlumno
+- HorarioAlumnoControlador controladorHorarioAlumno
+- AnchorPane panelMateriasAlumno
+- MateriasAlumnoControlador controladorMateriasAlumno
+- AnchorPane panelCalificacionesAlumno
+- CalificacionesAlumnoControlador controladorCalificacionesAlumno
+- BorderPane panelMenuAlumno
+- VBox vbMenu
+- Button btnConsultarHorario
+- Button btnConsultarMaterias
+- Button btnConsultarCalificaciones
+- Button btnCerrarSesion
++ <<Create>> MenuAlumnoControlador(Stage)
++ void initialize()
+# void mostrarHorarioClick()
+# void mostrarMateriasClick()
+# void mostrarCalificacionesClick()
+# void cerrarSesionClick()
+- void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.maestro.aplicacion.RegistrarMaestro {
+- ServicioBuscador<Maestro> buscadorMaestro
+- ServicioRegistradorMaestro registradorMaestro
+- ServicioBuscador<Usuario> buscadorUsuario
+- ServicioRegistradorUsuario registradorUsuario
++ <<Create>> RegistrarMaestro(ServicioBuscador<Maestro>,ServicioRegistradorMaestro,ServicioBuscador<Usuario>,ServicioRegistradorUsuario)
++ void registrar(String,String,String,String,String,String,String)
+}
+class com.gamma.gestorhorariosescolares.clase.aplicacion.RegistrarClase {
+- ServicioBuscador<Grupo> buscadorGrupo
+- ServicioBuscador<Materia> buscadorMateria
+- ServicioRegistradorClase registradorClase
++ <<Create>> RegistrarClase(ServicioBuscador<Grupo>,ServicioBuscador<Materia>,ServicioRegistradorClase)
++ void registrar(int,int)
+}
+interface com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.registrar.ServicioRegistradorPeriodoEscolar {
+~ int registrar(String,String,Date,Date)
+}
+class com.gamma.gestorhorariosescolares.compartido.dominio.criterio.OrderBy {
++ <<Create>> OrderBy(String)
+}
+class com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria {
+- Filters filters
+- Order order
+- Optional<Integer> limit
+- Optional<Integer> offset
++ <<Create>> Criteria(Filters,Order,Optional<Integer>,Optional<Integer>)
++ <<Create>> Criteria(Filters,Order)
++ Filters filters()
++ Order order()
++ Optional<Integer> limit()
++ Optional<Integer> offset()
++ boolean hasFilters()
++ String serialize()
+}
+class com.gamma.gestorhorariosescolares.inscripcion.dominio.Inscripcion {
+- int id
+- Date fechaRegistro
+- int idGrado
+- int idPeriodoEscolar
+- int idAlumno
++ <<Create>> Inscripcion(int,Date,int,int,int)
++ <<Create>> Inscripcion(int,int,int)
++ int id()
++ Date fechaRegistro()
++ int idGrado()
++ int idPeriodoEscolar()
++ int idAlumno()
+}
+class com.gamma.gestorhorariosescolares.grupo.aplicacion.GrupoData {
+- Integer id
+- String clave
+- String nombre
+- Integer numAlumnos
+- GradoData grado
+- PeriodoEscolarData periodoEscolar
++ <<Create>> GrupoData(Integer,String,String,Integer,GradoData,PeriodoEscolarData)
++ {static} GrupoData fromAggregate(Grupo,GradoData,PeriodoEscolarData)
++ Integer id()
++ String clave()
++ String nombre()
++ Integer numAlumnos()
++ GradoData grado()
++ PeriodoEscolarData periodoEscolar()
+}
+class com.gamma.gestorhorariosescolares.salon.aplicacion.registrar.RegistradorSalon {
+- SalonRepositorio repositorio
++ <<Create>> RegistradorSalon(SalonRepositorio)
++ int registrar(String,int,int)
+}
+interface com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.actualizar.ServicioActualizadorPeriodoEscolar {
+~ void actualizar(PeriodoEscolar)
+}
+class com.gamma.gestorhorariosescolares.inscripcion.aplicacion.InscripcionesGrupoData {
+- List<InscripcionGrupoData> inscripciones
++ <<Create>> InscripcionesGrupoData(List<InscripcionGrupoData>)
++ List<InscripcionGrupoData> inscripciones()
+}
+class com.gamma.gestorhorariosescolares.maestro.aplicacion.ActualizarMaestro {
+- ServicioBuscador<Maestro> buscadorMaestro
+- ServicioActualizadorMaestro actualizadorMaestro
+- ServicioBuscador<Usuario> buscadorUsuario
+- ServicioActualizadorUsuario actualizadorUsuario
++ <<Create>> ActualizarMaestro(ServicioBuscador<Maestro>,ServicioActualizadorMaestro,ServicioBuscador<Usuario>,ServicioActualizadorUsuario)
++ void actualizar(MaestroData)
+}
+interface com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador {
+~ ServicioBuscador<T> igual(String,String)
+~ ServicioBuscador<T> diferente(String,String)
+~ ServicioBuscador<T> mayorQue(String,String)
+~ ServicioBuscador<T> mayorIgualQue(String,String)
+~ ServicioBuscador<T> menorQue(String,String)
+~ ServicioBuscador<T> menorIgualQue(String,String)
+~ ServicioBuscador<T> contiene(String,String)
+~ ServicioBuscador<T> noContiene(String,String)
+~ ServicioBuscador<T> ordenarAscendente(String)
+~ ServicioBuscador<T> ordenarDescendente(String)
+~ ServicioBuscador<T> esObligatorio()
+~ ServicioBuscador<T> esOpcional()
+~ ServicioBuscador<T> intervalo(int)
+~ ServicioBuscador<T> limite(int)
+~ List<T> buscar()
+~ T buscarPrimero()
+}
+class com.gamma.gestorhorariosescolares.salon.aplicacion.ActualizarSalon {
+- ServicioBuscador<Edificio> buscadorEdificio
+- ServicioBuscador<Salon> buscadorSalon
+- ServicioActualizadorSalon actualizadorSalon
++ <<Create>> ActualizarSalon(ServicioBuscador<Edificio>,ServicioBuscador<Salon>,ServicioActualizadorSalon)
++ void actualizar(SalonData)
+}
+class com.gamma.gestorhorariosescolares.horario.aplicacion.HorarioData {
+- int id
+- int diaSemana
+- LocalTime horaInicio
+- LocalTime horaFin
++ <<Create>> HorarioData(int,int,LocalTime,LocalTime)
+}
+class com.gamma.gestorhorariosescolares.grupo.dominio.Grupo {
+- int id
+- String clave
+- String nombre
+- int idGrado
+- int idPeriodoEscolar
+- int[] idInscripciones
++ <<Create>> Grupo(int,String,String,int,int[],int)
++ <<Create>> Grupo(String,String,int,int)
++ int id()
++ String clave()
++ String nombre()
++ int idGrado()
++ int[] idInscripciones()
++ void agregarInscripcion(int)
++ void removerInscripcion(int)
++ boolean estaInscrito(int)
++ int idPeriodoEscolar()
+}
+class com.gamma.gestorhorariosescolares.compartido.dominio.IntArrayUtils {
++ {static} boolean contains(int[],int)
++ {static} int[] add(int[],int)
++ {static} int[] remove(int[],int)
+}
+class com.gamma.gestorhorariosescolares.administrador.infrestructura.controladores.FormularioAdministradorControlador {
+- Stage stage
+- boolean esNuevoRegistro
+- AdministradorData administrador
+- TextField txtNoPersonal
+- TextField txtNombre
+- TextField txtApellidoPaterno
+- TextField txtApellidoMaterno
+- TextField txtTelefono
+- TextField txtCorreoElectronico
+- TextField txtClaveAcceso
+- TextField txtConfirmarClaveAcceso
++ <<Create>> FormularioAdministradorControlador(Stage)
++ <<Create>> FormularioAdministradorControlador(Stage,AdministradorData)
++ void initialize()
+- void guardarAdministrador()
+- void cerrarFormulario()
+- void cargarDatosAdministrador()
++ void registrarAdministrador(String,String,String,String,String,String,String)
++ void actualizarAdministrador(String,String,String,String,String,String,String)
+- Boolean sonValidosDatosFormulario(String,String,String,String,String,String,String,String)
+}
+class com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.TitleBar {
+- Stage stage
+- Label title
+- HBox captionButtons
+- double xOffset
+- double yOffset
++ <<Create>> TitleBar(Stage)
+- void loadTitleBar()
+- void loadTitle()
+- void loadCaptionButtons()
+}
+class com.gamma.gestorhorariosescolares.evaluacion.aplicacion.buscar.BuscadorEvaluacion {
+- EvaluacionRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorEvaluacion(EvaluacionRepositorio)
++ BuscadorEvaluacion igual(String,String)
++ BuscadorEvaluacion diferente(String,String)
++ BuscadorEvaluacion mayorQue(String,String)
++ BuscadorEvaluacion mayorIgualQue(String,String)
++ BuscadorEvaluacion menorQue(String,String)
++ BuscadorEvaluacion menorIgualQue(String,String)
++ BuscadorEvaluacion contiene(String,String)
++ BuscadorEvaluacion noContiene(String,String)
++ BuscadorEvaluacion ordenarAscendente(String)
++ BuscadorEvaluacion ordenarDescendente(String)
++ BuscadorEvaluacion esObligatorio()
++ BuscadorEvaluacion esOpcional()
++ BuscadorEvaluacion intervalo(int)
++ BuscadorEvaluacion limite(int)
++ List<Evaluacion> buscar()
++ Evaluacion buscarPrimero()
+- void limpiarFiltros()
+}
+interface com.gamma.gestorhorariosescolares.clase.dominio.ClaseRepositorio {
+~ List<Clase> buscar(Criteria)
+~ int registar(Clase)
+~ void actualizar(Clase)
+}
+class com.gamma.gestorhorariosescolares.materia.aplicacion.BuscarMaterias {
+- ServicioBuscador<Materia> buscadorMateria
+- ServicioBuscador<Grado> buscadorGrado
+- ServicioBuscador<PlanEstudio> buscadorPlanEstudio
++ <<Create>> BuscarMaterias(ServicioBuscador<Materia>,ServicioBuscador<Grado>,ServicioBuscador<PlanEstudio>)
++ MateriasData buscarTodos()
++ MateriasData buscarHabilitados()
++ MateriasData buscarPorCriterio(String)
++ MateriasData buscarPorGrado(GradoData)
+- List<MateriaData> prepararMateriasData(List<Materia>)
+}
+class com.gamma.gestorhorariosescolares.edificio.aplicacion.BuscarEdificios {
+- ServicioBuscador<Edificio> buscadorEdificio
++ <<Create>> BuscarEdificios(ServicioBuscador<Edificio>)
++ EdificiosData buscarTodos()
++ EdificiosData buscarHabilitados()
++ EdificiosData buscarPorCriterio(String)
+}
+class com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores.HorarioAlumnoControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
++ <<Create>> HorarioAlumnoControlador(Stage)
++ void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.inscripcion.aplicacion.RegistrarInscripcionParcial {
+}
+class com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores.CatalogoMaestrosControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
+- ObservableList<MaestroData> coleccionMaestros
+- Boolean esBusquedaDeMaestro
+- TextField txtBuscar
+- TableView<MaestroData> tablaMaestros
++ <<Create>> CatalogoMaestrosControlador(Stage)
++ void initialize()
+- void inicializarTabla()
+- void registrarNuevoMaestro()
+- void editarMaestro(MaestroData)
+- void habilitarMaestro(MaestroData)
+- void deshabilitarMaestro(MaestroData)
+- void cambiarEstatus(String,MaestroData)
++ void buscarMaestros()
+- void buscarMaestros(String)
+- void cargarMaestrosEnTabla(MaestrosData)
++ void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.planestudio.aplicacion.BuscarPlanesEstudio {
+- ServicioBuscador<PlanEstudio> buscadorPlanEstudio
++ <<Create>> BuscarPlanesEstudio(ServicioBuscador<PlanEstudio>)
++ PlanesEstudioData buscarTodos()
++ PlanesEstudioData buscarHabilitados()
++ PlanesEstudioData buscarPorCriterio(String)
+}
+class com.gamma.gestorhorariosescolares.secretario.aplicacion.buscar.BuscadorSecretario {
+- SecretarioRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorSecretario(SecretarioRepositorio)
++ BuscadorSecretario igual(String,String)
++ BuscadorSecretario diferente(String,String)
++ BuscadorSecretario mayorQue(String,String)
++ BuscadorSecretario mayorIgualQue(String,String)
++ BuscadorSecretario menorQue(String,String)
++ BuscadorSecretario menorIgualQue(String,String)
++ BuscadorSecretario contiene(String,String)
++ BuscadorSecretario noContiene(String,String)
++ BuscadorSecretario ordenarAscendente(String)
++ BuscadorSecretario ordenarDescendente(String)
++ BuscadorSecretario esObligatorio()
++ BuscadorSecretario esOpcional()
++ BuscadorSecretario intervalo(int)
++ BuscadorSecretario limite(int)
++ List<Secretario> buscar()
++ Secretario buscarPrimero()
+- void limpiarFiltros()
+}
+interface com.gamma.gestorhorariosescolares.horario.dominio.HorarioRepositorio {
+~ List<Horario> buscar(Criteria)
+~ int registrar(Horario)
+~ void actualizar(Horario)
+~ void eliminar(int)
+}
+class com.gamma.gestorhorariosescolares.clase.aplicacion.BuscarClasesPorGrupo {
+- ServicioBuscador<Grupo> buscadorGrupo
+- ServicioBuscador<Clase> buscadorClase
+- ServicioBuscador<Materia> buscadorMateria
+- ServicioBuscador<Maestro> buscadorMaestro
++ <<Create>> BuscarClasesPorGrupo(ServicioBuscador<Grupo>,ServicioBuscador<Clase>,ServicioBuscador<Materia>,ServicioBuscador<Maestro>)
++ ClasesGrupoData buscar(Integer)
+}
+class com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.controladores.CatalogoPeriodosEscolaresControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
+- ObservableList<PeriodoEscolarData> coleccionPeriodosEscolares
+- boolean esBusquedaPeriodoEscolar
+- TextField txtBuscar
+- TableView<PeriodoEscolarData> tablaPeriodosEscolares
++ <<Create>> CatalogoPeriodosEscolaresControlador(Stage)
++ void initialize()
+- void inicializarTabla()
+- void registrarNuevoPeriodoEscolar()
+- void editarPeriodoEscolar(PeriodoEscolarData)
+- void habilitarPeriodoEscolar(PeriodoEscolarData)
+- void deshabilitarPeriodoEscolar(PeriodoEscolarData)
+- void cambiarEstatus(String,PeriodoEscolarData)
+- void buscarPeriodosEscolares()
+- void buscarPeriodosEscolares(String)
+- void cargarPeriodosEscolaresEnTabla(PeriodosEscolaresData)
++ void liberarRecursos()
+}
+interface com.gamma.gestorhorariosescolares.grado.dominio.GradoRepositorio {
+~ List<Grado> buscar(Criteria)
+~ int registrar(Grado)
+~ void actualizar(Grado)
+~ void eliminar(int)
+}
+class com.gamma.gestorhorariosescolares.grado.aplicacion.GradoData {
+- Integer id
+- String clave
+- String nombre
+- Integer idPlanEstudio
+- Boolean estatus
++ <<Create>> GradoData(Integer,String,String,Integer,Boolean)
++ {static} GradoData fromAggregate(Grado)
++ Integer id()
++ String clave()
++ String nombre()
++ Integer idPlanEstudio()
++ Boolean estatus()
+}
+class com.gamma.gestorhorariosescolares.clase.dominio.Clase {
+- ClaseId id
+- int idGrupo
+- int idMateria
+- MaestroId idMaestro
++ <<Create>> Clase(ClaseId,int,int,MaestroId)
++ <<Create>> Clase(int,int)
++ ClaseId id()
++ int idGrupo()
++ int idMateria()
++ MaestroId idMaestro()
++ void asignarIdMaestro(int)
+}
+class com.gamma.gestorhorariosescolares.planestudio.aplicacion.actualizar.ActualizadorPlanEstudio {
+- PlanEstudioRepositorio repositorio
++ <<Create>> ActualizadorPlanEstudio(PlanEstudioRepositorio)
++ void actualizar(PlanEstudio)
+}
+class com.gamma.gestorhorariosescolares.periodoescolar.dominio.PeriodoEscolar {
+- int id
+- String clave
+- String nombre
+- Date fechaInicio
+- Date fechaFin
+- boolean estatus
++ <<Create>> PeriodoEscolar(int,String,String,Date,Date,boolean)
++ <<Create>> PeriodoEscolar(String,String,Date,Date)
++ int id()
++ String clave()
++ String nombre()
++ Date fechaInicio()
++ Date fechaFin()
++ void habilitar()
++ void deshabilitar()
++ boolean estatus()
+}
+class com.gamma.gestorhorariosescolares.secretario.infrestructura.controladores.MenuSecretarioControlador {
+- Stage stage
+- AnchorPane panelCatalogoGrupos
+- CatalogoGruposControlador controladorGrupos
+- AnchorPane panelHorariosDisponibles
+- HorariosDisponiblesControlador controladorHorariosDisponibles
+- BorderPane panelMenuSecretario
+- VBox vbMenu
+- Button btnCatalogoGrupos
+- Button btnCatalogoInscripciones
+- Button btnConsultarHorarios
+- Button btnRegistrarClase
+- Button btnCerrarSesion
++ <<Create>> MenuSecretarioControlador(Stage)
++ void initialize()
+# void mostrarCatalogoGruposClick()
+# void mostrarCatalogoInscripcionesClick()
+# void mostrarConsultarHorariosClick()
+# void mostrarRegistrarClaseClick()
+# void cerrarSesionClick()
+- void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Filter {
+- FilterField field
+- FilterOperator operator
+- FilterValue value
+- Boolean isObligatory
++ <<Create>> Filter(FilterField,FilterOperator,FilterValue)
++ {static} Filter create(String,String,String)
++ {static} Filter fromValues(HashMap<String,String>)
++ FilterField field()
++ FilterOperator operator()
++ FilterValue value()
++ Boolean isObligatory()
++ void optional()
++ void obligatory()
++ String serialize()
+}
+class com.gamma.gestorhorariosescolares.usuario.aplicacion.actualizar.ActualizadorUsuario {
+- UsuarioRepositorio repositorio
++ <<Create>> ActualizadorUsuario(UsuarioRepositorio)
++ void actualizar(Usuario)
+- boolean esValidoCorreoElectronico(String)
+- boolean esValidoTelefono(String)
+}
+class com.gamma.gestorhorariosescolares.grupo.aplicacion.GruposData {
+- List<GrupoData> grupos
++ <<Create>> GruposData(List<GrupoData>)
++ List<GrupoData> grupos()
+}
+interface com.gamma.gestorhorariosescolares.edificio.aplicacion.actualizar.ServicioActualizadorEdificio {
+~ void actualizar(Edificio)
+}
+class com.gamma.gestorhorariosescolares.usuario.infrestructura.controladores.LoginControlador {
+- Stage stage
+- TextField txtUsuario
+- PasswordField txtClaveAcceso
+- Button btnIngresar
++ <<Create>> LoginControlador(Stage)
+# void ingresarClick()
+- boolean hayCamposVacios(String,String)
+- UsuarioData ingresar(String,String)
+- void mostrarMenu(UsuarioData)
+}
+class com.gamma.gestorhorariosescolares.grupo.aplicacion.RemoverInscripcion {
+- ServicioBuscador<Grupo> buscadorGrupo
+- ServicioBuscador<Inscripcion> buscadorInscripcion
+- ServicioBuscador<Clase> buscadorClase
+- ServicioBuscador<Evaluacion> buscadorEvaluacion
+- ServicioActualizadorGrupo actualizadorGrupo
++ <<Create>> RemoverInscripcion(ServicioBuscador<Grupo>,ServicioBuscador<Inscripcion>,ServicioBuscador<Clase>,ServicioBuscador<Evaluacion>,ServicioActualizadorGrupo)
++ void remover(int,int)
+}
+class com.gamma.gestorhorariosescolares.administrador.aplicacion.GestionarEstatusAdministrador {
+- ServicioBuscador<Administrador> buscadorAdministrador
+- ServicioActualizadorAdministrador actualizadorAdministrador
++ <<Create>> GestionarEstatusAdministrador(ServicioBuscador<Administrador>,ServicioActualizadorAdministrador)
++ void habilitarAdministrador(int)
++ void deshabilitarAdministrador(int)
+}
+class com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestrosData {
+- List<MaestroData> maestros
++ <<Create>> MaestrosData(List<MaestroData>)
++ List<MaestroData> maestros()
+}
+class com.gamma.gestorhorariosescolares.usuario.aplicacion.Autenticacion {
+- ServicioBuscador<Usuario> buscadorUsuario
++ <<Create>> Autenticacion(ServicioBuscador<Usuario>)
++ UsuarioData ingresar(String,String)
+}
+interface com.gamma.gestorhorariosescolares.planestudio.aplicacion.eliminar.ServicioEliminadorPlanEstudio {
+~ void eliminar(int)
+}
+class com.gamma.gestorhorariosescolares.materia.infrestructura.persistencia.MySql2oMateriaRepositorio {
+- Connection conexion
++ <<Create>> MySql2oMateriaRepositorio(Connection)
++ List<Materia> buscar(Criteria)
++ int registrar(Materia)
++ void actualizar(Materia)
+}
+class com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.InicializarPanel {
++ {static} AnchorPane inicializarAnchorPane(String,Object)
+}
+class com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.MatriculaDuplicadaException {
++ <<Create>> MatriculaDuplicadaException()
++ <<Create>> MatriculaDuplicadaException(String)
+}
+class com.gamma.gestorhorariosescolares.usuario.infrestructura.stages.LoginStage {
++ <<Create>> LoginStage()
+}
+class com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores.FormularioMaestroControlador {
+- Stage stage
+- boolean esNuevoRegistro
+- MaestroData maestro
+- TextField txtNoPersonal
+- TextField txtNombre
+- TextField txtApellidoPaterno
+- TextField txtApellidoMaterno
+- TextField txtTelefono
+- TextField txtCorreoElectronico
+- TextField txtClaveAcceso
+- TextField txtConfirmarClaveAcceso
++ <<Create>> FormularioMaestroControlador(Stage)
++ <<Create>> FormularioMaestroControlador(Stage,MaestroData)
++ void initialize()
+- void cargarDatosMaestro()
+- void guardarMaestro()
+- void registrarMaestro(String,String,String,String,String,String,String)
+- void actualizarMaestro(String,String,String,String,String,String,String)
+- void cerrarFormulario()
+- Boolean sonValidosDatosFormulario(String,String,String,String,String,String,String,String)
+}
+class com.gamma.gestorhorariosescolares.edificio.aplicacion.RegistrarEdificio {
+- ServicioBuscador<Edificio> buscadorEdificio
+- ServicioRegistradorEdificio registradorEdificio
++ <<Create>> RegistrarEdificio(ServicioBuscador<Edificio>,ServicioRegistradorEdificio)
++ void registrar(String,String)
+}
+class com.gamma.gestorhorariosescolares.alumno.aplicacion.RegistrarAlumno {
+- ServicioRegistradorAlumno registradorAlumno
+- ServicioBuscador<Alumno> buscadorAlumno
+- ServicioRegistradorUsuario registradorUsuario
+- ServicioBuscador<Usuario> buscadorUsuario
++ <<Create>> RegistrarAlumno(ServicioRegistradorAlumno,ServicioBuscador<Alumno>,ServicioRegistradorUsuario,ServicioBuscador<Usuario>)
++ void registrar(String,String,String,String,String,String,String,String)
+}
+interface com.gamma.gestorhorariosescolares.edificio.dominio.EdificioRepositorio {
+~ List<Edificio> buscar(Criteria)
+~ int registrar(Edificio)
+~ void actualizar(Edificio)
+}
+class com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.UsuarioDuplicadoException {
++ <<Create>> UsuarioDuplicadoException()
++ <<Create>> UsuarioDuplicadoException(String)
+}
+class com.gamma.gestorhorariosescolares.salon.aplicacion.RegistrarSalon {
+- ServicioBuscador<Edificio> buscadorEdificio
+- ServicioBuscador<Salon> buscadorSalon
+- ServicioRegistradorSalon registradorSalon
++ <<Create>> RegistrarSalon(ServicioBuscador<Edificio>,ServicioBuscador<Salon>,ServicioRegistradorSalon)
++ void registrar(String,int,int)
+}
+class com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.buscar.BuscadorPeriodoEscolar {
+- PeriodoEscolarRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorPeriodoEscolar(PeriodoEscolarRepositorio)
++ BuscadorPeriodoEscolar igual(String,String)
++ BuscadorPeriodoEscolar diferente(String,String)
++ BuscadorPeriodoEscolar mayorQue(String,String)
++ BuscadorPeriodoEscolar mayorIgualQue(String,String)
++ BuscadorPeriodoEscolar menorQue(String,String)
++ BuscadorPeriodoEscolar menorIgualQue(String,String)
++ BuscadorPeriodoEscolar contiene(String,String)
++ BuscadorPeriodoEscolar noContiene(String,String)
++ BuscadorPeriodoEscolar ordenarAscendente(String)
++ BuscadorPeriodoEscolar ordenarDescendente(String)
++ BuscadorPeriodoEscolar esObligatorio()
++ BuscadorPeriodoEscolar esOpcional()
++ BuscadorPeriodoEscolar intervalo(int)
++ BuscadorPeriodoEscolar limite(int)
++ List<PeriodoEscolar> buscar()
++ PeriodoEscolar buscarPrimero()
+- void limpiarFiltros()
+}
+interface com.gamma.gestorhorariosescolares.alumno.dominio.AlumnoRepositorio {
+~ List<Alumno> buscar(Criteria)
+~ int registrar(Alumno)
+~ void actualizar(Alumno)
+}
+interface com.gamma.gestorhorariosescolares.materia.aplicacion.registrar.ServicioRegistradorMateria {
+~ int registrar(String,String,int,int,int)
+}
+class com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestroClaseData {
+- Integer id
+- String nombre
++ <<Create>> MaestroClaseData(Integer,String)
++ {static} MaestroClaseData fromAggregate(Maestro)
++ Integer id()
++ String nombre()
+}
+class com.gamma.gestorhorariosescolares.administrador.infrestructura.stages.MenuAdministradorStage {
++ <<Create>> MenuAdministradorStage()
+}
+interface com.gamma.gestorhorariosescolares.edificio.aplicacion.registrar.ServicioRegistradorEdificio {
+~ int registrar(String,String)
+}
+interface com.gamma.gestorhorariosescolares.maestro.dominio.MaestroRepositorio {
+~ List<Maestro> buscar(Criteria)
+~ int registrar(Maestro)
+~ void actualizar(Maestro)
+}
+class com.gamma.gestorhorariosescolares.maestro.infrestructura.persistencia.MySql2oMaestroRepositorio {
+- Connection conexion
++ <<Create>> MySql2oMaestroRepositorio(Connection)
++ List<Maestro> buscar(Criteria)
++ int registrar(Maestro)
++ void actualizar(Maestro)
+}
+class com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.FormatoInvalidoException {
+- String titulo
+- String descripcion
++ <<Create>> FormatoInvalidoException()
++ <<Create>> FormatoInvalidoException(String,String)
++ String titulo()
++ String descripcion()
+}
+class com.gamma.gestorhorariosescolares.maestro.aplicacion.registrar.RegistradorMaestro {
+- MaestroRepositorio repositorio
++ <<Create>> RegistradorMaestro(MaestroRepositorio)
++ int registrar(String,String,String,String,int)
+}
+class com.gamma.gestorhorariosescolares.grupo.infrestructura.stages.DetallesGrupoStage {
++ <<Create>> DetallesGrupoStage(int)
+}
+class com.gamma.gestorhorariosescolares.horario.dominio.Horario {
+- int id
+- int diaSemana
+- LocalTime horaInicio
+- LocalTime horaFin
+- int idMateria
+- int idGrupo
+- int idClase
+- MaestroId idMaestro
+- int idEdificio
+- int idSalon
+- int idPeriodoEscolar
++ <<Create>> Horario(int,int,LocalTime,LocalTime,int,int,int,MaestroId,int,int,int)
++ <<Create>> Horario(int,LocalTime,LocalTime,int,int)
++ int id()
++ int diaSemana()
++ LocalTime horaInicio()
++ LocalTime horaFin()
++ int idMateria()
++ int idGrupo()
++ int idClase()
++ MaestroId idMaestro()
++ int idEdificio()
++ int idSalon()
++ int idPeriodoEscolar()
+}
+class com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores.FormularioAlumnoControlador {
+- Stage stage
+- boolean esNuevoRegistro
+- AlumnoData alumno
+- TextField txtMatricula
+- TextField txtNombre
+- TextField txtApellidoPaterno
+- TextField txtApellidoMaterno
+- TextField txtCurp
+- TextField txtTelefono
+- TextField txtCorreoElectronico
+- TextField txtClaveAcceso
+- TextField txtConfirmarClaveAcceso
++ <<Create>> FormularioAlumnoControlador(Stage)
++ <<Create>> FormularioAlumnoControlador(Stage,AlumnoData)
++ void initialize()
+- void cargarDatosAlumno()
+# void guardarAlumno()
+- Boolean sonValidosDatosFormulario(String,String,String,String,String,String,String,String,String)
+- void registrarAlumno(String,String,String,String,String,String,String,String)
++ void actualizarAlumno(String,String,String,String,String,String,String,String)
+- void cerrarFormulario()
+}
+class com.gamma.gestorhorariosescolares.administrador.aplicacion.BuscarAdministradores {
+- ServicioBuscador<Administrador> buscadorAdministrador
+- ServicioBuscador<Usuario> buscadorUsuario
++ <<Create>> BuscarAdministradores(ServicioBuscador<Administrador>,ServicioBuscador<Usuario>)
++ AdministradoresData buscarTodos()
++ AdministradoresData buscarHabilitados()
++ AdministradoresData buscarPorCriterio(String)
+}
+class com.gamma.gestorhorariosescolares.compartido.dominio.criterio.FilterValue {
++ <<Create>> FilterValue(String)
+}
+interface com.gamma.gestorhorariosescolares.materia.aplicacion.actualizar.ServicioActualizadorMateria {
+~ void actualizar(Materia)
+}
+class com.gamma.gestorhorariosescolares.materia.aplicacion.RegistrarMateria {
+- ServicioBuscador<Materia> buscadorMateria
+- ServicioBuscador<Grado> buscadorGrado
+- RegistradorMateria registradorMateria
++ <<Create>> RegistrarMateria(ServicioBuscador<Materia>,ServicioBuscador<Grado>,RegistradorMateria)
++ void registrar(String,String,int,int,GradoData)
+}
+class com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException {
++ <<Create>> RecursoNoEncontradoException()
++ <<Create>> RecursoNoEncontradoException(String)
+}
+interface com.gamma.gestorhorariosescolares.clase.aplicacion.registrar.ServicioRegistradorClase {
+~ int registrar(int,int)
+}
+interface com.gamma.gestorhorariosescolares.planestudio.aplicacion.registrar.ServicioRegistradorPlanEstudio {
+~ int registrar(String,String)
+}
+class com.gamma.gestorhorariosescolares.horario.aplicacion.HorariosDisponiblesData {
+- List<HorarioDisponibleData> horarios
++ <<Create>> HorariosDisponiblesData(List<HorarioDisponibleData>)
++ List<HorarioDisponibleData> horarios()
+}
+class com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.persistencia.MySql2oPeriodoEscolarRepositorio {
+- Connection conexion
++ <<Create>> MySql2oPeriodoEscolarRepositorio(Connection)
++ List<PeriodoEscolar> buscar(Criteria)
++ int registrar(PeriodoEscolar)
++ void actualizar(PeriodoEscolar)
+}
+class com.gamma.gestorhorariosescolares.maestro.aplicacion.GestionarEstatusMaestro {
+- ServicioBuscador<Maestro> buscadorMaestro
+- ServicioActualizadorMaestro actualizadorMaestro
++ <<Create>> GestionarEstatusMaestro(ServicioBuscador<Maestro>,ServicioActualizadorMaestro)
++ void habilitarMaestro(int)
++ void deshabilitarMaestro(int)
+}
+class com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Order {
+- OrderBy orderBy
+- OrderType orderType
++ <<Create>> Order(OrderBy,OrderType)
++ {static} Order fromValues(Optional<String>,Optional<String>)
++ {static} Order none()
++ {static} Order desc(String)
++ {static} Order asc(String)
++ OrderBy orderBy()
++ OrderType orderType()
++ boolean hasOrder()
++ String serialize()
+}
+class com.gamma.gestorhorariosescolares.administrador.aplicacion.ActualizarAdministrador {
+- ServicioActualizadorAdministrador actualizadorAdministrador
+- ServicioBuscador<Administrador> buscadorAdministrador
+- ServicioBuscador<Usuario> buscadorUsuario
+- ServicioActualizadorUsuario actualizadorUsuario
++ <<Create>> ActualizarAdministrador(ServicioActualizadorAdministrador,ServicioBuscador<Administrador>,ServicioBuscador<Usuario>,ServicioActualizadorUsuario)
++ void actualizar(AdministradorData)
+}
+class com.gamma.gestorhorariosescolares.secretario.dominio.Secretario {
+- int id
+- String noPersonal
+- String nombre
+- String apellidoPaterno
+- String apellidoMaterno
+- int idUsuario
+- boolean estatus
++ <<Create>> Secretario(int,boolean,String,String,String,String,int)
++ <<Create>> Secretario(String,String,String,String,int)
++ int id()
++ String noPersonal()
++ String nombre()
++ String apellidoPaterno()
++ String apellidoMaterno()
++ void habilitar()
++ void deshabilitar()
++ boolean estatus()
++ int idUsuario()
+}
+class com.gamma.gestorhorariosescolares.edificio.aplicacion.GestionarEstatusEdificio {
+- ServicioBuscador<Edificio> buscadorEdificio
+- ServicioActualizadorEdificio actualizadorEdificio
++ <<Create>> GestionarEstatusEdificio(ServicioBuscador<Edificio>,ServicioActualizadorEdificio)
++ void habilitarEdificio(int)
++ void deshabilitarEdificio(int)
+}
+class com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RegistroHorarioInvalidoException {
++ <<Create>> RegistroHorarioInvalidoException()
++ <<Create>> RegistroHorarioInvalidoException(String)
+}
+class com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador {
+- Temporizador instancia
+- int tiempoReinicio
+- Consumer<Temporizador> funcionFinalTemporizador
+- int tiempoEsperaBusqueda
+- boolean finalizado
++ <<Create>> Temporizador(int,Consumer<Temporizador>)
+- void cargarTarea()
++ void reiniciar()
+}
+interface com.gamma.gestorhorariosescolares.usuario.aplicacion.actualizar.ServicioActualizadorUsuario {
+~ void actualizar(Usuario)
+}
+interface com.gamma.gestorhorariosescolares.salon.dominio.SalonRepositorio {
+~ List<Salon> buscar(Criteria)
+~ int registrar(Salon)
+~ void actualizar(Salon)
+}
+class com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.ActualizadorAdministrador {
+- AdministradorRepositorio repositorio
++ <<Create>> ActualizadorAdministrador(AdministradorRepositorio)
++ void actualizar(Administrador)
+}
+interface com.gamma.gestorhorariosescolares.administrador.dominio.AdministradorRepositorio {
+~ List<Administrador> buscar(Criteria)
+~ int registrar(Administrador)
+~ void actualizar(Administrador)
+}
+class com.gamma.gestorhorariosescolares.materia.infrestructura.stages.FormularioMateriaStage {
+- boolean esNuevoRegistro
+- AnchorPane panelFormulario
+- FormularioMateriaControlador controladorFormulario
+- MateriaData materiaEdicion
++ <<Create>> FormularioMateriaStage()
++ <<Create>> FormularioMateriaStage(MateriaData)
+- void cargarFormulario()
+}
+class com.gamma.gestorhorariosescolares.alumno.aplicacion.registrar.RegistradorAlumno {
+- AlumnoRepositorio repositorio
++ <<Create>> RegistradorAlumno(AlumnoRepositorio)
++ int registrar(String,String,String,String,String,int)
+}
+class com.gamma.gestorhorariosescolares.alumno.aplicacion.BuscarAlumnos {
+- ServicioBuscador<Alumno> buscadorAlumno
+- ServicioBuscador<Usuario> buscadorUsuario
++ <<Create>> BuscarAlumnos(ServicioBuscador<Alumno>,ServicioBuscador<Usuario>)
++ AlumnosData buscarTodos()
++ AlumnosData buscarHabilitados()
++ AlumnosData buscarPorCriterio(String)
++ AlumnoData buscarPorUsuario(Integer)
+}
+class com.gamma.gestorhorariosescolares.grado.aplicacion.GradosData {
+- List<GradoData> grados
++ <<Create>> GradosData(List<Grado>)
++ List<GradoData> grados()
+}
+class com.gamma.gestorhorariosescolares.administrador.infrestructura.controladores.MenuAdministradorControlador {
+- Stage stage
+- AnchorPane panelCatalogoAdministradores
+- CatalogoAdministradoresControlador controladorAdministradores
+- AnchorPane panelCatalogoSecretarios
+- CatalogoSecretariosControlador controladorSecretarios
+- AnchorPane panelCatalogoMaestros
+- CatalogoMaestrosControlador controladorMaestros
+- AnchorPane panelCatalogoAlumnos
+- CatalogoAlumnosControlador controladorAlumnos
+- AnchorPane panelCatalogoEdificios
+- CatalogoEdificiosControlador controladorEdificios
+- AnchorPane panelCatalogoSalones
+- CatalogoSalonesControlador controladorSalones
+- AnchorPane panelCatalogoPlanesEstudio
+- CatalogoPlanesEstudioControlador controladorPlanesEstudio
+- AnchorPane panelCatalogoMaterias
+- CatalogoMateriasControlador controladorMaterias
+- AnchorPane panelCatalogoPeriodosEscolares
+- CatalogoPeriodosEscolaresControlador controladorPeriodosEscolares
+- BorderPane panelMenuAdministrador
+- VBox vbMenu
+- Button btnCatalogoAdministradores
+- Button bbtnCatalogoSecretarios
+- Button btnCatalogoMaestros
+- Button btnCatalogoAlumnos
+- Button btnCatalogoEdificios
+- Button btnCatalogoSalones
+- Button btnCatalogoPlanesEstudios
+- Button btnCatalogoMaterias
+- Button btnCatalogoPeriodosEscolares
+- Button btnCerrarSesion
++ <<Create>> MenuAdministradorControlador(Stage)
++ void initialize()
+# void mostrarCatalogoAdministradoresClick()
+# void mostrarCatalogoSecretariosClick()
+# void mostrarCatalogoMaestrosClick()
+# void mostrarCatalogoAlumnosClick()
+# void mostrarCatalogoEdificiosClick()
+# void mostrarCatalogoSalonesClick()
+# void mostrarCatalogoPlanesEstudioClick()
+# void mostrarCatalogoMateriasClick()
+# void mostrarCatalogoPeriodosEscolaresClick()
+# void cerrarSesionClick()
+- void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.planestudio.aplicacion.ActualizarPlanEstudio {
+- ServicioBuscador<PlanEstudio> buscadorPlanEstudio
+- ActualizadorPlanEstudio actualizadorPlanEstudio
++ <<Create>> ActualizarPlanEstudio(ServicioBuscador<PlanEstudio>,ActualizadorPlanEstudio)
++ void actualizar(PlanEstudioData)
+}
+class com.gamma.gestorhorariosescolares.grupo.aplicacion.GrupoInscripcionData {
+- int id
+- String clave
+- String nombre
++ <<Create>> GrupoInscripcionData(int,String,String)
++ {static} GrupoInscripcionData fromAggregate(Grupo)
++ int id()
++ String clave()
++ String nombre()
+}
+class com.gamma.gestorhorariosescolares.alumno.aplicacion.ActualizarAlumno {
+- ServicioActualizadorAlumno actualizadorAlumno
+- ServicioBuscador<Alumno> buscadorAlumno
+- ServicioActualizadorUsuario actualizadorUsuario
+- ServicioBuscador<Usuario> buscadorUsuario
++ <<Create>> ActualizarAlumno(ServicioActualizadorAlumno,ServicioBuscador<Alumno>,ServicioActualizadorUsuario,ServicioBuscador<Usuario>)
++ void actualizar(AlumnoData)
+}
+interface com.gamma.gestorhorariosescolares.materia.dominio.MateriaRepositorio {
+~ List<Materia> buscar(Criteria)
+~ int registrar(Materia)
+~ void actualizar(Materia)
+}
+class com.gamma.gestorhorariosescolares.grupo.aplicacion.buscar.BuscadorGrupo {
+- GrupoRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorGrupo(GrupoRepositorio)
++ BuscadorGrupo igual(String,String)
++ BuscadorGrupo diferente(String,String)
++ BuscadorGrupo mayorQue(String,String)
++ BuscadorGrupo mayorIgualQue(String,String)
++ BuscadorGrupo menorQue(String,String)
++ BuscadorGrupo menorIgualQue(String,String)
++ BuscadorGrupo contiene(String,String)
++ BuscadorGrupo noContiene(String,String)
++ BuscadorGrupo ordenarAscendente(String)
++ BuscadorGrupo ordenarDescendente(String)
++ BuscadorGrupo esObligatorio()
++ BuscadorGrupo esOpcional()
++ BuscadorGrupo intervalo(int)
++ BuscadorGrupo limite(int)
++ List<Grupo> buscar()
++ Grupo buscarPrimero()
+- void limpiarFiltros()
+}
+class com.gamma.gestorhorariosescolares.administrador.infrestructura.stages.FormularioAdministradorStage {
+- boolean esNuevoRegistro
+- AdministradorData administradorEdicion
+- AnchorPane panelFormulario
+- FormularioAdministradorControlador controladorFormulario
++ <<Create>> FormularioAdministradorStage()
++ <<Create>> FormularioAdministradorStage(AdministradorData)
+- void cargarFormulario()
+}
+interface com.gamma.gestorhorariosescolares.planestudio.dominio.PlanEstudioRepositorio {
+~ List<PlanEstudio> buscar(Criteria)
+~ int registrar(PlanEstudio)
+~ void actualizar(PlanEstudio)
+~ void eliminar(int)
+}
+class com.gamma.gestorhorariosescolares.grado.infrestructura.persistencia.MySql2oGradoRepositorio {
+- Connection conexion
++ <<Create>> MySql2oGradoRepositorio(Connection)
++ List<Grado> buscar(Criteria)
++ int registrar(Grado)
++ void actualizar(Grado)
++ void eliminar(int)
+}
+class com.gamma.gestorhorariosescolares.horario.aplicacion.buscar.BuscadorHorario {
+- HorarioRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorHorario(HorarioRepositorio)
++ ServicioBuscador<Horario> igual(String,String)
++ ServicioBuscador<Horario> diferente(String,String)
++ ServicioBuscador<Horario> mayorQue(String,String)
++ ServicioBuscador<Horario> mayorIgualQue(String,String)
++ ServicioBuscador<Horario> menorQue(String,String)
++ ServicioBuscador<Horario> menorIgualQue(String,String)
++ ServicioBuscador<Horario> contiene(String,String)
++ ServicioBuscador<Horario> noContiene(String,String)
++ ServicioBuscador<Horario> ordenarAscendente(String)
++ ServicioBuscador<Horario> ordenarDescendente(String)
++ ServicioBuscador<Horario> esObligatorio()
++ ServicioBuscador<Horario> esOpcional()
++ ServicioBuscador<Horario> intervalo(int)
++ ServicioBuscador<Horario> limite(int)
++ List<Horario> buscar()
++ Horario buscarPrimero()
+- void limpiarFiltros()
+}
+interface com.gamma.gestorhorariosescolares.planestudio.aplicacion.actualizar.ServicioActualizadorPlanEstudio {
+~ void actualizar(PlanEstudio)
+}
+interface com.gamma.gestorhorariosescolares.grupo.aplicacion.actualizar.ServicioActualizadorGrupo {
+~ void actualizar(Grupo)
+}
+class com.gamma.gestorhorariosescolares.inscripcion.infrestructura.persistencia.MySql2oInscripcionRepositorio {
+- Connection conexion
++ <<Create>> MySql2oInscripcionRepositorio(Connection)
++ List<Inscripcion> buscar(Criteria)
++ int registrar(Inscripcion)
++ void actualizar(Inscripcion)
+}
+class com.gamma.gestorhorariosescolares.materia.aplicacion.buscar.BuscadorMateria {
+- MateriaRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorMateria(MateriaRepositorio)
++ BuscadorMateria igual(String,String)
++ BuscadorMateria diferente(String,String)
++ BuscadorMateria mayorQue(String,String)
++ BuscadorMateria mayorIgualQue(String,String)
++ BuscadorMateria menorQue(String,String)
++ BuscadorMateria menorIgualQue(String,String)
++ BuscadorMateria contiene(String,String)
++ BuscadorMateria noContiene(String,String)
++ BuscadorMateria ordenarAscendente(String)
++ BuscadorMateria ordenarDescendente(String)
++ BuscadorMateria esObligatorio()
++ BuscadorMateria esOpcional()
++ BuscadorMateria intervalo(int)
++ BuscadorMateria limite(int)
++ List<Materia> buscar()
++ Materia buscarPrimero()
+- void limpiarFiltros()
+}
+class com.gamma.gestorhorariosescolares.horario.aplicacion.registrar.RegistradorHorario {
+- HorarioRepositorio repositorio
++ <<Create>> RegistradorHorario(HorarioRepositorio)
++ void registrar(int,LocalTime,LocalTime,int,int)
+}
+class com.gamma.gestorhorariosescolares.planestudio.infrestructura.controladores.FormularioPlanEstudioControlador {
+- Stage stage
+- TextField txtClave
+- TextField txtNombre
++ <<Create>> FormularioPlanEstudioControlador(Stage)
+- void guardarPlanEstudio()
+- Boolean sonValidosDatosFormuario(String,String)
+- void registrarPlanEstudio(String,String)
+- void cerrarFormulario()
+}
+class com.gamma.gestorhorariosescolares.maestro.aplicacion.BuscarMaestros {
+- ServicioBuscador<Maestro> buscadorMaestro
+- ServicioBuscador<Usuario> buscadorUsuario
++ <<Create>> BuscarMaestros(ServicioBuscador<Maestro>,ServicioBuscador<Usuario>)
++ MaestrosData buscarTodos()
++ MaestrosData buscarHabilidatos()
++ MaestrosData buscarPorCriterio(String)
++ MaestrosData buscarPorCriterioHabilitados(String)
+}
+interface com.gamma.gestorhorariosescolares.evaluacion.dominio.EvaluacionRepositorio {
+~ List<Evaluacion> buscar(Criteria)
+~ int registar(Evaluacion)
+}
+interface com.gamma.gestorhorariosescolares.horario.aplicacion.registrar.ServicioRegistradorHorario {
+~ void registrar(int,LocalTime,LocalTime,int,int)
+}
+interface com.gamma.gestorhorariosescolares.secretario.aplicacion.registrar.ServicioRegistradorSecretario {
+~ int registrar(String,String,String,String,int)
+}
+class com.gamma.gestorhorariosescolares.secretario.aplicacion.ActualizarSecretario {
+- ServicioBuscador<Secretario> buscadorSecretario
+- ServicioActualizadorSecretario actualizadorSecretario
+- ServicioBuscador<Usuario> buscadorUsuario
+- ServicioActualizadorUsuario actualizadorUsuario
++ <<Create>> ActualizarSecretario(ServicioBuscador<Secretario>,ServicioActualizadorSecretario,ServicioBuscador<Usuario>,ServicioActualizadorUsuario)
++ void actualizar(SecretarioData)
+}
+interface com.gamma.gestorhorariosescolares.horario.aplicacion.eliminar.ServicioEliminadorHorario {
+~ void eliminar(int)
+}
+class com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar.BuscadorAdministrador {
+- AdministradorRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorAdministrador(AdministradorRepositorio)
++ BuscadorAdministrador igual(String,String)
++ BuscadorAdministrador diferente(String,String)
++ BuscadorAdministrador mayorQue(String,String)
++ BuscadorAdministrador mayorIgualQue(String,String)
++ BuscadorAdministrador menorQue(String,String)
++ BuscadorAdministrador menorIgualQue(String,String)
++ BuscadorAdministrador contiene(String,String)
++ BuscadorAdministrador noContiene(String,String)
++ BuscadorAdministrador ordenarAscendente(String)
++ BuscadorAdministrador ordenarDescendente(String)
++ BuscadorAdministrador esObligatorio()
++ BuscadorAdministrador esOpcional()
++ BuscadorAdministrador intervalo(int)
++ BuscadorAdministrador limite(int)
++ List<Administrador> buscar()
++ Administrador buscarPrimero()
+- void limpiarFiltros()
+}
+class com.gamma.gestorhorariosescolares.grupo.infrestructura.persistencia.MySql2oGrupoRepositorio {
+~ Connection conexion
++ <<Create>> MySql2oGrupoRepositorio(Connection)
++ List<Grupo> buscar(Criteria)
++ int registrar(Grupo)
++ void actualizar(Grupo)
+}
+class com.gamma.gestorhorariosescolares.alumno.aplicacion.GestionarEstatusAlumno {
+- ServicioBuscador<Alumno> buscadorAlumno
+- ActualizadorAlumno actualizadorAlumno
++ <<Create>> GestionarEstatusAlumno(ServicioBuscador<Alumno>,ActualizadorAlumno)
++ void habilitarAlumno(int)
++ void deshabilitarAlumno(int)
+}
+class com.gamma.gestorhorariosescolares.salon.aplicacion.SalonesData {
+- List<SalonData> salones
++ <<Create>> SalonesData(List<SalonData>)
++ List<SalonData> salones()
+}
+interface com.gamma.gestorhorariosescolares.clase.aplicacion.actualizar.ServicioActualizadorClase {
+~ void actualizar(Clase)
+}
+class com.gamma.gestorhorariosescolares.inscripcion.aplicacion.BuscarInscripcionesSinAsignar {
+- ServicioBuscador<Grupo> buscadorGrupo
+- ServicioBuscador<Inscripcion> buscadorInscripcion
+- ServicioBuscador<Alumno> buscadorAlumno
++ <<Create>> BuscarInscripcionesSinAsignar(ServicioBuscador<Grupo>,ServicioBuscador<Inscripcion>,ServicioBuscador<Alumno>)
++ InscripcionesGrupoData buscar(Integer)
++ InscripcionesGrupoData buscar(Integer,String)
+}
+class com.gamma.gestorhorariosescolares.planestudio.infrestructura.controladores.CatalogoPlanesEstudioControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
+- ObservableList<PlanEstudioData> coleccionPlanesEstudio
+- boolean esBusquedaPlanEstudio
+- TextField txtBuscar
+- TableView<PlanEstudioData> tablaPlanesEstudio
++ <<Create>> CatalogoPlanesEstudioControlador(Stage)
++ void initialize()
+- void registrarNuevoPlanEstudio()
+- void editarPlanEstudio(PlanesEstudioData)
+- void inicializarTabla()
+- void habilitarPlanEstudio(PlanesEstudioData)
+- void deshabilitarPlanEstudio(PlanesEstudioData)
+- void cambiarEstatus(String,PlanesEstudioData)
+- void buscarPlanesEstudio()
+- void buscarPlanesEstudio(String)
+- void cargarPlanesEstudioEnTabla(PlanesEstudioData)
++ void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.salon.infrestructura.stages.FormularioSalonStage {
+- boolean esNuevoRegistro
+- AnchorPane panelFormulario
+- FormularioSalonControlador controladorFormulario
+- SalonData salonEdicion
++ <<Create>> FormularioSalonStage()
++ <<Create>> FormularioSalonStage(SalonData)
+- void cargarFormulario()
+}
+class com.gamma.gestorhorariosescolares.horario.aplicacion.eliminar.EliminadorHorario {
+- HorarioRepositorio repositorio
++ <<Create>> EliminadorHorario(HorarioRepositorio)
++ void eliminar(int)
+}
+class com.gamma.gestorhorariosescolares.clase.aplicacion.ClasesData {
+- List<ClaseData> clases
++ <<Create>> ClasesData(List<ClaseData>)
++ List<ClaseData> clases()
+}
+class com.gamma.gestorhorariosescolares.edificio.aplicacion.buscar.BuscadorEdificio {
+- EdificioRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorEdificio(EdificioRepositorio)
++ BuscadorEdificio igual(String,String)
++ BuscadorEdificio diferente(String,String)
++ BuscadorEdificio mayorQue(String,String)
++ BuscadorEdificio mayorIgualQue(String,String)
++ BuscadorEdificio menorQue(String,String)
++ BuscadorEdificio menorIgualQue(String,String)
++ BuscadorEdificio contiene(String,String)
++ BuscadorEdificio noContiene(String,String)
++ BuscadorEdificio ordenarAscendente(String)
++ BuscadorEdificio ordenarDescendente(String)
++ BuscadorEdificio esObligatorio()
++ BuscadorEdificio esOpcional()
++ BuscadorEdificio intervalo(int)
++ BuscadorEdificio limite(int)
++ List<Edificio> buscar()
++ Edificio buscarPrimero()
+- void limpiarFiltros()
+}
+class com.gamma.gestorhorariosescolares.secretario.aplicacion.SecretarioData {
+- Integer id
+- String noPersonal
+- String nombre
+- String apellidoPaterno
+- String apellidoMaterno
+- Boolean estatus
+- UsuarioData usuario
++ <<Create>> SecretarioData(int,String,String,String,String,boolean,UsuarioData)
++ {static} SecretarioData fromAggregate(Secretario,Usuario)
++ int id()
++ String noPersonal()
++ String nombre()
++ String apellidoPaterno()
++ String apellidoMaterno()
++ boolean estatus()
++ UsuarioData usuario()
+}
+class com.gamma.gestorhorariosescolares.salon.aplicacion.BuscarSalones {
+- ServicioBuscador<Salon> buscadorSalon
+- ServicioBuscador<Edificio> buscadorEdificio
++ <<Create>> BuscarSalones(ServicioBuscador<Salon>,ServicioBuscador<Edificio>)
++ SalonesData buscarTodos()
++ SalonesData buscarHabilitados()
++ SalonesData buscarSalonesDeEdificio(int)
++ SalonesData buscarPorCriterio(String)
+}
+class com.gamma.gestorhorariosescolares.inscripcion.aplicacion.BuscarInscripcionesPorGrupo {
+- ServicioBuscador<Grupo> buscadorGrupo
+- ServicioBuscador<Inscripcion> buscadorInscripcion
+- ServicioBuscador<Alumno> buscadorAlumno
++ <<Create>> BuscarInscripcionesPorGrupo(ServicioBuscador<Grupo>,ServicioBuscador<Inscripcion>,ServicioBuscador<Alumno>)
++ InscripcionesGrupoData buscar(Integer)
+}
+class com.gamma.gestorhorariosescolares.inscripcion.infrestructura.controladores.AsignarInscripcionEnGrupoControlador {
+- Stage stage
+- Integer idGrupo
+- Temporizador temporizadorBusqueda
+- ObservableList<InscripcionGrupoData> coleccionInscripciones
+- Button btnRegresar
+- TextField txtBuscar
+- TableView<InscripcionGrupoData> tablaInscripciones
+- boolean esBusquedaInscripciones
++ <<Create>> AsignarInscripcionEnGrupoControlador(Stage,Integer)
+- void initialize()
+- void regresarDetalles()
+- void inicilizarTablaInscripciones()
+- void asignarInscripcion(InscripcionGrupoData)
+- void buscarInscripciones()
+- void buscarInscripciones(String)
+- void cargarInscripcionesEnTabla(InscripcionesGrupoData)
++ void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.materia.aplicacion.ActualizarMateria {
+- ServicioBuscador<Materia> buscadorMateria
+- ServicioBuscador<Grado> buscadorGrado
+- ActualizadorMateria actualizadorMateria
++ <<Create>> ActualizarMateria(ServicioBuscador<Materia>,ServicioBuscador<Grado>,ActualizadorMateria)
++ void actualizar(MateriaData)
+}
+class com.gamma.gestorhorariosescolares.edificio.infrestructura.controladores.CatalogoEdificiosControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
+- ObservableList<EdificioData> coleccionEdificios
+- boolean esBusquedaEdificio
+- TextField txtBuscar
+- TableView<EdificioData> tablaEdificios
++ <<Create>> CatalogoEdificiosControlador(Stage)
++ void initialize()
+- void inicializarTabla()
+- void registrarNuevoEdificio()
+- void editarEdificio(EdificioData)
+- void habilitarEdificio(EdificioData)
+- void deshabilitarEdificio(EdificioData)
+- void cambiarEstatus(String,EdificioData)
+- void buscarEdificios()
+- void buscarEdificios(String)
+- void cargarEdificiosEnTabla(EdificiosData)
++ void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.ClaveDuplicadaException {
++ <<Create>> ClaveDuplicadaException()
++ <<Create>> ClaveDuplicadaException(String)
+}
+class com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario {
++ UsuarioRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorUsuario(UsuarioRepositorio)
++ BuscadorUsuario igual(String,String)
++ BuscadorUsuario diferente(String,String)
++ BuscadorUsuario mayorQue(String,String)
++ BuscadorUsuario mayorIgualQue(String,String)
++ BuscadorUsuario menorQue(String,String)
++ BuscadorUsuario menorIgualQue(String,String)
++ BuscadorUsuario contiene(String,String)
++ BuscadorUsuario noContiene(String,String)
++ BuscadorUsuario ordenarAscendente(String)
++ BuscadorUsuario ordenarDescendente(String)
++ BuscadorUsuario esObligatorio()
++ BuscadorUsuario esOpcional()
++ BuscadorUsuario intervalo(int)
++ BuscadorUsuario limite(int)
++ List<Usuario> buscar()
++ Usuario buscarPrimero()
+- void limpiarFiltros()
+}
+class com.gamma.gestorhorariosescolares.horario.infrestructura.persistencia.MySql2oHorarioRepositorio {
+- Connection conexion
++ <<Create>> MySql2oHorarioRepositorio(Connection)
++ List<Horario> buscar(Criteria)
++ int registrar(Horario)
++ void actualizar(Horario)
++ void eliminar(int)
+}
+class com.gamma.gestorhorariosescolares.planestudio.aplicacion.RegistrarPlanEstudio {
+- ServicioBuscador<PlanEstudio> buscadorPlanEstudio
+- RegistradorPlanEstudio registradorPlanEstudio
++ <<Create>> RegistrarPlanEstudio(ServicioBuscador<PlanEstudio>,RegistradorPlanEstudio)
++ void registrar(String,String)
+}
+class com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.CurpDuplicadoException {
++ <<Create>> CurpDuplicadoException()
++ <<Create>> CurpDuplicadoException(String)
+}
+interface com.gamma.gestorhorariosescolares.maestro.aplicacion.actualizar.ServicioActualizadorMaestro {
+~ void actualizar(Maestro)
+}
+class com.gamma.gestorhorariosescolares.edificio.infrestructura.stages.FormularioEdificioStage {
+- boolean esNuevoRegistro
+- AnchorPane panelFormulario
+- FormularioEdificioControlador controladorFormulario
+- EdificioData edificioEdicion
++ <<Create>> FormularioEdificioStage()
++ <<Create>> FormularioEdificioStage(EdificioData)
+- void cargarFormulario()
+}
+class com.gamma.gestorhorariosescolares.edificio.aplicacion.ActualizarEdificio {
+- ServicioBuscador<Edificio> buscadorEdificio
+- ServicioActualizadorEdificio actualizadorEdificio
++ <<Create>> ActualizarEdificio(ServicioBuscador<Edificio>,ServicioActualizadorEdificio)
++ void actualizar(EdificioData)
+}
+class com.gamma.gestorhorariosescolares.edificio.infrestructura.controladores.FormularioEdificioControlador {
+- Stage stage
+- boolean esNuevoRegistro
+- EdificioData edificio
+- TextField txtClave
+- TextField txtNombre
++ <<Create>> FormularioEdificioControlador(Stage)
++ <<Create>> FormularioEdificioControlador(Stage,EdificioData)
++ void initialize()
+- void cargarDatosEdificio()
+- void guardarEdificio()
+- Boolean sonValidosDatosFormulario(String,String)
+- void registrarEdificio(String,String)
+- void actualizarEdificio(String,String)
+- void cerrarFormulario()
+}
+class com.gamma.gestorhorariosescolares.clase.infrestructura.persistencia.MySql2oClaseRepositorio {
+- Connection conexion
++ <<Create>> MySql2oClaseRepositorio(Connection)
++ List<Clase> buscar(Criteria)
++ int registar(Clase)
++ void actualizar(Clase)
+}
+interface com.gamma.gestorhorariosescolares.salon.aplicacion.registrar.ServicioRegistradorSalon {
+~ int registrar(String,int,int)
+}
+class com.gamma.gestorhorariosescolares.usuario.aplicacion.UsuarioData {
+- Integer id
+- String telefono
+- String tipo
+- String correoElectronico
+- String claveAcceso
++ <<Create>> UsuarioData(int,String,String,String,String)
++ {static} UsuarioData fromAggregate(Usuario)
++ Integer id()
++ String telefono()
++ String correoElectronico()
++ String claveAcceso()
++ String tipo()
+}
+interface com.gamma.gestorhorariosescolares.alumno.aplicacion.actualizar.ServicioActualizadorAlumno {
+~ void actualizar(Alumno)
+}
+class com.gamma.gestorhorariosescolares.horario.aplicacion.BuscarHorariosDisponibles {
+- ServicioBuscador<Horario> buscadorHorario
+- ServicioBuscador<Edificio> buscadorEdificio
+- ServicioBuscador<Salon> buscadorSalon
+- ServicioBuscador<PeriodoEscolar> buscadorPeriodoEscolar
++ <<Create>> BuscarHorariosDisponibles(ServicioBuscador<Horario>,ServicioBuscador<Edificio>,ServicioBuscador<Salon>,ServicioBuscador<PeriodoEscolar>)
++ HorariosDisponiblesData buscar(Integer,Integer)
+- List<Horario> generarListaHorarios(PeriodoEscolar,Salon,List<Horario>)
+}
+class com.gamma.gestorhorariosescolares.salon.aplicacion.buscar.BuscadorSalon {
+- SalonRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorSalon(SalonRepositorio)
++ BuscadorSalon igual(String,String)
++ BuscadorSalon diferente(String,String)
++ BuscadorSalon mayorQue(String,String)
++ BuscadorSalon mayorIgualQue(String,String)
++ BuscadorSalon menorQue(String,String)
++ BuscadorSalon menorIgualQue(String,String)
++ BuscadorSalon contiene(String,String)
++ BuscadorSalon noContiene(String,String)
++ BuscadorSalon ordenarAscendente(String)
++ BuscadorSalon ordenarDescendente(String)
++ BuscadorSalon esObligatorio()
++ BuscadorSalon esOpcional()
++ BuscadorSalon intervalo(int)
++ BuscadorSalon limite(int)
++ List<Salon> buscar()
++ Salon buscarPrimero()
+- void limpiarFiltros()
+}
+class com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestroData {
+- Integer id
+- String noPersonal
+- String nombre
+- String apellidoPaterno
+- String apellidoMaterno
+- Boolean estatus
+- UsuarioData usuario
++ <<Create>> MaestroData(int,String,String,String,String,boolean,UsuarioData)
++ {static} MaestroData fromAggregate(Maestro,Usuario)
++ int id()
++ String noPersonal()
++ String nombre()
++ String apellidoPaterno()
++ String apellidoMaterno()
++ boolean estatus()
++ UsuarioData usuario()
+}
+class com.gamma.gestorhorariosescolares.usuario.aplicacion.registrar.RegistradorUsuario {
++ UsuarioRepositorio repositorio
++ <<Create>> RegistradorUsuario(UsuarioRepositorio)
++ int registrar(String,String,String,String)
+- boolean esValidoCorreoElectronico(String)
+- boolean esValidoTelefono(String)
+}
+class com.gamma.gestorhorariosescolares.salon.infrestructura.controladores.CatalogoSalonesControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
+- ObservableList<SalonData> coleccionSalones
+- boolean esBusquedaSalon
+- TextField txtBuscar
+- TableView<SalonData> tablaSalones
++ <<Create>> CatalogoSalonesControlador(Stage)
++ void initialize()
+- void inicializarTabla()
+- void registrarNuevoSalon()
+- void editarSalon(SalonData)
+- void habilitarSalon(SalonData)
+- void deshabilitarSalon(SalonData)
+- void cambiarEstatus(String,SalonData)
+- void buscarSalones()
+- void buscarSalones(String)
+- void cargarSalonesEnTabla(SalonesData)
++ void liberarRecursos()
+}
+interface com.gamma.gestorhorariosescolares.secretario.aplicacion.actualizar.ServicioActualizadorSecretario {
+~ void actualizar(Secretario)
+}
+abstract class com.gamma.gestorhorariosescolares.compartido.dominio.StringValueObject {
+- String value
++ <<Create>> StringValueObject(String)
++ String value()
++ String toString()
++ boolean equals(Object)
++ int hashCode()
+}
+interface com.gamma.gestorhorariosescolares.evaluacion.aplicacion.registrar.ServicioRegistradorEvaluacion {
+~ int registrar(String,String,Integer,Integer)
+}
+class com.gamma.gestorhorariosescolares.secretario.aplicacion.actualizar.ActualizadorSecretario {
+- SecretarioRepositorio repositorio
++ <<Create>> ActualizadorSecretario(SecretarioRepositorio)
++ void actualizar(Secretario)
+}
+class com.gamma.gestorhorariosescolares.secretario.aplicacion.SecretariosData {
+- List<SecretarioData> secretarios
++ <<Create>> SecretariosData(List<SecretarioData>)
++ List<SecretarioData> secretarios()
+}
+class com.gamma.gestorhorariosescolares.grupo.infrestructura.stages.FormularioGrupoStage {
+- AnchorPane panelFormulario
+- FormularioGrupoControlador controladorFormulario
++ <<Create>> FormularioGrupoStage()
+- void cargarFormulario()
+}
+class com.gamma.gestorhorariosescolares.App {
++ {static} void main(String[])
++ void start(Stage)
+}
+class com.gamma.gestorhorariosescolares.clase.infrestructura.controladores.HorariosDisponiblesControlador {
+- Stage stage
+- ObservableList<PeriodoEscolarData> coleccionPeriodosEscolares
+- ObservableList<EdificioData> coleccionEdificios
+- ObservableList<SalonData> coleccionSalones
+- ComboBox<PeriodoEscolarData> cbxPeriodoEscolar
+- ComboBox<EdificioData> cbxEdificio
+- ComboBox<SalonData> cbxSalon
+- VBox panelHorariosDisponibles
++ <<Create>> HorariosDisponiblesControlador(Stage)
++ void initialize()
+- void inicializarCbxPeriodoEscolar()
+- void cargarPeriodosEscolares()
+- void inicializarCbxEdificio()
+- void cargarEdificios()
+- void inicializarCbxSalon()
+- void cargarSalones(EdificioData)
+- void buscarHorariosDisponiblesClick()
+- boolean sonValidosDatosSeleccionados(PeriodoEscolarData,EdificioData)
+- void buscarHorariosDisponiblesDeSalon(PeriodoEscolarData,EdificioData,List<SalonData>)
+- void agregarHorariosDisponibles(SalonData,HorariosDisponiblesData)
+- void asignarHorario(HorarioDisponibleData)
+}
+class com.gamma.gestorhorariosescolares.salon.dominio.Salon {
+- int id
+- String clave
+- int capacidad
+- int idEdificio
+- boolean estatus
++ <<Create>> Salon(int,String,int,boolean,int)
++ <<Create>> Salon(String,int,int)
++ int id()
++ String clave()
++ int capacidad()
++ void habilitar()
++ void deshabilitar()
++ boolean estatus()
++ int idEdificio()
+}
+class com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores.AsignarMaestroEnClaseControlador {
+- Stage stage
+- Integer idClase
+- Integer idGrupo
+- Temporizador temporizadorBusqueda
+- ObservableList<MaestroData> coleccionMaestros
+- boolean esBusquedaMaestro
+- Button btnRegresar
+- TextField txtBuscar
+- TableView<MaestroData> tablaMaestros
++ <<Create>> AsignarMaestroEnClaseControlador(Stage,Integer,Integer)
+- void initialize()
+- void regresarDetalles()
+- void inicializarTablaMaestros()
+- void asignarMaestro(MaestroData)
+- void buscarMaestros()
+- void buscarMaestros(String)
+- void cargarMaestrosEnTabla(MaestrosData)
++ void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.grado.dominio.Grado {
+- int id
+- String clave
+- String nombre
+- int idPlanEstudio
+- boolean estatus
++ <<Create>> Grado(int,String,String,int,boolean)
++ <<Create>> Grado(String,String,int)
++ int id()
++ String clave()
++ String nombre()
++ int idPlanEstudio()
++ void habilitar()
++ void deshabilitar()
++ boolean estatus()
+}
+class com.gamma.gestorhorariosescolares.secretario.aplicacion.GestionarEstatusSecretario {
+- ServicioBuscador<Secretario> buscadorSecretario
+- ServicioActualizadorSecretario actualizadorSecretario
++ <<Create>> GestionarEstatusSecretario(ServicioBuscador<Secretario>,ServicioActualizadorSecretario)
++ void habilitarSecretario(int)
++ void deshabilitarSecretario(int)
+}
+interface com.gamma.gestorhorariosescolares.maestro.aplicacion.registrar.ServicioRegistradorMaestro {
+~ int registrar(String,String,String,String,int)
+}
+class com.gamma.gestorhorariosescolares.evaluacion.aplicacion.RegistrarEvaluacion {
+- ServicioRegistradorEvaluacion registradorEvaluacion
+- ServicioBuscador<Evaluacion> buscadorEvaluacion
++ <<Create>> RegistrarEvaluacion(ServicioRegistradorEvaluacion,ServicioBuscador<Evaluacion>)
++ void registrar(String,String,Integer,Integer)
+}
+class com.gamma.gestorhorariosescolares.salon.infrestructura.controladores.FormularioSalonControlador {
+- Stage stage
+- boolean esNuevoRegistro
+- SalonData salon
+- ComboBox<EdificioData> cbxEdificio
+- TextField txtClave
+- TextField txtCapacidad
++ <<Create>> FormularioSalonControlador(Stage)
++ <<Create>> FormularioSalonControlador(Stage,SalonData)
++ void initialize()
+- void cargarDatosSecretario()
+- void cargarComboBoxEdificios()
+- void guardarSalon()
+- Boolean sonValidosDatosFormulario(EdificioData,String,String)
+- void registrarSalon(String,int,int)
+- void actualizarSalon(int,String,int,boolean,EdificioData)
+- void cerrarFormulario()
+}
+class com.gamma.gestorhorariosescolares.horario.infrestructura.stages.FormularioRegistrarHorarioClaseStage {
++ <<Create>> FormularioRegistrarHorarioClaseStage(HorarioDisponibleData)
+- void cargarFormulario(HorarioDisponibleData)
+}
+class com.gamma.gestorhorariosescolares.grupo.infrestructura.controladores.FormularioGrupoControlador {
+- Stage stage
+- ComboBox<PlanEstudioData> cbxPlanEstudio
+- ComboBox<GradoData> cbxGrado
+- ComboBox<PeriodoEscolarData> cbxPeriodoEscolar
+- TextField txtClave
+- TextField txtNombre
++ <<Create>> FormularioGrupoControlador(Stage)
++ void initialize()
+- void inicializarCbxPlanEstudio()
+- void inicializarCbxGrado()
+- void inicializarCbxPeriodoEscolar()
+- void buscarPlanesEstudio()
+- void buscarPeriodosEscolares()
+- void guardarGrupo()
+- Boolean sonValidosDatosFormulario(GradoData,PeriodoEscolarData,String,String)
+- void registrarGrupo(GradoData,PeriodoEscolarData,String,String)
+- void cerrarFormulario()
+}
+class com.gamma.gestorhorariosescolares.edificio.aplicacion.actualizar.ActualizadorEdficio {
+- EdificioRepositorio repositorio
++ <<Create>> ActualizadorEdficio(EdificioRepositorio)
++ void actualizar(Edificio)
+}
+class com.gamma.gestorhorariosescolares.edificio.aplicacion.registrar.RegistradorEdificio {
+- EdificioRepositorio repositorio
++ <<Create>> RegistradorEdificio(EdificioRepositorio)
++ int registrar(String,String)
+}
+class com.gamma.gestorhorariosescolares.horario.aplicacion.ConsultarHorario {
+}
+class com.gamma.gestorhorariosescolares.horario.aplicacion.actualizar.ActualizadorHorario {
+- HorarioRepositorio repositorio
++ <<Create>> ActualizadorHorario(HorarioRepositorio)
++ void actualizar(Horario)
+}
+class com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnoData {
+- int id
+- String matricula
+- String curp
+- String nombre
+- String apellidoPaterno
+- String apellidoMaterno
+- Boolean estatus
+- UsuarioData usuario
++ <<Create>> AlumnoData(int,String,String,String,String,String,Boolean,UsuarioData)
++ {static} AlumnoData fromAggregate(Alumno,Usuario)
++ Integer id()
++ String matricula()
++ String curp()
++ String nombre()
++ String apellidoPaterno()
++ String apellidoMaterno()
++ Boolean estatus()
++ UsuarioData usuario()
+}
+class com.gamma.gestorhorariosescolares.alumno.aplicacion.buscar.BuscadorAlumno {
+- AlumnoRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorAlumno(AlumnoRepositorio)
++ BuscadorAlumno igual(String,String)
++ BuscadorAlumno diferente(String,String)
++ BuscadorAlumno mayorQue(String,String)
++ BuscadorAlumno mayorIgualQue(String,String)
++ BuscadorAlumno menorQue(String,String)
++ BuscadorAlumno menorIgualQue(String,String)
++ BuscadorAlumno contiene(String,String)
++ BuscadorAlumno noContiene(String,String)
++ BuscadorAlumno ordenarAscendente(String)
++ BuscadorAlumno ordenarDescendente(String)
++ BuscadorAlumno esObligatorio()
++ BuscadorAlumno esOpcional()
++ BuscadorAlumno intervalo(int)
++ BuscadorAlumno limite(int)
++ List<Alumno> buscar()
++ Alumno buscarPrimero()
+- void limpiarFiltros()
+}
+class com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.ActualizarPeriodoEscolar {
+- ServicioBuscador<PeriodoEscolar> buscadorPeriodoEscolar
+- ActualizadorPeriodoEscolar actualizadorPeriodoEscolar
++ <<Create>> ActualizarPeriodoEscolar(ServicioBuscador<PeriodoEscolar>,ActualizadorPeriodoEscolar)
++ void actualizar(PeriodoEscolarData)
+}
+class com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.RegistradorAdministrador {
+- AdministradorRepositorio repositorio
++ <<Create>> RegistradorAdministrador(AdministradorRepositorio)
++ int registrar(String,String,String,String,int)
+}
+class com.gamma.gestorhorariosescolares.alumno.aplicacion.actualizar.ActualizadorAlumno {
+- AlumnoRepositorio repositorio
++ <<Create>> ActualizadorAlumno(AlumnoRepositorio)
++ void actualizar(Alumno)
+}
+class com.gamma.gestorhorariosescolares.materia.dominio.Materia {
+- int id
+- String clave
+- String nombre
+- int horasPracticas
+- int horasTeoricas
+- int idGrado
+- boolean estatus
++ <<Create>> Materia(int,String,String,int,int,int,boolean)
++ <<Create>> Materia(String,String,int,int,int)
++ int id()
++ String clave()
++ String nombre()
++ int horasPracticas()
++ int horasTeoricas()
++ int idGrado()
++ void habilitar()
++ void deshabilitar()
++ boolean estatus()
+}
+class com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio {
+- Connection conexion
++ <<Create>> MySql2oUsuarioRepositorio(Connection)
++ List<Usuario> buscar(Criteria)
++ int registrar(Usuario)
++ void actualizar(Usuario)
+}
+abstract class com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage {
+- Scene scene
+- BordersCustomStage bordersCustomStage
+- TitleBar titleBar
+- String stylesheetPath
+- Parent content
++ <<Create>> CustomStage()
+- void loadConfiguation()
+- void loadTitleBar()
++ void setContent(Parent)
+}
+interface com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.ServicioRegistradorAdministrador {
+~ int registrar(String,String,String,String,int)
+}
+class com.gamma.gestorhorariosescolares.evaluacion.infrestructura.persistencia.MySql2oEvaluacionRepositorio {
+- Connection conexion
++ <<Create>> MySql2oEvaluacionRepositorio(Connection)
++ List<Evaluacion> buscar(Criteria)
++ int registar(Evaluacion)
+}
+class com.gamma.gestorhorariosescolares.alumno.infrestructura.stages.FormularioAlumnoStage {
+- boolean esNuevoRegistro
+- AlumnoData alumnoEdicion
+- AnchorPane panelFormulario
+- FormularioAlumnoControlador controladorFormulario
++ <<Create>> FormularioAlumnoStage()
++ <<Create>> FormularioAlumnoStage(AlumnoData)
+- void cargarFormulario()
+}
+class com.gamma.gestorhorariosescolares.clase.dominio.ClaseId {
++ <<Create>> ClaseId(Integer)
+}
+interface com.gamma.gestorhorariosescolares.inscripcion.dominio.InscripcionRepositorio {
+~ List<Inscripcion> buscar(Criteria)
+~ int registrar(Inscripcion)
+~ void actualizar(Inscripcion)
+}
+class com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.AsignacionInvalidaException {
++ <<Create>> AsignacionInvalidaException()
++ <<Create>> AsignacionInvalidaException(String)
+}
+class com.gamma.gestorhorariosescolares.materia.aplicacion.GestionarEstatusMateria {
+- ServicioBuscador<Materia> buscadorMateria
+- ServicioActualizadorMateria actualizadorMateria
++ <<Create>> GestionarEstatusMateria(ServicioBuscador<Materia>,ServicioActualizadorMateria)
++ void habilitarMateria(int)
++ void deshabilitarMateria(int)
+}
+class com.gamma.gestorhorariosescolares.secretario.infrestructura.persistencia.MySql2oSecretarioRepositorio {
+- Connection conexion
++ <<Create>> MySql2oSecretarioRepositorio(Connection)
++ List<Secretario> buscar(Criteria)
++ int registrar(Secretario)
++ void actualizar(Secretario)
+}
+class com.gamma.gestorhorariosescolares.materia.aplicacion.excepciones.SuperposicionRangoFechasException {
++ <<Create>> SuperposicionRangoFechasException()
++ <<Create>> SuperposicionRangoFechasException(String)
+}
+class com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.MySqlCriteriaParser {
+- String tabla
+- List<String> columnas
+- List<Filter> filtrosObligatorios
+- List<Filter> filtrosOpcionales
+- Criteria criteria
++ <<Create>> MySqlCriteriaParser(String,Criteria)
++ void agregarCampos(String)
++ String generarConsultaSql2o()
+- String generarColumnas()
+- String generarCondicionesSql2o()
+- String generarCondicionSql2o(Filter,int)
++ List<Map<Integer,String>> generarParametrosSql2o()
+}
+class com.gamma.gestorhorariosescolares.planestudio.aplicacion.PlanEstudioData {
+- Integer id
+- String clave
+- String nombre
+- Boolean estatus
++ <<Create>> PlanEstudioData(Integer,String,String,Boolean)
++ {static} PlanEstudioData fromAggregate(PlanEstudio)
++ Integer id()
++ String clave()
++ String nombre()
++ Boolean estatus()
+}
+class com.gamma.gestorhorariosescolares.secretario.aplicacion.registrar.RegistradorSecretario {
+- SecretarioRepositorio repositorio
++ <<Create>> RegistradorSecretario(SecretarioRepositorio)
++ int registrar(String,String,String,String,int)
+}
+class com.gamma.gestorhorariosescolares.grupo.aplicacion.registrar.RegistradorGrupo {
+- GrupoRepositorio repositorio
++ <<Create>> RegistradorGrupo(GrupoRepositorio)
++ int registrar(String,String,int,int)
+}
+class com.gamma.gestorhorariosescolares.alumno.infrestructura.persistencia.MySql2oAlumnoRepositorio {
+- Connection conexion
++ <<Create>> MySql2oAlumnoRepositorio(Connection)
++ List<Alumno> buscar(Criteria)
++ int registrar(Alumno)
++ void actualizar(Alumno)
+}
+class com.gamma.gestorhorariosescolares.administrador.aplicacion.AdministradoresData {
+- List<AdministradorData> administradores
++ <<Create>> AdministradoresData(List<AdministradorData>)
++ List<AdministradorData> administradores()
+}
+class com.gamma.gestorhorariosescolares.clase.aplicacion.ClaseGrupoData {
+- Integer id
+- MateriaClaseData materia
+- MaestroClaseData maestro
++ <<Create>> ClaseGrupoData(Integer,MateriaClaseData,MaestroClaseData)
++ {static} ClaseGrupoData fromAggregate(Clase,MateriaClaseData,MaestroClaseData)
++ Integer id()
++ MateriaClaseData materia()
++ MaestroClaseData maestro()
+}
+class com.gamma.gestorhorariosescolares.inscripcion.aplicacion.buscar.BuscadorInscripcion {
+- InscripcionRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorInscripcion(InscripcionRepositorio)
++ BuscadorInscripcion igual(String,String)
++ BuscadorInscripcion diferente(String,String)
++ BuscadorInscripcion mayorQue(String,String)
++ BuscadorInscripcion mayorIgualQue(String,String)
++ BuscadorInscripcion menorQue(String,String)
++ BuscadorInscripcion menorIgualQue(String,String)
++ BuscadorInscripcion contiene(String,String)
++ BuscadorInscripcion noContiene(String,String)
++ BuscadorInscripcion ordenarAscendente(String)
++ BuscadorInscripcion ordenarDescendente(String)
++ BuscadorInscripcion esObligatorio()
++ BuscadorInscripcion esOpcional()
++ BuscadorInscripcion intervalo(int)
++ BuscadorInscripcion limite(int)
++ List<Inscripcion> buscar()
++ Inscripcion buscarPrimero()
+- void limpiarFiltros()
+}
+class com.gamma.gestorhorariosescolares.alumno.dominio.Alumno {
+- int id
+- String matricula
+- String curp
+- String nombre
+- String apellidoPaterno
+- String apellidoMaterno
+- int idUsuario
+- boolean estatus
++ <<Create>> Alumno(int,boolean,String,String,String,String,String,int)
++ <<Create>> Alumno(String,String,String,String,String,int)
++ int id()
++ String matricula()
++ String curp()
++ String nombre()
++ String apellidoPaterno()
++ String apellidoMaterno()
++ void habilitar()
++ void deshabilitar()
++ boolean estaHabilitado()
++ int idUsuario()
+}
+class com.gamma.gestorhorariosescolares.salon.aplicacion.SalonData {
+- Integer id
+- String clave
+- Integer capacidad
+- Boolean estatus
+- EdificioData edificio
++ <<Create>> SalonData(Integer,String,Integer,Boolean,EdificioData)
++ {static} SalonData fromAggregate(Salon,Edificio)
++ Integer id()
++ String clave()
++ Integer capacidad()
++ Boolean estatus()
++ EdificioData edificio()
+}
+class com.gamma.gestorhorariosescolares.grupo.infrestructura.controladores.CatalogoGruposControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
+- ObservableList<PeriodoEscolarData> coleccionPeriodosEscolares
+- ObservableList<GrupoData> coleccionGrupos
+- boolean esBusquedaGrupo
+- TextField txtBuscar
+- ComboBox<PeriodoEscolarData> cbxPeriodoEscolar
+- TableView<GrupoData> tablaGrupos
++ <<Create>> CatalogoGruposControlador(Stage)
++ void initialize()
+- void inicializarComboBoxPeriodoEscolar()
+- void inicializarTabla()
+- void registrarNuevoGrupo()
+- void editarGrupo(GrupoData)
++ void buscarGrupos()
+- void buscarGrupos(String,PeriodoEscolarData)
+- void buscarPeriodosEscolares()
+- void cargarGruposEnTabla(GruposData)
++ void liberarRecursos()
+}
+class com.gamma.gestorhorariosescolares.clase.aplicacion.ClasesGrupoData {
+- List<ClaseGrupoData> clases
++ <<Create>> ClasesGrupoData(List<ClaseGrupoData>)
++ List<ClaseGrupoData> clases()
+}
+class com.gamma.gestorhorariosescolares.grado.aplicacion.buscar.BuscadorGrado {
+- GradoRepositorio repositorio
+- List<Filter> filtros
+- Order ordenador
+- Optional<Integer> intervalo
+- Optional<Integer> limite
++ <<Create>> BuscadorGrado(GradoRepositorio)
++ BuscadorGrado igual(String,String)
++ BuscadorGrado diferente(String,String)
++ BuscadorGrado mayorQue(String,String)
++ BuscadorGrado mayorIgualQue(String,String)
++ BuscadorGrado menorQue(String,String)
++ BuscadorGrado menorIgualQue(String,String)
++ BuscadorGrado contiene(String,String)
++ BuscadorGrado noContiene(String,String)
++ BuscadorGrado ordenarAscendente(String)
++ BuscadorGrado ordenarDescendente(String)
++ BuscadorGrado esObligatorio()
++ BuscadorGrado esOpcional()
++ BuscadorGrado intervalo(int)
++ BuscadorGrado limite(int)
++ List<Grado> buscar()
++ Grado buscarPrimero()
+- void limpiarFiltros()
+}
+class com.gamma.gestorhorariosescolares.inscripcion.aplicacion.RegistrarInscripcionCompleta {
+}
+class com.gamma.gestorhorariosescolares.alumno.infrestructura.stages.MenuAlumnoStage {
++ <<Create>> MenuAlumnoStage()
+}
+class com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones {
+- {static} Sql2o conexionPrimaria
++ {static} Sql2o getConexionPrimaria()
+}
+interface com.gamma.gestorhorariosescolares.usuario.aplicacion.registrar.ServicioRegistradorUsuario {
+~ int registrar(String,String,String,String)
+}
+interface com.gamma.gestorhorariosescolares.salon.aplicacion.actualizar.ServicioActualizadorSalon {
+~ void actualizar(Salon)
+}
+class com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores.MateriasAlumnoControlador {
+- Stage stage
+- Temporizador temporizadorBusqueda
++ <<Create>> MateriasAlumnoControlador(Stage)
++ void liberarRecursos()
+}
+
+
+com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.Exception <|-- com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.EliminacionInvalidaException
+com.gamma.gestorhorariosescolares.maestro.aplicacion.actualizar.ServicioActualizadorMaestro <|.. com.gamma.gestorhorariosescolares.maestro.aplicacion.actualizar.ActualizadorMaestro
+com.gamma.gestorhorariosescolares.materia.aplicacion.actualizar.ServicioActualizadorMateria <|.. com.gamma.gestorhorariosescolares.materia.aplicacion.actualizar.ActualizadorMateria
+com.gamma.gestorhorariosescolares.grupo.aplicacion.actualizar.ServicioActualizadorGrupo <|.. com.gamma.gestorhorariosescolares.grupo.aplicacion.actualizar.ActualizadorGrupo
+com.gamma.gestorhorariosescolares.compartido.dominio.IntValueObject <|-- com.gamma.gestorhorariosescolares.maestro.dominio.MaestroId
+com.gamma.gestorhorariosescolares.planestudio.aplicacion.eliminar.ServicioEliminadorPlanEstudio <|.. com.gamma.gestorhorariosescolares.planestudio.aplicacion.eliminar.EliminadorPlanEstudio
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.clase.aplicacion.buscar.BuscadorClase
+com.gamma.gestorhorariosescolares.planestudio.aplicacion.registrar.ServicioRegistradorPlanEstudio <|.. com.gamma.gestorhorariosescolares.planestudio.aplicacion.registrar.RegistradorPlanEstudio
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.planestudio.aplicacion.buscar.BuscadorPlanEstudio
+com.gamma.gestorhorariosescolares.planestudio.dominio.PlanEstudioRepositorio <|.. com.gamma.gestorhorariosescolares.planestudio.infrestructura.persistencia.MySql2oPlanEstudioRepositorio
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.planestudio.infrestructura.stages.FormularioPlanEstudioStage
+com.gamma.gestorhorariosescolares.edificio.dominio.EdificioRepositorio <|.. com.gamma.gestorhorariosescolares.edificio.infrestructura.persistencia.MySql2oEdificioRepositorio
+com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.actualizar.ServicioActualizadorPeriodoEscolar <|.. com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.actualizar.ActualizadorPeriodoEscolar
+com.gamma.gestorhorariosescolares.clase.aplicacion.registrar.ServicioRegistradorClase <|.. com.gamma.gestorhorariosescolares.clase.aplicacion.registrar.RegistradorClase
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.maestro.infrestructura.stages.MenuMaestroStage
+com.gamma.gestorhorariosescolares.salon.dominio.SalonRepositorio <|.. com.gamma.gestorhorariosescolares.salon.infrestructura.persistencia.MySql2oSalonRepositorio
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.secretario.infrestructura.stages.MenuSecretarioStage
+com.gamma.gestorhorariosescolares.materia.aplicacion.registrar.ServicioRegistradorMateria <|.. com.gamma.gestorhorariosescolares.materia.aplicacion.registrar.RegistradorMateria
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.stages.FormularioPeriodoEscolarStage
+com.gamma.gestorhorariosescolares.administrador.dominio.AdministradorRepositorio <|.. com.gamma.gestorhorariosescolares.administrador.infrestructura.persistencia.MySql2oAdministradorRespositorio
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.maestro.aplicacion.buscar.BuscadorMaestro
+com.gamma.gestorhorariosescolares.evaluacion.aplicacion.registrar.ServicioRegistradorEvaluacion <|.. com.gamma.gestorhorariosescolares.evaluacion.aplicacion.registrar.RegistradorEvaluacion
+com.gamma.gestorhorariosescolares.salon.aplicacion.actualizar.ServicioActualizadorSalon <|.. com.gamma.gestorhorariosescolares.salon.aplicacion.actualizar.ActualizadorSalon
+com.gamma.gestorhorariosescolares.clase.aplicacion.actualizar.ServicioActualizadorClase <|.. com.gamma.gestorhorariosescolares.clase.aplicacion.actualizar.ActualizadorClase
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.secretario.infrestructura.stages.FormularioSecretarioStage
+com.gamma.gestorhorariosescolares.compartido.dominio.StringValueObject <|-- com.gamma.gestorhorariosescolares.compartido.dominio.criterio.FilterField
+com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.Exception <|-- com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.NoPersonalDuplicadoException
+com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.registrar.ServicioRegistradorPeriodoEscolar <|.. com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.registrar.RegistradorPeriodoEscolar
+javafx.scene.layout.AnchorPane <|-- com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.BordersCustomStage
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.maestro.infrestructura.stages.FormularioMaestroStage
+com.gamma.gestorhorariosescolares.compartido.dominio.StringValueObject <|-- com.gamma.gestorhorariosescolares.compartido.dominio.criterio.OrderBy
+com.gamma.gestorhorariosescolares.salon.aplicacion.registrar.ServicioRegistradorSalon <|.. com.gamma.gestorhorariosescolares.salon.aplicacion.registrar.RegistradorSalon
+javafx.scene.layout.AnchorPane <|-- com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.TitleBar
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.evaluacion.aplicacion.buscar.BuscadorEvaluacion
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.secretario.aplicacion.buscar.BuscadorSecretario
+com.gamma.gestorhorariosescolares.planestudio.aplicacion.actualizar.ServicioActualizadorPlanEstudio <|.. com.gamma.gestorhorariosescolares.planestudio.aplicacion.actualizar.ActualizadorPlanEstudio
+com.gamma.gestorhorariosescolares.usuario.aplicacion.actualizar.ServicioActualizadorUsuario <|.. com.gamma.gestorhorariosescolares.usuario.aplicacion.actualizar.ActualizadorUsuario
+com.gamma.gestorhorariosescolares.materia.dominio.MateriaRepositorio <|.. com.gamma.gestorhorariosescolares.materia.infrestructura.persistencia.MySql2oMateriaRepositorio
+com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.Exception <|-- com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.MatriculaDuplicadaException
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.usuario.infrestructura.stages.LoginStage
+com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.Exception <|-- com.gamma.gestorhorariosescolares.usuario.aplicacion.excepciones.UsuarioDuplicadoException
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.buscar.BuscadorPeriodoEscolar
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.administrador.infrestructura.stages.MenuAdministradorStage
+com.gamma.gestorhorariosescolares.maestro.dominio.MaestroRepositorio <|.. com.gamma.gestorhorariosescolares.maestro.infrestructura.persistencia.MySql2oMaestroRepositorio
+com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.Exception <|-- com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.FormatoInvalidoException
+com.gamma.gestorhorariosescolares.maestro.aplicacion.registrar.ServicioRegistradorMaestro <|.. com.gamma.gestorhorariosescolares.maestro.aplicacion.registrar.RegistradorMaestro
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.grupo.infrestructura.stages.DetallesGrupoStage
+com.gamma.gestorhorariosescolares.compartido.dominio.StringValueObject <|-- com.gamma.gestorhorariosescolares.compartido.dominio.criterio.FilterValue
+com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.Exception <|-- com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException
+com.gamma.gestorhorariosescolares.periodoescolar.dominio.PeriodoEscolarRepositorio <|.. com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.persistencia.MySql2oPeriodoEscolarRepositorio
+com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.Exception <|-- com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RegistroHorarioInvalidoException
+java.util.Timer <|-- com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador
+com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.ServicioActualizadorAdministrador <|.. com.gamma.gestorhorariosescolares.administrador.aplicacion.actualizar.ActualizadorAdministrador
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.materia.infrestructura.stages.FormularioMateriaStage
+com.gamma.gestorhorariosescolares.alumno.aplicacion.registrar.ServicioRegistradorAlumno <|.. com.gamma.gestorhorariosescolares.alumno.aplicacion.registrar.RegistradorAlumno
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.grupo.aplicacion.buscar.BuscadorGrupo
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.administrador.infrestructura.stages.FormularioAdministradorStage
+com.gamma.gestorhorariosescolares.grado.dominio.GradoRepositorio <|.. com.gamma.gestorhorariosescolares.grado.infrestructura.persistencia.MySql2oGradoRepositorio
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.horario.aplicacion.buscar.BuscadorHorario
+com.gamma.gestorhorariosescolares.inscripcion.dominio.InscripcionRepositorio <|.. com.gamma.gestorhorariosescolares.inscripcion.infrestructura.persistencia.MySql2oInscripcionRepositorio
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.materia.aplicacion.buscar.BuscadorMateria
+com.gamma.gestorhorariosescolares.horario.aplicacion.registrar.ServicioRegistradorHorario <|.. com.gamma.gestorhorariosescolares.horario.aplicacion.registrar.RegistradorHorario
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar.BuscadorAdministrador
+com.gamma.gestorhorariosescolares.grupo.dominio.GrupoRepositorio <|.. com.gamma.gestorhorariosescolares.grupo.infrestructura.persistencia.MySql2oGrupoRepositorio
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.salon.infrestructura.stages.FormularioSalonStage
+com.gamma.gestorhorariosescolares.horario.aplicacion.eliminar.ServicioEliminadorHorario <|.. com.gamma.gestorhorariosescolares.horario.aplicacion.eliminar.EliminadorHorario
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.edificio.aplicacion.buscar.BuscadorEdificio
+com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.Exception <|-- com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.ClaveDuplicadaException
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario
+com.gamma.gestorhorariosescolares.horario.dominio.HorarioRepositorio <|.. com.gamma.gestorhorariosescolares.horario.infrestructura.persistencia.MySql2oHorarioRepositorio
+com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.Exception <|-- com.gamma.gestorhorariosescolares.alumno.aplicacion.excepciones.CurpDuplicadoException
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.edificio.infrestructura.stages.FormularioEdificioStage
+com.gamma.gestorhorariosescolares.clase.dominio.ClaseRepositorio <|.. com.gamma.gestorhorariosescolares.clase.infrestructura.persistencia.MySql2oClaseRepositorio
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.salon.aplicacion.buscar.BuscadorSalon
+com.gamma.gestorhorariosescolares.usuario.aplicacion.registrar.ServicioRegistradorUsuario <|.. com.gamma.gestorhorariosescolares.usuario.aplicacion.registrar.RegistradorUsuario
+com.gamma.gestorhorariosescolares.secretario.aplicacion.actualizar.ServicioActualizadorSecretario <|.. com.gamma.gestorhorariosescolares.secretario.aplicacion.actualizar.ActualizadorSecretario
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.grupo.infrestructura.stages.FormularioGrupoStage
+javafx.application.Application <|-- com.gamma.gestorhorariosescolares.App
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.horario.infrestructura.stages.FormularioRegistrarHorarioClaseStage
+com.gamma.gestorhorariosescolares.edificio.aplicacion.actualizar.ServicioActualizadorEdificio <|.. com.gamma.gestorhorariosescolares.edificio.aplicacion.actualizar.ActualizadorEdficio
+com.gamma.gestorhorariosescolares.edificio.aplicacion.registrar.ServicioRegistradorEdificio <|.. com.gamma.gestorhorariosescolares.edificio.aplicacion.registrar.RegistradorEdificio
+com.gamma.gestorhorariosescolares.horario.aplicacion.actualizar.ServicioActualizadorHorario <|.. com.gamma.gestorhorariosescolares.horario.aplicacion.actualizar.ActualizadorHorario
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.alumno.aplicacion.buscar.BuscadorAlumno
+com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.ServicioRegistradorAdministrador <|.. com.gamma.gestorhorariosescolares.administrador.aplicacion.registrar.RegistradorAdministrador
+com.gamma.gestorhorariosescolares.alumno.aplicacion.actualizar.ServicioActualizadorAlumno <|.. com.gamma.gestorhorariosescolares.alumno.aplicacion.actualizar.ActualizadorAlumno
+com.gamma.gestorhorariosescolares.usuario.dominio.UsuarioRepositorio <|.. com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio
+javafx.stage.Stage <|-- com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage
+com.gamma.gestorhorariosescolares.evaluacion.dominio.EvaluacionRepositorio <|.. com.gamma.gestorhorariosescolares.evaluacion.infrestructura.persistencia.MySql2oEvaluacionRepositorio
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.alumno.infrestructura.stages.FormularioAlumnoStage
+com.gamma.gestorhorariosescolares.compartido.dominio.IntValueObject <|-- com.gamma.gestorhorariosescolares.clase.dominio.ClaseId
+com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.Exception <|-- com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.AsignacionInvalidaException
+com.gamma.gestorhorariosescolares.secretario.dominio.SecretarioRepositorio <|.. com.gamma.gestorhorariosescolares.secretario.infrestructura.persistencia.MySql2oSecretarioRepositorio
+com.gamma.gestorhorariosescolares.materia.aplicacion.excepciones.Exception <|-- com.gamma.gestorhorariosescolares.materia.aplicacion.excepciones.SuperposicionRangoFechasException
+com.gamma.gestorhorariosescolares.secretario.aplicacion.registrar.ServicioRegistradorSecretario <|.. com.gamma.gestorhorariosescolares.secretario.aplicacion.registrar.RegistradorSecretario
+com.gamma.gestorhorariosescolares.grupo.aplicacion.registrar.ServicioRegistradorGrupo <|.. com.gamma.gestorhorariosescolares.grupo.aplicacion.registrar.RegistradorGrupo
+com.gamma.gestorhorariosescolares.alumno.dominio.AlumnoRepositorio <|.. com.gamma.gestorhorariosescolares.alumno.infrestructura.persistencia.MySql2oAlumnoRepositorio
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.inscripcion.aplicacion.buscar.BuscadorInscripcion
+com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador <|.. com.gamma.gestorhorariosescolares.grado.aplicacion.buscar.BuscadorGrado
+com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage <|-- com.gamma.gestorhorariosescolares.alumno.infrestructura.stages.MenuAlumnoStage
+@enduml
