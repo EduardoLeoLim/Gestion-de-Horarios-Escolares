@@ -4,14 +4,16 @@ import com.gamma.gestorhorariosescolares.horario.dominio.Horario;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodoEscolarData;
 import com.gamma.gestorhorariosescolares.salon.aplicacion.SalonData;
 
+import java.time.LocalTime;
+
 public class HorarioDisponibleData {
     private final int diaSemana;
-    private final String horaInicio;
-    private final String horaFin;
+    private final LocalTime horaInicio;
+    private final LocalTime horaFin;
     private final SalonData salon;
     private final PeriodoEscolarData periodoEscolar;
 
-    public HorarioDisponibleData(int diaSemana, String horaInicio, String horaFin, SalonData salon, PeriodoEscolarData periodoEscolar) {
+    public HorarioDisponibleData(int diaSemana, LocalTime horaInicio, LocalTime horaFin, SalonData salon, PeriodoEscolarData periodoEscolar) {
         this.diaSemana = diaSemana;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
@@ -20,18 +22,18 @@ public class HorarioDisponibleData {
     }
 
     public static HorarioDisponibleData fromAggregate(Horario horario, SalonData salon, PeriodoEscolarData periodoEscolar) {
-        return new HorarioDisponibleData(horario.diaSemana(), horario.horaInicio().toString(), horario.horaFin().toString(), salon, periodoEscolar);
+        return new HorarioDisponibleData(horario.diaSemana(), horario.horaInicio(), horario.horaFin(), salon, periodoEscolar);
     }
 
     public int diaSemana() {
         return diaSemana;
     }
 
-    public String horaInicio() {
+    public LocalTime horaInicio() {
         return horaInicio;
     }
 
-    public String horaFin() {
+    public LocalTime horaFin() {
         return horaFin;
     }
 

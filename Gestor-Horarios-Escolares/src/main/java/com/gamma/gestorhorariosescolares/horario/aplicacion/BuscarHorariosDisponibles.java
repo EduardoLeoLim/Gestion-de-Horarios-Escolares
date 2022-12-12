@@ -1,10 +1,8 @@
-package com.gamma.gestorhorariosescolares.clase.aplicacion;
+package com.gamma.gestorhorariosescolares.horario.aplicacion;
 
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.edificio.dominio.Edificio;
-import com.gamma.gestorhorariosescolares.horario.aplicacion.HorarioDisponibleData;
-import com.gamma.gestorhorariosescolares.horario.aplicacion.HorariosDisponiblesData;
 import com.gamma.gestorhorariosescolares.horario.dominio.Horario;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodoEscolarData;
 import com.gamma.gestorhorariosescolares.periodoescolar.dominio.PeriodoEscolar;

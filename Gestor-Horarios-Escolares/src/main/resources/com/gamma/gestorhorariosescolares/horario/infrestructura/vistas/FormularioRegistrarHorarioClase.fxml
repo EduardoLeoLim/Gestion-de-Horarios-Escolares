@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" style="-fx-background-color: EFEFEF;">
+    <GridPane AnchorPane.topAnchor="25.0" AnchorPane.bottomAnchor="60" AnchorPane.leftAnchor="30"
+              AnchorPane.rightAnchor="30">
+        <columnConstraints>
+            <ColumnConstraints minWidth="120"/>
+            <ColumnConstraints minWidth="120" hgrow="ALWAYS"/>
+            <ColumnConstraints minWidth="120"/>
+            <ColumnConstraints minWidth="120" hgrow="ALWAYS"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="50"/>
+            <RowConstraints minHeight="40"/>
+            <RowConstraints minHeight="40"/>
+            <RowConstraints minHeight="40"/>
+            <RowConstraints minHeight="40"/>
+            <RowConstraints minHeight="40"/>
+        </rowConstraints>
+
+        <Label text="Datos generales" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="4"
+               styleClass="h3"/>
+
+        <Label text="Edificio:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <styleClass>
+                <String fx:value="h5"/>
+                <String fx:value="b"/>
+            </styleClass>
+        </Label>
+        <Label fx:id="lblEdificio" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="h5"/>
+
+        <Label text="Salón" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <styleClass>
+                <String fx:value="h5"/>
+                <String fx:value="b"/>
+            </styleClass>
+        </Label>
+        <Label fx:id="lblSalon" GridPane.columnIndex="3" GridPane.rowIndex="1" styleClass="h5"/>
+
+        <Label text="PeriodoEscolar:" GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <styleClass>
+                <String fx:value="h5"/>
+                <String fx:value="b"/>
+            </styleClass>
+        </Label>
+        <Label fx:id="lblPeriodoEscolar" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="h5"/>
+
+        <Label text="Hora inicio:" GridPane.columnIndex="0" GridPane.rowIndex="3">
+            <styleClass>
+                <String fx:value="h5"/>
+                <String fx:value="b"/>
+            </styleClass>
+        </Label>
+        <Label fx:id="lblHoraInicio" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="h5"/>
+
+        <Label text="Hora fin:" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <styleClass>
+                <String fx:value="h5"/>
+                <String fx:value="b"/>
+            </styleClass>
+        </Label>
+        <Label fx:id="lblHoraFin" GridPane.columnIndex="3" GridPane.rowIndex="3" styleClass="h5"/>
+
+        <Label text="Día:" GridPane.columnIndex="0" GridPane.rowIndex="4">
+            <styleClass>
+                <String fx:value="h5"/>
+                <String fx:value="b"/>
+            </styleClass>
+        </Label>
+        <Label fx:id="lblDia" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="h5"/>
+
+        <Label text="Grupo:" GridPane.columnIndex="0" GridPane.rowIndex="5">
+            <styleClass>
+                <String fx:value="h5"/>
+                <String fx:value="b"/>
+            </styleClass>
+        </Label>
+        <ComboBox fx:id="cbxGrupo" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.columnSpan="3"
+                  styleClass="h5"/>
+
+        <Label text="Materia:" GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <styleClass>
+                <String fx:value="h5"/>
+                <String fx:value="b"/>
+            </styleClass>
+        </Label>
+        <ComboBox fx:id="cbxMateria" GridPane.columnIndex="3" GridPane.rowIndex="5" styleClass="h5"/>
+    </GridPane>
+
+    <Button fx:id="btnGuardar" prefWidth="100" text="Guardar" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="150"
+            onAction="#guardarHorario">
+        <styleClass>
+            <String fx:value="h5"/>
+            <String fx:value="b"/>
+            <String fx:value="btn-success"/>
+        </styleClass>
+    </Button>
+    <Button fx:id="btnCancelar" cancelButton="true" defaultButton="true" prefWidth="100" text="Cancelar"
+            AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="30" onAction="#cerrarFormulario">
+        <styleClass>
+            <String fx:value="h5"/>
+            <String fx:value="b"/>
+            <String fx:value="btn-danger"/>
+        </styleClass>
+    </Button>
+
+</AnchorPane>

@@ -7,6 +7,8 @@ import com.gamma.gestorhorariosescolares.horario.dominio.HorarioRepositorio;
 import com.gamma.gestorhorariosescolares.maestro.dominio.MaestroId;
 import org.sql2o.Connection;
 import org.sql2o.Query;
+import org.sql2o.data.Row;
+import org.sql2o.data.Table;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -35,24 +37,25 @@ public class MySql2oHorarioRepositorio implements HorarioRepositorio {
         parametros.forEach(parametro -> {
             query.addParameter(parametro.get(0), parametro.get(1));
         });
-        List<Map<String, Object>> filas = query.executeAndFetchTable().asList();
+        Table tabla = query.executeAndFetchTable();
+        List<Row> filas = tabla.rows();
         filas.forEach(fila -> {
-            int id = (int) fila.get("id");
-            int diaSemana = (int) fila.get("diaSemana");
-            LocalTime horaInicio = LocalTime.parse(fila.get("horaInicio").toString());
-            LocalTime horaFin = LocalTime.parse(fila.get("horaFin").toString());
-            int idMateria = (int) fila.get("idMateria");
-            int idGrupo = (int) fila.get("idGrupo");
-            int idClase = (int) fila.get("idClase");
+            int id = fila.getInteger("id");
+            int diaSemana = fila.getInteger("diaSemana");
+            LocalTime horaInicio = LocalTime.parse(fila.getString("horaInicio"));
+            LocalTime horaFin = LocalTime.parse(fila.getString("horaFin"));
+            int idMateria = fila.getInteger("idMateria");
+            int idGrupo = fila.getInteger("idGrupo");
+            int idClase = fila.getInteger("idClase");
             MaestroId idMaestro;
-            if (fila.get("idMaestro") == null) {
+            if (fila.getInteger("idMaestro") == null) {
                 idMaestro = null;
             } else {
-                idMaestro = new MaestroId((int) fila.get("idMaestro"));
+                idMaestro = new MaestroId(fila.getInteger("idMaestro"));
             }
-            int idEdificio = (int) fila.get("idEdificio");
-            int idSalon = (int) fila.get("idSalon");
-            int idPeriodoEscolar = (int) fila.get("idPeriodoEscolar");
+            int idEdificio = fila.getInteger("idEdificio");
+            int idSalon = fila.getInteger("idSalon");
+            int idPeriodoEscolar = fila.getInteger("idPeriodoEscolar");
 
             Horario horario = new Horario(id, diaSemana, horaInicio, horaFin, idMateria, idGrupo, idClase, idMaestro,
                     idEdificio, idSalon, idPeriodoEscolar);
