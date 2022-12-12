@@ -28,7 +28,7 @@ public class MySql2oClaseRepositorio implements ClaseRepositorio {
         List<Clase> clases = new ArrayList<>();
         String consulta;
 
-        MySqlCriteriaParser conversorCriteria = new MySqlCriteriaParser("clase", criterio);
+        MySqlCriteriaParser conversorCriteria = new MySqlCriteriaParser("clasedetalle", criterio);
 
         consulta = conversorCriteria.generarConsultaSql2o();
         List<Map<Integer, String>> parametros = conversorCriteria.generarParametrosSql2o();
@@ -44,8 +44,10 @@ public class MySql2oClaseRepositorio implements ClaseRepositorio {
             Integer idGrupo = fila.getInteger("idGrupo");
             Integer idMateria = fila.getInteger("idMateria");
             Integer idMaestro = fila.getInteger("idMaestro");
+            Integer idGrado = fila.getInteger("idGrado");
+            Integer idPeriodoEscolar = fila.getInteger("idPeriodoEscolar");
 
-            Clase clase = new Clase(new ClaseId(id), idGrupo, idMateria, idMaestro == null ? null : new MaestroId(idMaestro));
+            Clase clase = new Clase(new ClaseId(id), idGrupo, idMateria, idMaestro == null ? null : new MaestroId(idMaestro), idGrado, idPeriodoEscolar);
             clases.add(clase);
         });
 

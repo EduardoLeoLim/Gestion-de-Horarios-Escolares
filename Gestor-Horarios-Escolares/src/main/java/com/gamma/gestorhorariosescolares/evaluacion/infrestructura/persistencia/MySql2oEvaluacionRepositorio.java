@@ -27,7 +27,7 @@ public class MySql2oEvaluacionRepositorio implements EvaluacionRepositorio {
         List<Evaluacion> evaluaciones = new ArrayList<>();
         String consulta;
 
-        MySqlCriteriaParser conversorCriteria = new MySqlCriteriaParser("evaluacion", criterio);
+        MySqlCriteriaParser conversorCriteria = new MySqlCriteriaParser("evaluaciondetalle", criterio);
 
         consulta = conversorCriteria.generarConsultaSql2o();
         List<Map<Integer, String>> parametros = conversorCriteria.generarParametrosSql2o();
@@ -44,7 +44,9 @@ public class MySql2oEvaluacionRepositorio implements EvaluacionRepositorio {
             String tipo = fila.getString("tipo");
             Integer idMateria = fila.getInteger("idMateria");
             Integer idAlumno = fila.getInteger("idAlumno");
-            Evaluacion evaluacion = new Evaluacion(id, calificacion, tipo, idMateria, idAlumno);
+            Integer idGrupo = fila.getInteger("idGrupo");
+            Integer idMaestro = fila.getInteger("idMaestro");
+            Evaluacion evaluacion = new Evaluacion(id, calificacion, tipo, idMateria, idAlumno, idGrupo, idMaestro);
             evaluaciones.add(evaluacion);
         });
 
