@@ -115,7 +115,7 @@ public class MenuAlumnoControlador {
     protected void mostrarCalificacionesClick() {
         if (panelCalificacionesAlumno == null) {
             try {
-                controladorCalificacionesAlumno = new CalificacionesAlumnoControlador(stage);
+                controladorCalificacionesAlumno = new CalificacionesAlumnoControlador(stage, alumnoConectado);
                 panelCalificacionesAlumno = InicializarPanel.inicializarAnchorPane(
                         "alumno/infrestructura/vistas/CalificacionesAlumno.fxml",
                         controladorCalificacionesAlumno
