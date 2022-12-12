@@ -88,7 +88,7 @@ public class LoginControlador {
                 new MenuSecretarioStage().show();
                 break;
             case "Maestro":
-                new MenuMaestroStage().show();
+                new MenuMaestroStage(usuario).show();
                 break;
             case "Alumno":
                 new MenuAlumnoStage(usuario).show();
