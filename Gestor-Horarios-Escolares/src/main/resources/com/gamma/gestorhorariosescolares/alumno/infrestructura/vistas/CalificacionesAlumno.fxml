@@ -6,23 +6,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx">
-    <Label text="Calificaciones Alumno" prefHeight="40" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"
-           AnchorPane.topAnchor="20.0">
-        <styleClass>
-            <String fx:value="h2"/>
-            <String fx:value="b"/>
-        </styleClass>
-    </Label>
-
-    <Label styleClass="h5" text="Periodo escolar: " AnchorPane.leftAnchor="50" AnchorPane.topAnchor="80"/>
-    <TextField fx:id="txtBuscarXPeriodoEscolar" styleClass="h5" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="75"/>
-
-    <TableView fx:id="tablaCalificacionesAlumno" styleClass="h5" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30"
-               AnchorPane.topAnchor="130" AnchorPane.bottomAnchor="20">
+<AnchorPane prefHeight="550.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+       <Label prefHeight="40" text="Calificaciones Alumno" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
+           <styleClass>
+               <String fx:value="h2" />
+               <String fx:value="b" />
+           </styleClass>
+       </Label>
+   
+       <Label styleClass="h5" text="Periodo escolar: " AnchorPane.leftAnchor="50" AnchorPane.topAnchor="80" />
+   
+       <TableView fx:id="tablaEvaluacionesAlumno" styleClass="h5" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30" AnchorPane.topAnchor="130">
 
     </TableView>
-
+      <ComboBox fx:id="cbxPeriodoEscolar" layoutX="172.0" layoutY="75.0" prefHeight="31.0" prefWidth="263.0" promptText="Selecciona un periodo escolar" styleClass="h5" />
+   </children>
 
 
 </AnchorPane>
