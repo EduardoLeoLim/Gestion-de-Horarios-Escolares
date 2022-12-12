@@ -1,5 +1,8 @@
 package com.gamma.gestorhorariosescolares.maestro.aplicacion;
 
+import com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnoData;
+import com.gamma.gestorhorariosescolares.alumno.dominio.Alumno;
+import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.maestro.dominio.Maestro;
 import com.gamma.gestorhorariosescolares.usuario.dominio.Usuario;
@@ -15,6 +18,14 @@ public class BuscarMaestros {
     public BuscarMaestros(ServicioBuscador<Maestro> buscadorMaestro, ServicioBuscador<Usuario> buscadorUsuario) {
         this.buscadorMaestro = buscadorMaestro;
         this.buscadorUsuario = buscadorUsuario;
+    }
+
+    public MaestroData buscarPorUsuario(Integer idUsuario) throws RecursoNoEncontradoException {
+
+        Maestro maestro = buscadorMaestro.igual("idUsuario", idUsuario.toString()).buscarPrimero();
+        Usuario usuario = buscadorUsuario.igual("id", String.valueOf(maestro.idUsuario())).buscar().get(0);
+        return MaestroData.fromAggregate(maestro, usuario);
+
     }
 
     public MaestrosData buscarTodos() {
