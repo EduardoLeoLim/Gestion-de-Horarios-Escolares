@@ -59,7 +59,7 @@ public class BuscarEvaluacion {
             try{
                 evaluacion = buscadorEvaluacion.igual("idInscripcion", String.valueOf(inscripcion.id())).buscarPrimero();
             }catch (RecursoNoEncontradoException ex){
-                evaluacion = new Evaluacion(0, "Sin calificar", "Ordinario", materia.id(), alumno.id(), grupo.id(), idMaestro );
+                evaluacion = new Evaluacion(0, "Sin calificar", "Ordinario", materia.id(), alumno.id(), grupo.id(), idMaestro, inscripcion.id() );
             }
 
 
