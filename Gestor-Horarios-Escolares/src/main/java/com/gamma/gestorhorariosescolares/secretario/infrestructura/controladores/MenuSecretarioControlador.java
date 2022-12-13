@@ -3,6 +3,7 @@ package com.gamma.gestorhorariosescolares.secretario.infrestructura.controladore
 import com.gamma.gestorhorariosescolares.clase.infrestructura.controladores.HorariosDisponiblesControlador;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.InicializarPanel;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.controladores.CatalogoGruposControlador;
+import com.gamma.gestorhorariosescolares.horario.infrestructura.controladores.ConsultarHorariosSecretario;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.stages.LoginStage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,6 +22,8 @@ public class MenuSecretarioControlador {
     private CatalogoGruposControlador controladorGrupos;
     private AnchorPane panelHorariosDisponibles;
     private HorariosDisponiblesControlador controladorHorariosDisponibles;
+    private AnchorPane panelConsultarHorariosSecretario;
+    private ConsultarHorariosSecretario controladorConsultarHorariosSecretario;
 
     @FXML
     private BorderPane panelMenuSecretario;
@@ -74,7 +77,21 @@ public class MenuSecretarioControlador {
 
     @FXML
     protected void mostrarConsultarHorariosClick() {
-
+        if (panelConsultarHorariosSecretario == null) {
+            try {
+                controladorConsultarHorariosSecretario = new ConsultarHorariosSecretario(stage);
+                panelConsultarHorariosSecretario = InicializarPanel.inicializarAnchorPane(
+                        "horario/infrestructura/vistas/ConsultarHorariosSecretario.fxml",
+                        controladorConsultarHorariosSecretario
+                );
+                panelConsultarHorariosSecretario.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                panelMenuSecretario.setCenter(panelConsultarHorariosSecretario);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            panelMenuSecretario.setCenter(panelConsultarHorariosSecretario);
+        }
     }
 
     @FXML

@@ -80,7 +80,6 @@ public class HorariosDisponiblesControlador {
                 setText("");
                 if (empty)
                     return;
-
                 setText(periodoEscolar.clave() + " - " + periodoEscolar.nombre());
             }
         });
@@ -92,7 +91,6 @@ public class HorariosDisponiblesControlador {
                 setText("");
                 if (empty)
                     return;
-
                 setText(periodoEscolar.clave() + " - " + periodoEscolar.nombre());
             }
         });
@@ -133,7 +131,6 @@ public class HorariosDisponiblesControlador {
                 setText("");
                 if (empty)
                     return;
-
                 setText(edificio.clave() + " - " + edificio.nombre());
             }
         });
@@ -145,7 +142,6 @@ public class HorariosDisponiblesControlador {
                 setText("");
                 if (empty)
                     return;
-
                 setText(salon.clave() + " - " + salon.nombre());
             }
         });
@@ -191,7 +187,6 @@ public class HorariosDisponiblesControlador {
                 setText("");
                 if (empty)
                     return;
-
                 setText(salon.clave());
             }
         });
@@ -203,7 +198,6 @@ public class HorariosDisponiblesControlador {
                 setText("");
                 if (empty)
                     return;
-
                 setText(salon.clave());
             }
         });
@@ -253,7 +247,7 @@ public class HorariosDisponiblesControlador {
         }
 
         panelHorariosDisponibles.getChildren().clear();
-        Runnable runnable = () -> buscarHorariosDisponiblesDeSalon(periodoEscolarSeleccionado, edificioSeleccionado, salones);
+        Runnable runnable = () -> buscarHorariosDisponiblesDeSalon(periodoEscolarSeleccionado, salones);
         Thread thread = new Thread(runnable);
         thread.start();
     }
@@ -270,7 +264,7 @@ public class HorariosDisponiblesControlador {
         return true;
     }
 
-    private void buscarHorariosDisponiblesDeSalon(PeriodoEscolarData periodoEscolar, EdificioData edificio, List<SalonData> salones) {
+    private void buscarHorariosDisponiblesDeSalon(PeriodoEscolarData periodoEscolar, List<SalonData> salones) {
         Sql2o conexionSql2o = MySql2oConexiones.getConexionPrimaria();
 
         try (Connection conexion = conexionSql2o.open()) {

@@ -81,9 +81,15 @@ public class BuscarHorariosOcupados {
                 MateriaClaseData materiaData = MateriaClaseData.fromAggregate(
                         buscadorMateria.igual("id", String.valueOf(horario.idClase())).buscarPrimero()
                 );
-                MaestroClaseData maestroData = MaestroClaseData.fromAggregate(
-                        buscadorMaestro.igual("id", String.valueOf(horario.idClase())).buscarPrimero()
-                );
+
+                MaestroClaseData maestroData;
+                try {
+                    Maestro maestro = buscadorMaestro.igual("id", String.valueOf(horario.idClase())).buscarPrimero();
+                    maestroData = MaestroClaseData.fromAggregate(maestro);
+                } catch (RecursoNoEncontradoException e) {
+                    maestroData = null;
+                }
+
                 ClaseGrupoData claseData = ClaseGrupoData.fromAggregate(
                         buscadorClase.igual("id", String.valueOf(horario.idClase())).buscarPrimero(),
                         materiaData, maestroData
