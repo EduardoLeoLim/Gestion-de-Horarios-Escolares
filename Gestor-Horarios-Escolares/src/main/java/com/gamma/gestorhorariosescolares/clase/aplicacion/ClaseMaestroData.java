@@ -14,7 +14,7 @@ public class ClaseMaestroData {
     }
 
     public static ClaseMaestroData fromAggregate(Maestro maestro){
-        return new ClaseMaestroData(maestro.id().value(), maestro.nombre());
+        return new ClaseMaestroData(maestro.id().value(), maestro.nombre() + " " + maestro.apellidoPaterno() + " " + maestro.apellidoMaterno());
 
     }
 
