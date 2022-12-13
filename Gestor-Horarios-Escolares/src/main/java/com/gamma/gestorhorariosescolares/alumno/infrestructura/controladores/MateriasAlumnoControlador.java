@@ -94,7 +94,7 @@ public class MateriasAlumnoControlador {
             ClaseMaestroData maestro = ft.getValue().claseMaestroData();
             if (maestro == null)
                 return new SimpleStringProperty("Sin asignar");
-            return new SimpleStringProperty(maestro.nombre());
+            return new SimpleStringProperty(maestro.nombre() );
         });
 
         columnaMaestro.setMinWidth(150);

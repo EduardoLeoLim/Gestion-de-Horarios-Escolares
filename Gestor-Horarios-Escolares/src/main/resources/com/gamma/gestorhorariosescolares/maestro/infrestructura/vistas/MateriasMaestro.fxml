@@ -21,7 +21,7 @@
 
     </TableView>
       <ComboBox fx:id="cbxPeriodoEscolar" layoutX="189.0" layoutY="75.0" prefHeight="31.0" prefWidth="222.0" />
-      <Button layoutX="746.0" layoutY="75.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="124.0" text="Ver Grupo" />
+
    </children>
 
 
