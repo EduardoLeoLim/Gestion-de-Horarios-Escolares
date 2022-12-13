@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="330.0" prefWidth="572.0" style="-fx-background-color: #EFEFEF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="58.0" layoutY="56.0" prefHeight="42.0" prefWidth="116.0" text="Alumno:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="58.0" layoutY="133.0" text="Calificacion: ">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtCalificacion" layoutX="251.0" layoutY="135.0" prefHeight="31.0" prefWidth="70.0" />
+      <Label fx:id="txtAlumno" layoutX="176.0" layoutY="62.0" prefHeight="31.0" prefWidth="349.0">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Button fx:id="asignarBtn" layoutX="240.0" layoutY="245.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="93.0" text="Asignar" />
+   </children>
+</AnchorPane>

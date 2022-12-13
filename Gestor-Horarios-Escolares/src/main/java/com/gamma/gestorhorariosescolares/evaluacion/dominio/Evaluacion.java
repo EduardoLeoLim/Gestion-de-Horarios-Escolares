@@ -11,10 +11,15 @@ public class Evaluacion {
 
     private Integer idMaestro;
 
+    private Integer idInscripcion;
 
 
 
-    public Evaluacion(int id, String calificacion, String tipo, Integer idMateria, Integer idAlumno, Integer idGrupo, Integer idMaestro) {
+
+
+
+
+    public Evaluacion(int id, String calificacion, String tipo, Integer idMateria, Integer idAlumno, Integer idGrupo, Integer idMaestro, Integer idInscripcion) {
         this.id = id;
         this.calificacion = calificacion;
         this.tipo = tipo;
@@ -22,14 +27,16 @@ public class Evaluacion {
         this.idAlumno = idAlumno;
         this.idGrupo = idGrupo;
         this.idMaestro = idMaestro;
+        this.idInscripcion = idInscripcion;
     }
 
-    public Evaluacion(String calificacion, String tipo, Integer idMateria, Integer idAlumno){
+    public Evaluacion(String calificacion, String tipo, Integer idMateria, Integer idAlumno, Integer idInscripcion ){
         this.id = 0;
         this.calificacion = calificacion;
         this.tipo = tipo;
         this.idMateria = idMateria;
         this.idAlumno = idAlumno;
+        this.idInscripcion = idInscripcion;
 
     }
 
@@ -60,5 +67,9 @@ public class Evaluacion {
 
     public Integer idMaestro() {
         return idMaestro;
+    }
+
+    public Integer idInscripcion() {
+        return idInscripcion;
     }
 }

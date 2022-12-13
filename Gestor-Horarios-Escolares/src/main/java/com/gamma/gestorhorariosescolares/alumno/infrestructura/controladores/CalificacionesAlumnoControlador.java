@@ -151,7 +151,6 @@ public class CalificacionesAlumnoControlador {
             cargarEvaluacionesEnTabla(evaluaciones);
 
         }catch (Sql2oException ex){
-            System.out.println(ex);
             Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
             mensaje.setTitle("Error de base de datos");
             mensaje.showAndWait();
