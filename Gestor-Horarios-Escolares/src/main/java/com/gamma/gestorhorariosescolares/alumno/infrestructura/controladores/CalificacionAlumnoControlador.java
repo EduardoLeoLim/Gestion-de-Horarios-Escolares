@@ -1,6 +1,5 @@
 package com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores;
 
-import com.gamma.gestorhorariosescolares.alumno.infrestructura.stages.CalificacionAlumnoStage;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.evaluacion.aplicacion.EvaluacionInscripcionData;
 import com.gamma.gestorhorariosescolares.evaluacion.aplicacion.RegistrarEvaluacion;
@@ -31,31 +30,27 @@ public class CalificacionAlumnoControlador {
     public CalificacionAlumnoControlador(Stage stage, EvaluacionInscripcionData evaluacion) {
         this.stage = stage;
         this.evaluacion = evaluacion;
-
-
     }
+
     @FXML
-    public void initialize(){
-
-        txtAlumno.setText(evaluacion.alumno().nombre() + " " + evaluacion.alumno().apellidoPaterno() + " " + evaluacion.alumno().apellidoMaterno());
-        asignarBtn.setOnAction((actionEvent)->guardarCalificacion());
-
-
+    public void initialize() {
+        txtAlumno.setText(evaluacion.alumno().nombre() + " " + evaluacion.alumno().apellidoPaterno() + " " +
+                evaluacion.alumno().apellidoMaterno());
+        asignarBtn.setOnAction((actionEvent) -> guardarCalificacion());
     }
 
-    private void guardarCalificacion(){
+    private void guardarCalificacion() {
         Boolean validar = validarCalificacion(txtCalificacion.getText());
-        if (! validar)
+        if (!validar)
             return;
-        asignarCalificacion(txtCalificacion.getText(), evaluacion.tipo(), evaluacion.materia().id(), evaluacion.alumno().id(), evaluacion.idInscripcion());
-
-
+        asignarCalificacion(txtCalificacion.getText(), evaluacion.tipo(), evaluacion.materia().id(),
+                evaluacion.alumno().id(), evaluacion.idInscripcion());
     }
 
     private void asignarCalificacion(String calificacion, String tipo, Integer idMateria, Integer idAlumno, Integer idInscripcion) {
         Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
 
-        try(Connection transaccion = conexion.beginTransaction()){
+        try (Connection transaccion = conexion.beginTransaction()) {
             var evaluacionRepositorio = new MySql2oEvaluacionRepositorio(transaccion);
 
             var buscadorEvaluacion = new BuscadorEvaluacion(evaluacionRepositorio);
@@ -68,42 +63,31 @@ public class CalificacionAlumnoControlador {
             new Alert(Alert.AlertType.INFORMATION, "Calificacion registrada correctamente.", ButtonType.OK).showAndWait();
 
             cerrarFormulario();
-
-        }catch (Sql2oException e){
+        } catch (Sql2oException e) {
             System.out.println(e);
             new Alert(Alert.AlertType.ERROR, "Error al registrar en base de datos", ButtonType.OK).showAndWait();
             cerrarFormulario();
-
-
         }
-
-
-
-
     }
 
     private void cerrarFormulario() {
         stage.close();
     }
 
-    private Boolean validarCalificacion(String calificacion){
-        if (calificacion.trim().length() == 0 ) {
+    private Boolean validarCalificacion(String calificacion) {
+        if (calificacion.trim().length() == 0) {
             new Alert(Alert.AlertType.WARNING, "Hay campos vacios en el formulario, además no se permiten los espacios en blanco", ButtonType.OK).showAndWait();
             return false;
         }
 
-        if (Float.parseFloat(calificacion) > 10 || Float.parseFloat(calificacion) <= 0){
+        if (Float.parseFloat(calificacion) > 10 || Float.parseFloat(calificacion) <= 0) {
             new Alert(Alert.AlertType.WARNING, "Calificacion no valida", ButtonType.OK).showAndWait();
             return false;
 
 
         }
 
-
         return true;
     }
-
-
-
 
 }

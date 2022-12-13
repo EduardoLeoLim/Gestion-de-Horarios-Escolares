@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane prefHeight="550.0" prefWidth="906.0" style="-fx-background-color: #EFEFEF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="550.0" prefWidth="906.0"
+            style="-fx-background-color: #EFEFEF;" xmlns="http://javafx.com/javafx/8">
     <children>
-        <Label prefHeight="40" prefWidth="187.0" text="Grupo de : " AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="689.0" AnchorPane.topAnchor="20.0">
+        <Label prefHeight="40" prefWidth="187.0" text="Grupo de : " AnchorPane.leftAnchor="30.0"
+               AnchorPane.rightAnchor="689.0" AnchorPane.topAnchor="20.0">
             <styleClass>
-                <String fx:value="h2" />
-                <String fx:value="b" />
+                <String fx:value="h2"/>
+                <String fx:value="b"/>
             </styleClass>
         </Label>
 
 
-        <TableView fx:id="tablaGrupo" styleClass="h5" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30" AnchorPane.topAnchor="130">
+        <TableView fx:id="tablaGrupo" styleClass="h5" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="30"
+                   AnchorPane.rightAnchor="30" AnchorPane.topAnchor="130">
 
         </TableView>
-      <Label fx:id="txtMateria" layoutX="223.0" layoutY="23.0" prefHeight="21.0" prefWidth="293.0">
-         <font>
-            <Font size="24.0" />
-         </font></Label>
+        <Label fx:id="txtMateria" layoutX="223.0" layoutY="23.0" prefHeight="21.0" prefWidth="293.0">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Label>
 
     </children>
-
 
 
 </AnchorPane>

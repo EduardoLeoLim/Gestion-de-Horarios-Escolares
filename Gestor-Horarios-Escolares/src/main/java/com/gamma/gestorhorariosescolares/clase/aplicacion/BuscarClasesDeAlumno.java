@@ -4,16 +4,9 @@ import com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnoData;
 import com.gamma.gestorhorariosescolares.clase.dominio.Clase;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
-import com.gamma.gestorhorariosescolares.evaluacion.aplicacion.EvaluacionData;
-import com.gamma.gestorhorariosescolares.evaluacion.dominio.Evaluacion;
-import com.gamma.gestorhorariosescolares.grupo.aplicacion.GrupoData;
 import com.gamma.gestorhorariosescolares.grupo.dominio.Grupo;
 import com.gamma.gestorhorariosescolares.inscripcion.dominio.Inscripcion;
-import com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestroClaseData;
-import com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestroData;
 import com.gamma.gestorhorariosescolares.maestro.dominio.Maestro;
-import com.gamma.gestorhorariosescolares.materia.aplicacion.MateriaClaseData;
-import com.gamma.gestorhorariosescolares.materia.aplicacion.MateriaData;
 import com.gamma.gestorhorariosescolares.materia.dominio.Materia;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodoEscolarData;
 
@@ -22,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BuscarClasesDeAlumno {
+
     private final ServicioBuscador<Clase> buscadorClase;
     private final ServicioBuscador<Grupo> buscadorGrupo;
     private final ServicioBuscador<Inscripcion> buscadorInscripcion;
@@ -37,18 +31,20 @@ public class BuscarClasesDeAlumno {
         this.buscadorMaestro = buscadorMaestro;
     }
 
-    public ClasesAlumnoData buscar(PeriodoEscolarData periodoEscolar, AlumnoData alumno){
+    public ClasesAlumnoData buscar(PeriodoEscolarData periodoEscolar, AlumnoData alumno) {
         Inscripcion inscripcion;
-        try{
-            inscripcion = buscadorInscripcion.igual("idPeriodoEscolar", periodoEscolar.id().toString()).igual("idAlumno", alumno.id().toString()).buscarPrimero();
+        try {
+            inscripcion = buscadorInscripcion
+                    .igual("idPeriodoEscolar", periodoEscolar.id().toString())
+                    .igual("idAlumno", alumno.id().toString())
+                    .buscarPrimero();
             List<Grupo> grupos = buscadorGrupo
-                    .igual("idPeriodoEscolar", periodoEscolar.id().toString() )
+                    .igual("idPeriodoEscolar", periodoEscolar.id().toString())
                     .buscar();
 
             grupos = grupos.stream().filter(grupo -> grupo.estaInscrito(inscripcion.id())).collect(Collectors.toList());
-            if (grupos.isEmpty()){
+            if (grupos.isEmpty()) {
                 return new ClasesAlumnoData(new ArrayList<>());
-
             }
 
             Grupo grupo = grupos.get(0);
@@ -62,7 +58,6 @@ public class BuscarClasesDeAlumno {
                 ClaseMaestroData claseMaestroData = null;
                 //MateriaData materiaData;
                 //MaestroData maestroData = null;
-
 
 
                 try {
@@ -88,25 +83,14 @@ public class BuscarClasesDeAlumno {
                     }
                 }
 
-                return ClaseAlumnoData.fromAggregate(clase,grupo,claseMateriaData, claseMaestroData);
-
-
-
-
-
-
-
-
+                return ClaseAlumnoData.fromAggregate(clase, grupo, claseMateriaData, claseMaestroData);
                 //return ClaseData.fromAggregate(clase, GrupoData.fromAggregate(grupo, null, null),claseMateriaData, claseMaestroData);
             }).collect(Collectors.toList());
 
             return new ClasesAlumnoData(clasesData);
-
         } catch (RecursoNoEncontradoException e) {
             return new ClasesAlumnoData(new ArrayList<>());
         }
-
-
     }
 
 }

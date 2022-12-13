@@ -3,7 +3,6 @@ package com.gamma.gestorhorariosescolares.evaluacion.aplicacion;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnoInscripcionData;
 import com.gamma.gestorhorariosescolares.alumno.dominio.Alumno;
 import com.gamma.gestorhorariosescolares.clase.aplicacion.ClaseMateriaData;
-import com.gamma.gestorhorariosescolares.clase.aplicacion.buscar.BuscadorClase;
 import com.gamma.gestorhorariosescolares.clase.dominio.Clase;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
@@ -16,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BuscarEvaluacion {
+
     private final ServicioBuscador<Clase> buscadorClase;
     private final ServicioBuscador<Grupo> buscadorGrupo;
     private final ServicioBuscador<Inscripcion> buscadorInscripcion;
@@ -47,7 +47,7 @@ public class BuscarEvaluacion {
         List<Inscripcion> inscripciones = buscadorInscripcion.buscar();
         List<EvaluacionInscripcionData> evaluacionesInscripcionData = new ArrayList<>();
 
-        for (Inscripcion inscripcion:inscripciones){
+        for (Inscripcion inscripcion : inscripciones) {
             Alumno alumno = buscadorAlumno.igual("id", String.valueOf(inscripcion.idAlumno())).buscarPrimero();
             Materia materia = buscadorMateria.igual("id", String.valueOf(clase.idMateria())).buscarPrimero();
             Integer idMaestro = 0;
@@ -56,23 +56,18 @@ public class BuscarEvaluacion {
             Evaluacion evaluacion;
 
 
-            try{
+            try {
                 evaluacion = buscadorEvaluacion.igual("idInscripcion", String.valueOf(inscripcion.id())).buscarPrimero();
-            }catch (RecursoNoEncontradoException ex){
-                evaluacion = new Evaluacion(0, "Sin calificar", "Ordinario", materia.id(), alumno.id(), grupo.id(), idMaestro, inscripcion.id() );
+            } catch (RecursoNoEncontradoException ex) {
+                evaluacion = new Evaluacion(0, "Sin calificar", "Ordinario", materia.id(), alumno.id(), grupo.id(), idMaestro, inscripcion.id());
             }
 
 
-
-            evaluacionesInscripcionData.add(EvaluacionInscripcionData.fromAggregate(evaluacion, AlumnoInscripcionData.fromAggregate(alumno)
-                    , ClaseMateriaData.fromAggregate(materia)));
-
+            evaluacionesInscripcionData.add(EvaluacionInscripcionData.fromAggregate(evaluacion,
+                    AlumnoInscripcionData.fromAggregate(alumno), ClaseMateriaData.fromAggregate(materia)));
         }
 
         return new EvaluacionesInscripcionData(evaluacionesInscripcionData);
-
-
-
-
     }
+
 }

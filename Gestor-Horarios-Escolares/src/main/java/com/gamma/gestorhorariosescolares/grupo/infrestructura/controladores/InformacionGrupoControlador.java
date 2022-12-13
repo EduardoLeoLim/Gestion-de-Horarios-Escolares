@@ -3,7 +3,6 @@ package com.gamma.gestorhorariosescolares.grupo.infrestructura.controladores;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.buscar.BuscadorAlumno;
 import com.gamma.gestorhorariosescolares.alumno.infrestructura.persistencia.MySql2oAlumnoRepositorio;
 import com.gamma.gestorhorariosescolares.alumno.infrestructura.stages.CalificacionAlumnoStage;
-import com.gamma.gestorhorariosescolares.clase.aplicacion.ClaseData;
 import com.gamma.gestorhorariosescolares.clase.aplicacion.ClaseMateriaMaestroData;
 import com.gamma.gestorhorariosescolares.clase.aplicacion.buscar.BuscadorClase;
 import com.gamma.gestorhorariosescolares.clase.infrestructura.persistencia.MySql2oClaseRepositorio;
@@ -11,13 +10,11 @@ import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.Recur
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.evaluacion.aplicacion.BuscarEvaluacion;
 import com.gamma.gestorhorariosescolares.evaluacion.aplicacion.EvaluacionInscripcionData;
-import com.gamma.gestorhorariosescolares.evaluacion.aplicacion.EvaluacionesData;
 import com.gamma.gestorhorariosescolares.evaluacion.aplicacion.EvaluacionesInscripcionData;
 import com.gamma.gestorhorariosescolares.evaluacion.aplicacion.buscar.BuscadorEvaluacion;
 import com.gamma.gestorhorariosescolares.evaluacion.infrestructura.persistencia.MySql2oEvaluacionRepositorio;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.buscar.BuscadorGrupo;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.persistencia.MySql2oGrupoRepositorio;
-import com.gamma.gestorhorariosescolares.grupo.infrestructura.stages.InformacionGrupoStage;
 import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.buscar.BuscadorInscripcion;
 import com.gamma.gestorhorariosescolares.inscripcion.infrestructura.persistencia.MySql2oInscripcionRepositorio;
 import com.gamma.gestorhorariosescolares.materia.aplicacion.buscar.BuscadorMateria;
@@ -38,11 +35,7 @@ public class InformacionGrupoControlador {
 
     private final ClaseMateriaMaestroData clase;
 
-
-
     private ObservableList coleccionEvaluaciones;
-
-
 
     @FXML
     private TableView<EvaluacionInscripcionData> tablaGrupo;
@@ -51,34 +44,30 @@ public class InformacionGrupoControlador {
     private Label txtMateria;
 
     public InformacionGrupoControlador(Stage stage, ClaseMateriaMaestroData clase) {
-        if(stage == null)
+        if (stage == null)
             throw new NullPointerException();
         if (clase == null)
             throw new NullPointerException();
         this.stage = stage;
         stage.setTitle("Informacion del grupo");
         this.clase = clase;
-
-
     }
 
-    public void initialize(){
+    public void initialize() {
         txtMateria.setText(clase.materia().nombre());
         inicializarTabla();
         buscarEvaluaciones(clase);
-
-
     }
 
-    private void inicializarTabla(){
+    private void inicializarTabla() {
         coleccionEvaluaciones = FXCollections.observableArrayList();
 
         TableColumn<EvaluacionInscripcionData, String> columnaMatricula = new TableColumn<>("Matricula");
-        columnaMatricula.setCellValueFactory(ft-> new SimpleStringProperty(ft.getValue().alumno().matricula()));
+        columnaMatricula.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().alumno().matricula()));
         columnaMatricula.setMinWidth(150);
 
         TableColumn<EvaluacionInscripcionData, String> columnaAlumno = new TableColumn<>("Alumno");
-        columnaAlumno.setCellValueFactory(ft-> new SimpleStringProperty(ft.getValue().alumno().nombre()
+        columnaAlumno.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().alumno().nombre()
                 + " " + ft.getValue().alumno().apellidoPaterno() + " " + ft.getValue().alumno().apellidoMaterno()));
         columnaAlumno.setMinWidth(150);
 
@@ -114,7 +103,6 @@ public class InformacionGrupoControlador {
         tablaGrupo.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tablaGrupo.getColumns().addAll(columnaMatricula, columnaAlumno, columnaCalificacion, columnaTipoExamen, columnaAsignar);
         tablaGrupo.setItems(coleccionEvaluaciones);
-
     }
 
     private void asignarCalificacion(EvaluacionInscripcionData evaluacion) {
@@ -122,14 +110,11 @@ public class InformacionGrupoControlador {
         ventanaAsignacionCalificacion.initOwner(stage);
         ventanaAsignacionCalificacion.showAndWait();
         buscarEvaluaciones(clase);
-
-
-
     }
 
-    private void buscarEvaluaciones(ClaseMateriaMaestroData clase){
+    private void buscarEvaluaciones(ClaseMateriaMaestroData clase) {
         Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
-        try(Connection conexionBD = conexion.open()){
+        try (Connection conexionBD = conexion.open()) {
             var claseRepositorio = new MySql2oClaseRepositorio(conexionBD);
             var grupoRepositorio = new MySql2oGrupoRepositorio(conexionBD);
             var inscripcionRepositorio = new MySql2oInscripcionRepositorio(conexionBD);
@@ -144,39 +129,25 @@ public class InformacionGrupoControlador {
             var buscadorAlumno = new BuscadorAlumno(alumnoRepositorio);
             var buscadorEvaluacion = new BuscadorEvaluacion(evaluacionRepositorio);
 
-            BuscarEvaluacion buscarEvaluacion = new BuscarEvaluacion(buscadorClase, buscadorGrupo, buscadorInscripcion,buscadorMateria, buscadorAlumno, buscadorEvaluacion );
+            BuscarEvaluacion buscarEvaluacion = new BuscarEvaluacion(buscadorClase, buscadorGrupo, buscadorInscripcion, buscadorMateria, buscadorAlumno, buscadorEvaluacion);
 
             EvaluacionesInscripcionData evaluacionesInscripcionData = buscarEvaluacion.buscarEvaluaciones(clase.idClase());
 
             cargarEvaluacionesEnTabla(evaluacionesInscripcionData);
 
-        }catch (Sql2oException ex){
+        } catch (Sql2oException ex) {
             Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
             mensaje.setTitle("Error de base de datos");
             mensaje.showAndWait();
-
-
         } catch (RecursoNoEncontradoException e) {
-
             Alert mensaje = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
             mensaje.setTitle("Error");
             mensaje.showAndWait();
-
         }
-
     }
 
-    private void cargarEvaluacionesEnTabla(EvaluacionesInscripcionData evaluaciones){
+    private void cargarEvaluacionesEnTabla(EvaluacionesInscripcionData evaluaciones) {
         coleccionEvaluaciones.clear();
         coleccionEvaluaciones.addAll(evaluaciones.evaluaciones());
-
     }
-
-
-
-
-
-
-
-
 }

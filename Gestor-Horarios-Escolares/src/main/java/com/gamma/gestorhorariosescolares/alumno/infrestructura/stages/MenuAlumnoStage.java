@@ -1,7 +1,6 @@
 package com.gamma.gestorhorariosescolares.alumno.infrestructura.stages;
 
 import com.gamma.gestorhorariosescolares.App;
-import com.gamma.gestorhorariosescolares.administrador.infrestructura.controladores.MenuAdministradorControlador;
 import com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores.MenuAlumnoControlador;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.UsuarioData;
@@ -30,4 +29,5 @@ public class MenuAlumnoStage extends CustomStage {
             System.err.println(e.getMessage());
         }
     }
+
 }

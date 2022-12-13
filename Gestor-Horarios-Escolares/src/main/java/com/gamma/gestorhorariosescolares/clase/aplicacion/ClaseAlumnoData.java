@@ -9,43 +9,32 @@ public class ClaseAlumnoData {
     private final ClaseMateriaData claseMateriaData;
     private final ClaseMaestroData claseMaestroData;
 
-    public ClaseAlumnoData(Integer idClase,Integer idGrupo, ClaseMateriaData claseMateriaData, ClaseMaestroData claseMaestroData){
+    public ClaseAlumnoData(Integer idClase, Integer idGrupo, ClaseMateriaData claseMateriaData, ClaseMaestroData claseMaestroData) {
         this.idClase = idClase;
         this.idGrupo = idGrupo;
         this.claseMateriaData = claseMateriaData;
         this.claseMaestroData = claseMaestroData;
-
     }
 
-    public static ClaseAlumnoData fromAggregate(Clase clase, Grupo grupo, ClaseMateriaData claseMateriaData, ClaseMaestroData claseMaestroData){
+    public static ClaseAlumnoData fromAggregate(Clase clase, Grupo grupo, ClaseMateriaData claseMateriaData,
+                                                ClaseMaestroData claseMaestroData) {
         return new ClaseAlumnoData(clase.id().value(), grupo.id(), claseMateriaData, claseMaestroData);
-
     }
 
-    public Integer idClase(){
+    public Integer idClase() {
         return idClase;
     }
 
-    public Integer idGrupo(){
+    public Integer idGrupo() {
         return idGrupo;
     }
 
-    public ClaseMateriaData claseMateriaData(){
+    public ClaseMateriaData claseMateriaData() {
         return claseMateriaData;
     }
 
-    public ClaseMaestroData claseMaestroData(){
+    public ClaseMaestroData claseMaestroData() {
         return claseMaestroData;
     }
-
-
-
-
-
-
-
-
-
-
 
 }

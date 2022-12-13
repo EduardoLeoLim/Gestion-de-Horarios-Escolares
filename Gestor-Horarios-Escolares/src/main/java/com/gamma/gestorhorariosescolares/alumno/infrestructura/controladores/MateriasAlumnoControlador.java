@@ -1,16 +1,14 @@
 package com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores;
 
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.AdministradoresData;
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.BuscarAdministradores;
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar.BuscadorAdministrador;
-import com.gamma.gestorhorariosescolares.administrador.infrestructura.persistencia.MySql2oAdministradorRespositorio;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnoData;
-import com.gamma.gestorhorariosescolares.clase.aplicacion.*;
+import com.gamma.gestorhorariosescolares.clase.aplicacion.BuscarClasesDeAlumno;
+import com.gamma.gestorhorariosescolares.clase.aplicacion.ClaseAlumnoData;
+import com.gamma.gestorhorariosescolares.clase.aplicacion.ClaseMaestroData;
+import com.gamma.gestorhorariosescolares.clase.aplicacion.ClasesAlumnoData;
 import com.gamma.gestorhorariosescolares.clase.aplicacion.buscar.BuscadorClase;
 import com.gamma.gestorhorariosescolares.clase.infrestructura.persistencia.MySql2oClaseRepositorio;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
-import com.gamma.gestorhorariosescolares.grupo.aplicacion.GruposData;
 import com.gamma.gestorhorariosescolares.grupo.aplicacion.buscar.BuscadorGrupo;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.persistencia.MySql2oGrupoRepositorio;
 import com.gamma.gestorhorariosescolares.inscripcion.aplicacion.buscar.BuscadorInscripcion;
@@ -24,9 +22,6 @@ import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodoEscola
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodosEscolaresData;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.buscar.BuscadorPeriodoEscolar;
 import com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.persistencia.MySql2oPeriodoEscolarRepositorio;
-import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
-import com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,61 +35,50 @@ import org.sql2o.Sql2oException;
 public class MateriasAlumnoControlador {
 
     private final Stage stage;
-    private AlumnoData alumno;
+    private final AlumnoData alumno;
     private Temporizador temporizadorBusqueda;
-    private ObservableList coleccionClases;
-
+    private ObservableList<ClaseAlumnoData> coleccionClases;
 
     @FXML
     private ComboBox<PeriodoEscolarData> cbxPeriodoEscolar;
-
     @FXML
     private TableView<ClaseAlumnoData> tablaMateriasAlumno;
 
-
-    public MateriasAlumnoControlador(Stage stage, AlumnoData alumno){
+    public MateriasAlumnoControlador(Stage stage, AlumnoData alumno) {
         if (stage == null)
             throw new NullPointerException();
-
         this.stage = stage;
         this.alumno = alumno;
-
-
     }
 
-
-
     @FXML
-    public void initialize(){
-
+    public void initialize() {
         inicializarCbxPeriodoEscolar();
         tablaMateriasAlumno.setDisable(false);
         buscarPeriodosEscolares();
         inicializarTabla();
-        if (cbxPeriodoEscolar.getItems().size() > 0){
+        if (cbxPeriodoEscolar.getItems().size() > 0) {
             cbxPeriodoEscolar.setValue(cbxPeriodoEscolar.getItems().get(0));
         }
-
-
     }
 
-    private void inicializarTabla(){
+    private void inicializarTabla() {
         coleccionClases = FXCollections.observableArrayList();
 
         TableColumn<ClaseAlumnoData, String> columnaClave = new TableColumn<>("Clave");
-        columnaClave.setCellValueFactory(ft-> new SimpleStringProperty(ft.getValue().claseMateriaData().clave()));
+        columnaClave.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().claseMateriaData().clave()));
         columnaClave.setMinWidth(150);
 
         TableColumn<ClaseAlumnoData, String> columnaMateria = new TableColumn<>("Materia");
-        columnaMateria.setCellValueFactory(ft-> new SimpleStringProperty(ft.getValue().claseMateriaData().nombre()));
+        columnaMateria.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().claseMateriaData().nombre()));
         columnaMateria.setMinWidth(150);
 
         TableColumn<ClaseAlumnoData, String> columnaMaestro = new TableColumn<>("Maestro");
-        columnaMaestro.setCellValueFactory(ft-> {
+        columnaMaestro.setCellValueFactory(ft -> {
             ClaseMaestroData maestro = ft.getValue().claseMaestroData();
             if (maestro == null)
                 return new SimpleStringProperty("Sin asignar");
-            return new SimpleStringProperty(maestro.nombre() );
+            return new SimpleStringProperty(maestro.nombre());
         });
 
         columnaMaestro.setMinWidth(150);
@@ -102,12 +86,7 @@ public class MateriasAlumnoControlador {
         tablaMateriasAlumno.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tablaMateriasAlumno.getColumns().addAll(columnaClave, columnaMateria, columnaMaestro);
         tablaMateriasAlumno.setItems(coleccionClases);
-
-
-
     }
-
-
 
     private void inicializarCbxPeriodoEscolar() {
         cbxPeriodoEscolar.setButtonCell(new ListCell<>() {
@@ -116,7 +95,6 @@ public class MateriasAlumnoControlador {
                 super.updateItem(periodoEscolar, empty);
                 if (empty || periodoEscolar == null)
                     return;
-
                 setText(periodoEscolar.clave() + " - " + periodoEscolar.nombre());
             }
         });
@@ -127,23 +105,21 @@ public class MateriasAlumnoControlador {
                 super.updateItem(periodoEscolar, empty);
                 if (empty || periodoEscolar == null)
                     return;
-
                 setText(periodoEscolar.clave() + " - " + periodoEscolar.nombre());
             }
         });
 
         cbxPeriodoEscolar.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == null){
+            if (newValue == null)
                 return;
-            }
             buscarMaterias(newValue);
         });
     }
 
     private void buscarMaterias(PeriodoEscolarData periodoEscolar) {
         Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
-        try(Connection conexionBD = conexion.open()){
-            var claseRepositorio = new  MySql2oClaseRepositorio(conexionBD);
+        try (Connection conexionBD = conexion.open()) {
+            var claseRepositorio = new MySql2oClaseRepositorio(conexionBD);
             var grupoRepositorio = new MySql2oGrupoRepositorio(conexionBD);
             var inscripcionRepositorio = new MySql2oInscripcionRepositorio(conexionBD);
             var materiaRepositorio = new MySql2oMateriaRepositorio(conexionBD);
@@ -155,27 +131,24 @@ public class MateriasAlumnoControlador {
             var buscadorMateria = new BuscadorMateria(materiaRepositorio);
             var buscadorMaestro = new BuscadorMaestro(maestroRepositorio);
 
-            BuscarClasesDeAlumno buscarClasesDeAlumno = new BuscarClasesDeAlumno(buscadorClase,buscadorGrupo,
-                    buscadorInscripcion,buscadorMateria,buscadorMaestro);
+            BuscarClasesDeAlumno buscarClasesDeAlumno = new BuscarClasesDeAlumno(buscadorClase, buscadorGrupo,
+                    buscadorInscripcion, buscadorMateria, buscadorMaestro);
 
             ClasesAlumnoData clases = buscarClasesDeAlumno.buscar(periodoEscolar, alumno);
 
             cargarMateriasEnTabla(clases);
 
-        }catch (Sql2oException ex){
+        } catch (Sql2oException ex) {
             Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
             mensaje.setTitle("Error de base de datos");
             mensaje.showAndWait();
         }
-
     }
 
-    private void cargarMateriasEnTabla(ClasesAlumnoData clases){
+    private void cargarMateriasEnTabla(ClasesAlumnoData clases) {
         coleccionClases.clear();
         coleccionClases.addAll(clases.clasesAlumno());
-
     }
-
 
     private void buscarPeriodosEscolares() {
         cbxPeriodoEscolar.getItems().clear();
@@ -201,12 +174,9 @@ public class MateriasAlumnoControlador {
         }
     }
 
-
-
     public void liberarRecursos() {
         if (temporizadorBusqueda != null)
             temporizadorBusqueda.cancel();
     }
-
 
 }

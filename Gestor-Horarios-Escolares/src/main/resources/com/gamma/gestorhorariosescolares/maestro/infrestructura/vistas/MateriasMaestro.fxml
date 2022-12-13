@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: #EFEFEF;" prefHeight="550.0"
+            prefWidth="973.0" xmlns="http://javafx.com/javafx/8">
+    <children>
+        <Label prefHeight="40" text="Materias" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"
+               AnchorPane.topAnchor="20.0">
+            <styleClass>
+                <String fx:value="h2"/>
+                <String fx:value="b"/>
+            </styleClass>
+        </Label>
 
-<AnchorPane style="-fx-background-color: #EFEFEF;" prefHeight="550.0" prefWidth="973.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-       <Label prefHeight="40" text="Materias" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
-           <styleClass>
-               <String fx:value="h2" />
-               <String fx:value="b" />
-           </styleClass>
-       </Label>
-   
-       <Label styleClass="h5" text="Periodo escolar: " AnchorPane.leftAnchor="50" AnchorPane.topAnchor="80" />
-   
-       <TableView fx:id="tablaMateriasMaestro" styleClass="h5" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30" AnchorPane.topAnchor="130">
+        <Label styleClass="h5" text="Periodo escolar: " AnchorPane.leftAnchor="50" AnchorPane.topAnchor="80"/>
 
-    </TableView>
-      <ComboBox fx:id="cbxPeriodoEscolar" layoutX="189.0" layoutY="75.0" prefHeight="31.0" prefWidth="222.0" />
+        <TableView fx:id="tablaMateriasMaestro" styleClass="h5" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="30"
+                   AnchorPane.rightAnchor="30" AnchorPane.topAnchor="130">
 
-   </children>
+        </TableView>
+        <ComboBox fx:id="cbxPeriodoEscolar" layoutX="189.0" layoutY="75.0" prefHeight="31.0" prefWidth="222.0"/>
 
+    </children>
 
 
 </AnchorPane>

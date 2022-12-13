@@ -1,6 +1,5 @@
 package com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores;
 
-import com.gamma.gestorhorariosescolares.administrador.infrestructura.controladores.CatalogoAdministradoresControlador;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnoData;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.BuscarAlumnos;
 import com.gamma.gestorhorariosescolares.alumno.aplicacion.buscar.BuscadorAlumno;
@@ -12,7 +11,6 @@ import com.gamma.gestorhorariosescolares.usuario.aplicacion.UsuarioData;
 import com.gamma.gestorhorariosescolares.usuario.aplicacion.buscar.BuscadorUsuario;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.persistencia.MySql2oUsuarioRepositorio;
 import com.gamma.gestorhorariosescolares.usuario.infrestructura.stages.LoginStage;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -31,14 +29,13 @@ import java.io.IOException;
 public class MenuAlumnoControlador {
 
     private final Stage stage;
+    private final AlumnoData alumnoConectado;
     private AnchorPane panelHorarioAlumno;
     private HorarioAlumnoControlador controladorHorarioAlumno;
     private AnchorPane panelMateriasAlumno;
     private MateriasAlumnoControlador controladorMateriasAlumno;
     private AnchorPane panelCalificacionesAlumno;
     private CalificacionesAlumnoControlador controladorCalificacionesAlumno;
-
-    private AlumnoData alumnoConectado;
 
     @FXML
     private BorderPane panelMenuAlumno;
@@ -57,14 +54,12 @@ public class MenuAlumnoControlador {
     public MenuAlumnoControlador(Stage stage, UsuarioData usuario) {
         this.stage = stage;
         this.alumnoConectado = buscarAlumnoConectado(usuario);
-        if (alumnoConectado == null){
+        if (alumnoConectado == null) {
             throw new NullPointerException("Alumno no encontrado");
         }
-        if (stage == null){
+        if (stage == null) {
             throw new NullPointerException("Error al cargar el menu");
         }
-
-
     }
 
     public void initialize() {
@@ -89,7 +84,6 @@ public class MenuAlumnoControlador {
         } else {
             panelMenuAlumno.setCenter(panelHorarioAlumno);
         }
-
     }
 
     @FXML
@@ -153,22 +147,16 @@ public class MenuAlumnoControlador {
             BuscarAlumnos buscarAlumnos = new BuscarAlumnos(buscadorAlumno, buscadorUsuario);
             return buscarAlumnos.buscarPorUsuario(usuario.id());
 
-
         } catch (Sql2oException e) {
-
             Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
             mensaje.setTitle("Error de base de datos");
             mensaje.showAndWait();
-
         } catch (RecursoNoEncontradoException e) {
             Alert mensaje = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
             mensaje.setTitle("El alumno no ha sido encontrado");
             mensaje.showAndWait();
-
-
         }
         return null;
-
     }
 
     private void liberarRecursos() {
@@ -181,4 +169,5 @@ public class MenuAlumnoControlador {
         if (controladorCalificacionesAlumno != null)
             controladorCalificacionesAlumno.liberarRecursos();
     }
+
 }

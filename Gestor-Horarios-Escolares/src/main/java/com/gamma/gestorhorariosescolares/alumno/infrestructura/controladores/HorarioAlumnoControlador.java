@@ -2,18 +2,14 @@ package com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores;
 
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
-import com.gamma.gestorhorariosescolares.materia.aplicacion.BuscarMaterias;
 import com.gamma.gestorhorariosescolares.materia.aplicacion.MateriaData;
-import com.gamma.gestorhorariosescolares.materia.aplicacion.MateriasData;
 import com.gamma.gestorhorariosescolares.materia.aplicacion.buscar.BuscadorMateria;
-import com.gamma.gestorhorariosescolares.materia.dominio.Materia;
 import com.gamma.gestorhorariosescolares.materia.infrestructura.persistencia.MySql2oMateriaRepositorio;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.BuscarPeriodosEscolares;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodoEscolarData;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.PeriodosEscolaresData;
 import com.gamma.gestorhorariosescolares.periodoescolar.aplicacion.buscar.BuscadorPeriodoEscolar;
 import com.gamma.gestorhorariosescolares.periodoescolar.infrestructura.persistencia.MySql2oPeriodoEscolarRepositorio;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -34,22 +30,17 @@ public class HorarioAlumnoControlador {
     @FXML
     private ComboBox<MateriaData> cbxMateria;
 
-    public HorarioAlumnoControlador(Stage stage){
-
+    public HorarioAlumnoControlador(Stage stage) {
         if (stage == null)
             throw new NullPointerException();
-
         this.stage = stage;
-
-
     }
 
-    public void initialize(){
+    public void initialize() {
         inicializarCbxPeriodoEscolar();
         buscarPeriodosEscolares();
         inicializarCbxMateria();
         buscarMaterias();
-
     }
 
     private void inicializarCbxPeriodoEscolar() {
@@ -59,7 +50,6 @@ public class HorarioAlumnoControlador {
                 super.updateItem(periodoEscolar, empty);
                 if (empty || periodoEscolar == null)
                     return;
-
                 setText(periodoEscolar.clave() + " - " + periodoEscolar.nombre());
             }
         });
@@ -70,7 +60,6 @@ public class HorarioAlumnoControlador {
                 super.updateItem(periodoEscolar, empty);
                 if (empty || periodoEscolar == null)
                     return;
-
                 setText(periodoEscolar.clave() + " - " + periodoEscolar.nombre());
             }
         });
@@ -108,7 +97,6 @@ public class HorarioAlumnoControlador {
                 super.updateItem(materia, empty);
                 if (empty || materia == null)
                     return;
-
                 setText(materia.clave() + " - " + materia.nombre());
             }
         });
@@ -119,7 +107,6 @@ public class HorarioAlumnoControlador {
                 super.updateItem(materia, empty);
                 if (empty || materia == null)
                     return;
-
                 setText(materia.clave() + " - " + materia.nombre());
             }
         });
@@ -136,11 +123,6 @@ public class HorarioAlumnoControlador {
 
             //Servicios
             var buscadorMateria = new BuscadorMateria(materiaRepositorio);
-
-
-
-
-
         } catch (Sql2oException e) {
             Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
             mensaje.setTitle("Error base de datos");
@@ -148,12 +130,9 @@ public class HorarioAlumnoControlador {
         }
     }
 
-
-
-
-
     public void liberarRecursos() {
         if (temporizadorBusqueda != null)
             temporizadorBusqueda.cancel();
     }
+
 }

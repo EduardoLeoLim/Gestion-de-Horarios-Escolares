@@ -8,9 +8,6 @@ import com.gamma.gestorhorariosescolares.clase.infrestructura.persistencia.MySql
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.Temporizador;
-import com.gamma.gestorhorariosescolares.evaluacion.aplicacion.EvaluacionData;
-import com.gamma.gestorhorariosescolares.grupo.aplicacion.GrupoData;
-import com.gamma.gestorhorariosescolares.grupo.infrestructura.stages.DetallesGrupoStage;
 import com.gamma.gestorhorariosescolares.grupo.infrestructura.stages.InformacionGrupoStage;
 import com.gamma.gestorhorariosescolares.maestro.aplicacion.MaestroData;
 import com.gamma.gestorhorariosescolares.materia.aplicacion.buscar.BuscadorMateria;
@@ -33,10 +30,9 @@ import org.sql2o.Sql2oException;
 public class MateriasMaestroControlador {
 
     private final Stage stage;
-    private Temporizador temporizadorBusqueda;
     private final MaestroData maestro;
-
-    private ObservableList coleccionClasesMaestro;
+    private Temporizador temporizadorBusqueda;
+    private ObservableList<ClaseMateriaMaestroData> coleccionClasesMaestro;
 
     @FXML
     private ComboBox<PeriodoEscolarData> cbxPeriodoEscolar;
@@ -45,7 +41,7 @@ public class MateriasMaestroControlador {
     private TableView<ClaseMateriaMaestroData> tablaMateriasMaestro;
 
 
-    public MateriasMaestroControlador(Stage stage, MaestroData maestro){
+    public MateriasMaestroControlador(Stage stage, MaestroData maestro) {
         if (maestro == null)
             throw new NullPointerException();
 
@@ -58,17 +54,14 @@ public class MateriasMaestroControlador {
     }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
 
         inicializarCbxPeriodoEscolar();
         buscarPeriodosEscolares();
         inicializarTabla();
-        if (cbxPeriodoEscolar.getItems().size() > 0){
+        if (cbxPeriodoEscolar.getItems().size() > 0) {
             cbxPeriodoEscolar.setValue(cbxPeriodoEscolar.getItems().get(0));
         }
-
-
-
     }
 
     private void inicializarCbxPeriodoEscolar() {
@@ -78,7 +71,6 @@ public class MateriasMaestroControlador {
                 super.updateItem(periodoEscolar, empty);
                 if (empty || periodoEscolar == null)
                     return;
-
                 setText(periodoEscolar.clave() + " - " + periodoEscolar.nombre());
             }
         });
@@ -89,20 +81,15 @@ public class MateriasMaestroControlador {
                 super.updateItem(periodoEscolar, empty);
                 if (empty || periodoEscolar == null)
                     return;
-
                 setText(periodoEscolar.clave() + " - " + periodoEscolar.nombre());
             }
         });
 
         cbxPeriodoEscolar.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == null){
+            if (newValue == null)
                 return;
-            }
             buscarMaterias(newValue.id(), this.maestro.id());
-
         });
-
-
     }
 
     private void buscarPeriodosEscolares() {
@@ -129,15 +116,15 @@ public class MateriasMaestroControlador {
         }
     }
 
-    private void inicializarTabla(){
+    private void inicializarTabla() {
         coleccionClasesMaestro = FXCollections.observableArrayList();
 
         TableColumn<ClaseMateriaMaestroData, String> columnaClave = new TableColumn<>("Clave");
-        columnaClave.setCellValueFactory(ft-> new SimpleStringProperty(ft.getValue().materia().clave()));
+        columnaClave.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().materia().clave()));
         columnaClave.setMinWidth(150);
 
         TableColumn<ClaseMateriaMaestroData, String> columnaMateria = new TableColumn<>("Materia");
-        columnaMateria.setCellValueFactory(ft-> new SimpleStringProperty(ft.getValue().materia().nombre()));
+        columnaMateria.setCellValueFactory(ft -> new SimpleStringProperty(ft.getValue().materia().nombre()));
         columnaMateria.setMinWidth(150);
 
         TableColumn<ClaseMateriaMaestroData, String> columnaGrupo = new TableColumn<>();
@@ -166,7 +153,6 @@ public class MateriasMaestroControlador {
         tablaMateriasMaestro.setItems(coleccionClasesMaestro);
 
 
-
     }
 
     private void verGrupo(ClaseMateriaMaestroData clase) {
@@ -175,12 +161,11 @@ public class MateriasMaestroControlador {
         ventanaInformacionGrupo.showAndWait();
 
         buscarPeriodosEscolares();
-
     }
 
-    public void buscarMaterias(Integer periodoEscolar, Integer idMaestro){
+    public void buscarMaterias(Integer periodoEscolar, Integer idMaestro) {
         Sql2o conexion = MySql2oConexiones.getConexionPrimaria();
-        try(Connection conexionBD = conexion.open()){
+        try (Connection conexionBD = conexion.open()) {
             var claseRepositorio = new MySql2oClaseRepositorio(conexionBD);
             var materiaRepositorio = new MySql2oMateriaRepositorio(conexionBD);
 
@@ -196,34 +181,22 @@ public class MateriasMaestroControlador {
             Alert mensaje = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
             mensaje.setTitle("Error");
             mensaje.showAndWait();
-        }
-        catch (Sql2oException ex){
+        } catch (Sql2oException ex) {
             System.out.println(ex);
             Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
             mensaje.setTitle("Error de base de datos");
             mensaje.showAndWait();
-
-
         }
-
-
-
     }
 
-    private void cargarMateriasEnTabla(ClasesMateriaMaestroData clases){
+    private void cargarMateriasEnTabla(ClasesMateriaMaestroData clases) {
         coleccionClasesMaestro.clear();
         coleccionClasesMaestro.addAll(clases.clasesMaestro());
-
     }
-
-
-
 
     public void liberarRecursos() {
         if (temporizadorBusqueda != null)
             temporizadorBusqueda.cancel();
     }
-
-
 
 }

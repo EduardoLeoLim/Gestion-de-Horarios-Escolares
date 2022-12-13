@@ -1,6 +1,5 @@
 package com.gamma.gestorhorariosescolares.evaluacion.infrestructura.persistencia;
 
-import com.gamma.gestorhorariosescolares.alumno.dominio.Alumno;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.MySqlCriteriaParser;
 import com.gamma.gestorhorariosescolares.evaluacion.dominio.Evaluacion;
@@ -55,7 +54,7 @@ public class MySql2oEvaluacionRepositorio implements EvaluacionRepositorio {
     }
 
     @Override
-    public  int registar(Evaluacion evaluacion){
+    public int registar(Evaluacion evaluacion) {
         String consulta = "INSERT INTO evaluacion (calificacion, tipo, idMateria, idAlumno, idInscripcion) " +
                 "VALUES (:calificacion, :tipo, :idMateria, :idAlumno, :idInscripcion);";
 
@@ -68,6 +67,6 @@ public class MySql2oEvaluacionRepositorio implements EvaluacionRepositorio {
                 .executeUpdate()
                 .getKey(Integer.class);
         return idEvaluacion;
-
     }
+
 }

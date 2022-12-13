@@ -1,7 +1,5 @@
 package com.gamma.gestorhorariosescolares.evaluacion.aplicacion.buscar;
 
-import com.gamma.gestorhorariosescolares.administrador.aplicacion.buscar.BuscadorAdministrador;
-import com.gamma.gestorhorariosescolares.administrador.dominio.Administrador;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.servicios.ServicioBuscador;
 import com.gamma.gestorhorariosescolares.compartido.dominio.criterio.Criteria;
@@ -146,13 +144,4 @@ public class BuscadorEvaluacion implements ServicioBuscador<Evaluacion> {
         limite = Optional.empty();
     }
 
-
 }
-
-
-
-
-
-
-
-

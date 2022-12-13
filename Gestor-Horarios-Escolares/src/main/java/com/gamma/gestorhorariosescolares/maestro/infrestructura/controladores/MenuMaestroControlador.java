@@ -1,9 +1,5 @@
 package com.gamma.gestorhorariosescolares.maestro.infrestructura.controladores;
 
-import com.gamma.gestorhorariosescolares.alumno.aplicacion.AlumnoData;
-import com.gamma.gestorhorariosescolares.alumno.aplicacion.BuscarAlumnos;
-import com.gamma.gestorhorariosescolares.alumno.aplicacion.buscar.BuscadorAlumno;
-import com.gamma.gestorhorariosescolares.alumno.infrestructura.persistencia.MySql2oAlumnoRepositorio;
 import com.gamma.gestorhorariosescolares.compartido.aplicacion.excepciones.RecursoNoEncontradoException;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.conexiones.MySql2oConexiones;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.InicializarPanel;
@@ -33,11 +29,11 @@ import java.io.IOException;
 public class MenuMaestroControlador {
 
     private final Stage stage;
+    private final MaestroData maestroConectado;
     private AnchorPane panelHorarioMaestro;
     private HorarioMaestroControlador controladorHorarioMaestro;
     private AnchorPane panelMateriasMaestro;
     private MateriasMaestroControlador controladorMateriasMaestro;
-    private MaestroData maestroConectado;
 
     @FXML
     private BorderPane panelMenuMaestro;
@@ -53,24 +49,24 @@ public class MenuMaestroControlador {
     public MenuMaestroControlador(Stage stage, UsuarioData usuario) {
         this.stage = stage;
         this.maestroConectado = buscarMaestroConectado(usuario);
-        if (maestroConectado == null){
+        if (maestroConectado == null) {
             throw new NullPointerException("Maestro no encontrado");
         }
-        if (stage == null){
+        if (stage == null) {
             throw new NullPointerException("Error al cargar el menu");
         }
     }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         mostrarHorarioClick();
         stage.setOnHiding(event -> liberarRecursos());
     }
 
     @FXML
-    protected void mostrarHorarioClick(){
-        if (panelHorarioMaestro == null){
-            try{
+    protected void mostrarHorarioClick() {
+        if (panelHorarioMaestro == null) {
+            try {
                 controladorHorarioMaestro = new HorarioMaestroControlador(stage);
                 panelHorarioMaestro = InicializarPanel.inicializarAnchorPane(
                         "maestro/infrestructura/vistas/HorarioMaestro.fxml",
@@ -78,18 +74,18 @@ public class MenuMaestroControlador {
                 panelHorarioMaestro.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
                 panelMenuMaestro.setCenter(panelHorarioMaestro);
 
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
             panelMenuMaestro.setCenter(panelHorarioMaestro);
         }
     }
 
     @FXML
-    protected void mostrarMateriasImpartidasClick(){
-        if (panelMateriasMaestro == null){
-            try{
+    protected void mostrarMateriasImpartidasClick() {
+        if (panelMateriasMaestro == null) {
+            try {
                 controladorMateriasMaestro = new MateriasMaestroControlador(stage, this.maestroConectado);
                 panelMateriasMaestro = InicializarPanel.inicializarAnchorPane(
                         "maestro/infrestructura/vistas/MateriasMaestro.fxml",
@@ -97,10 +93,10 @@ public class MenuMaestroControlador {
                 panelMateriasMaestro.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
                 panelMenuMaestro.setCenter(panelMateriasMaestro);
 
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
             panelMenuMaestro.setCenter(panelMateriasMaestro);
         }
     }
@@ -120,27 +116,20 @@ public class MenuMaestroControlador {
             BuscarMaestros buscarMaestros = new BuscarMaestros(buscadorMaestro, buscadorUsuario);
             return buscarMaestros.buscarPorUsuario(usuario.id());
 
-
         } catch (Sql2oException e) {
-
             Alert mensaje = new Alert(Alert.AlertType.ERROR, "Base de datos no disponible", ButtonType.OK);
             mensaje.setTitle("Error de base de datos");
             mensaje.showAndWait();
-
         } catch (RecursoNoEncontradoException e) {
             Alert mensaje = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
             mensaje.setTitle("El maestro no ha sido encontrado");
             mensaje.showAndWait();
-
-
         }
         return null;
-
     }
 
-
     @FXML
-    protected void cerrarSesionClick(){
+    protected void cerrarSesionClick() {
         new LoginStage().show();
         stage.close();
     }
@@ -152,8 +141,6 @@ public class MenuMaestroControlador {
             controladorHorarioMaestro.liberarRecursos();
         if (controladorMateriasMaestro != null)
             controladorMateriasMaestro.liberarRecursos();
-
     }
-
 
 }

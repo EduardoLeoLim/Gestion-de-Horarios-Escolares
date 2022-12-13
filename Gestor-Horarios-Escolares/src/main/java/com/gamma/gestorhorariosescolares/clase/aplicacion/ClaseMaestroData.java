@@ -7,23 +7,22 @@ public class ClaseMaestroData {
     private final Integer id;
     private final String nombre;
 
-    public ClaseMaestroData(Integer id, String nombre){
+    public ClaseMaestroData(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-
     }
 
-    public static ClaseMaestroData fromAggregate(Maestro maestro){
-        return new ClaseMaestroData(maestro.id().value(), maestro.nombre() + " " + maestro.apellidoPaterno() + " " + maestro.apellidoMaterno());
-
+    public static ClaseMaestroData fromAggregate(Maestro maestro) {
+        return new ClaseMaestroData(maestro.id().value(), maestro.nombre() + " " + maestro.apellidoPaterno() +
+                " " + maestro.apellidoMaterno());
     }
 
     public int id() {
         return id;
     }
+
     public String nombre() {
         return nombre;
     }
-
 
 }

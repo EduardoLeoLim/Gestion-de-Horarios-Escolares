@@ -3,13 +3,13 @@ package com.gamma.gestorhorariosescolares.clase.dominio;
 import com.gamma.gestorhorariosescolares.maestro.dominio.MaestroId;
 
 public class Clase {
+
     private final ClaseId id;
     private final int idGrupo;
     private final int idMateria;
-    private MaestroId idMaestro;
-
     private final Integer idGrado;
     private final Integer idPeriodoEscolar;
+    private MaestroId idMaestro;
 
     public Clase(ClaseId id, int idGrupo, int idMateria, MaestroId idMaestro, Integer idGrado, Integer idPeriodoEscolar) {
         this.id = id;
@@ -56,4 +56,5 @@ public class Clase {
     public Integer idPeriodoEscolar() {
         return idPeriodoEscolar;
     }
+
 }

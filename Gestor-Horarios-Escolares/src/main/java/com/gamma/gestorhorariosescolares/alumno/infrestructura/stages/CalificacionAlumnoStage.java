@@ -3,7 +3,6 @@ package com.gamma.gestorhorariosescolares.alumno.infrestructura.stages;
 import com.gamma.gestorhorariosescolares.alumno.infrestructura.controladores.CalificacionAlumnoControlador;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.stage.CustomStage;
 import com.gamma.gestorhorariosescolares.compartido.infrestructura.utilerias.InicializarPanel;
-import com.gamma.gestorhorariosescolares.horario.infrestructura.controladores.FormularioRegistrarHorarioClaseControlador;
 import com.gamma.gestorhorariosescolares.evaluacion.aplicacion.EvaluacionInscripcionData;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -12,6 +11,7 @@ import org.kordamp.bootstrapfx.BootstrapFX;
 import java.io.IOException;
 
 public class CalificacionAlumnoStage extends CustomStage {
+
     public CalificacionAlumnoStage(EvaluacionInscripcionData evaluacion) {
         if (evaluacion == null)
             throw new NullPointerException("La calificacion no puede ser nula");
@@ -35,7 +35,5 @@ public class CalificacionAlumnoStage extends CustomStage {
             e.printStackTrace();
         }
     }
-
-
 
 }
