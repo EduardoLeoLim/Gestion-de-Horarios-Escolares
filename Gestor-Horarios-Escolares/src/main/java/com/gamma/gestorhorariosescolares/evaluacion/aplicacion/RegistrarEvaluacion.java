@@ -23,9 +23,9 @@ public class RegistrarEvaluacion {
 
     }
 
-    public void registrar(String calificacion, String tipo, Integer idMateria, Integer idAlumno) {
+    public void registrar(String calificacion, String tipo, Integer idMateria, Integer idAlumno, Integer idInscripcion) {
 
-        registradorEvaluacion.registrar(calificacion,tipo,idMateria,idAlumno);
+        registradorEvaluacion.registrar(calificacion,tipo,idMateria,idAlumno, idInscripcion);
 
 
 

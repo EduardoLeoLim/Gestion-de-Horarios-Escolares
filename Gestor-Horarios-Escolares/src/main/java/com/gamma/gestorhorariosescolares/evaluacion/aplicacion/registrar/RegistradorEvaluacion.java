@@ -12,9 +12,9 @@ public class RegistradorEvaluacion implements ServicioRegistradorEvaluacion{
 
     }
 
-    public int registrar(String calificacion, String tipo, Integer idMateria, Integer idAlumno){
+    public int registrar(String calificacion, String tipo, Integer idMateria, Integer idAlumno, Integer idInscripcion){
 
-        Evaluacion nuevaEvaluacion = new Evaluacion(calificacion, tipo, idMateria, idAlumno);
+        Evaluacion nuevaEvaluacion = new Evaluacion(calificacion, tipo, idMateria, idAlumno, idInscripcion);
 
         return repositorio.registar(nuevaEvaluacion);
 

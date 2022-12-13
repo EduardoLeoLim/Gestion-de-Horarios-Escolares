@@ -46,7 +46,8 @@ public class MySql2oEvaluacionRepositorio implements EvaluacionRepositorio {
             Integer idAlumno = fila.getInteger("idAlumno");
             Integer idGrupo = fila.getInteger("idGrupo");
             Integer idMaestro = fila.getInteger("idMaestro");
-            Evaluacion evaluacion = new Evaluacion(id, calificacion, tipo, idMateria, idAlumno, idGrupo, idMaestro);
+            Integer idIncripcion = fila.getInteger("idInscripcion");
+            Evaluacion evaluacion = new Evaluacion(id, calificacion, tipo, idMateria, idAlumno, idGrupo, idMaestro, idIncripcion);
             evaluaciones.add(evaluacion);
         });
 
@@ -55,14 +56,15 @@ public class MySql2oEvaluacionRepositorio implements EvaluacionRepositorio {
 
     @Override
     public  int registar(Evaluacion evaluacion){
-        String consulta = "INSERT INTO evaluacion (calificacion, tipo, idMateria, idAlumno) " +
-                "VALUES (:calificacion, :tipo, :idMateria, :idAlumno);";
+        String consulta = "INSERT INTO evaluacion (calificacion, tipo, idMateria, idAlumno, idInscripcion) " +
+                "VALUES (:calificacion, :tipo, :idMateria, :idAlumno, :idInscripcion);";
 
         int idEvaluacion = conexion.createQuery(consulta)
                 .addParameter("calificacion", evaluacion.calificacion())
                 .addParameter("tipo", evaluacion.tipo())
                 .addParameter("idMateria", evaluacion.idMateria())
                 .addParameter("idAlumno", evaluacion.idAlumno())
+                .addParameter("idInscripcion", evaluacion.idInscripcion())
                 .executeUpdate()
                 .getKey(Integer.class);
         return idEvaluacion;
